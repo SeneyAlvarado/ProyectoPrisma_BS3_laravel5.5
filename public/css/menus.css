@@ -1,0 +1,61 @@
+div.inforation-menu {
+	background-color:#3F8ED5 !important;
+}
+
+.text-style {
+	text-align: center;
+	font-size: 3vh;
+}
+
+.panel-size {
+	min-height: 125px !important;
+}
+
+.center {
+	text-align: center !important;
+}
+
+button.margin-button-agregar {
+margin-left: 15px;
+margin-bottom: 10px;
+}
+
+button.margin-dwn {
+	margin-top: 20px !important;
+	}
+
+
+@media screen and (max-width: 982px) {
+button.margin-button-agregar {
+	margin-left: 15px;
+}
+input.margin-lft {
+	margin-left: 15px;
+}
+
+
+button.mobile {
+	margin-top: 5px;
+}
+}
+
+.margin-lft {
+	margin-left: 15px;
+}
+
+.margin-button {
+	margin-left: 35px;
+}
+
+
+@media screen and (max-width: 991px) {
+
+input.margin-lft {
+	margin-left: 0px;
+}
+
+button.margin-button {
+	margin-left: 0px;
+}
+}
+
