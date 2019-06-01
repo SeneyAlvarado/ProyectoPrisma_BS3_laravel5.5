@@ -23,10 +23,7 @@
 
         <div class="col-md-12">
 
-            <label>Id</label>
-<p>
-	{{ $client->id }}
-</p> <label>Type</label>
+            <label>Type</label>
 <p>
 	{{ $client->type }}
 </p> <label>Name</label>
