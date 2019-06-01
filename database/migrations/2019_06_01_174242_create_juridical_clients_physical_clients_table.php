@@ -12,7 +12,7 @@ class CreateJuridicalClientsPhysicalClientsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('juridical_clients_physical_clients', function(Blueprint $table) {
+		Schema::create('juridical_client_physical_client', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('physical_client_id')->unsigned();
             $table->foreign('physical_client_id')->references('id')->on('physical_clients');
