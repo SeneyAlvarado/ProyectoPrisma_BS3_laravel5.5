@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration {
 		Schema::create('products', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name', 60);
-            $table->string('description', 100);
+            $table->string('description', 100)->nullable();
             $table->integer('branch_id')->unsigned();
 			$table->foreign('branch_id')->references('id')->on('branches');
 			$table->integer('active_flag');
