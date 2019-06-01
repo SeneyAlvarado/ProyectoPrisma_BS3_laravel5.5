@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Phone;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class PhoneController extends Controller
+{
+	/**
+	 * Variable to model
+	 *
+	 * @var phone
+	 */
+	protected $model;
+
+	/**
+	 * Create instance of controller with Model
+	 *
+	 * @return void
+	 */
+	public function __construct(Phone $model)
+	{
+		$this->model = $model;
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$phones = $this->model->paginate();
+
+		return view('phones.index', compact('phones'));
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return view('phones.create');
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		$inputs = $request->all();
+		$this->model->create($inputs);
+
+		return redirect()->route('phones.index')->with('message', 'Item created successfully.');
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$phone = $this->model->findOrFail($id);
+		
+		return view('phones.show', compact('phone'));
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$phone = $this->model->findOrFail($id);
+		
+		return view('phones.edit', compact('phone'));
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function update(Request $request, $id)
+	{
+		$inputs = $request->all();
+
+		$phone = $this->model->findOrFail($id);		
+		$phone->update($inputs);
+
+		return redirect()->route('phones.index')->with('message', 'Item updated successfully.');
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		$this->model->destroy($id);
+
+		return redirect()->route('phones.index')->with('message', 'Item deleted successfully.');
+	}
+}
