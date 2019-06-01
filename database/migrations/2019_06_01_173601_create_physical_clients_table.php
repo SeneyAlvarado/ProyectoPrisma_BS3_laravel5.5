@@ -18,7 +18,7 @@ class CreatePhysicalClientsTable extends Migration {
             $table->string('second_lastname', 30);
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
-            $table->timestamps();
+            //$table->timestamps();
         });
 	}
 

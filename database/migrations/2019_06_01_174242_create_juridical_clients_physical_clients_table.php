@@ -18,7 +18,7 @@ class CreateJuridicalClientsPhysicalClientsTable extends Migration {
             $table->foreign('physical_client_id')->references('id')->on('physical_clients');
             $table->integer('juridical_client_id')->unsigned();
             $table->foreign('juridical_client_id')->references('id')->on('juridical_clients');
-            $table->timestamps();
+            //$table->timestamps();
         });
 	}
 
