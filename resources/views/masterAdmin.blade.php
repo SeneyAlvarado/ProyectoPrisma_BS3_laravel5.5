@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Administrador Servicio de Salud Sede de Occidente</title>
+	<title>Administrador Sistema de Monitoreo de Procesos - Grupo Prisma</title>
 	@yield('encabezado')
 	
 	<link rel="stylesheet" type="text/css" href="{{asset('css/styles.css')}}">
@@ -39,7 +39,8 @@
 			    <span class="icon-bar"></span>
 			    <span class="icon-bar"></span>
 				</a>
-				<div ><img class="img-responsive" style="margin-top: 10px; margin-left: 80px;" class="" src="{{asset('Imagenes/logo_nombre_ucr.png')}}" ></div>
+				<div ><img class="img-responsive" style="margin-top: 10px; margin-left: 80px;" class="" src="{{asset('Imagenes/grupo_prisma3.png')}}" ></div>
+				<!--h1 style="font-size:1.5vw; margin-left: 80px; margin-top: 15px; color:white">Administrador</h1--> 
 			</div>
 
 			<ul class="nav navbar-nav navbar-right hide-button" >
@@ -52,34 +53,30 @@
         	</ul>
 
 			<div id="sidebar-wrapper" class="sidebar-toggle sidebar">
-				
 				<ul class="sidebar-nav">
 		    		<li>
-		      			<a class="border">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon"></a>
+		      			<a class="border">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
 					</li>
 					<li>
-		      			<a class="border>Pacientes<span class="glyphicon glyphicon-search right-aling-glyphicon-paciente"></a>
+		      			<a class="border">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 		    		</li>
 					<li>
-		      			<a class="border">Especialistas<span class="glyphicon glyphicon-education right-aling-glyphicon-e"></a>
+		      			<a class="border">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 		    		</li>
 		    		<li>
-		      			<a class="border">Horarios<span class="glyphicon glyphicon glyphicon-wrench right-aling-glyphicon"></a>
+		      			<a class="border">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		    		</li>
 		    		<li>
-		      			<a class="border">Servicios<span class="glyphicon glyphicon-list-alt right-aling-glyphicon-se"></a>
+		      			<a class="border">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
 		    		</li>
-		    		<li>
-		      			<a class="border">Recintos<span class="glyphicon glyphicon-flag right-aling-glyphicon"></a>
-					</li>
 					<li>
-						<a class="border" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-lock"></a>
+						<a class="border" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
 				  	</li>
 		    		<li class="hide-button-side">
 		      			<a class="border" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-s"></a>
 		    		</li>
 		    		<li>	
-      					<div class="logo-ucr2"><img src="https://medios.ucr.ac.cr/medios/imagenes/2016/ucr.svg" style="width:120px; height:120px;"></div>
+      					<div class="logo_prisma_sidebar"><img src="{{asset('Imagenes/prisma_logo.png')}}"style="width:120px; height:120px;"></div>
       				</li>    			
 		  		</ul>
 			</div>
@@ -94,16 +91,16 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
         </button>
-            <a style="height: 50px" class="border-a active hide-title tittle-mobile" href="admin"><img style="display: block; margin-left: auto; margin-right: auto;" class="img-responsive center logo-nombre" height="20" width="250"  src="{{asset('Imagenes/logo_nombre_ucr.png')}}" ></a>
+            <a style="height: 50px" class="border-a active hide-title tittle-mobile" href="admin"><img style="display: block; margin-top:6px; margin-left: auto; margin-right: auto;" class="img-responsive center logo-nombre" height="20" width="200"  src="{{asset('Imagenes/grupo_prisma3.png')}}" ></a>
       </div>
 
       <div id="myNavbar" class="collapse">
-		<a class="border-a" href="cuentas">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon"></a>
-		<a class="border-a" >Pacientes<span class="glyphicon glyphicon-search right-aling-glyphicon-paciente"></a>
-		<a class="border-a" >Horarios<span class="glyphicon glyphicon glyphicon-wrench right-aling-glyphicon"></a>
-		<a class="border-a" >Servicios<span class="glyphicon glyphicon-list-alt right-aling-glyphicon-se"></a>
-		<a class="border-a">Recintos<span class="glyphicon glyphicon-flag right-aling-glyphicon"></a>
-		<a class="border-a" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contra"></a>
+		<a class="border-a" href="cuentas">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
+		<a class="border-a" >Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
+		<a class="border-a" >Clientes<span class="glyphicon glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
+		<a class="border-a" >Estados<span class="glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
+		<a class="border-a">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
+		<a class="border-a" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
 		<a class="border-a hide-button-exit" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-s"></a>
       </div>
     </div>
@@ -129,14 +126,15 @@
 	
     <footer class="main-footer">
   	<div class="text-center main-footer">
-    	<a style="font-size:1em; color:#30A8D8;"><strong>Servicio de Salud</strong></a><img style="margin-top: 4px;" class="margin-logo" src="{{asset('Imagenes/logo-so-blc.png')}}" >
+    	<a style="font-size:1em; color:#30A8D8;"><strong>Grupo Prisma ©2019</strong></a><img style="margin-top: 4px;" class="margin-logo" src="{{asset('Imagenes/prisma_footer.png')}}" >
   	</div>
 	</footer>
 
 	<script src="{{asset('js/menus_dinamicos.js')}}"></script>
 	<script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{asset('js/app.min.js')}}"></script>
-</body>
+	<!-- AdminLTE App -->
+		<!--Aquí había un import asset de js/app.min.js, lo quité porque no existe, si algo no sirve puede ser eso -->
+
+	</body>
 
 </html>

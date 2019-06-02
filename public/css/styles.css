@@ -34,7 +34,7 @@ div.content-c {
 
 /*Color navbar**/
 nav.navbar {
-    background-color: #276091; 
+    background-color: #96183a; 
     box-shadow: 0px 0px 15px black;
 }
 
@@ -87,7 +87,7 @@ nav.sidebar, .main {
   top: 51px;
   left: -230px;
   width: 230px;
-  background-color: #276091; 
+  background-color: #96183a; 
   color: white;
   position: fixed;
   height: 100%;
@@ -142,10 +142,10 @@ nav.sidebar, .main {
   }
 }
 
-div.logo-ucr2 {
+div.logo_prisma_sidebar {
   position: fixed;
-  margin-left: 45px;
-  bottom:50px;
+  margin-left: 50px;
+  bottom:60px;
 
 }
 div.logo-ucr-3 {
@@ -157,11 +157,16 @@ div.logo-ucr-3 {
 }
 
 @media screen and (max-height:585px) {
-  div.logo-ucr2 {
+  div.logo_prisma_sidebar {
     display: none;
   }
 }
 
+@media screen and (min-height:585px) {
+  div.logo_prisma_sidebar {
+    display: inline;
+  }
+}
 
 
 /*footer**/
@@ -202,7 +207,7 @@ div.logo-ucr-3 {
 }
 
 .margin-logo {
-  margin-left: 15px;
+  margin-left: 1px;
 }
  
 .lead {
@@ -284,7 +289,24 @@ div.logo-ucr-3 {
 .right-aling-glyphicon-se {
   margin-left:43px;
 }
-
+.right-aling-glyphicon-cuentas {
+  margin-left:40px;
+}
+.right-aling-glyphicon-trabajos{
+  margin-left:35px;
+}
+.right-aling-glyphicon-clientes{
+  margin-left:39px;
+}
+.right-aling-glyphicon-estados{
+  margin-left:39px;
+}
+.right-aling-glyphicon-visitas{
+  margin-left:48px;
+}
+.right-aling-glyphicon-contrasenna{
+  margin-left:17px;
+}
 .right-aling-glyphicon-s {
   margin-left:72px;
 }
@@ -294,11 +316,6 @@ div.logo-ucr-3 {
 .right-aling-glyphicon-contra{
   margin-left:30px;
 }
-
-.right-aling-glyphicon-paciente{
-  margin-left:37px;
-}
-
 .right-aling-glyphicon-h{
   margin-left:55px;
 }
@@ -346,7 +363,7 @@ div.logo-ucr-3 {
   margin: 0;
   padding: 0;
   width: 230px;
-  background-color: #1D73BC;
+  background-color: #96183a;
   position: fixed;
   height: 100%;
   overflow: auto;
@@ -362,7 +379,7 @@ div.logo-ucr-3 {
 }
  
 .sidebar-mobile a.active {
-  background-color: #276091;
+  background-color: #96183a;
   color: white;
 }
 
@@ -516,7 +533,7 @@ div.logo-ucr-3 {
 /*Decreases the size of the UCR logo name*/
 @media screen and (max-width: 330px) {
   img.logo-nombre {
-    width: 220px;
+    width: 200px;
   }
 }
 
