@@ -39,18 +39,18 @@
                     <br>
                     <form>
                             <div class="form-group">
-                              <label >Nombre de usuario</label>
-                              <input type="email" class="form-control" id="username" placeholder="Digite su nombre de usuario">
+                              <label class="responsive-login-text">Nombre de usuario</label><br>
+                              <input class="form-control responsive-login-text" type="text" id="username" placeholder="Digite su nombre de usuario">
                             </div>
                             <div class="form-group">
-                              <label>Contraseña</label>
-                              <input type="password" class="form-control" id="password" placeholder="Contraseña">
+                              <label class="responsive-login-text">Contraseña</label><br>
+                              <input type="password" class="form-control" id="password" placeholder="Digite su contraseña">
                             </div>
                             <br>
-                            <button type="button" class="button">Ingresar</button>
+                            <button type="button" class="button responsive-login-text">Ingresar</button>
                             <div>
                                 <br>
-                                <a href="{{ url('/prueba') }}">Recuperar contraseña</a>
+                                <a href="{{ url('/prueba') }}" class="responsive-login-forgot-password">Recuperar contraseña</a>
                                 <br>
                             </div>
                           </form>

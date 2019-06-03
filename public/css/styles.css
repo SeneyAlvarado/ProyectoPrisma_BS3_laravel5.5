@@ -286,9 +286,6 @@ div.logo-ucr-3 {
 .right-hora-e {
   margin-left:55px;
 }
-.right-aling-glyphicon-se {
-  margin-left:43px;
-}
 .right-aling-glyphicon-cuentas {
   margin-left:40px;
 }
@@ -307,39 +304,15 @@ div.logo-ucr-3 {
 .right-aling-glyphicon-contrasenna{
   margin-left:17px;
 }
-.right-aling-glyphicon-s {
-  margin-left:72px;
+.right-aling-glyphicon-logout{
+  margin-left:64px;
 }
 .right-aling-glyphicon{
   margin-left:45px;
 }
-.right-aling-glyphicon-contra{
-  margin-left:30px;
-}
-.right-aling-glyphicon-h{
-  margin-left:55px;
-}
-
-.right-aling-glyphicon-e{
-  margin-left:15px;
-}
-
 .right-pacientes {
   margin-left:25px;
 }
-
-.right-aling-glyphicon-c{
-  margin-left:74px;
-}
-
-.right-aling-glyphicon-p{
-  margin-left:95px;
-}
-
-.right-aling-glyphicon-m{
-  margin-left:103px;
-}
-
 .logo-ucr-asistente {
   position: fixed;
   margin-left: 45px;

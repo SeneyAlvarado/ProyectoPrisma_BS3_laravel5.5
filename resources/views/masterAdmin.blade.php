@@ -39,7 +39,7 @@
 			    <span class="icon-bar"></span>
 			    <span class="icon-bar"></span>
 				</a>
-				<div ><img class="img-responsive" style="margin-top: 10px; margin-left: 80px;" class="" src="{{asset('Imagenes/grupo_prisma3.png')}}" ></div>
+				<div ><img class="img-responsive" style="margin-top: 15px; margin-left: 80px;" class="" src="{{asset('Imagenes/grupo_prisma3.png')}}" ></div>
 				<!--h1 style="font-size:1.5vw; margin-left: 80px; margin-top: 15px; color:white">Administrador</h1--> 
 			</div>
 
@@ -73,7 +73,7 @@
 						<a class="border" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
 				  	</li>
 		    		<li class="hide-button-side">
-		      			<a class="border" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-s"></a>
+		      			<a class="border" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-logout"></a>
 		    		</li>
 		    		<li>	
       					<div class="logo_prisma_sidebar"><img src="{{asset('Imagenes/prisma_logo.png')}}"style="width:120px; height:120px;"></div>
@@ -101,7 +101,7 @@
 		<a class="border-a" >Estados<span class="glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		<a class="border-a">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
 		<a class="border-a" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
-		<a class="border-a hide-button-exit" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-s"></a>
+		<a class="border-a hide-button-exit" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-logout"></a>
       </div>
     </div>
 

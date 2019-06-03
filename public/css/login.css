@@ -57,3 +57,21 @@ a{
     text-align: center !important;
     display:block;
 }
+
+
+    .responsive-login-text {
+    font-size: 20px;
+    } 
+    .responsive-login-forgot-password {
+        font-size: 14px;
+    } 
+    input[type="text"] {
+        font-size: 14px;
+    }
+    input[type="password"] {
+        font-size: 14px;
+      }
+  
+
+
+ 
