@@ -18,3 +18,15 @@ Route::get('/', function () {
 Route::get('prueba', function () {
     return view('masterAdmin');
 });
+
+Route::get('recepcion', function () {
+    return view('masterReception');
+});
+
+Route::get('postProduccion', function () {
+    return view('masterPostProduction');
+});
+
+Route::get('print', function () {
+    return view('masterPrint');
+});
