@@ -19,12 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('lastname', 50);
             $table->string('second_lastname', 50);
             $table->string('username', 45);
-            $table->string('password', 50);
+            $table->string('password', 200);
             $table->string('email', 50);
             $table->integer('branch_id')->unsigned();
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->integer('user_type_id')->unsigned();
             $table->foreign('user_type_id')->references('id')->on('user_types');
+            $table->rememberToken();
             $table->integer('active_flag');
         });
     }

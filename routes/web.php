@@ -12,8 +12,21 @@
 */
 
 Route::get('/', function () {
+    if(Auth::check()) {
+        auth()->logout();
+    }
     return view('login');
 });
+
+Route::get('/login', function () {
+    if(Auth::check()) {
+        auth()->logout();
+    }
+    return view('login');
+});
+
+
+Route::post('login', 'Auth\LoginController@login');
 
 Route::get('prueba', function () {
     return view('masterAdmin');
