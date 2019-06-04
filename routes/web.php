@@ -28,7 +28,7 @@ Route::get('/login', function () {
 
 Route::post('login', 'Auth\LoginController@login');
 
-Route::get('prueba', function () {
+Route::get('admin', function () {
     return view('masterAdmin');
 });
 
@@ -44,4 +44,4 @@ Route::get('print', function () {
     return view('masterPrint');
 });
 
-
+Route::get('admin_clients_index', 'ClientController@index');
