@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -32,9 +33,13 @@ class ClientController extends Controller
 	 */
 	public function index()
 	{
-		$clients = $this->model->paginate();
-
-		return view('clients.index', compact('clients'));
+		$clients = Client::where('active_flag', 1)->orderBy('id', 'desc')->paginate(10);;
+		
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.clients.index', compact('clients'));
+		}
+		
 	}
 
 	/**

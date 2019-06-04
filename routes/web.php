@@ -28,7 +28,7 @@ Route::get('/login', function () {
 
 Route::post('login', 'Auth\LoginController@login');
 
-Route::get('prueba', function () {
+Route::get('admin', function () {
     return view('masterAdmin');
 });
 
@@ -44,12 +44,4 @@ Route::get('print', function () {
     return view('masterPrint');
 });
 
-
-Route::get('admin_clients', function () {
-    return view('admin/index') ;
-})->name('clients_admin.index');
-
-
-Route::get('horarios_servicios_asistente', function () {
-    return view('asistente.configurarHorarios') ;
-})->name('Asistente.horarios');
+Route::get('admin_clients_index', 'ClientController@index');

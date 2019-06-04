@@ -61,7 +61,7 @@
 		      			<a class="border">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 		    		</li>
 					<li>
-		      			<a class="border" href="{{ route('clients_admin.index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
+		      			<a class="border" href="{{ url('admin_clients_index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 		    		</li>
 		    		<li>
 		      			<a class="border">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
@@ -108,11 +108,6 @@
 	<div class="panel-heading">
 		<div class="content w3-container">
 			@yield('contenido_Admin')
-				<h2>Panel Heading</h2>
-				<div class="panel panel-default">
-				  <div class="panel-heading">Panel Heading</div>
-				  <div class="panel-body">Panel Content</div>
-				</div>
 		</div>
 	</div>
 	
