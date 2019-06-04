@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Administrador Sistema de Monitoreo de Procesos - Grupo Prisma</title>
+	<title>Recepcionista Sistema de Monitoreo de Procesos - Grupo Prisma</title>
 	@yield('encabezado')
 	
 	<link rel="stylesheet" type="text/css" href="{{asset('css/styles.css')}}">
@@ -54,9 +54,6 @@
 
 			<div id="sidebar-wrapper" class="sidebar-toggle sidebar">
 				<ul class="sidebar-nav">
-		    		<li>
-		      			<a class="border">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
-					</li>
 					<li>
 		      			<a class="border">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 		    		</li>
@@ -64,13 +61,10 @@
 		      			<a class="border">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 		    		</li>
 		    		<li>
-		      			<a class="border">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
-		    		</li>
-		    		<li>
 		      			<a class="border">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
 		    		</li>
 					<li>
-						<a class="border" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
+						<a class="border" href="{{ url('') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
 				  	</li>
 		    		<li class="hide-button-side">
 		      			<a class="border" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-logout"></a>
@@ -95,19 +89,17 @@
       </div>
 
       <div id="myNavbar" class="collapse">
-		<a class="border-a" href="cuentas">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
 		<a class="border-a" >Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 		<a class="border-a" >Clientes<span class="glyphicon glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
-		<a class="border-a" >Estados<span class="glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		<a class="border-a">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
-		<a class="border-a" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
+		<a class="border-a" href="{{ url('') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
 		<a class="border-a hide-button-exit" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-logout"></a>
       </div>
     </div>
 
 	<div class="panel-heading">
 		<div class="content w3-container">
-			@yield('contenido_Admin')
+			@yield('content_Reception')
 				<h2>Panel Heading</h2>
 				<div class="panel panel-default">
 				  <div class="panel-heading">Panel Heading</div>

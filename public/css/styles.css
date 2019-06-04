@@ -357,12 +357,12 @@ div.logo-ucr-3 {
 }
 
 .sidebar-mobile a:hover:not(.active) {
-  background-color: #099DBE;
+  background-color: rgb(56, 62, 63);
   color: white;
 }
 
 .sidebar-nav a:hover:not(.active) {
-  background-color: #099DBE;
+  background-color: rgb(56, 62, 63);
   color: white;
 }
 
