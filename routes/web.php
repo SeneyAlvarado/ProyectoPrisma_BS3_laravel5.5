@@ -30,3 +30,5 @@ Route::get('postProduccion', function () {
 Route::get('print', function () {
     return view('masterPrint');
 });
+
+
