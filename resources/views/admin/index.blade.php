@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <div class="row">
+<div class="row">
         <div class="col-md-12">
             @if($clients->count())
                 <table class="table table-condensed table-striped">

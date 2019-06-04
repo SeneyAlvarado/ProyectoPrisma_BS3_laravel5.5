@@ -45,3 +45,11 @@ Route::get('print', function () {
 });
 
 
+Route::get('admin_clients', function () {
+    return view('admin/index') ;
+})->name('clients_admin.index');
+
+
+Route::get('horarios_servicios_asistente', function () {
+    return view('asistente.configurarHorarios') ;
+})->name('Asistente.horarios');
