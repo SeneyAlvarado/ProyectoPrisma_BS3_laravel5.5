@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -35,5 +36,51 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Method in charge of verifying the credential and the type of users that 
+     * enter in the system.
+     */
+    public function login(){
+
+        if(Auth::check()) {
+            auth()->logout();
+        }
+        $credentials = $this->validate(request(),[
+            'username' => 'required|string',
+            'password' => 'required|string'
+        ]);
+        //return dd(Auth::attempt($credentials));
+
+        if(Auth::attempt($credentials)){ //In case the credentials are corect.
+            //return "x";
+            //return dd(Auth::user());
+            if(Auth::user()->active_flag == 1) { //In case the patient's account is active.
+                return redirect('prueba');
+                /*$tipo = Auth::user()->tipo;
+            if($tipo == 4) {
+                return redirect('paciente');
+            } else {
+                if($tipo == 3){
+                return redirect('asistente');
+                } else{
+                    if($tipo == 2){
+                return redirect()->route('Especialista.index');
+                    } else{
+                        if($tipo == 1){
+                return redirect('admin');
+                    }
+                }
+              }
+            }*/
+
+          } else { //In case the patient's account was desactive.
+            return back()->withErrors(['password' => 'Su cuenta está desactivada. Contacte con el 
+            Servicio de Salud para verificar el procedimiento de activación']);        
+        }
+        } else {  //In case the credentials are incorect.
+        return back()->withErrors(['email' => trans('Correo electrónico o contraseña incorrectos.')]);        
+    }
     }
 }
