@@ -48,8 +48,12 @@
 
                    <tbody>
                        @foreach($clients as $client)
-                       <?php $nombre = $client->nombre . " " . $client->primer_apellido_paciente . " " . $client->segundo_apellido_paciente?>
-                       <?php $tel = str_split($client->telefono); $numeroTel = $tel[0] .  $tel[1] .  $tel[2] .  $tel[3] . ' - ' .  $tel[4] .  $tel[5] .  $tel[6] .  $tel[7]?>
+                       <?php if($client->type == 1) {
+                           $name = $client->name . " " . $client->lastname . " " . $client->second_lastname;
+                        } else {
+                            $name = $client->name;
+                        }?>
+                       <? //php $tel = str_split($client->telefono); $numeroTel = $tel[0] .  $tel[1] .  $tel[2] .  $tel[3] . ' - ' .  $tel[4] .  $tel[5] .  $tel[6] .  $tel[7]?>
                            <tr>
                                <td class="text-center"><strong>{{$client->cedula_paciente}}</strong></td>
                                <td class="text-center"><strong>{{$nombre}}</strong></td>
