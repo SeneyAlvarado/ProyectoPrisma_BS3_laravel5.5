@@ -516,5 +516,21 @@ div.logo-ucr-3 {
   }
 }
 
+.style-btn-edit {
+  width:93px;
+  background-color: #ABABAB !important;
+  border:0px !important;
+  color: black;
+}
+
+.style-btn-delete {
+  background-color: #9B3431 !important;
+  border:0px !important;
+  margin-top:5px;
+}
 
 
+.style-btn-registry {
+  background-color: #2B562B !important;
+  border:0px !important;
+}

@@ -1,11 +1,19 @@
 .border-panel {
-	border-color: #717373 !important;
+	border-color: #C6C6C9 !important;
+}
+
+.border-header {
+	border-color: #C6C6C9 !important;
 }
 
 .bg-color-panel {
-	background-color: #96183a !important;
+	background-color: #DEDEE3!important;
 }
 
 .center {
 	text-align: center;
+}
+
+.title-panel {
+	text-align: center; font-size: 3vh; color:#4A4A4A;
 }

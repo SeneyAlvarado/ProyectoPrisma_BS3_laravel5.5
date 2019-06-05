@@ -34,9 +34,11 @@ class ClientController extends Controller
 	public function index()
 	{
 		$clients = DB::table('clients')->join('physical_clients', 'clients.id', '=', 'physical_clients.id')
+		->join('phones', 'clients.id', '=', 'clients.id')
+		->join('emails', 'clients.id', '=', 'clients.id')
 		->where('clients.active_flag', 1)->orderBy('clients.name', 'desc')->paginate(5);
 
-
+		/*return $clients;*/
 		
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
