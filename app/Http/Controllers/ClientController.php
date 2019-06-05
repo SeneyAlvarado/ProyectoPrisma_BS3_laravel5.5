@@ -6,7 +6,7 @@ use App\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 class ClientController extends Controller
 {
 	/**
@@ -33,7 +33,10 @@ class ClientController extends Controller
 	 */
 	public function index()
 	{
-		$clients = Client::where('active_flag', 1)->orderBy('id', 'desc')->paginate(10);;
+		$clients = DB::table('clients')->join('physical_clients', 'clients.id', '=', 'physical_clients.id')
+		->where('clients.active_flag', 1)->orderBy('clients.name', 'desc')->paginate(5);
+
+
 		
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
