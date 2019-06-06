@@ -33,15 +33,23 @@ class ClientController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index(Request $request)
+	public function index()
 	{
+
+	
+
 		try{
+
+			asd;//on purpose error to check catch
+
+			\Session::put('errorOrigin', " mostrando los clientes");
+			
 			//Gets all clients with their phone and emails (even unactive phone and emails, those al filtered
 			//at the view))
 			$clients = $this->model::all();
 
 			//return dd($clients[0]);
-			for($x = 0; $x <= (count($clients)); $x++) {
+			for($x = 0; $x <= (count($clients)-1); $x++) {
 				
 				if($clients[$x]->type == 1) {//physical client, fill model attributes
 					$phisClient = Physical_client::where('client_id', $clients[$x]->id)->first();
@@ -63,11 +71,11 @@ class ClientController extends Controller
 				return view('admin.clients.index', compact('clients'));
 			}
 		}catch(\Exception $e){
-			$request->request->add(['errorOrigin' => 'cliente']);
-			//return $request;
-			report($e);
-			render($e);
-		}	
+			//throw
+			$handler =  app(App\Exceptions\Handler::class);
+			$handler->report($e);
+			$handler->render($e);
+		}
 	}
 
 	/**
