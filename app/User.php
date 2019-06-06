@@ -10,11 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
+    use Notifiable;
 
-    protected $fillable = ['name', 'lastname', 'second_lastname', 'username', 'email', 'branch_id', 'branch_id', 'type_id', 'type_id', 'active_flag'];
 
-    public function user_types()
-    {
-        return $this->hasMany('App\User_type');
-    }
+    protected $fillable = ['name', 'lastname', 'second_lastname', 'username', 'password', 'email', 'branch_id', 'branch_id', 'type_id', 'type_id', 'active_flag'];
 }

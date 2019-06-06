@@ -48,8 +48,43 @@ Route::get('print', function () {
     return view('masterPrint');
 });
 
+
+/*------------Admin states routes------------*/
+Route::get('estados', 'StateController@index');
+
+Route::get('editarEstados', function() {
+    return view('states/edit');
+});
+
+Route::get('verEstados', function() {
+    return view('states/show');
+});
+
+Route::get('crearEstados', 'StateController@create');
+Route::get('guardarEstado', 'StateController@store');
+/*-------------------------------------------*/
+
 Route::get('admin_clients_index', 'ClientController@index');
 
 Route::get('admin_accounts_index', 'UserController@index');
 
 Route::resource('clients', 'ClientController');
+
+Route::get('admin_accounts_create', function () {
+    return view('admin.accounts.create') ;
+})->name('create_account_admin');
+
+Route::get('/branchDrop', 'UserController@ajax_branch');
+
+Route::get('prueba1', function () {
+    return view('masterPrueba');
+    //return view('products/index');
+});
+Route::get('prueba2', function () {
+    return view('masterPrueba2');
+    //return view('products/index');
+});
+Route::get('prueba3', function () {
+    return view('masterPrueba3');
+    //return view('products/index');
+});
