@@ -33,7 +33,7 @@ class ClientController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 
 	
@@ -49,7 +49,12 @@ class ClientController extends Controller
 			$clients = $this->model::all();
 
 			//return dd($clients[0]);
+<<<<<<< HEAD
+			
+			for($x = 0; $x <= (count($clients)); $x++) {
+=======
 			for($x = 0; $x <= (count($clients)-1); $x++) {
+>>>>>>> e8e6cf25da85c92b79ccb1d6ba240abcc3acc749
 				
 				if($clients[$x]->type == 1) {//physical client, fill model attributes
 					$phisClient = Physical_client::where('client_id', $clients[$x]->id)->first();
@@ -72,9 +77,12 @@ class ClientController extends Controller
 			}
 		}catch(\Exception $e){
 			//throw
-			$handler =  app(App\Exceptions\Handler::class);
+			/*$handler =  app(\App\Exceptions\Handler::class);
 			$handler->report($e);
-			$handler->render($e);
+			$handler->render($request, $e);*/
+
+			report($e);
+			render($e);
 		}
 	}
 
