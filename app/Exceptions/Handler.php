@@ -50,7 +50,56 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
+        //this return is just some trying
+        return parent::render($request, $exception);
+        //return dd($exception);
+        //return parent::render($request, $exception);
+
+
+        if($exception instanceof \ErrorException) {
+            Session::flash('message_type', 'negative');
+			Session::flash('message_icon', 'hide');
+			Session::flash('message_header', 'Success');
+            Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
+            .' Si este persiste contacte al administrador del sistema');
+            return redirect()->back();
+
+        }elseif($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            Session::flash('message_type', 'negative');
+			Session::flash('message_icon', 'hide');
+			Session::flash('message_header', 'Success');
+            Session::flash('error', '¡La página a la que ha intentado
+            acceder no existe o no es accesible en este momento!');
+            return back();
+        
+        }elseif($exception instanceof \Symfony\Component\Debug\Exception\FatalThrowableError) {
+            Session::flash('message_type', 'negative');
+			Session::flash('message_icon', 'hide');
+			Session::flash('message_header', 'Success');
+            Session::flash('error', '¡Ha ocurrido un error!');
+            return back();
+        }elseif($exception instanceof \Illuminate\Auth\AuthenticationException) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        
+        }elseif($exception instanceof \UnexpectedValueException) {
+            Session::flash('message_type', 'negative');
+			Session::flash('message_icon', 'hide');
+			Session::flash('message_header', 'Success');
+            Session::flash('error', '¡Ha ocurrido un error con un valor no válido al ' . $errorOrigin . "!" 
+            .' Si este persiste contacte al administrador del sistema');
+            return back();
+        
+        }elseif($exception instanceof \Illuminate\Database\QueryException) {
+            Session::flash('message_type', 'negative');
+			Session::flash('message_icon', 'hide');
+			Session::flash('message_header', 'Success');
+            Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datos!'
+            .' Si este persiste contacte al administrador del sistema');
+            return back();
+        
+        }else{/*Original error handling*/
             return parent::render($request, $exception);
-    
+        }
     }
+    
 }
