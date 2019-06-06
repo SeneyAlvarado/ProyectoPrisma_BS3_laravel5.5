@@ -12,6 +12,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -41,17 +42,18 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        //parent::report($exception);
         $errorMessage = $exception->getMessage();
 
         //if the error contains the message "Session store not set...." it won´t save it completely at the log
         if ((strpos($errorMessage, 'Session store') !== false) == false) {
             parent::report($exception);
-        } else {
+        }/* else {
             logger("Session store error. User ID:" . print_r(array_filter([
                 'userId' => Auth::id(),
                 'email' => Auth::user() ? Auth::user()->email : null,
             ])) . " ---- Date (Costa Rica): " . Carbon::now(new \DateTimeZone('America/Costa_Rica'))   );
-        }
+        }*/
     }
 
     /**
@@ -65,6 +67,8 @@ class Handler extends ExceptionHandler
     {
 
         return parent::render($request, $exception);
+
+        //return parent::render($request, $exception);
         
         if($request->session()->has('errorOrigin'))
         {
@@ -120,12 +124,20 @@ class Handler extends ExceptionHandler
             return back();
         
         }elseif($exception instanceof \Illuminate\Database\QueryException) {
-            \Session::flash('message_type', 'negative');
+            
+            /*\Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
 			\Session::flash('message_header', 'Success');
-            \Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datos!'
-            .' Si este persiste contacte al administrador del sistema');
-            return back();
+            \Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datosss!'
+            .' Si este persiste contacte al administrador del sistema');*/
+            if($request->session()->has('_previous')) {
+                return redirect($request->session()->get('_previous')['url'])->
+                with('message_type', 'negative')->
+                with('message_icon', 'hide')->
+                with('message_header', 'Success')->
+                with('error', '¡Ha ocurrido un error en la consulta a la base de datosssxd!'
+                .' Si este persiste contacte al administrador del sistema');
+            }
         
         }elseif($exception instanceof \RuntimeException) {
             \Session::flash('message_type', 'negative');

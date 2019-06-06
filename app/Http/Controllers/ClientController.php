@@ -42,8 +42,8 @@ class ClientController extends Controller
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " mostrando los clientes");	
 
-			//estas son pruebas de errores, BORRAR
-		//throw new \App\Exceptions\CustomException('Algo');
+			//estas son pruebas de errores
+		//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
 		//DB::table('shdhgjd')->get();
 		//Auth::attempt(['email' => $email, 'password' => $password]);
 
@@ -77,15 +77,14 @@ class ClientController extends Controller
 				return view('admin.clients.index', compact('clients'));
 			}
 		}catch(\App\Exceptions\CustomException $e){
-			
-			report($e);
-			//return view('clients.create');
+			report($e);//this writes the error at the log
 			\Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
 			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error al mostrar los clientes!' 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect()->back();
+			return redirect('admin');//aquí redirigen a la página deseada después de validar el error
+			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
 
 		}
 
