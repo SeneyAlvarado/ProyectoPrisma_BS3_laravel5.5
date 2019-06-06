@@ -10,6 +10,7 @@
     @include('error')
 
     <div class="row">
+    
         <div class="col-md-12">
 
             <form action="{{ route('products.update', $product->id) }}" method="POST">

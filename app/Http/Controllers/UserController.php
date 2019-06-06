@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class UserController extends Controller
 {
@@ -32,9 +33,29 @@ class UserController extends Controller
 	 */
 	public function index()
 	{
-		$users = $this->model->paginate();
+		/*$users = $this->model->all();*/
+		
+		//Gets all de users in the sistem
+		$users = DB::table('users') 
+		->join('user_types', 'users.id', 'user_types.id')
+		->join('branches', 'users.branch_id', 'branches.id')
+		->select('users.active_flag as active_flag',
+		'users.email as email',
+		'users.name as name',
+		'users.lastname as lastname',
+		'users.second_lastname as second_lastname',
+		'user_types.name as user_type_name',
+		'branches.name as branch_name')
+		->get();
 
-		return view('users.index', compact('users'));
+		/*return $users;*/
+		/*$users = users::where('active_flag', 1)->first();
+		return $user;*/
+		return view('admin.accounts.index', compact('users'));
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+		return view('admin.accounts.index', compact('users'));
+		}
 	}
 
 	/**

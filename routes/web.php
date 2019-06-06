@@ -29,7 +29,8 @@ Route::get('/login', function () {
 Route::post('login', 'Auth\LoginController@login');
 
 Route::get('admin', function () {
-    return view('masterAdmin');
+    //return view('masterAdmin');
+    return view('products/index');
 });
 
 Route::get('recepcion', function () {
@@ -64,3 +65,5 @@ Route::get('crearEstados', function() {
 /*-------------------------------------------*/
 
 Route::get('admin_clients_index', 'ClientController@index');
+
+Route::get('admin_accounts_index', 'UserController@index');

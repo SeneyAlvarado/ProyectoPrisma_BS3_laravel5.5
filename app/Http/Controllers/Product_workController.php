@@ -66,6 +66,7 @@ class Product_workController extends Controller
 	 *
 	 * @param  int  $id
 	 * @return Response
+	 * 
 	 */
 	public function show($id)
 	{
