@@ -33,7 +33,7 @@ class ClientController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 
 	
@@ -72,9 +72,12 @@ class ClientController extends Controller
 			}
 		}catch(\Exception $e){
 			//throw
-			$handler =  app(App\Exceptions\Handler::class);
+			/*$handler =  app(\App\Exceptions\Handler::class);
 			$handler->report($e);
-			$handler->render($e);
+			$handler->render($request, $e);*/
+
+			report($e);
+			render($e);
 		}
 	}
 
