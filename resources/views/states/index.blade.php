@@ -1,15 +1,6 @@
-@extends('layout')
+@extends('masterAdmin')
 
-@section('header')
-    <div class="page-header clearfix">
-        <h1>
-            <i class="glyphicon glyphicon-align-justify"></i> State
-            <a class="btn btn-success pull-right" href="{{ route('states.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
-        </h1>
-    </div>
-@endsection
-
-@section('content')
+@section('contenido_Admin')
     <div class="row">
         <div class="col-md-12">
             @if($states->count())
@@ -30,15 +21,15 @@
                                 <td>{{$state->name}}</td> <td>{{$state->description}}</td> <td>{{$state->active_flag}}</td>
                                 
                                 <td class="text-right">
-                                    <a class="btn btn-xs btn-primary" href="{{ route('states.show', $state->id) }}">
+                                    <!--a class="btn btn-xs btn-primary" href="{{ route('states.show', $state->id) }}"-->
                                         <i class="glyphicon glyphicon-eye-open"></i> View
                                     </a>
                                     
-                                    <a class="btn btn-xs btn-warning" href="{{ route('states.edit', $state->id) }}">
+                                    <!--a class="btn btn-xs btn-warning" href="{{ route('states.edit', $state->id) }}"-->
                                         <i class="glyphicon glyphicon-edit"></i> Edit
                                     </a>
 
-                                    <form action="{{ route('states.destroy', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                                    <!--form action="{{ route('states.destroy', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');"-->
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE">
 

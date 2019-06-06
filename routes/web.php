@@ -44,4 +44,23 @@ Route::get('print', function () {
     return view('masterPrint');
 });
 
+
+/*------------Admin states routes------------*/
+Route::get('estados', function() {
+    return view('states/index');
+});
+
+Route::get('editarEstados', function() {
+    return view('states/edit');
+});
+
+Route::get('verEstados', function() {
+    return view('states/show');
+});
+
+Route::get('crearEstados', function() {
+    return view('states/create');
+});
+/*-------------------------------------------*/
+
 Route::get('admin_clients_index', 'ClientController@index');

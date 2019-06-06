@@ -70,7 +70,7 @@
 		      			<a class="border" href="{{ url('admin_clients_index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 		    		</li>
 		    		<li>
-		      			<a class="border">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
+		      			<a class="border" href="{{ url('estados') }}">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		    		</li>
 		    		<li>
 		      			<a class="border">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
@@ -104,7 +104,7 @@
 		<a class="border-a" href="cuentas">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
 		<a class="border-a" >Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 		<a class="border-a" >Clientes<span class="glyphicon glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
-		<a class="border-a" >Estados<span class="glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
+		<a class="border-a" href="{{ url('estados') }}">Estados<span class="glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		<a class="border-a">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
 		<a class="border-a" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
 		<a class="border-a hide-button-exit" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-logout"></a>

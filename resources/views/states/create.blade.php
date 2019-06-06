@@ -1,12 +1,6 @@
-@extends('layout')
+@extends('masterAdmin')
 
-@section('header')
-    <div class="page-header">
-        <h1><i class="glyphicon glyphicon-plus"></i> State / Create </h1>
-    </div>
-@endsection
-
-@section('content')
+@section('contenido_Admin')
     @include('error')
 
     <div class="row">
