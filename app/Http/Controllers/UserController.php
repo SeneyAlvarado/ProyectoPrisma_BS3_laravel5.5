@@ -48,13 +48,11 @@ class UserController extends Controller
 		'branches.name as branch_name')
 		->get();
 
-		/*return $users;*/
-		/*$users = users::where('active_flag', 1)->first();
-		return $user;*/
+		/*return $user;*/
 		return view('admin.accounts.index', compact('users'));
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
-		return view('admin.accounts.index', compact('users'));
+			return view('admin.accounts.index', compact('users'));
 		}
 	}
 
@@ -136,5 +134,13 @@ class UserController extends Controller
 		$this->model->destroy($id);
 
 		return redirect()->route('users.index')->with('message', 'Item deleted successfully.');
+	}
+
+	public function ajax_branch(){
+        $branches=DB::table('branches')->where('active_flag', '=', 1)->orderBy('name','desc')->get();
+        if ($branches == null || $branches->isEmpty()) {
+            Flash::message("No hay sucursales para mostrar");
+        }
+        return json_encode(["branches"=>$branches]);
 	}
 }
