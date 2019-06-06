@@ -6,7 +6,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div class="panel panel-primary border-panel">
     <div class="panel-heading  border-header bg-color-panel" >
-       <p class="title-panel">Clientes</p>
+       <p class="title-panel" style="font-size:20px;">Clientes</p>
    </div>
    <div class="panel-body">
        <section class="">
@@ -20,25 +20,9 @@
    <div class="panel-heading">
        <div class="">
        <div class="">
-               @if(session('message'))
-               <div class="alert alert-success alert-dismissible" role="alert">
-                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                       <span aria-hidden="true">&times;</span>
-                   </button>
-                   {{@session('message')}}
-               </div>
-               @endif
-               @if(session('error'))
-               <div class="alert alert-danger alert-dismissible" role="alert">
-                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                       <span aria-hidden="true">&times;</span>
-                   </button>
-                   {{@session('error')}}
-               </div>
-               @endif
            @if($clients->count())
            <div class="table-responsive">
-               <table class="table table-striped table-bordered table-condensed table-hover" id="tablaDatos">
+               <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
                
                    <thead>
                        <th class="text-center">Cédula</th>
@@ -51,11 +35,37 @@
 
                    <tbody>
                        @foreach($clients as $client)
-                       <?php $tel = str_split($client->number); $numeroTel = $tel[0] .  $tel[1] .  $tel[2] .  $tel[3] . ' - ' .  $tel[4] .  $tel[5] .  $tel[6] .  $tel[7]?>
+                       <?php 
+
+                        $clientName = $client->name;
+                        if($client->type == 1) {
+                            $clientName = $clientName . ' ' . $client->lastname . ' ' . $client->second_lastname;
+                        }
+
+                       $numeroTel = '';
+                       if($client->phones->count()) {
+                           foreach ($client->phones as $phone) {
+                            $tel = str_split($phone->number); 
+                            $numeroTel = $numeroTel . '  '. $tel[0] .  $tel[1] .  $tel[2] .  $tel[3] . ' - ' .  $tel[4] .  $tel[5] .  $tel[6] .  $tel[7];
+                           }
+                       } else {
+                        $numeroTel = 'No tiene';
+                       }
+                       
+                       $clientEmail = '';
+                       if($client->emails->count()) {
+                           foreach ($client->emails as $email) {
+                            $clientEmail = $clientEmail . '  ' . $email->email;                           
+                        }
+                       } else {
+                        $clientEmail = 'No tiene';
+                       }
+                       
+                       ?>
                            <tr>
                                <td class="text-center">{{$client->identification}}</td>
-                               <td class="text-center"><strong>{{$client->name}}</strong></td>
-                               <td class="text-center">{{$client->email}}</td>
+                               <td class="text-center"><strong>{{$clientName}}</strong></td>
+                               <td class="text-center">{{$clientEmail}}</td>
                                <td class="text-center">{{$numeroTel}}</td>
                                @if($client->active_flag == 1)
                                <td class="text-center">Activo</td>
@@ -92,7 +102,7 @@
            </div>
                
            @else
-               <h3 class="text-center alert alert-info">No hay nada para mostrar</h3>
+               <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
            @endif
 
        </div>

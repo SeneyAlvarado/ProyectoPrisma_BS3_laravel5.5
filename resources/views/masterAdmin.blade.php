@@ -113,7 +113,7 @@
 
 	<div class="panel-heading">
 		<div class="content w3-container">
-			@yield('contenido_Admin')
+			@yield('contenido_Admin')	
 		</div>
 	</div>
 	

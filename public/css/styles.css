@@ -534,3 +534,11 @@ div.logo-ucr-3 {
   background-color: #2B562B !important;
   border:0px !important;
 }
+
+
+.header-gris {
+  color: rgb(121, 121, 121)!important;
+  background-color: #C6C6C9;
+  background: rgba(200, 205, 239, 0.24)!important;
+  border-color: #C6C6C9!important;
+}

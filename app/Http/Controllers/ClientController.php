@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Physical_client;
+use App\Juridical_client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,20 +33,41 @@ class ClientController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$clients = DB::table('clients')->join('physical_clients', 'clients.id', '=', 'physical_clients.id')
-		->join('phones', 'clients.id', '=', 'clients.id')
-		->join('emails', 'clients.id', '=', 'clients.id')
-		->where('clients.active_flag', 1)->orderBy('clients.name', 'desc')->paginate(5);
+		try{
+			//Gets all clients with their phone and emails (even unactive phone and emails, those al filtered
+			//at the view))
+			$clients = $this->model::all();
 
-		/*return $clients;*/
-		
-		$user_type = Auth::user()->user_type_id;
-		if($user_type == 1){//admin user
-			return view('admin.clients.index', compact('clients'));
-		}
-		
+			//return dd($clients[0]);
+			for($x = 0; $x <= (count($clients)); $x++) {
+				
+				if($clients[$x]->type == 1) {//physical client, fill model attributes
+					$phisClient = Physical_client::where('client_id', $clients[$x]->id)->first();
+					$clients[$x]->lastname = $phisClient->lastname;
+					$clients[$x]->second_lastname = $phisClient->second_lastname;	
+					$clients[$x]->client_table_id = $phisClient->client_id;	
+				}
+
+				if($clients[$x]->type == 2) {//juridical client, fill model attributes
+					$jurClient = Juridical_client::where('client_id', $clients[$x]->id)->first();
+					$clients[$x]->client_table_id = $jurClient->client_id;	
+				}
+				$clients[$x]->phones = $clients[$x]->phones()->where('active_flag', 1)->get();
+				$clients[$x]->emails = $clients[$x]->emails()->where('active_flag', 1)->get();
+			}
+			
+			$user_type = Auth::user()->user_type_id;
+			if($user_type == 1){//admin user
+				return view('admin.clients.index', compact('clients'));
+			}
+		}catch(\Exception $e){
+			$request->request->add(['errorOrigin' => 'cliente']);
+			//return $request;
+			report($e);
+			render($e);
+		}	
 	}
 
 	/**
