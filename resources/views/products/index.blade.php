@@ -11,6 +11,7 @@
 
 @section('content')
     <div class="row">
+    
         <div class="col-md-12">
             @if($products->count())
                 <table class="table table-condensed table-striped">

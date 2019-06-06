@@ -11,6 +11,7 @@
             <div class="col-md-6">
                 <a class="btn btn-link" href="{{ route('product_works.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
             </div>
+            
             <div class="col-md-6">
                  <a class="btn btn-sm btn-warning pull-right" href="{{ route('product_works.edit', $product_work->id) }}">
                     <i class="glyphicon glyphicon-edit"></i> Edit
