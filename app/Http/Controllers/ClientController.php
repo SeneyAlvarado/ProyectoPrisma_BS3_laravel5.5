@@ -35,9 +35,6 @@ class ClientController extends Controller
 	 */
 	public function index(Request $request)
 	{
-
-	
-
 		try{
 
 			asd;//on purpose error to check catch
@@ -76,8 +73,8 @@ class ClientController extends Controller
 			$handler->report($e);
 			$handler->render($request, $e);*/
 
-			report($e);
-			render($e);
+			//report($e);
+			//render($e);
 		}
 	}
 
