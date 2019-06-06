@@ -45,3 +45,5 @@ Route::get('print', function () {
 });
 
 Route::get('admin_clients_index', 'ClientController@index');
+
+Route::get('admin_accounts_index', 'UserController@index');
