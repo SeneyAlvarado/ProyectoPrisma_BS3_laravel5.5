@@ -29,8 +29,8 @@ Route::get('/login', function () {
 Route::post('login', 'Auth\LoginController@login');
 
 Route::get('admin', function () {
-    //return view('masterAdmin');
-    return view('products/index');
+    return view('masterAdmin');
+    //return view('products/index');
 });
 
 Route::get('recepcion', function () {
@@ -47,9 +47,7 @@ Route::get('print', function () {
 
 
 /*------------Admin states routes------------*/
-Route::get('estados', function() {
-    return view('states/index');
-});
+Route::get('estados', 'StateController@index');
 
 Route::get('editarEstados', function() {
     return view('states/edit');
@@ -59,9 +57,8 @@ Route::get('verEstados', function() {
     return view('states/show');
 });
 
-Route::get('crearEstados', function() {
-    return view('states/create');
-});
+Route::get('crearEstados', 'StateController@create');
+Route::get('guardarEstado', 'StateController@store');
 /*-------------------------------------------*/
 
 Route::get('admin_clients_index', 'ClientController@index');
