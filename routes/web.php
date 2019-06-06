@@ -27,11 +27,11 @@ Route::get('/login', function () {
 
 
 Route::post('login', 'Auth\LoginController@login');
-
+/*
 Route::get('admin', function () {
     //return view('masterAdmin');
     return view('products/index');
-});
+});*/
 
 Route::get('recepcion', function () {
     return view('masterReception');
