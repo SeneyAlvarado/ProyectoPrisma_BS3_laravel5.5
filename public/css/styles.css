@@ -411,7 +411,7 @@ div.logo-ucr-3 {
   }
 
   button.navbar-toggle {
-    display: none;
+    /*display: none;*/
   }
 
   .sidebar-mobile {
@@ -517,16 +517,17 @@ div.logo-ucr-3 {
 }
 
 .style-btn-edit {
-  width:93px;
+  /*width:93px;*/
   background-color: #ABABAB !important;
   border:0px !important;
+  margin-top:3px;
   color: black;
 }
 
 .style-btn-delete {
   background-color: #9B3431 !important;
   border:0px !important;
-  margin-top:5px;
+  margin-top:3px;
 }
 
 
@@ -542,3 +543,10 @@ div.logo-ucr-3 {
   background: rgba(200, 205, 239, 0.24)!important;
   border-color: #C6C6C9!important;
 }
+
+
+
+
+
+
+
