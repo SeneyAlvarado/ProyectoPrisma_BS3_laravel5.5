@@ -115,7 +115,7 @@
 		<div class="content w3-container">
 			@yield('contenido_Admin')	
 			@if(session('error'))
-			<div class="alert alert-danger alert-dismissible" role="alert">
+			<div class="alert alert-danger alert-dismissible" style="text-align: center" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>

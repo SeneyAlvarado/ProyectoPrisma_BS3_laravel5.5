@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', function () {
+    
+    Route::get('/', function () {
     if(Auth::check()) {
         auth()->logout();
     }
@@ -27,10 +28,12 @@ Route::get('/login', function () {
 
 
 Route::post('login', 'Auth\LoginController@login');
+    
+
 
 Route::get('admin', function () {
-    //return view('masterAdmin');
-    return view('products/index');
+    return view('masterAdmin');
+    //return view('products/index');
 });
 
 Route::get('recepcion', function () {
@@ -48,3 +51,5 @@ Route::get('print', function () {
 Route::get('admin_clients_index', 'ClientController@index');
 
 Route::get('admin_accounts_index', 'UserController@index');
+
+Route::resource('clients', 'ClientController');
