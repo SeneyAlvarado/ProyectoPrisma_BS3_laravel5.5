@@ -41,6 +41,7 @@ class ClientController extends Controller
 			$clients = $this->model::all();
 
 			//return dd($clients[0]);
+			
 			for($x = 0; $x <= (count($clients)); $x++) {
 				
 				if($clients[$x]->type == 1) {//physical client, fill model attributes
