@@ -50,8 +50,7 @@ class ClientController extends Controller
 
 			
 			
-			//Gets all clients with their phone and emails (even unactive phone and emails, those al filtered
-			//at the view))
+			//Gets all clients with their phone and emails
 			$clients = $this->model::all();
 
 			//return dd($clients[0]);
@@ -77,6 +76,11 @@ class ClientController extends Controller
 				return view('admin.clients.index', compact('clients'));
 			}
 		}catch(\App\Exceptions\CustomException $e){
+			/*just some test code, not important
+			$handler =  app(App\Exceptions\Handler::class);
+			$handler->report($e);
+			$handler->render($e);
+			*/
 			report($e);//this writes the error at the log
 			\Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');

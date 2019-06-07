@@ -7,37 +7,69 @@
    </div>
     <div class="panel-body">
         <section class="">
-        <div class="content-c w3-container">    
-            <div class=" center">
-                
-                    <form method = 'POST' action = ''>
+        <div class="">
+                    <form method = 'POST' action='{{ url("createUser") }}'>
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
-                        <div class="col-md-4 ">
-                        <input id="name" placeholder="Nombre" class="form-control" name = "nombre" type="text" pattern="[a-zA-Z]{2,48}" title="No se permiten números en este campo"> 
+                        <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
+                        <label for="name" ><strong>Nombre</strong></label> 
+                        <input id="name" placeholder="Nombre" class="form-control" name = "nombre" type="text" required pattern="[a-zA-Z]{2,48}" title="No se permiten números en este campo"> 
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-4 " style="margin-top:10px;">
+                        <label for="name" ><strong>Primer apellido</strong></label> 
                         <input id="lastname"placeholder="Primer Apellido" class="form-control" name = "primer_apellido" type="text" pattern="[a-zA-Z]{2,48}" title="No se permiten números en este campo" required>            
                         </div>
-                        <div class="col-md-4 ">
+                        <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
+                        <label for="name" ><strong>Segundo apellido</strong></label> 
                         <input id="second_lastname" placeholder="Segundo Apellido" class="form-control" name = "segundo_apellido" type="text" pattern="[a-zA-Z]{2,48}" title="No se permiten números en este campo" required>    
                         </div>
-                        <div class="col-md-4 " style="margin-top:20px;">
-                        <input id="email" placeholder="Correo electrónico" class="form-control" name = "email" type = 'text' required>
+                        <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
+                        <label for="email" ><strong>Correo electrónico</strong></label> 
+                        <input id="email" placeholder="Correo electrónico" class="form-control" name = "email" type = 'email' required>
                         </div>
-                        <div class="col-md-4 " style="margin-top:20px;">
+                        <div class="col-md-4 " style="margin-top:10px;">
+                        <label for="user_name" ><strong>Nombre de usuario</strong></label> 
                         <input id="user_name" placeholder="Nombre de usuario" class="form-control" name = "user_name" type = 'text' required>
                         </div>
-                        <div class="col-md-4 " style="margin-top:20px;">
+                        <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
+                        <label for="branch" ><strong>Sucursal</strong></label> 
                         <select id="dropBranch" class="form-control"></select>
                         </div>
-                        <button  style="margin-top: 5px;" class = 'btn btn-success' type ='submit'><i class="fa fa-floppy-o"></i>Crear cuenta</button>
+                        <div class="col-md-4" id="rol" style="margin-top:10px;">
+                        <label for="name" ><strong>Puesto</strong></label> 
+                        <select class="form-control" id="dropRol">
+                            <option value="" disabled selected>Seleccione un puesto</option>
+                            <option>Administrador</option>
+                            <option>Diseñador</option>
+                            <option>Jefatura de diseño</option>
+                            <option>Recepcionista</option>
+                            <option>Impresión</option>
+                            <option>Post-Producción</option>
+                        </select>
+                        </div>
+                        <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
+                        <label for="name" ><strong>Contraseña</strong></label> 
+                                <input  placeholder="Contraseña" id="password" type="password" class="form-control" name="password" required minlength="1">
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+                        <div class="col-md-4" style="margin-top:10px;">
+                        <label for="name" ><strong>Confirmar contraseña</strong></label> 
+                                <input placeholder="Confirmar contraseña" id="password-confirm" type="password" class="form-control" name="password_confirmation" required minlength="1">
+                            </div>
+                            <br>
+                            <div class="col-md-8 col-md-offset-2" style="margin-top:20px;">
+                                <button class = 'btn btn-success' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
+                                <a  class="btn btn btn-success">Regresar</a>
+                            </div>  
                         <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->
                     </form>
-               
-        </div>
-        </div>
+            </div>
         </section>
     </div>
+</div>
 </div>
 
 @endsection
