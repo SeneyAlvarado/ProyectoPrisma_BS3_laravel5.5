@@ -1,0 +1,181 @@
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    margin-top:-20px;
+}
+
+#wrapper.toggled {
+    padding-left: 230px;
+}
+
+nav.navbar{
+    background-color: #96183a;
+}
+
+#sidebar-wrapper {
+    position: fixed;
+    left: 230px;
+    width: 0;
+    height: 100%;
+    margin-left: -230px;
+    overflow-y: auto;
+    background: #96183a !important;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 230px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -230;
+  
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 230px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: #373636;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+   
+    #wrapper {
+        padding-left: 230px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 230px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+.font-color {
+    color:white !important;
+}
+
+.border {
+    font-size:15px;
+    border-bottom: 1px #e5e5e5 solid;
+    width: 230px;
+    box-shadow: 0px 0px 0px black;
+  }
+
+  div.logo_prisma_sidebar {
+    position: static;
+    margin-left: 30px;
+    margin-top: 1800px;
+    bottom:60px;
+  }
+
+  @media screen and (max-height:585px) {
+    div.logo_prisma_sidebar {
+      display: none;
+    }
+  }
+  
+  @media screen and (min-height:585px) {
+    div.logo_prisma_sidebar {
+      display: inline;
+    }
+  }
+
+  .style-btn-edit {
+    /*width:93px;*/
+    background-color: #ABABAB !important;
+    border:0px !important;
+    margin-top:3px;
+    color: black;
+  }
+  
+  .style-btn-delete {
+    background-color: #9B3431 !important;
+    border:0px !important;
+    margin-top:3px;
+  }
+  
+  
+  .style-btn-registry {
+    background-color: #356C35 !important;
+    border:0px !important;
+  }
+
+  .main-footer{ 
+    height: 50px; 
+    background:#C6C6C9; 
+    width:100%; 
+    position:fixed; 
+    bottom:0px; 
+  }

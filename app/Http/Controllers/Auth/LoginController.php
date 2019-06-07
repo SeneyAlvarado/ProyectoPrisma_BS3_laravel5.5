@@ -80,7 +80,7 @@ class LoginController extends Controller
             Servicio de Salud para verificar el procedimiento de activación']);        
         }
         } else {  //In case the credentials are incorect.
-        return back()->withErrors(['email' => trans('Correo electrónico o contraseña incorrectos.')]);        
+        return back()->withErrors(['username' => trans('Nombre de usuario o contraseña incorrectos.')]);        
     }
     }
 }
