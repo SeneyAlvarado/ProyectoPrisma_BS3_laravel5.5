@@ -53,7 +53,7 @@
 		      			<a class="border font-color" href="{{ url('admin_clients_index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 		    		</li>
 		    		<li>
-		      			<a class="border font-color">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
+		      			<a class="border" href="{{ url('estados') }}">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		    		</li>
 		    		<li>
 		      			<a class="border font-color">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>

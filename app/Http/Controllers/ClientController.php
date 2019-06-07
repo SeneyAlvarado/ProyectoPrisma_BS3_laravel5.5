@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Client;
 use App\Physical_client;
 use App\Juridical_client;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use DB;
+
 class ClientController extends Controller
 {
 	/**
@@ -35,11 +37,18 @@ class ClientController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		try{
+		try {
+			
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " mostrando los clientes");	
 
-			asd;//on purpose error to check catch
+			//estas son pruebas de errores
+		//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
+		//DB::table('shdhgjd')->get();
+		//Auth::attempt(['email' => $email, 'password' => $password]);
 
-			\Session::put('errorOrigin', " mostrando los clientes");
+
+			
 			
 			//Gets all clients with their phone and emails (even unactive phone and emails, those al filtered
 			//at the view))
@@ -67,16 +76,20 @@ class ClientController extends Controller
 			if($user_type == 1){//admin user
 				return view('admin.clients.index', compact('clients'));
 			}
-		}catch(\Exception $e){
-			//throw
-			/*$handler =  app(\App\Exceptions\Handler::class);
-			$handler->report($e);
-			$handler->render($request, $e);*/
+		}catch(\App\Exceptions\CustomException $e){
+			report($e);//this writes the error at the log
+			\Session::flash('message_type', 'negative');
+			\Session::flash('message_icon', 'hide');
+			\Session::flash('message_header', 'Success');
+            \Session::flash('error', '¡Ha ocurrido un error al mostrar los clientes!' 
+            .' Si este persiste contacte al administrador del sistema');
+			return redirect('admin');//aquí redirigen a la página deseada después de validar el error
+			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
 
-			//report($e);
-			//render($e);
 		}
+
 	}
+
 
 	/**
 	 * Show the form for creating a new resource.

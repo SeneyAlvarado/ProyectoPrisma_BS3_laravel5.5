@@ -26,7 +26,7 @@ class StateController extends Controller
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the states.
 	 *
 	 * @return Response
 	 */
@@ -34,7 +34,7 @@ class StateController extends Controller
 	{
 		$states = $this->model->paginate();
 
-		return view('states.index', compact('states'));
+		return view('states/index', compact('states'));
 	}
 
 	/**
@@ -44,7 +44,7 @@ class StateController extends Controller
 	 */
 	public function create()
 	{
-		return view('states.create');
+		return view('states/create');
 	}
 
 	/**
@@ -58,11 +58,11 @@ class StateController extends Controller
 		$inputs = $request->all();
 		$this->model->create($inputs);
 
-		return redirect()->route('states.index')->with('message', 'Item created successfully.');
+		return redirect()->route('states/index')->with('message', 'El estado se guardó correctamente');
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display the specified state.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -101,7 +101,7 @@ class StateController extends Controller
 		$state = $this->model->findOrFail($id);		
 		$state->update($inputs);
 
-		return redirect()->route('states.index')->with('message', 'Item updated successfully.');
+		return redirect()->route('states.index')->with('message', 'Los cambios se guardaron exitosamente');
 	}
 
 	/**
@@ -114,6 +114,6 @@ class StateController extends Controller
 	{
 		$this->model->destroy($id);
 
-		return redirect()->route('states.index')->with('message', 'Item deleted successfully.');
+		return redirect()->route('states.index')->with('message', 'El estado se eliminó correctamente.');
 	}
 }
