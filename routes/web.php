@@ -57,13 +57,27 @@ Route::get('/branchDrop', 'UserController@ajax_branch');
 
 Route::get('prueba1', function () {
     return view('masterPrueba');
-    //return view('products/index');
 });
 Route::get('prueba2', function () {
     return view('masterPrueba2');
-    //return view('products/index');
+    
 });
 Route::get('prueba3', function () {
     return view('masterPrueba3');
-    //return view('products/index');
 });
+
+
+Route::get('productoIndex', function () {
+   // return view('masterPrueba3');
+    return view('products.index');
+});
+Route::get('productoShow', function () {
+    return view('products.show');
+});
+Route::get('productoEdit', function () {
+    return view('products.edit');
+});
+Route::get('productoCreate', function () {
+    return view('products.create')->name('productoCreate');
+});
+//Route::resource('products', 'ProductController');
