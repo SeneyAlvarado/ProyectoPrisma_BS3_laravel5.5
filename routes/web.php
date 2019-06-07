@@ -114,5 +114,3 @@ Route::get('productIndex2', function () {
     return view('products.index');
 });
 Route::resource('products', 'ProductController');
-    //return view('products/index');
-});
