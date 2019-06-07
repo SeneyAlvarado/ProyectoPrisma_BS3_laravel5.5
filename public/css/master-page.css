@@ -118,8 +118,9 @@ body {
   }
 
   .page-content-wrapper {
-    
-    position: relative;
+    margin-top: 50px !important;
+    position: absolute;
+    min-width:100%; 
 }
 
 

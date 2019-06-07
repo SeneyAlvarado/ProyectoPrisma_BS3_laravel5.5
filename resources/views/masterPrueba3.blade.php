@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="{{asset('js/master-page.js')}}"></script>
+    <script src="{{asset('js/sidebarWrapperSize.js')}}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{{asset('//code.jquery.com/jquery-1.11.1.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
@@ -27,9 +28,9 @@
 
 </head>
 <body>
-<nav class="navbar navbar-default navbar-static-top ">
+<nav class="navbar navbar-default navbar-fixed-top ">
   <div class="container-fluid">
-  <a class="navbar-toggler pull-right"  onclick="myFunction()"><span  id="toggle" style=" font-size: 25px; margin-top:13px; color:white;" class="glyphicon glyphicon-menu-hamburger"></a>
+  <a class="navbar-toggler pull-right"  onclick="myFunction(); changeContentWrapperSize();"><span  id="toggle" style=" font-size: 25px; margin-top:13px; color:white;" class="glyphicon glyphicon-menu-hamburger"></a>
     <a class="navbar-brand font-color" style="margin-left:50px" href="#">S.M.P</a>
   </div>
 </nav>
@@ -55,7 +56,7 @@
     <div class="logo_prisma_sidebar"><img src="{{asset('Imagenes/prisma_logo.png')}}"style="width:120px; height:120px;"></div>  			
 </div>
 
-<div id="main" class="page-content-wrapper ">
+<div id="main" class="page-content-wrapper" style="position: absolute;">
 <div class="container-fluid">
                 <div class="row">
                     
@@ -72,7 +73,5 @@
         </div>
         </div>
 </div>
-
-   
 </body>
 </html> 

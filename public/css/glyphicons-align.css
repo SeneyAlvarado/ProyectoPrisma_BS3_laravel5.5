@@ -23,3 +23,14 @@
   .right-aling-glyphicon-hide-menu {
     margin-left: 64px;
   }
+
+  @media screen and (max-height: 450px) {
+    .right-aling-glyphicon-contrasenna{
+      margin-left:65px;
+    }
+
+    .right-aling-glyphicon-logout{
+      margin-left:122px;
+    }
+  
+  }
