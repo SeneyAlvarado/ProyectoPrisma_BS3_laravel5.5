@@ -85,25 +85,5 @@ Route::get('prueba2', function () {
 });
 Route::get('prueba3', function () {
     return view('masterPrueba3');
-<<<<<<< HEAD
-});
-
-
-Route::get('productoIndex', function () {
-   // return view('masterPrueba3');
-    return view('products.index');
-});
-Route::get('productoShow', function () {
-    return view('products.show');
-});
-Route::get('productoEdit', function () {
-    return view('products.edit');
-});
-Route::get('productoCreate', function () {
-    return view('products.create')->name('productoCreate');
-});
-//Route::resource('products', 'ProductController');
-=======
     //return view('products/index');
 });
->>>>>>> 4a38ea108d3e685e984813adf3e84eced7f997ae
