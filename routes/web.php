@@ -82,3 +82,36 @@ Route::post('createUser', 'UserController@store');
 Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create') ;
 })->name('create_account_admin');
+
+Route::get('admin_accounts_create', function () {
+    return view('admin.accounts.create') ;
+})->name('create_account_admin');
+
+Route::get('/branchDrop', 'UserController@ajax_branch');
+
+Route::get('prueba1', function () {
+    return view('masterPrueba');
+});
+Route::get('prueba2', function () {
+    return view('masterPrueba2');
+    
+});
+Route::get('prueba3', function () {
+    return view('masterPrueba3');
+});
+
+
+Route::get('productoIndex', function () {
+   // return view('masterPrueba3');
+    return view('products.index');
+});
+Route::get('productoShow', function () {
+    return view('products.show');
+});
+Route::get('productoEdit', function () {
+    return view('products.edit');
+});
+Route::get('productoCreate', function () {
+    return view('products.create')->name('productoCreate');
+});
+

@@ -4,7 +4,7 @@
     <div class="page-header clearfix">
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> Product
-            <a class="btn btn-success pull-right" href="{{ route('products.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+            <a class="btn btn-success pull-right" href="#"><i class="glyphicon glyphicon-plus"></i> Create</a>
         </h1>
     </div>
 @endsection
@@ -31,15 +31,18 @@
                                 <td>{{$product->name}}</td> <td>{{$product->description}}</td> <td>{{$product->active_flag}}</td> <td>{{$product->branch_id}}</td> <td>{{$product->branch_id}}</td>
                                 
                                 <td class="text-right">
-                                    <a class="btn btn-xs btn-primary" href="{{ route('products.show', $product->id) }}">
+                                <!--a class="btn btn-xs btn-primary" href="{{ route('productoShow', $product->id) }}"-->
+                                    <a class="btn btn-xs btn-primary" href="#">
                                         <i class="glyphicon glyphicon-eye-open"></i> View
                                     </a>
                                     
-                                    <a class="btn btn-xs btn-warning" href="{{ route('products.edit', $product->id) }}">
+                                    <!--a class="btn btn-xs btn-warning" href="{{ route('productoEdit', $product->id) }}"-->
+                                    <a class="btn btn-xs btn-warning" href="#">
                                         <i class="glyphicon glyphicon-edit"></i> Edit
                                     </a>
 
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                                    <!--form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');"-->
+                                    <form action="#" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE">
 
