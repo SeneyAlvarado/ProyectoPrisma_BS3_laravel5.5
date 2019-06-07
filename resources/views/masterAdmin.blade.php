@@ -32,7 +32,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 </head>
-<body>
+<body lcass="body">
 <nav class="navbar navbar-default navbar-static-top ">
   <div class="container-fluid">
   <a class="navbar-toggler pull-right" href="#menu-toggle" id="menu-toggle"><span style=" font-size: 25px; margin-top:13px; color:white;" class="glyphicon glyphicon-menu-hamburger"></a>
@@ -42,9 +42,11 @@
    <div id="wrapper" >
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
+		
             <ul class="sidebar-nav">
-            <li>
-		      			<a class="border font-color">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
+				
+            		<li>
+		      			<a class="border font-color" href="{{ url('admin_accounts_index') }}">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
 					</li>
 					<li>
 		      			<a class="border font-color">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
@@ -53,7 +55,7 @@
 		      			<a class="border font-color" href="{{ url('admin_clients_index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 		    		</li>
 		    		<li>
-		      			<a class="border" href="{{ url('estados') }}">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
+		      			<a class="border font-color" href="{{ url('estados') }}">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		    		</li>
 		    		<li>
 		      			<a class="border font-color">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
@@ -92,8 +94,8 @@
                 </div>
             </div>
                     <!-- /#page-content-wrapper -->
-        <footer class="main-footer">
-            <div class="text-center main-footer">
+        <footer class="main-footer" style="text-align:center;">
+            <div class="text-center " >
                 <a style="font-size:1em; color:#30A8D8; "><strong>Grupo Prisma ©2019</strong></a><img style="margin-top: 4px;" class="margin-logo" src="{{asset('Imagenes/prisma_footer.png')}}" >
             </div>
             </footer>
@@ -108,6 +110,7 @@
     $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
-    });
+	});
+	
     </script>
-    <html>
+<html>

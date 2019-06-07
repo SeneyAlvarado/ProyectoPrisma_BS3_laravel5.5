@@ -74,6 +74,7 @@ class UserController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		return $request->dropRol;
 		$inputs = $request->all();
 		$this->model->create($inputs);
 

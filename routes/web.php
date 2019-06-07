@@ -66,25 +66,19 @@ Route::get('guardarEstado', 'StateController@store');
 
 Route::get('admin_clients_index', 'ClientController@index');
 
+Route::resource('clients', 'ClientController');
+
+Route::get('prueba3', function () {
+    return view('masterPrueba3');
+});
+
+/**Routes for admin account */
 Route::get('admin_accounts_index', 'UserController@index');
 
-Route::resource('clients', 'ClientController');
+Route::get('/branchDrop', 'UserController@ajax_branch');
+
+Route::post('createUser', 'UserController@store');
 
 Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create') ;
 })->name('create_account_admin');
-
-Route::get('/branchDrop', 'UserController@ajax_branch');
-
-Route::get('prueba1', function () {
-    return view('masterPrueba');
-    //return view('products/index');
-});
-Route::get('prueba2', function () {
-    return view('masterPrueba2');
-    //return view('products/index');
-});
-Route::get('prueba3', function () {
-    return view('masterPrueba3');
-    //return view('products/index');
-});
