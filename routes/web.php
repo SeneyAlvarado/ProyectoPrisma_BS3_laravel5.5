@@ -89,13 +89,30 @@ Route::get('admin_accounts_create', function () {
 
 Route::get('/branchDrop', 'UserController@ajax_branch');
 
+
+
 Route::get('prueba1', function () {
     return view('masterPrueba');
 });
+
 Route::get('prueba2', function () {
     return view('masterPrueba2');
 });
+
 Route::get('prueba3', function () {
     return view('masterPrueba3');
+});
+
+Route::get('productIndex','ProductController@index');
+
+Route::get('productoShow/{id}','ProductController@show');
+Route::get('productoEdit/{id}','ProductController@edit');
+//Route::get('productoEdit/{id}','ProductController@edit');
+
+
+Route::get('productIndex2', function () {
+    return view('products.index');
+});
+Route::resource('products', 'ProductController');
     //return view('products/index');
 });

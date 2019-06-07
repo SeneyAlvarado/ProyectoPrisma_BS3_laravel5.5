@@ -31,12 +31,12 @@
                                 <td>{{$product->name}}</td> <td>{{$product->description}}</td> <td>{{$product->active_flag}}</td> <td>{{$product->branch_id}}</td> <td>{{$product->branch_id}}</td>
                                 
                                 <td class="text-right">
-                                <!--a class="btn btn-xs btn-primary" href="{{ route('productoShow', $product->id) }}"-->
+                                <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
                                     <a class="btn btn-xs btn-primary" href="#">
                                         <i class="glyphicon glyphicon-eye-open"></i> View
                                     </a>
                                     
-                                    <!--a class="btn btn-xs btn-warning" href="{{ route('productoEdit', $product->id) }}"-->
+                                    <a class="btn btn-xs btn-warning" href="{{ url('productoEdit', $product->id) }}">
                                     <a class="btn btn-xs btn-warning" href="#">
                                         <i class="glyphicon glyphicon-edit"></i> Edit
                                     </a>
