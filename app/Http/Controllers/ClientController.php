@@ -37,12 +37,6 @@ class ClientController extends Controller
 	 */
 	public function index()
 	{
-<<<<<<< HEAD
-
-	
-
-		try{
-=======
 		try {
 			
 			//custom message if this methods throw an exception
@@ -52,13 +46,11 @@ class ClientController extends Controller
 		//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
 		//DB::table('shdhgjd')->get();
 		//Auth::attempt(['email' => $email, 'password' => $password]);
->>>>>>> 4a38ea108d3e685e984813adf3e84eced7f997ae
 
 
 			
 			
-			//Gets all clients with their phone and emails (even unactive phone and emails, those al filtered
-			//at the view))
+			//Gets all clients with their phone and emails
 			$clients = $this->model::all();
 
 			//return dd($clients[0]);
@@ -83,14 +75,12 @@ class ClientController extends Controller
 			if($user_type == 1){//admin user
 				return view('admin.clients.index', compact('clients'));
 			}
-<<<<<<< HEAD
-		}catch(\Exception $e){
-			//throw
+		}catch(\App\Exceptions\CustomException $e){
+			/*just some test code, not important
 			$handler =  app(App\Exceptions\Handler::class);
 			$handler->report($e);
 			$handler->render($e);
-=======
-		}catch(\App\Exceptions\CustomException $e){
+			*/
 			report($e);//this writes the error at the log
 			\Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
@@ -100,7 +90,6 @@ class ClientController extends Controller
 			return redirect('admin');//aquí redirigen a la página deseada después de validar el error
 			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
 
->>>>>>> 4a38ea108d3e685e984813adf3e84eced7f997ae
 		}
 
 	}
