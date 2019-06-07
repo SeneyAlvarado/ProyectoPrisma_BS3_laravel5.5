@@ -94,7 +94,6 @@ Route::get('prueba1', function () {
 });
 Route::get('prueba2', function () {
     return view('masterPrueba2');
-    
 });
 Route::get('prueba3', function () {
     return view('masterPrueba3');
