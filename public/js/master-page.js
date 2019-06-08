@@ -8,8 +8,8 @@ function openNav() {
 
 var on =true;
 function myFunction() {
-  //var sidebarWidth = $('#mySidebar').css('width');//if the sidebar is not 0px or 230px, else do nothing 
-  //if(sidebarWidth == "0px" || sidebarWidth == "230px") {
+  var sidebarWidth = $('#mySidebar').css('width');//if the sidebar is not 0px or 230px, else do nothing 
+  if(sidebarWidth == "0px" || sidebarWidth == "230px") {
   var x = document.getElementById("mySidebar");
   if (on === true) {
     document.getElementById("mySidebar").style.width = "0";
@@ -20,7 +20,7 @@ function myFunction() {
    document.getElementById("main").style.marginLeft = "230px";
    on =true;
   }
- //}
+ }
 }
 
 function mouseOver() {
