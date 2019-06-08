@@ -74,8 +74,9 @@ class UserController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		return $request->dropRol;
+		return $request->dropRol . " - " . $request->dropBranch;
 		$inputs = $request->all();
+		
 		$this->model->create($inputs);
 
 		return redirect()->route('users.index')->with('message', 'Item created successfully.');

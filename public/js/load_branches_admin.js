@@ -1,3 +1,4 @@
+/**Javascrip to fill the dropdown in the crate user form, with the branches of the sistem*/
 function branch(){
     $('#dropBranch').empty();
     $('#dropBranch').append("<option>Cargando...</option>");
@@ -10,8 +11,7 @@ function branch(){
     $('#dropBranch').append("<option value='defecto'>Seleccione Sucursal</option>");   
     $.each(datos, function()
     {
-        $.each(this, function(){//los datos del server vienen en una variable data
-    //si quieren ver esos datos pongan en la URL "/recintosCombo" por ejemplo.
+        $.each(this, function(){
         $('#dropBranch').append('<option value="' + this.id + '">' + this.name + '</option>');
         })        
     })
