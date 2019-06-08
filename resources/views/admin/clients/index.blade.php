@@ -1,4 +1,4 @@
-@extends('masterAdmin')
+@extends('masterPrueba3')
 
 @section('contenido_Admin')
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>

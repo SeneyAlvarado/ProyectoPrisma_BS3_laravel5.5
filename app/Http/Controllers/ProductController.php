@@ -33,7 +33,7 @@ class ProductController extends Controller
 	public function index()
 	{
 		$products = $this->model->paginate();
-
+		
 		return view('products.index', compact('products'));
 	}
 
