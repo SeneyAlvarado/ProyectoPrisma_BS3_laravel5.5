@@ -1,6 +1,7 @@
 @extends('masterPrueba3')
 
 @section('contenido_Admin')
+
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -12,7 +13,8 @@
        <section class="">
        <div class="content-c w3-container mobile">
            <div> 
-           <a  class="btn btn-success style-btn-registry"  style="margin-left: 15px; ">Registrar </a>
+           <a  class="btn btn-success style-btn-registry"  href="{{ url('admin_clients_create') }} "
+            style="margin-left: 15px; ">Registrar </a>
            
        </div>
    </div>
