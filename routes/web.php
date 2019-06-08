@@ -87,6 +87,11 @@ Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create') ;
 })->name('create_account_admin');
 
+
+Route::get('admin_clients_create', function () {
+    return view('admin.clients.create') ;
+});
+
 Route::get('/branchDrop', 'UserController@ajax_branch');
 
 
@@ -103,8 +108,12 @@ Route::get('prueba3', function () {
     return view('masterPrueba3');
 });
 
+Route::get('masterRoot', function () {
+    return view('masterRoot');
+});
 /*---------------------------------*/
 /*         products-------------*/
+
 
 Route::get('productIndex','ProductController@index');
 
