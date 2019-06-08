@@ -103,6 +103,9 @@ Route::get('prueba3', function () {
     return view('masterPrueba3');
 });
 
+/*---------------------------------*/
+/*         products-------------*/
+
 Route::get('productIndex','ProductController@index');
 
 Route::get('productoShow/{id}','ProductController@show');
@@ -114,3 +117,5 @@ Route::get('productIndex2', function () {
     return view('products.index');
 });
 Route::resource('products', 'ProductController');
+/*------------Products----- */
+/*------------------------------------------ */
