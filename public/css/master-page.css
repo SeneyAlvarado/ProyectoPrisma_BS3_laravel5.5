@@ -118,14 +118,9 @@ body {
   }
 
   .page-content-wrapper {
-<<<<<<< HEAD
-    
-    position: absolute;
-=======
     margin-top: 50px !important;
     position: absolute;
     min-width:100%; 
->>>>>>> bcfb14cca0e37a8142dc5fc33e95540285e9caf9
 }
 
 
