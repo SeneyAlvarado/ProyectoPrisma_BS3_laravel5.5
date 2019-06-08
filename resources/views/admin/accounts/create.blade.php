@@ -12,15 +12,15 @@
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                         <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                         <label for="name" ><strong>Nombre</strong></label> 
-                        <input id="name" placeholder="Nombre" class="form-control" name = "name" type="text" required pattern="[a-zA-Z]{2,48}" title="No se permiten números en este campo"> 
+                        <input id="name" placeholder="Nombre" class="form-control" name = "name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo"> 
                         </div>
                         <div class="col-md-4 " style="margin-top:10px;">
                         <label for="name" ><strong>Primer apellido</strong></label> 
-                        <input id="lastname"placeholder="Primer Apellido" class="form-control" name = "lastname" type="text" pattern="[a-zA-Z]{2,48}" title="No se permiten números en este campo" required>            
+                        <input id="lastname"placeholder="Primer Apellido" class="form-control" name = "lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>            
                         </div>
                         <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
                         <label for="name" ><strong>Segundo apellido</strong></label> 
-                        <input id="second_lastname" placeholder="Segundo Apellido" class="form-control" name = "second_lastname" type="text" pattern="[a-zA-Z]{2,48}" title="No se permiten números en este campo" required>    
+                        <input id="second_lastname" placeholder="Segundo Apellido" class="form-control" name = "second_lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>    
                         </div>
                         <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                         <label for="email" ><strong>Correo electrónico</strong></label> 
