@@ -67,14 +67,25 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly account in storage.
 	 *
 	 * @param Request $request
 	 * @return Response
 	 */
 	public function store(Request $request)
 	{
-		return $request->dropRol . " - " . $request->dropBranch;
+		$password = $request->input('password');
+		$passwordConfirm = $request->input("password_confirmation");
+		/**Check if the password is the same in both inputs */
+		if ($password != $passwordConfirm) {
+            return back()->withErrors(['password' => 'Las contraseñas no coinciden']);
+		}
+		/**Check if exist a user with ne same username in the sistem */
+		$username = User::where('user_name', $request->username)->get();
+	
+			if(!$username->isEmpty()) {
+				return back()->withErrors(['user_name' => trans('Ya existe un usuario con este nombre de usuario.')]);
+		    }
 		$inputs = $request->all();
 		
 		$this->model->create($inputs);

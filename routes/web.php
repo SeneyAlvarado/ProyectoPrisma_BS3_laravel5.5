@@ -103,6 +103,10 @@ Route::get('prueba3', function () {
     return view('masterPrueba3');
 });
 
+Route::get('masterRoot', function () {
+    return view('masterRoot');
+});
+
 Route::get('productIndex','ProductController@index');
 
 Route::get('productoShow/{id}','ProductController@show');
