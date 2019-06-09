@@ -9,9 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
+    public $timestamps=false;
     use Notifiable;
 
 
     protected $fillable = ['name', 'lastname', 'second_lastname', 'username', 'password', 'email', 'branch_id', 'branch_id', 'type_id', 'type_id', 'active_flag'];
+    public $timestamps = false;
 }

@@ -83,6 +83,8 @@ Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create');
 })->name('create_account_admin');
 
+Route::resource('admin_accounts', 'UserController');
+
 Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create');
 })->name('create_account_admin');
@@ -91,6 +93,8 @@ Route::get('admin_accounts_create', function () {
 Route::get('admin_clients_create', function () {
     return view('admin.clients.create');
 });
+
+Route::post('createClient', 'ClientController@store');
 
 Route::get('/branchDrop', 'UserController@ajax_branch');
 

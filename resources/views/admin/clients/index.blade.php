@@ -47,8 +47,7 @@
                        $numeroTel = '';
                        if($client->phones->count()) {
                            foreach ($client->phones as $phone) {
-                            $tel = str_split($phone->number); 
-                            $numeroTel = $numeroTel . '  '. $tel[0] .  $tel[1] .  $tel[2] .  $tel[3] . ' - ' .  $tel[4] .  $tel[5] .  $tel[6] .  $tel[7];
+                            $numeroTel = $phone->number;
                            }
                        } else {
                         $numeroTel = 'No tiene';
@@ -63,9 +62,13 @@
                         $clientEmail = 'No tiene';
                        }
                        
+                       $identification = $client->identification;
+                       if(empty($identification)){
+                          $identification = "-----";
+                       }
                        ?>
                            <tr>
-                               <td class="text-center">{{$client->identification}}</td>
+                               <td class="text-center">{{$identification}}</td>
                                <td class="text-center"><strong>{{$clientName}}</strong></td>
                                <td class="text-center">{{$clientEmail}}</td>
                                <td class="text-center">{{$numeroTel}}</td>
