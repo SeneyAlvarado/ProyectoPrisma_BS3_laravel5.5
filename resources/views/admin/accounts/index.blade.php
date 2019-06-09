@@ -46,7 +46,7 @@
                                @endif
                                <td class="text-center">
                               
-                                    <a class="btn btn-warning style-btn-edit" href=""><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a class="btn btn-warning style-btn-edit" href="{{ url('admin_edit_accounts', $user->id) }}"><span class="glyphicon glyphicon-edit"></span></a>
                                    @if($user->active_flag == 1)
                                    <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el cliente {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">
                                        {{csrf_field()}}

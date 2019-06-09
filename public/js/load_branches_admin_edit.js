@@ -1,5 +1,5 @@
-/**Javascrip to fill the dropdown in the crate user form, with the branches of the sistem*/
-function branch(){
+/**Javascrip to fill the dropdown in the edit account form, with the branches of the sistem*/
+function branch(branch_id){
     $('#dropBranch').empty();
     $('#dropBranch').append("<option>Cargando...</option>");
      $.ajax({
@@ -12,8 +12,13 @@ function branch(){
     $.each(datos, function()
     {
         $.each(this, function(){
-        $('#dropBranch').append('<option value="' + this.id + '">' + this.name + '</option>');
-        })        
+        if (this.id == branch_id)  {  
+            $('#dropBranch').append('<option selected="true" value="' + this.id + '">' + this.name + '</option>');
+        } else {
+            $('#dropBranch').append('<option value="' + this.id + '">' + this.name + '</option>');
+        }
+        }) 
+        
     })
 
     }, error:function() {
@@ -23,7 +28,7 @@ function branch(){
     });
 }
 
-function rol(){
+function rol(user_type){
     $('#dropRol').empty();
     $('#dropRol').append("<option>Cargando...</option>");
      $.ajax({
@@ -32,12 +37,17 @@ function rol(){
     dataType: "json",
     success:function(datos){ 
     $('#dropRol').empty();
-    $('#dropRol').append("<option value='defecto'>Seleccione Puesto</option>");   
+    $('#dropRol').append("<option value='defecto'>Seleccione Sucursal</option>");   
     $.each(datos, function()
     {
         $.each(this, function(){
-        $('#dropRol').append('<option value="' + this.id + '">' + this.name + '</option>');
-        })        
+        if (this.id == user_type)  {  
+            $('#dropRol').append('<option selected="true" value="' + this.id + '">' + this.name + '</option>');
+        } else {
+            $('#dropRol').append('<option value="' + this.id + '">' + this.name + '</option>');
+        }
+        }) 
+        
     })
 
     }, error:function() {
@@ -46,9 +56,6 @@ function rol(){
     }
     });
 }
-$(document).ready(function(){
-    branch();
-    rol();
-})
+
 
     

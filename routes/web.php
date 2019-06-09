@@ -73,15 +73,24 @@ Route::get('prueba3', function () {
 });
 
 /**Routes for admin account */
-Route::get('admin_accounts_index', 'UserController@index');
+Route::get('admin_accounts_index', 'UserController@index');/**View the accounts list*/
 
-Route::get('/branchDrop', 'UserController@ajax_branch');
+Route::get('/branchDrop', 'UserController@ajax_branch');/**Fill the select item with the branches*/
+
+Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the branches*/
 
 Route::post('createUser', 'UserController@store');
 
 Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create') ;
 })->name('create_account_admin');
+
+Route::get('admin_accounts_edit', function () {
+    return view('admin.accounts.edit') ;
+})->name('admin_accounts_edit');
+
+Route::get('admin_edit_accounts/{id}', 'UserController@edit');
+Route::put('admin_update_accounts/{id}', 'UserController@update');
 
 Route::resource('admin_accounts', 'UserController');
 

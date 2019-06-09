@@ -28,20 +28,20 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the accounts in the sistem.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		/*$users = $this->model->all();*/
 		
-		//Gets all de users in the sistem
+		//Gets all de accounts in the sistem
 		$users = DB::table('users') 
 		->join('user_types', 'users.user_type_id', 'user_types.id')
 		->join('branches', 'users.branch_id', 'branches.id')
 		->select('users.active_flag as active_flag',
 		'users.email as email',
+		'users.id as id',
 		'users.name as name',
 		'users.lastname as lastname',
 		'users.second_lastname as second_lastname',
@@ -49,7 +49,7 @@ class UserController extends Controller
 		'branches.name as branch_name')
 		->get();
 
-		/*return $user;*/
+		/*return the param with all accounts to the view;*/
 		return view('admin.accounts.index', compact('users'));
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
@@ -75,7 +75,9 @@ class UserController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		
+		try {
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
 		$user = new User();
 		$password = $request->input('password');
 		$passwordConfirm = $request->input("password_confirmation");
@@ -83,12 +85,18 @@ class UserController extends Controller
 		if ($password != $passwordConfirm) {
             return back()->withErrors(['password' => 'Las contraseñas no coinciden']);
 		}
+		
 		/**Check if exist a user with ne same username in the sistem */
-		$username = User::where('username', $request->username)->get();
-	
+		$username = User::where('username', $request->user_name)->get();
 		if(!$username->isEmpty()) {
 			return back()->withErrors(['user_name' => trans('Ya existe un usuario con este nombre de usuario.')]);
 		}
+
+		/**Check if exist a user with ne same email in the sistem
+		$email = User::where('email', $request->email)->get();
+		if(!$email->isEmpty()) {
+			return back()->withErrors(['user_name' => trans('Ya existe un usuario con el correo indicado.')]);
+		} */
 
 		$user->active_flag = 1;
 		$user->branch_id = $request->dropBranch;
@@ -102,10 +110,24 @@ class UserController extends Controller
 		$user->save();
 		$user_type = Auth::user()->user_type_id;
 		
+		DB::commit();//commits to database 
 		if($user_type == 1){//admin user
-			return redirect()->route('admin_accounts.index');
+			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta registrada satisfactoriamente!');;
 			
 		}
+	}catch(\Exception $e) {
+		report($e);//this writes the error at the log
+		DB::rollback();
+		\Session::flash('error', '¡Ha ocurrido un error al insertar la cuenta!' 
+		.' Si este persiste contacte al administrador del sistema');
+		return redirect('create_account_admin');//aquí redirigen a la página deseada después de validar el error
+	}catch(\Throwable $e){//different exception that it´s not contained at \Exception
+		report($e);//this writes the error at the log
+		DB::rollback();
+		\Session::flash('error', '¡Ha ocurrido un error al insertar la cuenta!' 
+		.' Si este persiste contacte al administrador del sistema');
+		return redirect('create_account_admin');//aquí redirigen a la página deseada después de validar el error
+	}
 		
 	}
 
@@ -130,9 +152,13 @@ class UserController extends Controller
 	 */
 	public function edit($id)
 	{
+	
 		$user = $this->model->findOrFail($id);
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.accounts.edit', compact('user'));	
+		}
 		
-		return view('users.edit', compact('user'));
 	}
 
 	/**
@@ -144,13 +170,56 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		$inputs = $request->all();
+		try {
+		DB::beginTransaction();
+		/**Check if exist a user with the same username in the sistem */
+		if ($request->input("user_name") != $request->input("original_username")) {
+			$username = User::where('username', $request->user_name)->get();
+			if(!$username->isEmpty()) {
+				return back()->withErrors(['user_name' => trans('Ya existe un usuario con el nombre de usuario indicado.')]);
+			}
+		}
+		/**Check if exist a user with ne same email in the sistem 
+		if ($request->input("email") != $request->input("original_email")) {
+			$email = User::where('email', $request->email)->get();
+				if(!$email->isEmpty()) {
+			return back()->withErrors(['user_name' => trans('Ya existe un usuario con el correo indicado.')]);
+			}
+		}*/
 
-		$user = $this->model->findOrFail($id);		
-		$user->update($inputs);
+		$user = $this->model->findOrFail($id);
+		$user->branch_id = $request->dropBranch;
+		$user->username = $request->user_name;
+		$user->name = $request->name;
+		$user->lastname = $request->lastname;
+		$user->second_lastname = $request->second_lastname;
+		$user->email = $request->email;
+		$user->password = bcrypt($request->password);
+		$user->user_type_id = $request->dropRol;
+		$user->update();
+		
+		$user_type = Auth::user()->user_type_id;		
+		DB::commit();//commits to database 
+		if($user_type == 1){//admin user
+			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta actualizada satisfactoriamente!');;
+			
+		}
+		
+	}catch(\Exception $e) {
+		report($e);//this writes the error at the log
+		DB::rollback();
+		\Session::flash('error', '¡Ha ocurrido un error al actualizar la cuenta!' 
+		.' Si este persiste contacte al administrador del sistema');
+		return redirect('admin_edit_accounts/'.$id);//aquí redirigen a la página deseada después de validar el error
+	}catch(\Throwable $e){//different exception that it´s not contained at \Exception
+		report($e);//this writes the error at the log
+		DB::rollback();
+		\Session::flash('error', '¡Ha ocurrido un error al actualizar la cuenta!' 
+		.' Si este persiste contacte al administrador del sistema');
+		return redirect('admin_edit_accounts/'.$id);//aquí redirigen a la página deseada después de validar el error
+	}//End Try-Catch
 
-		return redirect()->route('users.index')->with('message', 'Item updated successfully.');
-	}
+	}//End update accound
 
 	/**
 	 * Remove the specified resource from storage.
@@ -171,5 +240,13 @@ class UserController extends Controller
             Flash::message("No hay sucursales para mostrar");
         }
         return json_encode(["branches"=>$branches]);
+	}
+
+	public function ajax_rol(){
+        $user_types=DB::table('user_types')->where('active_flag', '=', 1)->orderBy('name','asc')->get();
+        if ($user_types == null || $user_types->isEmpty()) {
+            Flash::message("No hay puestos para mostrar");
+        }
+        return json_encode(["user_types"=>$user_types]);
 	}
 }
