@@ -11,16 +11,16 @@
 |
 */
 
-    
-    Route::get('/', function () {
-    if(Auth::check()) {
+
+Route::get('/', function () {
+    if (Auth::check()) {
         auth()->logout();
     }
     return view('login');
 });
 
 Route::get('/login', function () {
-    if(Auth::check()) {
+    if (Auth::check()) {
         auth()->logout();
     }
     return view('login');
@@ -28,7 +28,7 @@ Route::get('/login', function () {
 
 
 Route::post('login', 'Auth\LoginController@login');
-    
+
 
 
 Route::get('admin', function () {
@@ -55,6 +55,12 @@ Route::get('editarEstados', function() {
     return view('states/edit');
 });
 Route::get('verEstados', function() {
+
+Route::get('editarEstados', function () {
+    return view('states/edit');
+});
+
+Route::get('verEstados', function () {
     return view('states/show');
 });
 Route::get('crearEstados', 'StateController@create');
@@ -81,18 +87,18 @@ Route::get('/branchDrop', 'UserController@ajax_branch');
 Route::post('createUser', 'UserController@store');
 
 Route::get('admin_accounts_create', function () {
-    return view('admin.accounts.create') ;
+    return view('admin.accounts.create');
 })->name('create_account_admin');
 
 Route::resource('admin_accounts', 'UserController');
 
 Route::get('admin_accounts_create', function () {
-    return view('admin.accounts.create') ;
+    return view('admin.accounts.create');
 })->name('create_account_admin');
 
 
 Route::get('admin_clients_create', function () {
-    return view('admin.clients.create') ;
+    return view('admin.clients.create');
 });
 
 Route::post('createClient', 'ClientController@store');
@@ -120,11 +126,13 @@ Route::get('masterRoot', function () {
 /*         products-------------*/
 
 
-Route::get('productIndex','ProductController@index');
+Route::get('productIndex', 'ProductController@index');
 
-Route::get('productoShow/{id}','ProductController@show');
-Route::get('productoEdit/{id}','ProductController@edit');
-//Route::get('productoEdit/{id}','ProductController@edit');
+Route::get('productoShow/{id}', 'ProductController@show');
+Route::get('productoEdit/{id}', 'ProductController@edit');
+Route::get('productoCrea', 'ProductController@store');
+
+Route::get('productoCreate', 'BranchController@list');
 
 
 Route::get('productIndex2', function () {
