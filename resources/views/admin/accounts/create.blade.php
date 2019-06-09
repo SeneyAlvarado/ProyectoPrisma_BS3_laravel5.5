@@ -18,7 +18,7 @@
                                 <input id="name" placeholder="Nombre" class="form-control" name = "name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo"> 
                             </div>
                             <div class="col-md-4 " style="margin-top:10px;">
-                                <label for="name" ><strong>Primer apellido</strong></label> 
+                                <label for="lastname" ><strong>Primer apellido</strong></label> 
                                 <input id="lastname"placeholder="Primer Apellido" class="form-control" name = "lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>            
                             </div>
                         </div>

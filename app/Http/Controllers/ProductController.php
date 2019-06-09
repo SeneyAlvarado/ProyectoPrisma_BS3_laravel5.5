@@ -55,8 +55,12 @@ class ProductController extends Controller
 	 */
 	public function store(Request $request)
 	{
+      //  $branches=DB::table('branches')->where('name', '=', $request->branch_id)->get();
+
 		$inputs = $request->all();
-		$this->model->create($inputs);
+		//$inputs->$branch_id($branches);
+		$this->model->create($inputs + ['active_flag' =>1]);
+		//$this->model->create($inputs);
 
 		return redirect()->route('products.index')->with('message', 'Item created successfully.');
 	}

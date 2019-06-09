@@ -23,7 +23,7 @@
 
                 <div>
                     <button type="submit" class="btn btn-primary" href="{{ url('estados') }}"> Regresar</a></button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
 
