@@ -113,10 +113,67 @@ class ClientController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$inputs = $request->all();
-		$this->model->create($inputs);
+		
+		try {
+			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+			
 
-		return redirect()->route('clients.index')->with('message', 'Item created successfully.');
+			$inputs = $request->except('lastname', 'second_lastname', 'number', 'email');
+			$client_id = $this->model->create($inputs + ['active_flag' => 1])->id;
+
+	 		$number = $request->number;
+			if(!empty($number)) {
+				$phone = new \App\Phone;
+				$phone->number = $number;
+				$phone->client_id = $client_id;
+				$phone->active_flag = 1;
+				$phone->save();
+			};
+
+			$user_email = $request->email;
+			if(!empty($user_email)) {
+				$email = new \App\Email;
+				$email->email = $user_email;
+				$email->client_id = $client_id;
+				$email->active_flag = 1;
+				$email->save();
+			};
+
+			$type = $request->type;
+			if($request->type == "1"){
+				$physical_client = new \App\Physical_client;
+				$physical_client->lastname = $request->lastname;
+				$physical_client->second_lastname = $request->second_lastname;
+				$physical_client->client_id = $client_id;
+				$physical_client->save();
+			}
+
+			if($request->type == "2"){
+				$juridical_client = new \App\Juridical_client;
+				$juridical_client->client_id = $client_id;
+				$juridical_client->save();
+			}
+
+		DB::commit();//commits to database 
+
+		return redirect()->route('clients.index')->with('success', '¡Cliente registrado satisfactoriamente!');
+		}catch(\Exception $e) {
+			report($e);//this writes the error at the log
+			DB::rollback();
+            \Session::flash('error', '¡Ha ocurrido un error al insertar el cliente!' 
+            .' Si este persiste contacte al administrador del sistema');
+			return redirect('admin_clients_create');//aquí redirigen a la página deseada después de validar el error
+			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
+		}catch(\Throwable $e){//different exception that it´s not contained at \Exception
+			report($e);//this writes the error at the log
+			DB::rollback();
+            \Session::flash('error', '¡Ha ocurrido un error al insertar el clientes :C!' 
+            .' Si este persiste contacte al administrador del sistema');
+			return redirect('admin_clients_create');//aquí redirigen a la página deseada después de validar el error
+			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
+		}
+		
 	}
 
 	/**

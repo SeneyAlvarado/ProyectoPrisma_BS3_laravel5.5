@@ -102,12 +102,6 @@ class Handler extends ExceptionHandler
             acceder no existe o no es accesible en este momento!');
             return back();
         
-        }elseif($exception instanceof \Symfony\Component\Debug\Exception\FatalThrowableError) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
-            \Session::flash('error', '¡Ha ocurrido un error inesperado!');
-            return back();
         }elseif($exception instanceof \Illuminate\Auth\AuthenticationException) {
             \Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
@@ -161,14 +155,12 @@ class Handler extends ExceptionHandler
             \Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
             return redirect()->back();
-
-
-
-
-
-
-
-
+        }elseif($exception instanceof \Throwable) {
+            \Session::flash('message_type', 'negative');
+			\Session::flash('message_icon', 'hide');
+			\Session::flash('message_header', 'Success');
+            \Session::flash('error', '¡Ha ocurrido un error inesperado!');
+            return back();
         }elseif($exception instanceof \Exception) {//this should be the LAST one, gets any Exception
             \Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
