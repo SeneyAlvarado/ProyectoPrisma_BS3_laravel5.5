@@ -132,5 +132,10 @@ Route::get('productIndex2', function () {
     return view('products.index');
 });
 Route::resource('products', 'ProductController');
+
+
+Route::get('prueba4', function () {
+    return view('masterPrueba4');
+});
 /*------------Products----- */
 /*------------------------------------------ */
