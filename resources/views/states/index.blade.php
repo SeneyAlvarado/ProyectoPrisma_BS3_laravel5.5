@@ -28,15 +28,14 @@
                                 <td>{{$state->name}}</td> <td>{{$state->description}}</td> <td>{{$state->active_flag}}</td>
                                 
                                 <td class="text-right">
-                                    <!--a class="btn btn-xs btn-primary" href="{{ route('states.show', $state->id) }}"-->
+                                    <a class="btn btn-xs btn-primary" href="{{ url('verEstados', $state->id) }}">
                                         <i class="glyphicon glyphicon-eye-open"></i> Detalles
                                     </a>
                                     
-                                    <!--a class="btn btn-xs btn-warning" href="{{ route('states.edit', $state->id) }}"-->
+                                    <a class="btn btn-xs btn-warning" href="{{ url('editarEstados', $state->id) }}">
                                         <i class="glyphicon glyphicon-edit"></i> Editar
                                     </a>
-
-                                    <!--form action="{{ route('states.destroy', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');"-->
+                                    <form action="{{ url ('eliminarEstados', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE">
 

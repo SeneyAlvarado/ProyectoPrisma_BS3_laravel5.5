@@ -51,17 +51,18 @@ Route::get('print', function () {
 
 /*------------Admin states routes------------*/
 Route::get('estados', 'StateController@index');
-
 Route::get('editarEstados', function() {
     return view('states/edit');
 });
-
 Route::get('verEstados', function() {
     return view('states/show');
 });
-
 Route::get('crearEstados', 'StateController@create');
-Route::get('guardarEstado', 'StateController@store');
+Route::get('verEstados', 'StateController@show');
+Route::post('editarEstados/{id}', 'StateController@edit');
+Route::get('actualizarEstados/{id}', 'StateController@update');
+Route::delete('eliminarEstados/{id}', 'StateController@destroy');
+Route::post('guardarEstado', 'StateController@store');
 /*-------------------------------------------*/
 
 Route::get('admin_clients_index', 'ClientController@index');
