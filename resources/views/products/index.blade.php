@@ -62,13 +62,13 @@
                                     <td class="text-right">
                                         <!-- <a class="btn btn-warning style-btn-edit" href="{{ url('productoShow', $product->id) }}"> -->
                                         <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
-                                            <a class="btn btn-xs btn-primary" href="#">
+                                            <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
                                                 <i class="glyphicon glyphicon-eye-open"></i> View
                                             </a>
 
                                             <a class="btn btn-xs btn-warning" href="{{ url('productoEdit', $product->id) }}">
                                                 <!-- <a class="btn btn-warning style-btn-edit" href="{{ url('productoEdit', $product->id) }}"> -->
-                                                <a class="btn btn-xs btn-warning" href="#">
+                                                <a class="btn btn-xs btn-warning" href="{{ url('productoEdit', $product->id) }}">
                                                     <i class="glyphicon glyphicon-edit"></i> Edit
                                                 </a>
 

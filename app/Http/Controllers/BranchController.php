@@ -65,6 +65,7 @@ class BranchController extends Controller
 	 */
 	public function store(Request $request)
 	{
+
 		$inputs = $request->all();
 		$this->model->create($inputs);
 

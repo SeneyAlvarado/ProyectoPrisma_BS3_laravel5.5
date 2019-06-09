@@ -37,32 +37,28 @@
                             <input id="name" placeholder="Nombre" class="form-control" name="name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo">
                         </div>
                         <div class="col-md-4 " style="margin-top:10px;">
-                            <label for="descripcion"><strong>Descripcion</strong></label>
-                            <input id="descripcion" placeholder="Descripci[on" class="form-control" name="lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>
+                            <label for="description"><strong>Descripcion</strong></label>
+                            <input id="description" placeholder="Descripci[on" class="form-control" name="description" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>
                         </div>
                     </div>
                     <div class="col-md-4 " style="margin-top:10px;">
-                        <label for="active"><strong>Active Flag</strong></label>
+                        <label for="active_flag"><strong>Active Flag</strong></label>
                         <br>
-                        <input type="radio" name="flag" value="active"> Activo<br>
-                        <input type="radio" name="flag" value="inactive"> Desactivado<br>
+                        <input type="radio" name="active_flag" value="1"> Activo<br>
+                        <input type="radio" name="flactive_flagag" value="0"> Desactivado<br>
                     </div>
                     <div class="col-md-4 " style="margin-top:10px;">
                         <label for="branch"><strong>Branch</strong></label>
                         <br>
 
-                        <select>
+                        <select class="form-control" name="branch_id" id="branch_id">
                             @if($branches->count())
 
                             @foreach($branches as $branch)
                             <?php
                             $names = $branch->name;
                             ?>
-                            <option value="{{$branch->name}}">{{$names}}</option>
-                            <!-- option value="volvo">Volvo</option -->
-                            <!-- option value="saab">Saab</option -->
-                            <!-- option value="opel">Opel</option -->
-                            <!-- option value="audi">Audi</option -->
+                            <option value="{{$branch->id}}">{{$names}}</option>
                             @endforeach
                             @endif
                         </select>
