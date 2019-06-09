@@ -92,6 +92,8 @@ Route::get('admin_clients_create', function () {
     return view('admin.clients.create') ;
 });
 
+Route::post('createClient', 'ClientController@store');
+
 Route::get('/branchDrop', 'UserController@ajax_branch');
 
 

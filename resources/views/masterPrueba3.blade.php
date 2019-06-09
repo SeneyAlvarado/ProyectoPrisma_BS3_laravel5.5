@@ -59,17 +59,31 @@
 <div id="main" class="page-content-wrapper" style="position: absolute;">
 <div class="container-fluid">
                 <div class="row">
-                    
+                  @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible" style="text-align: center;" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{@session('error')}}
+                    </div>
+                  @endif
+                  @if(session('success'))
+                    <div class="alert alert-success alert-dismissible" style="text-align: center;" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{@session('success')}}
+                    </div>
+                  @endif
+                  @if(session('info'))
+                    <div class="alert alert-info alert-dismissible" style="text-align: center;" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{@session('info')}}
+                    </div>
+                  @endif
     @yield('contenido_Admin')	
-            @if(session('error'))
-            <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-            </button>
-            {{@session('error')}}
-            </div>
-            @endif
-        
         </div>
         </div>
 </div>

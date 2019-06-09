@@ -26,6 +26,7 @@
                             <label for="name" ><strong>Segundo apellido</strong></label> 
                             <input id="second_lastname" placeholder="Segundo Apellido" class="form-control" name = "second_lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>    
                         </div>
+                    </div>
                         <div class="col-md-8 col-md-offset-2">
                         @if ($errors->has('password'))
                                     <span class="help-block">
