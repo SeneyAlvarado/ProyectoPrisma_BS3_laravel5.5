@@ -61,7 +61,7 @@ class StateController extends Controller
 		$state->active_flag = 1;
 		$state->save();
 
-		return view('states/index', compact('states'))->with('message', 'El estado se guardó correctamente');
+		return redirect('estados')->with('message', 'El estado se guardó correctamente');
 	}
 
 	/**

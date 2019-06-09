@@ -54,7 +54,6 @@ Route::get('estados', 'StateController@index');
 Route::get('editarEstados', function() {
     return view('states/edit');
 });
-Route::get('verEstados', function() {
 
 Route::get('editarEstados', function () {
     return view('states/edit');
@@ -65,10 +64,14 @@ Route::get('verEstados', function () {
 });
 Route::get('crearEstados', 'StateController@create');
 Route::get('verEstados', 'StateController@show');
-Route::post('editarEstados/{id}', 'StateController@edit');
-Route::get('actualizarEstados/{id}', 'StateController@update');
+Route::get('editarEstados/{id}', 'StateController@edit');
+Route::put('actualizarEstados/{id}', 'StateController@update');
 Route::delete('eliminarEstados/{id}', 'StateController@destroy');
 Route::post('guardarEstado', 'StateController@store');
+/*-------------------------------------------*/
+
+/*------------Admin works routes------------*/
+
 /*-------------------------------------------*/
 
 Route::get('admin_clients_index', 'ClientController@index');

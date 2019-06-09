@@ -27,13 +27,9 @@
 
                                 <td>{{$state->name}}</td> <td>{{$state->description}}</td> <td>{{$state->active_flag}}</td>
                                 
-                                <td class="text-right">
-                                    <a class="btn btn-xs btn-primary" href="{{ url('verEstados', $state->id) }}">
-                                        <i class="glyphicon glyphicon-eye-open"></i> Detalles
-                                    </a>
-                                    
+                                <td class="text-right">                                   
                                     <a class="btn btn-xs btn-warning" href="{{ url('editarEstados', $state->id) }}">
-                                        <i class="glyphicon glyphicon-edit"></i> Editar
+                                        <i class="glyphicon glyphicon-edit"></i> Detalles
                                     </a>
                                     <form action="{{ url ('eliminarEstados', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
                                         {{csrf_field()}}
