@@ -1,6 +1,7 @@
 @extends('masterPrueba3')
 @section('contenido_Admin')
 <script src="{{asset('js/load_branches_admin.js')}}"></script>
+<div style="padding:10px;">
 <div class="panel panel-primary border-panel">
     <div class="panel-heading  border-header bg-color-panel" >
        <p class="title-panel" style="font-size:20px;">Crear cuentas</p>
@@ -84,6 +85,7 @@
             </div>
         </section>
     </div>
+</div>
 </div>
 </div>
 

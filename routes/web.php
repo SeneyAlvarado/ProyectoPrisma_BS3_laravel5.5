@@ -83,6 +83,8 @@ Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create') ;
 })->name('create_account_admin');
 
+Route::resource('admin_accounts', 'UserController');
+
 Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create') ;
 })->name('create_account_admin');

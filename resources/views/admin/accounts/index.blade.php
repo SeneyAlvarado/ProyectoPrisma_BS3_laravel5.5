@@ -3,23 +3,20 @@
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<div style="padding:10px;">
+
 <div class="panel panel-primary border-panel">
     <div class="panel-heading  border-header bg-color-panel" >
        <p class="title-panel" style="font-size:20px;">Cuentas</p>
    </div>
    <div class="panel-body">
-       <section class="">
-       <div class="content-c w3-container mobile">
+   <div class="content-c w3-container mobile">
            <div> 
-           <a  class="btn btn-success style-btn-registry" href="{{ route('create_account_admin') }} " style="margin-left: 15px; ">Registrar </a>
+           <a  class="btn btn-success style-btn-registry" href="{{ route('create_account_admin') }} " style="margin-bottom: 10px; ">Registrar </a>
            
        </div>
-   </div>
-
-   <div class="panel-heading">
-       <div class="">
-       <div class="">
-           @if($users->count())
+   @if($users->count())
            <div class="table-responsive">
                <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
                
@@ -74,13 +71,8 @@
            @else
                <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
            @endif
-
-       </div>
-       </div>
-   </div> 
-   </div> 
-   </section>
-   </div>
+    </div>
+</div>
 </div>
    <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 @endsection
