@@ -38,6 +38,16 @@ class BranchController extends Controller
 	}
 
 	/**
+	 * This method return the list of all branches
+	 * that must be show in combo box.
+	 * 
+	 */
+	public function list()
+	{
+		$branches = $this->model->paginate();
+		return view('products.create', compact('branches'));
+	}
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -70,7 +80,7 @@ class BranchController extends Controller
 	public function show($id)
 	{
 		$branch = $this->model->findOrFail($id);
-		
+
 		return view('branches.show', compact('branch'));
 	}
 
@@ -83,7 +93,7 @@ class BranchController extends Controller
 	public function edit($id)
 	{
 		$branch = $this->model->findOrFail($id);
-		
+
 		return view('branches.edit', compact('branch'));
 	}
 
@@ -98,7 +108,7 @@ class BranchController extends Controller
 	{
 		$inputs = $request->all();
 
-		$branch = $this->model->findOrFail($id);		
+		$branch = $this->model->findOrFail($id);
 		$branch->update($inputs);
 
 		return redirect()->route('branches.index')->with('message', 'Item updated successfully.');
