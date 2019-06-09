@@ -52,9 +52,7 @@ body {
   }
   
   #main {
-      margin-top:0px;
-    transition: margin-left .5s;
-    padding: 10px;
+    transition: margin-left .5s;    
   }
   
   /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -124,3 +122,38 @@ body {
 }
 
 
+.main-footer {
+  -webkit-transition: -webkit-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -o-transition: -o-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  margin-left: 0px;
+}
+
+@media (max-width: 767px) {
+  .main-footer {
+    margin-left: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .right-side,
+  .sidebar-open .main-footer {
+    -webkit-transform: translate(230px, 0);
+    -ms-transform: translate(230px, 0);
+    -o-transform: translate(230px, 0);
+    transform: translate(230px, 0);
+  }
+}
+
+
+
+.main-footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0 !important;
+
+  background-color: #DEDEE3;
+  border-top: 1px solid #d2d6de;
+}
