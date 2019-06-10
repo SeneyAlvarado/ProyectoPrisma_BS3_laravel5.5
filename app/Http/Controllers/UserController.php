@@ -179,13 +179,13 @@ class UserController extends Controller
 				return back()->withErrors(['user_name' => trans('Ya existe un usuario con el nombre de usuario indicado.')]);
 			}
 		}
-		/**Check if exist a user with ne same email in the sistem 
+		//Check if exist a user with ne same email in the sistem 
 		if ($request->input("email") != $request->input("original_email")) {
 			$email = User::where('email', $request->email)->get();
 				if(!$email->isEmpty()) {
 			return back()->withErrors(['user_name' => trans('Ya existe un usuario con el correo indicado.')]);
 			}
-		}*/
+		}
 
 		$user = $this->model->findOrFail($id);
 		$user->branch_id = $request->dropBranch;
@@ -194,7 +194,6 @@ class UserController extends Controller
 		$user->lastname = $request->lastname;
 		$user->second_lastname = $request->second_lastname;
 		$user->email = $request->email;
-		$user->password = bcrypt($request->password);
 		$user->user_type_id = $request->dropRol;
 		$user->update();
 		
@@ -229,9 +228,28 @@ class UserController extends Controller
 	 */
 	public function destroy($id)
 	{
-		$this->model->destroy($id);
+		$user = $this->model->findOrFail($id);
+		$user->active_flag = 0;
+		$user->save();
+		
+		$user_type = Auth::user()->user_type_id;		
+		if($user_type == 1){//admin user
+			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta desactivada satisfactoriamente!');;
+			
+		}
+	}
 
-		return redirect()->route('users.index')->with('message', 'Item deleted successfully.');
+	public function activate($id)
+	{
+		$user = $this->model->findOrFail($id);
+		$user->active_flag = 1;
+		$user->save();
+		
+		$user_type = Auth::user()->user_type_id;		
+		if($user_type == 1){//admin user
+			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta activada satisfactoriamente!');;
+			
+		}
 	}
 
 	public function ajax_branch(){

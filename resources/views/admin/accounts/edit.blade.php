@@ -12,7 +12,7 @@ rol({{$user->user_type_id}})
        </div>
        <div class="panel-body">
            <section class="">
-           <form method = 'POST' action='{{ url("admin_update_accounts", $user->id) }}'>
+           <form method = 'POST' action='{{ route("admin_update_accounts", $user->id) }}'>
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                         <input type="hidden" name="_method" value="PUT">
                         <div>
@@ -71,7 +71,7 @@ rol({{$user->user_type_id}})
                             <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
                         </div>
                         <div class="col-md-4" style="margin-top:20px; ">  
-                            <a  class="btn btn btn-block btn-info">Regresar</a>
+                            <a class="btn btn btn-block btn-info" href="{{ route('admin_accounts_index') }}">Regresar</a>
                         </div>         
                     </form>
            </section>

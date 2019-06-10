@@ -74,7 +74,7 @@
                                 <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
                             </div>
                             <div class="col-md-4" style="margin-top:20px; ">  
-                                <a  class="btn btn btn-block btn-info">Regresar</a>
+                                <a  class="btn btn btn-block btn-info" href="{{ route('admin_accounts_index') }}">Regresar</a>
                              </div>   
                             
                         <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->

@@ -83,11 +83,11 @@ Route::get('prueba3', function () {
 });
 
 /**Routes for admin account */
-Route::get('admin_accounts_index', 'UserController@index');/**View the accounts list*/
+Route::get('admin_accounts_index', 'UserController@index')->name('admin_accounts_index');/**View the accounts list*/
 
 Route::get('/branchDrop', 'UserController@ajax_branch');/**Fill the select item with the branches*/
 
-Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the branches*/
+Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the roles*/
 
 Route::post('createUser', 'UserController@store');
 
@@ -99,10 +99,13 @@ Route::get('admin_accounts_edit', function () {
     return view('admin.accounts.edit') ;
 })->name('admin_accounts_edit');
 
-Route::get('admin_edit_accounts/{id}', 'UserController@edit');
-Route::put('admin_update_accounts/{id}', 'UserController@update');
+Route::get('admin_edit_accounts/{id}', 'UserController@edit')->name('admin_edit_accounts');
+Route::put('admin_update_accounts/{id}', 'UserController@update')->name('admin_update_accounts');
+Route::delete('admin_desactivate_accounts/{id}', 'UserController@destroy')->name('admin_desactivate_accounts');
+Route::delete('admin_activate_accounts/{id}', 'UserController@activate')->name('admin_activate_accounts');
 
 Route::resource('admin_accounts', 'UserController');
+/**End admin routes */
 
 Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create');
