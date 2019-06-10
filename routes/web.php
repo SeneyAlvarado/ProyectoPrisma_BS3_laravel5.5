@@ -83,9 +83,17 @@ Route::post('guardarVisita', 'VisitController@store');
 Route::get('editarVisita/{id}', 'VisitController@edit');
 Route::delete('eliminarVisita/{id}', 'VisitController@destroy');
 /*-------------------------------------------*/
-Route::get('admin_clients_index', 'ClientController@index');
 
-Route::resource('clients', 'ClientController');
+/* clients */
+Route::get('clients', 'ClientController@index')->name('clients');
+Route::get('clients.create', 'ClientController@create')->name('clients.create');
+Route::get('clients.store', 'ClientController@store')->name('clients.store');
+Route::get('clients.edit/{id}', 'ClientController@edit')->name('clients.edit');
+Route::get('clients.update/{id}', 'ClientController@store')->name('clients.update');
+Route::delete('clients.deactivate/{id}', 'ClientController@destroy')->name('clients.deactivate');
+Route::delete('clients.activate/{id}', 'ClientController@activate')->name('clients.activate');
+
+/* end of clients routes */
 
 Route::get('prueba3', function () {
     return view('masterPrueba3');
@@ -120,12 +128,6 @@ Route::get('admin_accounts_create', function () {
     return view('admin.accounts.create');
 })->name('create_account_admin');
 
-
-Route::get('admin_clients_create', function () {
-    return view('admin.clients.create');
-});
-
-Route::post('createClient', 'ClientController@store');
 
 Route::get('/branchDrop', 'UserController@ajax_branch');
 
