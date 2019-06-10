@@ -157,3 +157,7 @@ body {
   background-color: #DEDEE3;
   border-top: 1px solid #d2d6de;
 }
+
+.btn-size {
+  width:90px;
+}

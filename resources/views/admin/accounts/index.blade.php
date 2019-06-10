@@ -46,18 +46,18 @@
                                @endif
                                <td class="text-center">
                               
-                                    <a class="btn btn-warning style-btn-edit" href=""><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a class="btn btn-warning style-btn-edit btn-size" href="{{ route('admin_edit_accounts', $user->id) }}">Editar</a>
                                    @if($user->active_flag == 1)
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el cliente {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">
+                                   <form style="display:inline" action="{{ route('admin_desactivate_accounts', $user->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar la cuenta de {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn  style-btn-delete btn-danger"><span class="glyphicon glyphicon-ban-circle"></span></button>
+                                       <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Desactivar</button>
                                    </form>
                                    @else
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar el cliente {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">
+                                   <form style="display:inline" action="{{ route('admin_activate_accounts', $user->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar la cuenta de {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn  btn-primary">&nbsp&nbsp&nbspActivar&nbsp&nbsp&nbsp</button>
+                                       <button type="submit"  class="btn btn-primary style-btn-registry btn-size">Activar</button>
                                    </form>
                                    @endif
                                  

@@ -29,9 +29,9 @@
                         </div>
                     </div>
                         <div class="col-md-8 col-md-offset-2">
-                        @if ($errors->has('password'))
+                        @if ($errors->has('user_name'))
                                     <span class="help-block">
-                                        <strong style="color:red;">{{ $errors->first('password') }}</strong>
+                                        <strong style="color:red;">{{ $errors->first('user_name') }}</strong>
                                     </span>
                                 @endif
                         </div>
@@ -48,15 +48,8 @@
                             <select id="dropBranch" name="dropBranch" class="form-control"></select>
                         </div>
                         <div class="col-md-4" style="margin-top:10px;">
-                            <label for="name" ><strong>Puesto</strong></label> 
+                            <label for="rol" ><strong>Puesto</strong></label> 
                             <select class="form-control" name="dropRol" id="dropRol">
-                                <option value="" disabled selected>Seleccione un puesto</option>
-                                <option value="1">Administrador</option>
-                                <option value="2">Diseñador</option>
-                                <option value="3">Jefatura de diseño</option>
-                                <option value="4">Recepcionista</option>
-                                <option value="5">Impresión</option>
-                                <option value="6">Post-Producción</option>
                             </select>
                         </div>
                         <div class="col-md-8 col-md-offset-2">
@@ -77,10 +70,13 @@
                                 <input placeholder="Confirmar contraseña" id="password_confirmation" type="password" class="form-control" name="password_confirmation" required minlength="1">
                             </div>
                             <br>
-                            <div class="col-md-8 col-md-offset-2" style="margin-top:20px;">
-                                <button class = 'btn btn-success' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
-                                <a  class="btn btn btn-success">Regresar</a>
-                            </div>  
+                            <div class="col-md-4 col-md-offset-2" style="margin-top:20px;  ">
+                                <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
+                            </div>
+                            <div class="col-md-4" style="margin-top:20px; ">  
+                                <a  class="btn btn btn-block btn-info" href="{{ route('admin_accounts_index') }}">Regresar</a>
+                             </div>   
+                            
                         <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->
                     </form>
             </div>
