@@ -55,10 +55,13 @@ class StateController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$inputs = $request->all();
-		$this->model->create($inputs);
+		$state = new State();
+		$state->name=$request->name;
+		$state->description=$request->description;
+		$state->active_flag = 1;
+		$state->save();
 
-		return redirect()->route('states/index')->with('message', 'El estado se guardó correctamente');
+		return redirect('estados')->with('message', 'El estado se guardó correctamente');
 	}
 
 	/**
@@ -71,7 +74,7 @@ class StateController extends Controller
 	{
 		$state = $this->model->findOrFail($id);
 		
-		return view('states.show', compact('state'));
+		return view('states/index', compact('states'));
 	}
 
 	/**
@@ -84,7 +87,7 @@ class StateController extends Controller
 	{
 		$state = $this->model->findOrFail($id);
 		
-		return view('states.edit', compact('state'));
+		return view('states/edit', compact('state'));
 	}
 
 	/**
@@ -101,7 +104,7 @@ class StateController extends Controller
 		$state = $this->model->findOrFail($id);		
 		$state->update($inputs);
 
-		return redirect()->route('states.index')->with('message', 'Los cambios se guardaron exitosamente');
+		return redirect('estados')->with('message', 'Los cambios se guardaron exitosamente');
 	}
 
 	/**
@@ -114,6 +117,6 @@ class StateController extends Controller
 	{
 		$this->model->destroy($id);
 
-		return redirect()->route('states.index')->with('message', 'El estado se eliminó correctamente.');
+		return redirect('estados')->with('message', 'El estado se eliminó correctamente.');
 	}
 }

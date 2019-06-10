@@ -34,7 +34,7 @@ class OrderController extends Controller
 	{
 		$orders = $this->model->paginate();
 
-		return view('orders.index', compact('orders'));
+		return view('orders/index', compact('orders'));
 	}
 
 	/**

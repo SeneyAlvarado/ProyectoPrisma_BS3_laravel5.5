@@ -102,6 +102,10 @@ class ClientController extends Controller
 	 */
 	public function create()
 	{
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.clients.create');
+		}
 		return view('clients.create');
 	}
 
@@ -157,20 +161,20 @@ class ClientController extends Controller
 
 		DB::commit();//commits to database 
 
-		return redirect()->route('clients.index')->with('success', '¡Cliente registrado satisfactoriamente!');
+		return redirect('clients')->with('success', '¡Cliente registrado satisfactoriamente!');
 		}catch(\Exception $e) {
 			report($e);//this writes the error at the log
 			DB::rollback();
             \Session::flash('error', '¡Ha ocurrido un error al insertar el cliente!' 
             .' Si este persiste contacte al administrador del sistema');
-			return redirect('admin_clients_create');//aquí redirigen a la página deseada después de validar el error
+			return redirect('clients.create');//aquí redirigen a la página deseada después de validar el error
 			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
 		}catch(\Throwable $e){//different exception that it´s not contained at \Exception
 			report($e);//this writes the error at the log
 			DB::rollback();
-            \Session::flash('error', '¡Ha ocurrido un error al insertar el clientes :C!' 
-            .' Si este persiste contacte al administrador del sistema');
-			return redirect('admin_clients_create');//aquí redirigen a la página deseada después de validar el error
+            \Session::flash('error', '¡Ha ocurrido un error al insertar el cliente!' 
+            .' Si este persiste contacte al administrador del sistema.');
+			return redirect('clients.create');//aquí redirigen a la página deseada después de validar el error
 			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
 		}
 		
@@ -197,8 +201,30 @@ class ClientController extends Controller
 	 */
 	public function edit($id)
 	{
-		$client = $this->model->findOrFail($id);
-		
+
+		//try y catch faltan
+		\Session::put('errorOrigin', " mostrando los clientes");	
+
+			$client = $this->model->findOrFail($id);
+				
+				if($client->type == 1) {//physical client, fill model attributes
+					$phisClient = Physical_client::where('client_id', $client->id)->first();
+					$client->lastname = $phisClient->lastname;
+					$client->second_lastname = $phisClient->second_lastname;	
+					$client->client_table_id = $phisClient->client_id;	
+				}
+
+				if($client->type == 2) {//juridical client, fill model attributes
+					$jurClient = Juridical_client::where('client_id', $client->id)->first();
+					$client->client_table_id = $jurClient->client_id;	
+				}
+				$client->phones = $client->phones()->where('active_flag', 1)->get();
+				$client->emails = $client->emails()->where('active_flag', 1)->get();
+			
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.clients.edit', compact('client'));
+		}
 		return view('clients.edit', compact('client'));
 	}
 

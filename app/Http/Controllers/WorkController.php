@@ -34,7 +34,7 @@ class WorkController extends Controller
 	{
 		$works = $this->model->paginate();
 
-		return view('works.index', compact('works'));
+		return view('works/index', compact('works'));
 	}
 
 	/**

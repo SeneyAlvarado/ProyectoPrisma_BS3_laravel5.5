@@ -45,11 +45,11 @@
 
     <a class="border font-color">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 
-    <a class="border font-color" href="{{ url('admin_clients_index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
+	<a class="border font-color" href="{{ route('clients') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 
     <a class="border font-color" href="{{ url('estados') }}">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 
-    <a class="border font-color">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
+	<a class="border font-color" href="{{ url('visitas') }}">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
 
     <a class="border font-color" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>
 
@@ -57,19 +57,39 @@
     <a class="border font-color" href="{{ url('/logout') }}">Salir<span class="glyphicon glyphicon-log-out right-aling-glyphicon-logout"></a>
     <br>
     <br>
+	
+    <div class="logo_prisma_sidebar"><img src="{{asset('Imagenes/prisma_logo.png')}}"style="width:120px; height:120px;"></div>  			
+</div>
 
-    <div class="logo_prisma_sidebar"><img src="{{asset('Imagenes/prisma_logo.png')}}" style="width:120px; height:120px;"></div>
-  </div>
-
-  <div id="main" class="page-content-wrapper" style="position: absolute;">
-    <div class="container-fluid">
-      <div class="row">
-        @if(session('error'))
-        <div class="alert alert-danger alert-dismissible" style="text-align: center;" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{@session('error')}}
+<div id="main" class="page-content-wrapper" style="position: absolute;">
+<div class="container-fluid">
+                <div class="row">
+                  @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible" style="text-align: center; padding:20px;" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{@session('error')}}
+                    </div>
+                  @endif
+                  @if(session('success'))
+                    <div class="alert alert-success alert-dismissible" style="text-align: center; margin-top:10px; 
+                    margin-left:10px; margin-right:10px;" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{@session('success')}}
+                    </div>
+                  @endif
+                  @if(session('info'))
+                    <div class="alert alert-info alert-dismissible" style="text-align: center;" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{@session('info')}}
+                    </div>
+                  @endif
+    @yield('contenido_Admin')	
         </div>
         @endif
         @if(session('success'))

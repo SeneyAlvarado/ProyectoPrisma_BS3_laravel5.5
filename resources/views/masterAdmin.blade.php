@@ -52,13 +52,13 @@
 		      			<a class="border font-color" href="{{ url('productIndex')}}">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 		    		</li>
 					<li>
-		      			<a class="border font-color" href="{{ url('admin_clients_index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
+		      			<a class="border font-color" href="{{ url('clients') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 		    		</li>
 		    		<li>
 		      			<a class="border font-color" href="{{ url('estados') }}">Estados<span class="glyphicon glyphicon glyphicon-tags right-aling-glyphicon-estados"></a>
 		    		</li>
 		    		<li>
-		      			<a class="border font-color">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
+		      			<a class="border font-color" href="{{ url('visitas') }}">Visitas<span class="glyphicon glyphicon-home right-aling-glyphicon-visitas"></a>
 		    		</li>
 					<li>
 						<a class="border font-color" href="{{ url('contrasennaAdmin') }}">Contraseña<span class="glyphicon glyphicon-lock right-aling-glyphicon-contrasenna"></a>

@@ -13,7 +13,7 @@
        <section class="">
        <div class="content-c w3-container mobile">
            <div> 
-           <a  class="btn btn-success style-btn-registry"  href="{{ url('admin_clients_create') }} "
+           <a  class="btn btn-success style-btn-registry"  href="{{ route('clients.create') }} "
             style="margin-left: 15px; ">Registrar </a>
            
        </div>
@@ -78,28 +78,21 @@
                                <td class="text-center">Desactivo</td>
                                @endif
                                <td class="text-center">
-                               <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" style="background-color:#ABABAB !important; border:0px;" type="button" data-toggle="dropdown">
-                                    <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" style="text-align:center;">
-                                    <a class="btn btn-warning style-btn-edit" href="">Editar</a>
-                                   @if($client->active_flag == 1)
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el cliente {{$client->name}} {{$client->lastname}} {{$client->second_lastname}}?');">
-                                       {{csrf_field()}}
-                                       <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn  style-btn-delete btn-danger">Desactivar</button>
-                                   </form>
-                                   @else
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar el cliente {{$client->name}} {{$client->lastname}} {{$client->second_lastname}}?');">
-                                       {{csrf_field()}}
-                                       <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn  btn-primary">&nbsp&nbsp&nbspActivar&nbsp&nbsp&nbsp</button>
-                                   </form>
-                                   @endif
-                                    </ul>
-                                    
-                                </div>
-                               </td>
+                                <a class="btn btn-warning style-btn-edit btn-size"  href="{{ route('clients.edit', [$client->id]) }}">Detalles</a>
+                                @if($client->active_flag == 1)
+                               <form style="display:inline" action="{{ route('clients.deactivate', $client->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea desactivar la cuenta de {{$clientName}}?');">
+                                   {{csrf_field()}}
+                                   <input type="hidden" name="_method" value="DELETE">
+                                   <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Desactivar</button>
+                               </form>
+                               @else
+                               <form style="display:inline" action="{{ route('clients.activate', $client->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea activar la cuenta de {{$clientName}}?');">
+                                   {{csrf_field()}}
+                                   <input type="hidden" name="_method" value="DELETE">
+                                   <button type="submit"  class="btn btn-primary style-btn-registry btn-size">Activar</button>
+                               </form>
+                               @endif
+                           </td>
                            </tr>
                        @endforeach
                    </tbody>

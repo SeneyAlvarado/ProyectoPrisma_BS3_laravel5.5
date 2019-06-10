@@ -2,6 +2,7 @@
 @section('contenido_Admin')
 <script src="{{asset('js/createClientsRadio.js')}}"></script>
 <script src="{{asset('js/requiredFields.js')}}"></script>
+<script src="{{asset('js/patternFields.js')}}"></script>
 
 <div class="panel panel-primary border-panel">
         <div class="panel-heading  border-header bg-color-panel" >
@@ -20,7 +21,6 @@
                                                 <label for="type" style="margin-left: 8%"><strong>Tipo de cliente</strong></label>  <br>
                                                 <input type="radio" style="margin-left: 10%; transform: scale(1.3);"  name="type" value="1"> &nbsp;&nbsp; Físico  <br>
                                                 <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="type" value="2">&nbsp;&nbsp; Jurídico <br><br>
-                                                
                                             </div>                                      
                                     </div>
                                             
@@ -28,8 +28,7 @@
                                         <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                                             <label for="identification" ><strong>Cédula</strong><strong style="font-size: 15px"> </strong></label> 
                                                                     <!-- the strong whitespace is used to align it with the * required field -->
-                                            <input id="identification" placeholder="Cédula" class="form-control" name = "identification" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ0123456789 \s]{2,25}" 
-                                            title="Por favor siga un formato de cédula correcto" oninvalid="this.setCustomValidity('Por favor digite una cédula válida')">    
+                                            <input id="identification" placeholder="Cédula" class="form-control" name = "identification" type="text">    
                                         </div>
                                         <div class="col-md-4 " style="margin-top:10px;">
                                             <label class="" for="name" ><strong style="margin-top: 75px">Nombre</strong><strong style="color:red; font-size: 15px">*</strong></label> 

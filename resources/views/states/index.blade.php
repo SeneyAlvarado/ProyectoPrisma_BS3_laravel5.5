@@ -1,52 +1,62 @@
-@extends('masterAdmin')
+@extends('masterPrueba3')
 
 @section('contenido_Admin')
-<div class="page-header clearfix">
-    <h1>
-        Estados
-        <a class="btn btn-success pull-right" href="{{ url('crearEstados') }}">
-            <i class="glyphicon glyphicon-plus"></i> Crear</a>
-    </h1>
-</div>
-    <div class="row">
-        <div class="col-md-12">
-            @if($states->count())
-                <table class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Nombre</th> <th>Descripcion</th> <th>Estado</th>
-                            <th class="text-right">Opciones</th>
-                        </tr>
-                    </thead>
+<script src="{{asset('js/lenguajeTabla.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-                    <tbody>
-                        @foreach($states as $state)
+
+<div style="padding:10px;">
+
+    <div class="panel panel-primary border-panel">
+        <div class="panel-heading  border-header bg-color-panel" >
+            <p class="title-panel" style="font-size:20px;">Estados</p>
+        </div>
+        <div class="panel-body">
+            <div class="content-c w3-container mobile">
+                <div> 
+                    <a  class="btn btn-success style-btn-registry" href="{{ url('crearEstados') }}" style="margin-bottom: 10px; ">Crear Estado </a>
+                                   
+                </div>
+                @if($states->count())
+                <div class="table-responsive">
+                    <table class="table table-condensed table-striped">
+                        <thead>
                             <tr>
-                                <td class="text-center"><strong>{{$state->id}}</strong></td>
+                                <th class="text-center">Nombre</th> 
+                                <th class="text-center">Descripcion</th> 
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Opciones</th>
+                            </tr>
+                        </thead>
 
-                                <td>{{$state->name}}</td> <td>{{$state->description}}</td> <td>{{$state->active_flag}}</td>
-                                
-                                <td class="text-right">
-                                    <!--a class="btn btn-xs btn-primary" href="{{ route('states.show', $state->id) }}"-->
-                                        <i class="glyphicon glyphicon-eye-open"></i> Detalles
-                                    </a>
-                                    
-                                    <!--a class="btn btn-xs btn-warning" href="{{ route('states.edit', $state->id) }}"-->
-                                        <i class="glyphicon glyphicon-edit"></i> Editar
-                                    </a>
-
-                                    <!--form action="{{ route('states.destroy', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');"-->
+                        <tbody>
+                            @foreach($states as $state)
+                                <tr>
+                                    <td class="text-center">{{$state->name}}</td> 
+                                    <td class="text-center">{{$state->description}}</td> 
+                                    <td class="text-center">{{$state->active_flag}}</td>
+                                    @if($state->active_flag ==1)
+                                    <td class="text-center">Activo</td>
+                                    @else
+                                    <td class="text-center">Desactivo</td>
+                                    @endif
+                                    <td class="text-center">                                   
+                                        <a class="btn btn-xs btn-warning" href="{{ url('editarEstados', $state->id) }}">
+                                            <i class="glyphicon glyphicon-edit"></i> Detalles
+                                        </a>
+                                        <form action="{{ url ('eliminarEstados', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_method" value="DELETE">
 
-                                        <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Desactivar</button>
-                                    </form>
-                                </td>
+                                            <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Desactivar</button>
+                                        </form>
+                                    </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
                 {!! $states->render() !!}
             @else
                 <h3 class="text-center alert alert-info">No hay estados disponibles para mostrar</h3>
@@ -54,5 +64,7 @@
 
         </div>
     </div>
+    </div>
+</div>
 
 @endsection
