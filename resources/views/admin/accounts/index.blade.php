@@ -21,12 +21,12 @@
                <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
                
                    <thead>
-                   <th class="text-center">Nombre</th>
-                       <th class="text-center">Correo</th>
-                       <th class="text-center">Tipo</th> 
-                       <th class="text-center">Sucursal</th>
-                       <th class="text-center">Estado</th> 
-                       <th class="text-center">Opciones</th>                         
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Correo</th>
+                        <th class="text-center">Tipo</th> 
+                        <th class="text-center">Sucursal</th>
+                        <th class="text-center">Estado</th> 
+                        <th class="text-center">Opciones</th>                         
                    </thead>
 
                    <tbody>

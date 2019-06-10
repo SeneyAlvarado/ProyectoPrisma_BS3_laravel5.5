@@ -1,12 +1,6 @@
-@extends('layout')
+@extends('masterPrueba3')
 
-@section('header')
-    <div class="page-header">
-        <h1><i class="glyphicon glyphicon-edit"></i> Visit / Edit #{{$visit->id}}</h1>
-    </div>
-@endsection
-
-@section('content')
+@section('contenido_Admin')
     @include('error')
 
     <div class="row">

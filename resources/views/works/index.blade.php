@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('masterAdmin')
 
-@section('header')
+@section('contenido_Admin')
     <div class="page-header clearfix">
         <h1>
             <i class="glyphicon glyphicon-align-justify"></i> Work

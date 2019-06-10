@@ -34,7 +34,7 @@ class VisitController extends Controller
 	{
 		$visits = $this->model->paginate();
 
-		return view('visits.index', compact('visits'));
+		return view('visits/index', compact('visits'));
 	}
 
 	/**
