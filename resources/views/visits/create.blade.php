@@ -20,11 +20,11 @@
 					</div> 
 					<div class="col-md-4" style="margin-top:10px;">
 						<label for="date-field">Fecha</label>
-						<input class="form-control" type="text" value="<?php date_default_timezone_set('America/Costa_Rica'); echo date("d/m/Y");?>" disabled>
+						<input class="form-control" type="text" name="date" id="date-field" value="<?php date_default_timezone_set('America/Costa_Rica'); echo date("d/m/Y");?>" disabled>
 					</div> 
 					<div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
 						<label for="phone-field">Teléfono</label>
-						<input class="form-control" type="text" name="client_name" id="client_name-field" value="" />
+						<input class="form-control" type="text" name="phone" id="phone-field" value="" />
 					</div> 
 					<div class="col-md-4 " style="margin-top:10px;">
 						<label for="email-field">Correo electrónico</label>
