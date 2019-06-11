@@ -58,10 +58,10 @@
                                                 </div>
                                             </div>
                                         <div>   
-                                                <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
-                                                    <label for="address" ><strong>Dirección</strong></label> 
-                                                    <input id="address" placeholder="Dirección del cliente" class="form-control" name = "address" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ123456789 \s]{10,100}" title="Debe colocar al menos 10 caracteres" required>    
-                                                </div>
+                                            <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
+                                                <label for="address">Dirección</label>
+                                                <textarea class="form-control" type="text" name="address" id="address" value="" rows="5" style="resize: none;"></textarea>
+                                            </div>
                                             </div>
                                        
                                         <div>   

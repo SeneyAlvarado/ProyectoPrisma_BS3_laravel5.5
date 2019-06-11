@@ -2,9 +2,9 @@
 
 @section('contenido_Admin')
 
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <div class="panel panel-primary border-panel">
     <div class="panel-heading  border-header bg-color-panel" >
        <p class="title-panel" style="font-size:20px;">Clientes</p>
