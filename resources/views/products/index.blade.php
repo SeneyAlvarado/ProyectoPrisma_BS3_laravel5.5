@@ -1,4 +1,4 @@
-@extends('masterAdmin')
+@extends('masterPrueba3')
 
 @section('header')
 <div class="page-header clearfix">
@@ -9,7 +9,7 @@
 </div>
 @endsection
 
-@section('content')
+@section('contenido_Admin')
 <!-- <div class="row">
     
         <div class="col-md-12"> -->

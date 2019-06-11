@@ -157,8 +157,8 @@ Route::get('productIndex', 'ProductController@index');
 Route::get('productoShow/{id}', 'ProductController@show');
 Route::get('productoEdit/{id}', 'ProductController@edit');
 Route::get('productoCrea', 'ProductController@store');
-
 Route::get('productoCreate', 'BranchController@list');
+Route::get('productoUpdate', 'BranchController@list2');
 
 
 Route::get('productIndex2', function () {

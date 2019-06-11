@@ -47,6 +47,11 @@ class BranchController extends Controller
 		$branches = $this->model->paginate();
 		return view('products.create', compact('branches'));
 	}
+	public function list2()
+	{
+		$branches = $this->model->paginate();
+		return view('products.edit', compact('branches'));
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *

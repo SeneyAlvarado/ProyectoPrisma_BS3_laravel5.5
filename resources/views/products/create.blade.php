@@ -1,4 +1,4 @@
-@extends('masterAdmin')
+@extends('masterPrueba3')
 
 @section('header')
 <div class="page-header">
@@ -6,7 +6,7 @@
 </div>
 @endsection
 
-@section('content')
+@section('contenido_Admin')
 @include('error')
 
 <!--  <div class="row">

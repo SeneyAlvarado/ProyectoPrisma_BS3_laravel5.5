@@ -38,7 +38,7 @@
 
   <a class="border font-color" href="{{ url('admin_accounts_index') }}">Cuentas<span class="glyphicon glyphicon-user right-aling-glyphicon-cuentas"></a>
 
-	<a class="border font-color">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
+	<a class="border font-color" href="{{ url('productIndex')}}">Trabajos<span class="glyphicon glyphicon-folder-open right-aling-glyphicon-trabajos"></a>
 
 	<a class="border font-color" href="{{ url('admin_clients_index') }}">Clientes<span class="glyphicon glyphicon-comment right-aling-glyphicon-clientes"></a>
 
