@@ -3,7 +3,7 @@ $(document).ready(function () {
     if($("#identification").length){//checks if the element exists
 
         $("#identification").prop("pattern", true);//adds the below pattern to HTML to validate info
-        $('#identification').attr("pattern", '[a-zA-Z-ñÑáéíóúÁÉÍÓÚ0123456789]{5,25}');
+        $('#identification').attr("pattern", '[a-zA-Z-ñÑáéíóúÁÉÍÓÚ0123456789]{5,35}');
 
         $("#identification").prop("title", true);
         $('#identification').attr("title", 'Digite una cédula de mínimo 5 caracteres y máximo 35 caracteres (sin espacios)');
@@ -11,7 +11,7 @@ $(document).ready(function () {
 
         $("#identification").prop("oninvalid", true);
         $('#identification').attr("oninvalid", 
-        "this.setCustomValidity('Digite una cédula de mínimo 5 caracteres y máximo 35 caracteres')");
+        "this.setCustomValidity('Digite una cédula de mínimo 5 caracteres y máximo 35 caracteres (sin espacios)')");
         //when user fails the pattern this message will appear.
     }
 
