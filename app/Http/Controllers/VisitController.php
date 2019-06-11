@@ -110,8 +110,9 @@ class VisitController extends Controller
 
 		$visit = $this->model->findOrFail($id);		
 		$visit->update($inputs);
+		
 
-		return redirect()->route('visits.index')->with('message', 'Item updated successfully.');
+		return redirect('visitas')->with('message', 'Item updated successfully.');
 	}
 
 	/**
@@ -124,6 +125,6 @@ class VisitController extends Controller
 	{
 		$this->model->destroy($id);
 
-		return redirect()->route('visits.index')->with('message', 'Item deleted successfully.');
+		return redirect('visitas')->with('message', 'Item deleted successfully.');
 	}
 }
