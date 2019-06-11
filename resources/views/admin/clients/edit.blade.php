@@ -1,4 +1,4 @@
-@extends('masterPrueba4')
+@extends('masterPrueba3')
 @section('contenido_Admin')
 <script src="{{asset('js/load_branches_admin_edit.js')}}"></script>
 <div style="padding:10px;">
