@@ -3,13 +3,17 @@
 @section('contenido_Admin')
     @include('error')
     <link rel="stylesheet" type="text/css" href="{{asset('css/states.css')}}">
-    <div>
-        <h1>Crear estado</h1>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-
+    <script src="{{asset('js/createClientsRadio.js')}}"></script>
+    <script src="{{asset('js/requiredFields.js')}}"></script>
+    
+    <div style="padding:10px;">
+    <div class="panel panel-primary border-panel">
+        <div class="panel-heading  border-header bg-color-panel" >
+                <p class="title-panel" style="font-size:20px;">Crear estado</p>
+        </div>
+        <div class="panel-body">
+            <section class="">
+                <div class="">
             <form action="{{ url('guardarEstado') }}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -26,7 +30,9 @@
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
-
         </div>
-    </div>
+    </section>
+</div>
+</div>
+</div>
 @endsection

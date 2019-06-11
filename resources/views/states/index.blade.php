@@ -12,7 +12,7 @@
        <section class="">
        <div class="content-c w3-container mobile">
            <div> 
-           <a  class="btn btn-success style-btn-registry"  href="{{ url('crearstatea') }} "
+           <a  class="btn btn-success style-btn-registry"  href="{{ url('crearEstados') }} "
             style="margin-left: 15px; ">Registrar </a>
            
        </div>

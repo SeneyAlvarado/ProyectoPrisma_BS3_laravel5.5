@@ -3,8 +3,17 @@
 @section('contenido_Admin')
     @include('error')
     <link rel="stylesheet" type="text/css" href="{{asset('css/states.css')}}">
-    <div class="row">
-        <div class="col-md-12">
+    <script src="{{asset('js/createClientsRadio.js')}}"></script>
+    <script src="{{asset('js/requiredFields.js')}}"></script>
+    
+    <div style="padding:10px;">
+    <div class="panel panel-primary border-panel">
+        <div class="panel-heading  border-header bg-color-panel" >
+                <p class="title-panel" style="font-size:20px;">Detalles</p>
+        </div>
+        <div class="panel-body">
+            <section class="">
+                <div class="">
 
             <form action="{{ url('actualizarEstados', $state->id) }}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
@@ -26,5 +35,8 @@
             </form>
 
         </div>
-    </div>
+    </section>
+</div>
+</div>
+</div>
 @endsection

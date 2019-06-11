@@ -42,7 +42,7 @@
                            <tr>
                                 <td class="text-center"><strong>{{$visit->id}}</strong></td>    
                                 <td class="text-center">{{$visit->client_name}}</td> 
-                                <td class="text-center">{{$visit->date}}</td> 
+                                <td class="text-center">{{\Carbon\Carbon::parse($visit->date)->format('d/m/Y')}}</td> 
                                 <td class="text-center">{{$visit->phone}}</td> 
                                 <td class="text-center">{{$visit->email}}</td> 
                                 <td class="text-center">{{$visit->visitor_id}}</td> 
@@ -53,7 +53,7 @@
                                <td class="text-center">Desactivo</td>
                                @endif
 
-                                <td class="text-right">
+                                <td class="text-center">
                                         <a class="btn btn-warning style-btn-edit btn-size"  href="{{ url('editarVisita', $visit->id) }}">Detalles</a>
 
                                     <form action="{{ url('eliminarVisita', $visit->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
