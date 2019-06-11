@@ -48,7 +48,7 @@
                                         <div>   
                                                 <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                                                     <label for="number" ><strong>Teléfono</strong></label> 
-                                                    <input id="number" placeholder="Teléfono" class="form-control" name = "number" type="tel" pattern="[0-9 \s]{4,15}" 
+                                                    <input id="number" placeholder="Teléfono" class="form-control" name = "number" type="tel" 
                                                     title="Por favor siga un formato de teléfono correcto" oninvalid="this.setCustomValidity('Por favor digite un teléfono válido')">    
                                                 </div>
                                                 <div class="col-md-4 " style="margin-top:10px;">
@@ -58,10 +58,10 @@
                                                 </div>
                                             </div>
                                         <div>   
-                                                <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
-                                                    <label for="address" ><strong>Dirección</strong></label> 
-                                                    <input id="address" placeholder="Dirección del cliente" class="form-control" name = "address" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ123456789 \s]{10,100}" title="Debe colocar al menos 10 caracteres" required>    
-                                                </div>
+                                            <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
+                                                <label for="address">Dirección</label>
+                                                <textarea class="form-control" type="text" name="address" id="address" value="" rows="5" style="resize: none;"></textarea>
+                                            </div>
                                             </div>
                                        
                                         <div>   

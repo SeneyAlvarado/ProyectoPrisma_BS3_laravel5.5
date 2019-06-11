@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Visit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class VisitController extends Controller
 {
@@ -57,13 +58,17 @@ class VisitController extends Controller
 	{
 		$visit = new Visit();
 		$visit->client_name = $request->client_name;
-		$visit->date = $request->date;
+		date_default_timezone_set('America/Costa_Rica');
+		$visit->date = date("Y-m-d h:i:s");
 		$visit->phone = $request->phone;
 		$visit->email = $request->email;
+		$visit->recepcionist_id = null;
+		$visit->details = $request->details;
 		$visit->active_flag = 1;
 		$visit->visitor_id = Auth::user()->id;
+		$visit->save();
 
-		return redirect()->route('visits.index')->with('message', 'El elemento fue creado correctamente');
+		return redirect('visitas')->with('message', 'El elemento fue creado correctamente');
 	}
 
 	/**
@@ -105,8 +110,9 @@ class VisitController extends Controller
 
 		$visit = $this->model->findOrFail($id);		
 		$visit->update($inputs);
+		
 
-		return redirect()->route('visits.index')->with('message', 'Item updated successfully.');
+		return redirect('visitas')->with('message', 'Item updated successfully.');
 	}
 
 	/**
@@ -119,6 +125,6 @@ class VisitController extends Controller
 	{
 		$this->model->destroy($id);
 
-		return redirect()->route('visits.index')->with('message', 'Item deleted successfully.');
+		return redirect('visitas')->with('message', 'Item deleted successfully.');
 	}
 }
