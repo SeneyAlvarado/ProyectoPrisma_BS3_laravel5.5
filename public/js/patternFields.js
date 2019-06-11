@@ -21,12 +21,27 @@ $(document).ready(function () {
         $('#name').attr("pattern", '[a-zA-Z-ñÑáéíóúÁÉÍÓÚ0123456789 ]{2,45}');
 
         $("#name").prop("title", true);
-        $('#name').attr("title", 'Digite una cédula de mínimo 5 caracteres y máximo 35 caracteres');
+        $('#name').attr("title", 'Digite un nombre de mínimo 2 caracteres y máximo 45 caracteres');
         //when user has the mouse (pointer) over the name ("Nombre") field, this message will prompt.
 
         $("#name").prop("oninvalid", true);
         $('#name').attr("oninvalid", 
-        "this.setCustomValidity('Digite una cédula de mínimo 5 caracteres y máximo 35 caracteres')");
+        "this.setCustomValidity('Digite un nombre de mínimo 2 caracteres y máximo 45 caracteres')");
+        //when user fails the pattern this message will appear.
+    }
+
+    if($("#lastname").length){//checks if the element exists
+
+        $("#lastname").prop("pattern", true);//adds the below pattern to HTML to validate info
+        $('#lastname').attr("pattern", '[a-zA-Z-ñÑáéíóúÁÉÍÓÚ0123456789 ]{2,30}');
+
+        $("#lastname").prop("title", true);
+        $('#lastname').attr("title", 'Digite una cédula de mínimo 5 caracteres y máximo 30 caracteres');
+        //when user has the mouse (pointer) over the name ("Nombre") field, this message will prompt.
+
+        $("#lastname").prop("oninvalid", true);
+        $('#lastname').attr("oninvalid", 
+        "this.setCustomValidity('Digite una cédula de mínimo 5 caracteres y máximo 30 caracteres')");
         //when user fails the pattern this message will appear.
     }
 

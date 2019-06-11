@@ -59,7 +59,7 @@
                                             </div>
                                         <div>   
                                             <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
-                                                <label for="address">Detalles</label>
+                                                <label for="address">Dirección</label>
                                                 <textarea class="form-control" type="text" name="address" id="address" value="" rows="5" style="resize: none;"></textarea>
                                             </div>
                                             </div>
