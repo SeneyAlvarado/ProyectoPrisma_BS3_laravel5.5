@@ -24,7 +24,7 @@
 </div> 
 <div class="col-md-4 " style="margin-top:10px;">
 	<label for="date-field">Fecha</label>
-	<input class="form-control" type="text" name="date" id="date-field" value="{{ old('date', $visit->date ) }}" disabled/>
+	<input class="form-control" type="text" name="date" id="date-field" value="{{ old('date', \Carbon\Carbon::parse($visit->date)->format('d/m/Y')) }}" disabled/>
 </div> 
 <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
 	<label for="phone-field">Teléfono</label>
