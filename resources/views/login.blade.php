@@ -5,12 +5,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" type="text/css" href="{{asset('css/login/bootstrap.min.css')}}">  
-    <link rel="stylesheet" type="text/css" href="{{asset('css/login/font-awesome.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{secure_asset('css/login/bootstrap.min.css')}}">  
+    <link rel="stylesheet" type="text/css" href="{{secure_asset('css/login/font-awesome.min.css')}}">
     
-    <link rel="stylesheet" type="text/css" href="{{asset('css/login/animate.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/login/main.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/login/util.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{secure_asset('css/login/animate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{secure_asset('css/login/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{secure_asset('css/login/util.css')}}">
 
 
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
