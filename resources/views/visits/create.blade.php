@@ -20,24 +20,7 @@
 					</div> 
 					<div class="col-md-4" style="margin-top:10px;">
 						<label for="date-field">Fecha</label>
-						<div class='input-group date' id='datetimepicker5'>
-								<input type='text' class="form-control" />
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-						</div>
-						<script type="text/javascript">
-							$(function () {
-								$('#datetimepicker5').datetimepicker({
-									defaultDate: new Date(),
-									disabledDates: [
-										moment("12/25/2013"),
-										new Date(2013, 11 - 1, 21),
-										"11/22/2013 00:53"
-									]
-								});
-							});
-						</script>
+						<input class="form-control" type="text" value="<?php date_default_timezone_set('America/Costa_Rica'); echo date("d/m/Y");?>" disabled>
 					</div> 
 					<div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
 						<label for="phone-field">Teléfono</label>

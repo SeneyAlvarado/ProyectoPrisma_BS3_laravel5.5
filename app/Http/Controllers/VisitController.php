@@ -55,10 +55,15 @@ class VisitController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$inputs = $request->all();
-		$this->model->create($inputs);
+		$visit = new Visit();
+		$visit->client_name = $request->client_name;
+		$visit->date = $request->date;
+		$visit->phone = $request->phone;
+		$visit->email = $request->email;
+		$visit->active_flag = 1;
+		$visit->visitor_id = Auth::user()->id;
 
-		return redirect()->route('visits.index')->with('message', 'Item created successfully.');
+		return redirect()->route('visits.index')->with('message', 'El elemento fue creado correctamente');
 	}
 
 	/**
