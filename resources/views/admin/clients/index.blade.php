@@ -1,4 +1,4 @@
-@extends('masterPrueba3')
+@extends('masterPrueba4')
 
 @section('contenido_Admin')
 

@@ -1,4 +1,4 @@
-@extends('masterPrueba3')
+@extends('masterPrueba4')
 @section('contenido_Admin')
 <script src="{{asset('js/createClientsRadio.js')}}"></script>
 <script src="{{asset('js/requiredFields.js')}}"></script>
@@ -11,7 +11,7 @@
             <div class="panel-body">
                     <section class="">
                     <div class="">
-                                <form method = 'POST' action='{{ url("createClient") }}'>
+                                <form method = 'POST' action='{{ route("clients.store") }}'>
                                     <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                                     <div align="right"><!-- align WORKS even if doesn´t compile-->
                                     <p style="font-size:12px; color:red;">* Requerido</p>
@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="col-md-4 " style="margin-top:10px;">
                                             <label class="" for="name" ><strong style="margin-top: 75px">Nombre</strong><strong style="color:red; font-size: 15px">*</strong></label> 
-                                            <input id="name" placeholder="Nombre" class="form-control" name = "name" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>    
+                                            <input id="name" placeholder="Nombre" class="form-control" name = "name" type="text" required>    
                                         </div>
                                     </div>
                                     <div class="Box">

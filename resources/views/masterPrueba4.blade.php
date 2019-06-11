@@ -56,7 +56,7 @@
     <div class="logo_prisma_sidebar"><img src="{{asset('Imagenes/prisma_logo.png')}}"style="width:120px; height:120px;"></div>  			
 </div>
 
-<div id="main" class="page-content-wrapper" style="position: absolute;">
+<div id="main" class="page-content-wrapper" style="position: absolute; left:10px;">
 <div class="container-fluid">
                 <div class="row">
                   @if(session('error'))
@@ -83,6 +83,7 @@
                       {{@session('info')}}
                     </div>
                   @endif
+                  <br>
     @yield('contenido_Admin')	
         </div>
         </div>

@@ -87,7 +87,7 @@ Route::delete('eliminarVisita/{id}', 'VisitController@destroy');
 /* clients */
 Route::get('clients', 'ClientController@index')->name('clients');
 Route::get('clients.create', 'ClientController@create')->name('clients.create');
-Route::get('clients.store', 'ClientController@store')->name('clients.store');
+Route::post('clients.store', 'ClientController@store')->name('clients.store');
 Route::get('clients.edit/{id}', 'ClientController@edit')->name('clients.edit');
 Route::get('clients.update/{id}', 'ClientController@store')->name('clients.update');
 Route::delete('clients.deactivate/{id}', 'ClientController@destroy')->name('clients.deactivate');

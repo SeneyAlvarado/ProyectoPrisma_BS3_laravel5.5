@@ -117,7 +117,7 @@ class ClientController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		
+		return $request;
 		try {
 			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
