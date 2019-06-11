@@ -48,7 +48,7 @@
                                         <div>   
                                                 <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                                                     <label for="number" ><strong>Teléfono</strong></label> 
-                                                    <input id="number" placeholder="Teléfono" class="form-control" name = "number" type="tel" pattern="[0-9 \s]{4,15}" 
+                                                    <input id="number" placeholder="Teléfono" class="form-control" name = "number" type="tel" 
                                                     title="Por favor siga un formato de teléfono correcto" oninvalid="this.setCustomValidity('Por favor digite un teléfono válido')">    
                                                 </div>
                                                 <div class="col-md-4 " style="margin-top:10px;">
