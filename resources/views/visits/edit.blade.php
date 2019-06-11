@@ -1,12 +1,20 @@
 @extends('masterPrueba3')
 
 @section('contenido_Admin')
-    @include('error')
+	@include('error')
+	
+	<script src="{{asset('js/createClientsRadio.js')}}"></script>
+<script src="{{asset('js/requiredFields.js')}}"></script>
 
-    <div class="row">
-        <div class="col-md-12">
-
-            <form action="{{ route('visits.update', $visit->id) }}" method="POST">
+	<div style="padding:10px;">
+		<div class="panel panel-primary border-panel">
+			<div class="panel-heading  border-header bg-color-panel" >
+					<p class="title-panel" style="font-size:20px;">Detalles visita</p>
+			</div>
+			<div class="panel-body">
+				<section class="">
+					<div class="">
+            <form action="{{ url('actualizarVisita', $visit->id) }}" method="POST">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

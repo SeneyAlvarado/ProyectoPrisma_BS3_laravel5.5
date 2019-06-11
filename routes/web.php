@@ -81,6 +81,7 @@ Route::get('visitas', 'VisitController@index');
 Route::get('crearVisita', 'VisitController@create');
 Route::post('guardarVisita', 'VisitController@store');
 Route::get('editarVisita/{id}', 'VisitController@edit');
+Route::put('actualizarVisita', 'VisitController@update');
 Route::delete('eliminarVisita/{id}', 'VisitController@destroy');
 /*-------------------------------------------*/
 
