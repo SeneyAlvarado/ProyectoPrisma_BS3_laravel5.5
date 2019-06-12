@@ -16,7 +16,7 @@ class CreateClientsTable extends Migration {
             $table->increments('id');
             $table->integer('type');
             $table->string('name', 45);
-            $table->string('address', 100);
+            $table->string('address', 250);
 			$table->string('identification', 35)->nullable();
 			$table->integer('active_flag');
             //$table->timestamps();

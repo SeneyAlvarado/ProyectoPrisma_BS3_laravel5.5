@@ -38,29 +38,27 @@
                                     <div class="Box">
                                             <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                                                 <label for="lastname" ><strong>Primer Apellido</strong><strong style="color:red; font-size: 15px">*</strong></label> 
-                                                <input id="lastname" placeholder="Primer Apellido" class="form-control" name = "lastname" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required> 
+                                                <input id="lastname" placeholder="Primer Apellido" class="form-control" name = "lastname" type="text" required> 
                                             </div>
                                             <div class="col-md-4 " style="margin-top:10px;">
                                                 <label for="second_lastname" ><strong>Segundo apellido</strong><strong style="color:red; font-size: 15px">*</strong></label> 
-                                                <input id="second_lastname"placeholder="Segundo Apellido" class="form-control" name = "second_lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>            
+                                                <input id="second_lastname"placeholder="Segundo Apellido" class="form-control" name = "second_lastname" type="text" required>            
                                             </div>
                                         </div>
                                         <div>   
                                                 <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                                                     <label for="number" ><strong>Teléfono</strong></label> 
-                                                    <input id="number" placeholder="Teléfono" class="form-control" name = "number" type="tel" 
-                                                    title="Por favor siga un formato de teléfono correcto" oninvalid="this.setCustomValidity('Por favor digite un teléfono válido')">    
+                                                    <input id="number" placeholder="Teléfono" class="form-control" name = "number" type="tel">    
                                                 </div>
                                                 <div class="col-md-4 " style="margin-top:10px;">
                                                         <label for="email" ><strong>Correo electrónico</strong><strong style="font-size: 15px"> </strong></label> 
-                                                        <input id="email" placeholder="Correo electrónico" class="form-control" name = "email" type="email" 
-                                                        title="Por favor siga un formato de correo electrónico correcto" oninvalid="this.setCustomValidity('Por favor digite un correo electrónico válido')">    
+                                                        <input id="email" placeholder="Correo electrónico" class="form-control" name = "email" type="email">    
                                                 </div>
                                             </div>
                                         <div>   
                                             <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
                                                 <label for="address">Dirección</label>
-                                                <textarea class="form-control" type="text" name="address" id="address" value="" rows="5" style="resize: none;"></textarea>
+                                                <textarea placeholder="Escriba la dirección del cliente" class="form-control" type="text" name="address" id="address" value="" rows="4" style="resize: none;"></textarea>
                                             </div>
                                             </div>
                                        
@@ -68,7 +66,7 @@
                                                 <div class="col-md-4 col-md-offset-2" style="margin-top:20px;">
                                                         <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button></div>
                                                 <div class="col-md-4 " style="margin-top:20px;">
-                                                <a  class="btn btn btn-info btn-block" href="{{url()->previous()}}">Regresar</a>
+                                                <a  class="btn btn btn-danger btn-block" href="{{url()->previous()}}">Cancelar</a>
                                                     </div>
                                             </div>
                                         

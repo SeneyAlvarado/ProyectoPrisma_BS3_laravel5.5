@@ -43,13 +43,9 @@ class ClientController extends Controller
 			\Session::put('errorOrigin', " mostrando los clientes");	
 
 			//estas son pruebas de errores
-		//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
-		//DB::table('shdhgjd')->get();
-		//Auth::attempt(['email' => $email, 'password' => $password]);
+			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
+			//DB::table('shdhgjd')->get();
 
-
-			
-			
 			//Gets all clients with their phone and emails
 			$clients = $this->model::all();
 
@@ -75,23 +71,15 @@ class ClientController extends Controller
 			if($user_type == 1){//admin user
 				return view('admin.clients.index', compact('clients'));
 			}
-		}catch(\App\Exceptions\CustomException $e){
-			/*just some test code, not important
-			$handler =  app(App\Exceptions\Handler::class);
-			$handler->report($e);
-			$handler->render($e);
-			*/
-			report($e);//this writes the error at the log
-			\Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
-            \Session::flash('error', '¡Ha ocurrido un error al mostrar los clientes!' 
-            .' Si este persiste contacte al administrador del sistema');
-			return redirect('admin');//aquí redirigen a la página deseada después de validar el error
-			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
-
+		}catch(\Illuminate\Database\QueryException $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error en la base de datos
+			al mostrar los clientes!');
 		}
-
+		catch(\Exception $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error al mostrar los cliente!');
+		}
 	}
 
 
@@ -102,11 +90,24 @@ class ClientController extends Controller
 	 */
 	public function create()
 	{
-		$user_type = Auth::user()->user_type_id;
-		if($user_type == 1){//admin user
-			return view('admin.clients.create');
+		try {
+			
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " accediendo a la creación de clientes");	
+
+			$user_type = Auth::user()->user_type_id;
+			if($user_type == 1){//admin user
+				return view('admin.clients.create');
+			}
+		}catch(\Illuminate\Database\QueryException $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error en la base de datos
+			 en la creación de clientes!');
 		}
-		return view('clients.create');
+		catch(\Exception $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error en la creación de clientes!');
+		}
 	}
 
 	/**
@@ -118,6 +119,9 @@ class ClientController extends Controller
 	public function store(Request $request)
 	{
 		try {
+
+			\Session::put('errorOrigin', " agregando el cliente");
+
 			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
 			
@@ -158,38 +162,19 @@ class ClientController extends Controller
 				$juridical_client->save();
 			}
 
-		DB::commit();//commits to database 
+			DB::commit();//commits to database 
+			return redirect('clients')->with('success', '¡Cliente registrado satisfactoriamente!');
 
-		return redirect('clients')->with('success', '¡Cliente registrado satisfactoriamente!');
-		}catch(\Exception $e) {
-			report($e);//this writes the error at the log
-			DB::rollback();
-            \Session::flash('error', '¡Ha ocurrido un error al insertar el cliente!' 
-            .' Si este persiste contacte al administrador del sistema');
-			return redirect('clients.create');//aquí redirigen a la página deseada después de validar el error
-			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
-		}catch(\Throwable $e){//different exception that it´s not contained at \Exception
-			report($e);//this writes the error at the log
-			DB::rollback();
-            \Session::flash('error', '¡Ha ocurrido un error al insertar el cliente!' 
-            .' Si este persiste contacte al administrador del sistema.');
-			return redirect('clients.create');//aquí redirigen a la página deseada después de validar el error
-			//NO USEN EL RETURN BACK, usen un return view o redirect o algo xD
+		}catch(\Illuminate\Database\QueryException $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error en la base de datos
+			agregando el cliente!');
+		}
+		catch(\Exception $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error agregando el cliente!');
 		}
 		
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$client = $this->model->findOrFail($id);
-		
-		return view('clients.show', compact('client'));
 	}
 
 	/**
@@ -201,30 +186,47 @@ class ClientController extends Controller
 	public function edit($id)
 	{
 
+		try {
 		//try y catch faltan
-		\Session::put('errorOrigin', " mostrando los clientes");	
+			\Session::put('errorOrigin', " editando el cliente");	
 
-			$client = $this->model->findOrFail($id);
+				$client = $this->model->find($id);
+
+				if($client == null) {
+					throw new \Exception('Error en editar el cliente con el id:' .$id
+				. " en el método ClientController@edit");
+				} else {
+					
+					if($client->type == 1) {//physical client, fill model attributes
+						$phisClient = Physical_client::where('client_id', $client->id)->first();
+						$client->lastname = $phisClient->lastname;
+						$client->second_lastname = $phisClient->second_lastname;	
+						$client->client_table_id = $phisClient->client_id;	
+					}
+
+					if($client->type == 2) {//juridical client, fill model attributes
+						$jurClient = Juridical_client::where('client_id', $client->id)->first();
+						$client->client_table_id = $jurClient->client_id;	
+					}
+					$client->phones = $client->phones()->where('active_flag', 1)->get();
+					$client->emails = $client->emails()->where('active_flag', 1)->get();
 				
-				if($client->type == 1) {//physical client, fill model attributes
-					$phisClient = Physical_client::where('client_id', $client->id)->first();
-					$client->lastname = $phisClient->lastname;
-					$client->second_lastname = $phisClient->second_lastname;	
-					$client->client_table_id = $phisClient->client_id;	
-				}
-
-				if($client->type == 2) {//juridical client, fill model attributes
-					$jurClient = Juridical_client::where('client_id', $client->id)->first();
-					$client->client_table_id = $jurClient->client_id;	
-				}
-				$client->phones = $client->phones()->where('active_flag', 1)->get();
-				$client->emails = $client->emails()->where('active_flag', 1)->get();
+			$user_type = Auth::user()->user_type_id;
+			if($user_type == 1){//admin user
+				return view('admin.clients.edit', compact('client'));
+			}
 			
-		$user_type = Auth::user()->user_type_id;
-		if($user_type == 1){//admin user
-			return view('admin.clients.edit', compact('client'));
+			}//end clients not null else
+				
+		}catch(\Illuminate\Database\QueryException $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error en la base de datos
+			al editar el cliente!');
 		}
-		return view('clients.edit', compact('client'));
+		catch(\Exception $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error al editar el cliente!');
+		}
 	}
 
 	/**
@@ -244,6 +246,46 @@ class ClientController extends Controller
 		return redirect()->route('clients.index')->with('message', 'Item updated successfully.');
 	}
 
+
+
+/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function activate($id)
+		{
+			try {
+			
+				\Session::put('errorOrigin', " activando el cliente");
+				$client = $this->model->find($id);
+				
+				if($client == null) {
+					throw new \Exception('Error al activar el cliente con el id:' .$id
+				. " en el método ClientController@activate");
+				} else {
+					
+					$client->active_flag = 1;
+					$client->save();
+					$user_type = Auth::user()->user_type_id;	
+
+					if($user_type == 1){//admin user
+						return redirect('clients')->with('success',
+						'¡Cliente desactivado satisfactoriamente!');
+					}
+				}
+			}catch(\Illuminate\Database\QueryException $e){
+				report($e);
+				return redirect('clients')->with('error', '¡Error en la base de datos
+				al activar el cliente!');
+			}
+			catch(\Exception $e){
+				report($e);
+				return redirect('clients')->with('error', '¡Error al activar el cliente!');
+			}
+	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -251,9 +293,35 @@ class ClientController extends Controller
 	 * @return Response
 	 */
 	public function destroy($id)
-	{
-		$this->model->destroy($id);
+		{
+			try {
+			
+				\Session::put('errorOrigin', " desactivando el cliente");
+				$client = $this->model->find($id);
+				
+				if($client == null) {
+					throw new \Exception('Error en desactivar el cliente con el id:' .$id
+				. " en el método ClientController@destroy");
+				} else {
+					
+					$client->active_flag = 0;
+					$client->save();
+					$user_type = Auth::user()->user_type_id;	
 
-		return redirect()->route('clients.index')->with('message', 'Item deleted successfully.');
+					if($user_type == 1){//admin user
+						return redirect('clients')->with('success',
+						'¡Cliente desactivado satisfactoriamente!');
+					}
+				}
+			}catch(\Illuminate\Database\QueryException $e){
+				report($e);
+				return redirect('clients')->with('error', '¡Error en la base de datos
+				al desactivar el cliente!');
+			}
+			catch(\Exception $e){
+				report($e);
+				return redirect('clients')->with('error', '¡Error al desactivar el cliente!');
+			}
 	}
+	
 }
