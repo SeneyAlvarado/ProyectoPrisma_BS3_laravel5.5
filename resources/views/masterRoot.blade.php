@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Simple Sidebar - Start Bootstrap Template</title>
+  <title>Sistema de Monitoreo de Procesos - Grupo Prisma</title>
 	<!-- Bootstrap core CSS 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="{{asset('css/simple-sidebar.css')}}">
@@ -36,7 +36,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item a active">
-        <a class="nav-link" style="margin-left:20px;" href="#"><span class="glyphicon glyphicon-menu-left"><span class="glyphicon glyphicon-menu-left"></span></a>
+        <button class="btn btn-default style-return-button" href="#"><span class="glyphicon glyphicon-menu-left"></span></button>
       </li>
       
       <!-- This menu is hidden in bigger devices with d-sm-none. 
@@ -56,7 +56,7 @@
   </div>
 
   <div class="dropdown">
-  <button type="button" class="btn btn-primary dropdown-toggle" style="background-color:#96183a" data-toggle="dropdown">
+  <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
     Nombre del mae
   </button>
   <div class="dropdown-menu">
