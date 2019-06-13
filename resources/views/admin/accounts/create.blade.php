@@ -1,5 +1,5 @@
 
-@extends('masterRoot')
+@extends('masterAdmin')
 @section('contenido_Admin')
 <script src="{{asset('js/load_branches_admin.js')}}"></script>
 <div style="padding:10px;">
