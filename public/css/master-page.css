@@ -25,7 +25,6 @@ body {
   }
   
   .sidebar a:hover {
-    color: #F40000;
     background: #373636;
     text-decoration: none
   }

@@ -173,3 +173,9 @@ Route::get('prueba4', function () {
 });
 /*------------Products----- */
 /*------------------------------------------ */
+
+
+
+Route::get('pruebaM', function () {
+    return view('prueba');
+});
