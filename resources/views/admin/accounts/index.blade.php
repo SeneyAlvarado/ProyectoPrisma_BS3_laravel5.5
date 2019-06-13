@@ -1,4 +1,4 @@
-@extends('masterPrueba3')
+@extends('masterRoot')
 @section('contenido_Admin')
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
@@ -6,14 +6,12 @@
 
 <div style="padding:10px;">
 
-<div class="panel panel-primary border-panel">
-    <div class="panel-heading  border-header bg-color-panel" >
-       <p class="title-panel" style="font-size:20px;">Cuentas</p>
-   </div>
-   <div class="panel-body">
-   <div class="content-c w3-container mobile">
+<div class="card">
+            <h5 class="card-header" style="text-align:center">Cuentas</h5>
+            <div class="card-body">
+   <div class="container-fluid">
            <div> 
-           <a  class="btn btn-success style-btn-registry" href="{{ route('create_account_admin') }} " style="margin-bottom: 10px; ">Registrar </a>
+           <a  class="btn btn-success style-btn-registry" href="{{ route('create_account_admin') }} " style="margin-bottom: 10px; ">Crear </a>
            
        </div>
    @if($users->count())
@@ -35,7 +33,7 @@
                         $userName = $user->name  . ' ' . $user->lastname;
                        ?>
                            <tr>
-                               <td class="text-center"><strong>{{$userName}}</strong></td>
+                               <td class="text-center">{{$userName}}</td>
                                <td class="text-center">{{$user->email}}</td>
                                <td class="text-center">{{$user->user_type_name}}</td>
                                <td class="text-center">{{$user->branch_name}}</td>
@@ -57,7 +55,7 @@
                                    <form style="display:inline" action="{{ route('admin_activate_accounts', $user->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar la cuenta de {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit"  class="btn btn-primary style-btn-registry btn-size">Activar</button>
+                                       <button type="submit"  class="btn btn-success style-btn-success btn-size">Activar</button>
                                    </form>
                                    @endif
                                  

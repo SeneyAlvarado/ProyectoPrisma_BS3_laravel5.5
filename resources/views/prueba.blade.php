@@ -137,7 +137,7 @@
 </head>
 
 <body>
-<nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light" style="box-shadow: 0px 0px 15px black;">
+<nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light" >
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -154,7 +154,7 @@
       
       <!-- This menu is hidden in bigger devices with d-sm-none. 
            The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <li class="border nav-item dropdown d-sm-block d-md-none">
+      <li class=" nav-item dropdown d-sm-block d-md-none">
         <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Menú
         </a>
@@ -227,7 +227,7 @@
             <a href="#" data-toggle="sidebar-colapse" class="border border-left-0 border-right-0 border-light active-collapse sidebar-color  list-group-item list-group-item-action d-flex align-items-center">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span id="collapse-icon" class="glyphicon glyphicon-resize-horizontal fa fa-2x mr-3"></span>
-                    <span id="collapse-text" class="menu-collapsed">Desplegar</span>
+                    <span id="collapse-text" class="menu-collapsed">Cerrar menú</span>
                 </div>
             </a>
             <!-- Logo -->
@@ -240,16 +240,32 @@
 
     <!-- MAIN -->
     <div class="col">
-<br>
-        <div class="card">
-            <h4 class="card-header">Requirements</h4>
-            <div class="card-body">
-                <ul>
-                    <li>JQuery</li>
-                    <li>Bootstrap 4 beta-3</li>
-                </ul>
-            </div>
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible" style="text-align: center; padding:20px;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{@session('error')}}
         </div>
+        @endif
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible" style="text-align: center; margin-top:10px; 
+                    margin-left:10px; margin-right:10px;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{@session('success')}}
+        </div>
+        @endif
+        @if(session('info'))
+        <div class="alert alert-info alert-dismissible" style="text-align: center;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{@session('info')}}
+        </div>
+        @endif
+        @yield('contenido_Admin')
        
     </div><!-- Main Col END -->
 </div><!-- body-row END -->

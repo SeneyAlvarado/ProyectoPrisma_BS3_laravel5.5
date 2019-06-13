@@ -1,293 +1,196 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en">
 
-        <title>Collapsible sidebar using Bootstrap 3</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+	<!-- Bootstrap core CSS 
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="{{asset('css/simple-sidebar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/master-root.css')}}">
+    <link rel="stylesheet" href="{{asset('css/glyphicons.css')}}">
+    <!--<script src="{{asset('js/master-root.js')}}"></script>-->
+    <script src="{{asset('js/menus_dinamicos.js')}}"></script>
+	<script src="{{asset('js/app.min.js')}}"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+</head>
 
-         <!-- Bootstrap CSS CDN -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" type="text/css" href="{{asset('css/paneles.css')}}">
-        <style>
-          body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-}
-
-p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
-    font-weight: 300;
-    line-height: 1.7em;
-    color: #999;
-}
-
-a, a:hover, a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar {
-    padding: 8px 10px;
-    background: #fff;
-    border: none;
-    border-radius: 0;
-    margin-bottom: 0px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
-}
-
-.line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
-}
-
-/* ---------------------------------------------------
-    SIDEBAR STYLE
------------------------------------------------------ */
-.wrapper {
-    display: flex;
-    align-items: stretch;
-}
-
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    background: #464647;
-    color: #fff;
-    transition: all 0.3s;
-}
-
-#sidebar.active {
-    margin-left: -250px;
-}
-
-#sidebar .sidebar-header {
-    padding: 5px;
-    background: black;
-}
-
-#sidebar ul.components {
-    padding: 0px 0;
-    border-bottom: 1px solid #FFFFFF;
-}
-#sidebar li.border {
-    padding: 0px 0;
-    border-bottom: 1px solid #FFFFFF;
-}
-
-#sidebar ul p {
-    color: #fff;
-    padding: 10px;
-}
-
-#sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-}
-#sidebar ul li a:hover {
-    color: #464647;
-    background: #fff;
-}
-
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #464647;
-}
-
-
-a[data-toggle="collapse"] {
-    position: relative;
-}
-
-a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content: '\e259';
-    display: block;
-    position: absolute;
-    right: 20px;
-    font-family: 'Glyphicons Halflings';
-    font-size: 0.6em;
-}
-a[aria-expanded="true"]::before {
-    content: '\e260';
-}
-
-
-ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #464647;
-}
-
-ul.CTAs {
-    padding: 20px;
-}
-
-ul.CTAs a {
-    text-align: center;
-    font-size: 0.9em !important;
-    display: block;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-a.download {
-    background: #fff;
-    color: #464647;
-}
-
-a.article, a.article:hover {
-    background: #464647 !important;
-    color: #fff !important;
-}
-
-
-
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
-#content {
-    min-height: 100vh;
-    transition: all 0.3s;
-}
-
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
-}
-
-         </style> 
-    </head>
-    <body>
-
-
-
-        <div class="wrapper">
-            <!-- Sidebar Holder -->
-            <nav class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <h3 style="text-align:center">S.M.P</h3>
-                </div>
-
-                <ul class="list-unstyled components">
-                    <li class="border">
-                        <a href="#">Cuentas</a>
-                    </li>
-                    <li class="border">
-                        <a href="#">Clientes</a>
-                    </li>
-                    <li class="border">
-                        <a href="#">Estados</a>
-                    </li>
-                    <li class="border">
-                        <a href="#">Trabajos</a>
-                    </li>
-                    <li class="border">
-                        <a href="#">Contraseña</a>
-                    </li>
-                    <li>
-                        <a href="#">Salir</a>
-                    </li>
-                </ul>
-            </nav>
-
-            
-
-            <!-- Page Content Holder -->
-            <div id="content" style="width:100%" >
-            <nav class="navbar navbar-default" style="background-color:#96183a">
-                    <div class="container-fluid">
-
-                        <div class="navbar-header" >
-                            <button type="button" style="background-color:transparent !important; border:1px; border-color:white;border-style: solid;" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                            <i style="font-size:20px;" class="glyphicon glyphicon-menu-hamburger"></i>  
-                            </button>
-                        </div>
-                    </div>
-                </nav>
-                <div style="padding:10px">
-                  @yield('contenido_Admin')	
-                  @if(session('error'))
-                  <div class="alert alert-danger alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-                  {{@session('error')}}
-                  </div>
-                  @endif
-              </div>
-            </div>
-
-
-
-              
+<body>
+<nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">
+    <img src="{{asset('Imagenes/logo.png')}}" width="35" height="35" class="d-inline-block align-top"></div>  
+    <span class="menu-collapsed">Grupo Prisma</span>
+  </a>
+  
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item a active">
+        <a class="nav-link" style="margin-left:20px;" href="#"><span class="glyphicon glyphicon-menu-left"><span class="glyphicon glyphicon-menu-left"></span></a>
+      </li>
+      
+      <!-- This menu is hidden in bigger devices with d-sm-none. 
+        The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
+      <li class=" nav-item dropdown d-sm-block d-md-none">
+        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menú
+        </a>
+        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+            <a class="dropdown-item" href="#">Trabajos</a>
+            <a class="dropdown-item" href="#">Estados</a>
+            <a class="dropdown-item" href="#">Cuentas</a>
         </div>
+      </li><!-- Smaller devices menu END -->
+      
+    </ul>
+  </div>
 
-        <!-- jQuery CDN -->
-         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-         <!-- Bootstrap Js CDN -->
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle" style="background-color:#96183a" data-toggle="dropdown">
+    Nombre del mae
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Link 1</a>
+    <a class="dropdown-item" href="#">Link 2</a>
+    <a class="dropdown-item" href="#">Link 3</a>
+  </div>
+</div>
 
-         <script type="text/javascript">
-             $(document).ready(function () {
-                 $('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').toggleClass('active');
-                 });
-             });
+</nav><!-- NavBar END -->
 
-             $(document).ready(function () {
+<!-- Bootstrap row -->
+<div class="row" id="body-row">
+    <!-- Sidebar -->
+    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+        <!-- Bootstrap List Group -->
+        <ul class="list-group">
+            <!-- Menu with submenu -->
+            <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="border border-left-0 border-top-0 border-right-0 border-light sidebar-color list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span> 
+                    <span class="menu-collapsed">Trabajos</span>
+                    <span class="glyphicon glyphicon-menu-down submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id='submenu1' class="collapse sidebar-submenu">
+                <a href="#" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
+                    <span class="menu-collapsed">Visualizar</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+                    <span class="menu-collapsed">Estados</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+                    <span class="menu-collapsed">Materiales</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
+                    <span class="menu-collapsed">Productos</span>
+                </a>
+            </div>
+            <a href="#" class="sidebar-color  list-group-item list-group-item-action border border-left-0 border-right-0 border-light" >
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="glyphicon glyphicon-user fa-fw mr-3"></span>
+                    <span class=" menu-collapsed">Clientes</span>    
+                </div>
+            </a>
+            <a href="{{ url('admin_accounts_index') }}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="glyphicon glyphicon-list fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Cuentas</span>
+                </div>
+            </a>
+            <a href="#" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Visitas</span>
+                </div>
+            </a>
+            <a href="#" data-toggle="sidebar-colapse" class="border border-left-0 border-right-0 border-light active-collapse sidebar-color  list-group-item list-group-item-action d-flex align-items-center">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span id="collapse-icon" class="glyphicon glyphicon-resize-horizontal fa fa-2x mr-3"></span>
+                    <span id="collapse-text" class="menu-collapsed">Cerrar menú</span>
+                </div>
+            </a>
+            <!-- Logo -->
+            <li class="list-group-item logo-separator d-flex justify-content-center">
+                <!-- <img src='https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg' width="30" height="30" />  -->  
+            </li>   
+        </ul><!-- List Group END-->
+    </div><!-- sidebar-container END -->
 
-$("#sidebar").mCustomScrollbar({
-    theme: "minimal"
+    <!-- MAIN -->
+    <div class="col">
+    <div class="container-fluid">
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible" style="text-align: center; padding:20px;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{@session('error')}}
+        </div>
+        @endif
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible" style="text-align: center; margin-top:10px; 
+                    margin-left:10px; margin-right:10px;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{@session('success')}}
+        </div>
+        @endif
+        @if(session('info'))
+        <div class="alert alert-info alert-dismissible" style="text-align: center;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{@session('info')}}
+        </div>
+        @endif
+        @yield('contenido_Admin')
+    </div>
+    </div><!-- Main Col END -->
+    </div><!-- body-row END -->
+
+<script>
+// Hide submenus
+$('#body-row .collapse').collapse('hide'); 
+
+// Collapse/Expand icon
+$('#collapse-icon').addClass('fa-angle-double-left'); 
+
+// Collapse click
+$('[data-toggle=sidebar-colapse]').click(function() {
+    SidebarCollapse();
 });
 
-// when opening the sidebar
-$('#sidebarCollapse').on('click', function () {
-    // open sidebar
-    $('#sidebar').addClass('active');
-    // fade in the overlay
-    $('.overlay').fadeIn();
-    $('.collapse.in').toggleClass('in');
-    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-});
+function SidebarCollapse () {
+    $('.menu-collapsed').toggleClass('d-none');
+    $('.sidebar-submenu').toggleClass('d-none');
+    $('.submenu-icon').toggleClass('d-none');
+    $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
+    
+    // Treating d-flex/d-none on separators with title
+    var SeparatorTitle = $('.sidebar-separator-title');
+    if ( SeparatorTitle.hasClass('d-flex') ) {
+        SeparatorTitle.removeClass('d-flex');
+    } else {
+        SeparatorTitle.addClass('d-flex');
+    }
+    
+    // Collapse/Expand icon
+    $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+}
+</script>
+</body>
 
-
-// if dismiss or overlay was clicked
-$('#dismiss, .overlay').on('click', function () {
-  // hide the sidebar
-  $('#sidebar').removeClass('active');
-  // fade out the overlay
-  $('.overlay').fadeOut();
-});
-});
-         </script>
-    </body>
 </html>
