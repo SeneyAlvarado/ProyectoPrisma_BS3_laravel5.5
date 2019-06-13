@@ -51,7 +51,7 @@ Route::get('print', function () {
 
 /*------------Admin states routes------------*/
 Route::get('estados', 'StateController@index');
-Route::get('editarEstados', function() {
+Route::get('editarEstados', function () {
     return view('states/edit');
 });
 Route::get('editarEstados', function () {
@@ -101,11 +101,14 @@ Route::get('prueba3', function () {
 });
 
 /**Routes for admin account */
-Route::get('admin_accounts_index', 'UserController@index')->name('admin_accounts_index');/**View the accounts list*/
+Route::get('admin_accounts_index', 'UserController@index')->name('admin_accounts_index');
+/**View the accounts list*/
 
-Route::get('/branchDrop', 'UserController@ajax_branch');/**Fill the select item with the branches*/
+Route::get('/branchDrop', 'UserController@ajax_branch');
+/**Fill the select item with the branches*/
 
-Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the roles*/
+Route::get('/dropRol', 'UserController@ajax_rol');
+/**Fill the select item with the roles*/
 
 Route::post('createUser', 'UserController@store');
 
@@ -114,7 +117,7 @@ Route::get('admin_accounts_create', function () {
 })->name('create_account_admin');
 
 Route::get('admin_accounts_edit', function () {
-    return view('admin.accounts.edit') ;
+    return view('admin.accounts.edit');
 })->name('admin_accounts_edit');
 
 Route::get('admin_edit_accounts/{id}', 'UserController@edit')->name('admin_edit_accounts');
@@ -151,23 +154,16 @@ Route::get('masterRoot', function () {
 });
 /*---------------------------------*/
 /*         products-------------*/
-
-
 Route::get('productIndex', 'ProductController@index');
-
 Route::get('productoShow/{id}', 'ProductController@show');
 Route::get('productoEdit/{id}', 'ProductController@edit');
 Route::get('productoCrea', 'ProductController@store');
 Route::get('productoCreate', 'BranchController@list');
 Route::get('productoUpdate', 'BranchController@list2');
-
-
 Route::get('productIndex2', function () {
     return view('products.index');
 });
 Route::resource('products', 'ProductController');
-
-
 Route::get('prueba4', function () {
     return view('masterPrueba4');
 });

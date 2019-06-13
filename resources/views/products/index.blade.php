@@ -1,4 +1,4 @@
-@extends('masterPrueba3')
+@extends('masterAdmin')
 
 @section('header')
 <div class="page-header clearfix">
@@ -33,9 +33,7 @@
                 <div class="">
                     <div class="">
                         @if($products->count())
-                        <!--  <table class="table table-condensed table-striped"> -->
                         <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
-
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
@@ -60,25 +58,19 @@
                                     <td class="text-center">{{$product->branch_id}}</td>
 
                                     <td class="text-right">
-                                        <!-- <a class="btn btn-warning style-btn-edit" href="{{ url('productoShow', $product->id) }}"> -->
                                         <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
-                                            <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
-                                                <i class="glyphicon glyphicon-eye-open"></i> View
-                                            </a>
+                                            View
+                                        </a>
 
-                                            <a class="btn btn-xs btn-warning" href="{{ url('productoEdit', $product->id) }}">
-                                                <!-- <a class="btn btn-warning style-btn-edit" href="{{ url('productoEdit', $product->id) }}"> -->
-                                                <a class="btn btn-xs btn-warning" href="{{ url('productoEdit', $product->id) }}">
-                                                    <i class="glyphicon glyphicon-edit"></i> Edit
-                                                </a>
+                                        <a class="btn btn-warning style-btn-edit btn-size" href="{{ url('productoEdit', $product->id) }}">
+                                            Edit
+                                        </a>
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="_method" value="DELETE">
 
-                                                <!--form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');"-->
-                                                <form action="#" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
-                                                    {{csrf_field()}}
-                                                    <input type="hidden" name="_method" value="DELETE">
-
-                                                    <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-                                                </form>
+                                            <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

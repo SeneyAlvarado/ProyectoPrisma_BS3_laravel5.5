@@ -93,7 +93,7 @@
                 <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Materiales</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
+                <a href="{{ url('productIndex')}}" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
                     <span class="menu-collapsed">Productos</span>
                 </a>
             </div>
