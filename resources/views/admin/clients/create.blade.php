@@ -1,12 +1,11 @@
 @extends('masterPrueba3')
 @section('contenido_Admin')
 <script src="{{asset('js/createClientsRadio.js')}}"></script>
-<script src="{{asset('js/requiredFields.js')}}"></script>
 <script src="{{asset('js/patternFields.js')}}"></script>
 
 <div class="panel panel-primary border-panel">
         <div class="panel-heading  border-header bg-color-panel" >
-                <p class="title-panel" style="font-size:20px;">Crear clientes</p>
+                <p class="title-panel" style="font-size:20px;">Clientes</p>
             </div>
             <div class="panel-body">
                     <section class="">
@@ -14,7 +13,7 @@
                                 <form method = 'POST' action='{{ route("clients.store") }}'>
                                     <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                                     <div align="right"><!-- align WORKS even if doesn´t compile-->
-                                    <p style="font-size:12px; color:red;">* Requerido</p>
+                                    <!-- p style="font-size:12px; color:red;">* Requerido</p> -->
                                     </div>
                                     <div>   
                                             <div class="col-md-8 col-md-offset-3" style="margin-top:10px; margin-left: 38%">

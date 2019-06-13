@@ -13,6 +13,13 @@ $(document).ready(function () {
         $('#identification').attr("oninvalid", 
         "this.setCustomValidity('Digite una cédula de mínimo 5 caracteres y máximo 35 caracteres (sin espacios)')");
         //when user fails the pattern this message will appear.
+
+        $("#identification").prop("onchange", true);
+        $('#identification').attr("onchange", 
+        "try{setCustomValidity('')}catch(e){}");//this makes the validator check again the user input 
+        //(if not added, once the user input is wrong, would always be wrong)
+
+        
     }
 
     if($("#name").length){//checks if the element exists
@@ -28,6 +35,11 @@ $(document).ready(function () {
         $('#name').attr("oninvalid", 
         "this.setCustomValidity('Digite un nombre de mínimo 2 caracteres y máximo 45 caracteres')");
         //when user fails the pattern this message will appear.
+
+        $("#name").prop("onchange", true);
+        $('#name').attr("onchange", 
+        "try{setCustomValidity('')}catch(e){}");//this makes the validator check again the user input 
+        //(if not added, once the user input is wrong, would always be wrong)
     }
 
     if($("#lastname").length){//checks if the element exists
@@ -37,12 +49,19 @@ $(document).ready(function () {
 
         $("#lastname").prop("title", true);
         $('#lastname').attr("title", 'Digite un primer apellido de mínimo 2 caracteres y máximo 30 caracteres');
+
         //when user has the mouse (pointer) over the lastname ("Primer Apellido") field, this message will prompt.
 
         $("#lastname").prop("oninvalid", true);
         $('#lastname').attr("oninvalid", 
         "this.setCustomValidity('Digite un primer apellido de mínimo 2 caracteres y máximo 30 caracteres')");
         //when user fails the pattern this message will appear.
+
+        $("#lastname").prop("onchange", true);
+        $('#lastname').attr("onchange", 
+        "try{setCustomValidity('')}catch(e){}");//this makes the validator check again the user input 
+        //(if not added, once the user input is wrong, would always be wrong)
+        
     }
 
     if($("#second_lastname").length){//checks if the element exists
@@ -58,12 +77,17 @@ $(document).ready(function () {
         $('#second_lastname').attr("oninvalid", 
         "this.setCustomValidity('Digite un segundo apellido de mínimo 2 caracteres y máximo 30 caracteres')");
         //when user fails the pattern this message will appear.
+
+        $("#second_lastname").prop("onchange", true);
+        $('#second_lastname').attr("onchange", 
+        "try{setCustomValidity('')}catch(e){}");//this makes the validator check again the user input 
+        //(if not added, once the user input is wrong, would always be wrong)
     }
 
     if($("#number").length){//checks if the element exists
 
         $("#number").prop("pattern", true);//adds the below pattern to HTML to validate info
-        $('#number').attr("pattern", '[123456789]{4,15}');
+        $('#number').attr("pattern", '[0123456789]{4,15}');
 
         $("#number").prop("title", true);
         $('#number').attr("title", 'Digite un teléfono de mínimo 4 dígitos y máximo 15 dígitos (sin espacios ni guiones)');
@@ -73,6 +97,11 @@ $(document).ready(function () {
         $('#number').attr("oninvalid", 
         "this.setCustomValidity('Digite un teléfono de mínimo 4 dígitos y máximo 15 dígitos (sin espacios ni guiones)");
         //when user fails the pattern this message will appear.
+
+        $("#number").prop("onchange", true);
+        $('#number').attr("onchange", 
+        "try{setCustomValidity('')}catch(e){}");//this makes the validator check again the user input 
+        //(if not added, once the user input is wrong, would always be wrong)
     }
 
     if($("#email").length){//checks if the element exists
@@ -89,6 +118,11 @@ $(document).ready(function () {
         $('#email').attr("oninvalid", 
         "this.setCustomValidity('Digite un correo electrónico válido");
         //when user fails the pattern this message will appear.
+
+        $("#email").prop("onchange", true);
+        $('#email').attr("onchange", 
+        "try{setCustomValidity('')}catch(e){}");//this makes the validator check again the user input 
+        //(if not added, once the user input is wrong, would always be wrong)
     }
 
     if($("#address").length){//checks if the element exists
@@ -105,6 +139,11 @@ $(document).ready(function () {
         $("#address").prop("maxlength", true);
         $('#address').attr("maxlength", "250");
         //sets max length of address textarea (text field) at 250 characters
+
+        $("#address").prop("onchange", true);
+        $('#address').attr("onchange", 
+        "try{setCustomValidity('')}catch(e){}");//this makes the validator check again the user input 
+        //(if not added, once the user input is wrong, would always be wrong)
     }
 
 

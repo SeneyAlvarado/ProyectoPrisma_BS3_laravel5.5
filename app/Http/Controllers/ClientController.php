@@ -122,6 +122,18 @@ class ClientController extends Controller
 
 			\Session::put('errorOrigin', " agregando el cliente");
 
+			if (strlen(trim($request->name)) == 0){
+				return back()->with('error', 'El campo Nombre es requerido');
+			}
+			if($request->type == "1"){//physical client
+				if (strlen(trim($request->lastname)) == 0){
+					return back()->with('error', 'El campo Primer Apellido es requerido');
+				}
+				if (strlen(trim($request->second_lastname)) == 0){
+					return back()->with('error', 'El campo Segundo Apellido es requerido');
+				}
+			}
+
 			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
 			
@@ -167,11 +179,13 @@ class ClientController extends Controller
 
 		}catch(\Illuminate\Database\QueryException $e){
 			report($e);
+			DB::rollback();
 			return redirect('clients')->with('error', '¡Error en la base de datos
 			agregando el cliente!');
 		}
 		catch(\Exception $e){
 			report($e);
+			DB::rollback();
 			return redirect('clients')->with('error', '¡Error agregando el cliente!');
 		}
 		
@@ -213,6 +227,7 @@ class ClientController extends Controller
 				
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
+				//return $client;
 				return view('admin.clients.edit', compact('client'));
 			}
 			
@@ -238,12 +253,112 @@ class ClientController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		$inputs = $request->all();
+		
+		try {
 
-		$client = $this->model->findOrFail($id);		
-		$client->update($inputs);
+			\Session::put('errorOrigin', " actualizando el cliente");
+			
+			if (strlen(trim($request->name)) == 0){
+				return back()->with('error', 'El campo Nombre es requerido');
+			}
+			if($request->type == "1"){//physical client
+				if (strlen(trim($request->lastname)) == 0){
+					return back()->with('error', 'El campo Primer Apellido es requerido');
+				}
+				if (strlen(trim($request->second_lastname)) == 0){
+					return back()->with('error', 'El campo Segundo Apellido es requerido');
+				}
+			}
 
-		return redirect()->route('clients.index')->with('message', 'Item updated successfully.');
+			DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+			
+			$client = $this->model->find($id);
+
+			if($client == null) {
+				throw new \Exception('Error en actualizar el cliente con el id:' .$id
+			. " en el método ClientController@update");
+			} else {
+
+			$client_id = $client->id;
+			$number = $request->number;
+			$inputEmail = $request->email;
+
+			if(!empty($number)) {
+				$phones = $client->phones()->get();//it´s a hasMany type, not a Model type, so it needs a get first
+				$phoneExists = false;
+				
+				foreach ($phones as $phone) {
+					if($phone->number == $number){
+						$phone->active_flag = 1;
+						$phone->save();
+						$phoneExists = true;
+					} else {
+						$phone->active_flag = 0;
+						$phone->save();
+					}
+				}
+
+				if(!$phoneExists){//if the phone is not at the database
+					$newPhone = new \App\Phone;
+					$newPhone->number = $number;
+					$newPhone->client_id = $client_id;
+					$newPhone->active_flag = 1;
+					$newPhone->save();
+				}
+			}//end if number not empty
+
+			if(!empty($inputEmail)) {
+				$emails = $client->emails()->get();//it´s a hasMany type, not a Model type, so it needs a get first
+				$emailExists = false;
+				
+				foreach ($emails as $email) {
+					if($email->email == $inputEmail){
+						$email->active_flag = 1;
+						$email->save();
+						$emailExists = true;
+					} else {
+						$email->active_flag = 0;
+						$email->save();
+					}
+				}
+
+				if(!$emailExists){//if the email is not at the database
+					$newEmail = new \App\Email;
+					$newEmail->email = $inputEmail;
+					$newEmail->client_id = $client_id;
+					$newEmail->active_flag = 1;
+					$newEmail->save();
+				}
+			}//end if email not empty
+
+			$client->name = $request->name;
+			$client->address = $request->address;
+			$client->identification = $request->identification;
+			$client->save();
+
+			if($request->type == "1"){//physical client
+				$physical_client = Physical_client::where('client_id', $client_id)->first();
+				$physical_client->lastname = $request->lastname;
+				$physical_client->second_lastname = $request->second_lastname;
+				$physical_client->save();
+			}
+
+			DB::commit();//commits to database 
+			return redirect('clients')->with('success', '¡Cliente actualizado satisfactoriamente!');
+
+		}//end if client not null
+		}catch(\Illuminate\Database\QueryException $e){
+			report($e);
+			DB::rollback();
+			return redirect('clients')->with('error', '¡Error en la base de datos
+			actualizando el cliente!');
+		}
+		catch(\Exception $e){
+			report($e);
+			DB::rollback();
+			return redirect('clients')->with('error', '¡Error actualizando el cliente!');
+		}
 	}
 
 
