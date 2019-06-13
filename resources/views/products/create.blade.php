@@ -8,10 +8,8 @@
 
 @section('contenido_Admin')
 @include('error')
-
-<!--  <div class="row">
-        <div class="col-md-12"> -->
 <script src="{{asset('js/load_branches_admin.js')}}"></script>
+
 <div class="panel panel-primary border-panel">
     <div class="panel-heading  border-header bg-color-panel">
         <p class="title-panel" style="font-size:20px;">Crear Producto</p>
@@ -24,30 +22,33 @@
                 <form action="{{ route('products.store') }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                    <!--   <div class="form-group">
-	<label for="name-field">Name</label>
-	<input class="form-control" type="text" name="name" id="name-field" value="" />
-</div> <div class="form-group">
-	<label for="description-field">Description</label>
-	<input class="form-control" type="text" name="description" id="description-field" value="" />
-</div> -->
                     <div>
-                        <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
+                        <div class="col-md-7 col-md-offset-2" style="margin-top:10px;">
                             <label for="name"><strong>Nombre</strong></label>
                             <input id="name" placeholder="Nombre" class="form-control" name="name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo">
                         </div>
-                        <div class="col-md-4 " style="margin-top:10px;">
+                    </div>
+                    <div class="col-md-7 col-md-offset-2"><hr></div>
+                 
+                    <div>
+                        <div class="col-md-7 col-md-offset-2">
                             <label for="description"><strong>Descripcion</strong></label>
-                            <input id="description" placeholder="Descripci[on" class="form-control" name="description" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>
+                            <textarea class="form-control" style="resize:none;" name="description" id="description-field" rows="5" cols="50"></textarea>
+
+                            <!-- <input id="description" placeholder="Descripci[on" class="form-control" name="description" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required> -->
                         </div>
                     </div>
-                    <div class="col-md-4 " style="margin-top:10px;">
+                    <div class="col-md-7 col-md-offset-2"><hr></div>
+                   
+                    <div class="col-md-4  col-md-offset-2" style="margin-top:10px;">
                         <label for="active_flag"><strong>Active Flag</strong></label>
                         <br>
-                        <input type="radio" name="active_flag" value="1"> Activo<br>
+                        <input type="radio" name="active_flag" value="1" checked> Activo<br>
                         <input type="radio" name="flactive_flagag" value="0"> Desactivado<br>
                     </div>
-                    <div class="col-md-4 " style="margin-top:10px;">
+                    <div class="col-md-7 col-md-offset-2"><hr></div>
+                   
+                    <div class="col-md-7 col-md-offset-2 " style="margin-top:10px;">
                         <label for="branch"><strong>Branch</strong></label>
                         <br>
 
@@ -64,24 +65,18 @@
                         </select>
                     </div>
             </div>
-
-
-            <!-- <div class="form-group">
-                        <label for="active_flag-field">Active_flag</label>
-                        --active_flag--
-                    </div>
-                    <div class="form-group">
-                        <label for="branch_id-field">Branch_id</label>
-                        --branch_id--
-                    </div>
-                    <div class="form-group">
-                        <label for="branch_id-field">Branch_id</label>
-                        --branch_id--
-                    </div> -->
-
-            <div class="well well-sm">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <a class="btn btn-link pull-right" href="{{ route('products.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a>
+            <div class="col-md-7 col-md-offset-2">
+                <div class="col-md-6 " style="margin-top:20px; width:70; height:100px;">
+                <!-- a class='btn btn-block' style="background-color:#707b7c " href="{{ route('products.index') }}" -->
+                    <a class='btn btn-block' style="background-color: #1c2833  " href="{{ route('products.index') }}">
+                        <p style="color: #fdfefe ">Guardar</p>
+                    </a></div>
+                <div class="col-md-6 " style="margin-top:20px;">
+                    <!-- a class="btn btn-block  " style="background-color:#2c3e50 " href="{{url('productIndex')}}" -->
+                    <a class="btn btn-block  " style="background-color:#566573  " href="{{url('productIndex')}}">
+                        <p style="color: #fdfefe ">Regresar</p>
+                    </a>
+                </div>
             </div>
             </form>
     </div>
