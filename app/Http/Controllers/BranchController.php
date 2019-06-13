@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Branch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
+use Auth;
 
 class BranchController extends Controller
 {
@@ -32,9 +34,12 @@ class BranchController extends Controller
 	 */
 	public function index()
 	{
-		$branches = $this->model->paginate();
-
-		return view('branches.index', compact('branches'));
+		$branches = DB::table('branches')->get();
+		
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.branches.index', compact('branches'));
+		}
 	}
 
 	/**
