@@ -14,7 +14,7 @@ class CreatePhonesTable extends Migration {
 	{
 		Schema::create('phones', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('number');
+            $table->bigInteger('number')->unsigned();
             $table->integer('client_id')->unsigned();
 			$table->foreign('client_id')->references('id')->on('clients');
 			$table->integer('active_flag');

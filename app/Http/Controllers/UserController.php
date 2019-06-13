@@ -235,7 +235,6 @@ class UserController extends Controller
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
 			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta desactivada satisfactoriamente!');;
-			
 		}
 	}
 

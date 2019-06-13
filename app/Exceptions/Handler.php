@@ -113,25 +113,26 @@ class Handler extends ExceptionHandler
             \Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
 			\Session::flash('message_header', 'Success');
-            \Session::flash('error', '¡Ha ocurrido un error con un valor no válido al ' . $errorOrigin . "!" 
+            \Session::flash('error', '¡Ha ocurrido un error con un valor no válido ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
             return back();
         
         }elseif($exception instanceof \Illuminate\Database\QueryException) {
             
-            /*\Session::flash('message_type', 'negative');
+            \Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
 			\Session::flash('message_header', 'Success');
-            \Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datosss!'
-            .' Si este persiste contacte al administrador del sistema');*/
-            if($request->session()->has('_previous')) {
+            \Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datos!'
+            .' Si este persiste contacte al administrador del sistema');
+            return back();
+           /* if($request->session()->has('_previous')) {
                 return redirect($request->session()->get('_previous')['url'])->
                 with('message_type', 'negative')->
                 with('message_icon', 'hide')->
                 with('message_header', 'Success')->
                 with('error', '¡Ha ocurrido un error en la consulta a la base de datosssxd!'
                 .' Si este persiste contacte al administrador del sistema');
-            }
+            }*/
         
         }elseif($exception instanceof \RuntimeException) {
             \Session::flash('message_type', 'negative');
@@ -159,7 +160,7 @@ class Handler extends ExceptionHandler
             \Session::flash('message_type', 'negative');
 			\Session::flash('message_icon', 'hide');
 			\Session::flash('message_header', 'Success');
-            \Session::flash('error', '¡Ha ocurrido un error inesperado!');
+            \Session::flash('error', '¡Ha ocurrido un error inesperado ' . $errorOrigin . "!" );
             return back();
         }elseif($exception instanceof \Exception) {//this should be the LAST one, gets any Exception
             \Session::flash('message_type', 'negative');
