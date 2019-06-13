@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', function () {
     if (Auth::check()) {
         auth()->logout();
@@ -29,29 +28,24 @@ Route::get('/login', function () {
 
 Route::post('login', 'Auth\LoginController@login');
 
-
-
 Route::get('admin', function () {
     return view('masterAdmin');
     //return view('products/index');
 });
 
-Route::get('recepcion', function () {
-    return view('masterReception');
-});
-
-Route::get('postProduccion', function () {
-    return view('masterPostProduction');
-});
-
-Route::get('print', function () {
-    return view('masterPrint');
-});
-
+/**-----------User routes------------- */
+Route::get('user.index', 'UserController@index')->name('user.index');/**View the accounts list*/
+Route::get('user.create', 'UserController@create')->name('user.create');
+Route::post('user.store', 'UserController@store')->name('user.store');
+Route::get('user.edit/{id}', 'UserController@edit')->name('user.edit');
+Route::put('user.update/{id}', 'UserController@update')->name('user.update');
+Route::delete('user.desactivate/{id}', 'UserController@destroy')->name('user.desactivate');
+Route::delete('user.activate/{id}', 'UserController@activate')->name('user.activate');
+/*-------------------------------------------*/
 
 /*------------Admin states routes------------*/
 Route::get('estados', 'StateController@index');
-Route::get('editarEstados', function() {
+Route::get('editarEstados', function () {
     return view('states/edit');
 });
 Route::get('editarEstados', function () {
@@ -93,81 +87,33 @@ Route::get('clients.edit/{id}', 'ClientController@edit')->name('clients.edit');
 Route::post('clients.update/{id}', 'ClientController@update')->name('clients.update');
 Route::delete('clients.deactivate/{id}', 'ClientController@destroy')->name('clients.deactivate');
 Route::delete('clients.activate/{id}', 'ClientController@activate')->name('clients.activate');
-
 /* end of clients routes */
 
-Route::get('prueba3', function () {
-    return view('masterPrueba3');
-});
 
-/**Routes for admin account */
-Route::get('admin_accounts_index', 'UserController@index')->name('admin_accounts_index');/**View the accounts list*/
-
+/*------------Load branches and rols------------*/
 Route::get('/branchDrop', 'UserController@ajax_branch');/**Fill the select item with the branches*/
-
 Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the roles*/
-
-Route::post('createUser', 'UserController@store');
-
-Route::get('admin_accounts_create', function () {
-    return view('admin.accounts.create');
-})->name('create_account_admin');
-
-Route::get('admin_accounts_edit', function () {
-    return view('admin.accounts.edit') ;
-})->name('admin_accounts_edit');
-
-Route::get('admin_edit_accounts/{id}', 'UserController@edit')->name('admin_edit_accounts');
-Route::put('admin_update_accounts/{id}', 'UserController@update')->name('admin_update_accounts');
-Route::delete('admin_desactivate_accounts/{id}', 'UserController@destroy')->name('admin_desactivate_accounts');
-Route::delete('admin_activate_accounts/{id}', 'UserController@activate')->name('admin_activate_accounts');
-
-Route::resource('admin_accounts', 'UserController');
-/**End admin routes */
-
-Route::get('admin_accounts_create', function () {
-    return view('admin.accounts.create');
-})->name('create_account_admin');
-
+/*-------------------------------------------*/
 
 Route::get('/branchDrop', 'UserController@ajax_branch');
 
-
-
-Route::get('prueba1', function () {
-    return view('masterPrueba');
-});
-
-Route::get('prueba2', function () {
-    return view('masterPrueba2');
-});
-
-Route::get('prueba3', function () {
-    return view('masterPrueba3');
-});
 
 Route::get('masterRoot', function () {
     return view('masterRoot');
 });
 /*---------------------------------*/
 /*         products-------------*/
-
-
 Route::get('productIndex', 'ProductController@index');
-
 Route::get('productoShow/{id}', 'ProductController@show');
 Route::get('productoEdit/{id}', 'ProductController@edit');
 Route::get('productoCrea', 'ProductController@store');
 Route::get('productoCreate', 'BranchController@list');
 Route::get('productoUpdate', 'BranchController@list2');
-
-
 Route::get('productIndex2', function () {
     return view('products.index');
 });
 Route::resource('products', 'ProductController');
-
-
+<<<<<<< HEAD
 Route::get('prueba4', function () {
     return view('masterPrueba4');
 });
@@ -179,3 +125,19 @@ Route::get('prueba4', function () {
 Route::get('pruebaM', function () {
     return view('prueba');
 });
+=======
+
+
+/*------------Products----- */
+/*------------------------------------------ */
+
+/**-----------Branch routes------------- */
+Route::get('branch.index', 'BranchController@index')->name('branch.index');
+Route::get('branch.create', 'BranchController@create')->name('branch.create');
+Route::post('branch.store', 'BranchController@store')->name('branch.store');
+Route::get('branch.edit/{id}', 'BranchController@edit')->name('branch.edit');
+Route::put('branch.update/{id}', 'BranchController@update')->name('branch.update');
+Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('branch.desactivate');
+Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
+/*-------------------------------------------*/
+>>>>>>> 2d7b96a657dc6ad1c1688ce56760796c09947f43

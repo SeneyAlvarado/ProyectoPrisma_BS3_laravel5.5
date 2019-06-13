@@ -28,16 +28,19 @@
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <ul class="navbar-nav">
+  <li class="nav-item a active">
+        <button class="btn btn-default style-return-button" href="#"><span class="glyphicon glyphicon-menu-left"></span></button>
+      </li>
+  </ul>
   <a class="navbar-brand" href="#">
     <img src="{{asset('Imagenes/logo.png')}}" width="35" height="35" class="d-inline-block align-top"></div>  
-    <span class="menu-collapsed">Grupo Prisma</span>
+    <span class="">Grupo Prisma</span>
   </a>
   
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item a active">
-        <button class="btn btn-default style-return-button" href="#"><span class="glyphicon glyphicon-menu-left"></span></button>
-      </li>
+      
       
       <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
@@ -93,7 +96,7 @@
                 <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Materiales</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
+                <a href="{{ url('productIndex')}}" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
                     <span class="menu-collapsed">Productos</span>
                 </a>
             </div>
@@ -103,7 +106,7 @@
                     <span class=" menu-collapsed">Clientes</span>    
                 </div>
             </a>
-            <a href="{{ url('admin_accounts_index') }}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+            <a href="{{ url('user.index') }}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-list fa-fw mr-3"></span>
                     <span class="menu-collapsed">Cuentas</span>
@@ -113,6 +116,12 @@
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
                     <span class="menu-collapsed">Visitas</span>
+                </div>
+            </a>
+            <a href="branch.index" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="glyphicon glyphicon-flag fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Sucursales</span>
                 </div>
             </a>
             <a href="#" data-toggle="sidebar-colapse" class="border border-left-0 border-right-0 border-light active-collapse sidebar-color  list-group-item list-group-item-action d-flex align-items-center">
