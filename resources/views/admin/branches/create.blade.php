@@ -6,9 +6,8 @@
         <div class="card">
             <h5 class="card-header" style="text-align:center">Cuentas</h5>
             <div class="card-body">
-            <div class="container-fluid">
                 <div class="">
-                    <form method='POST' action='{{ url("user.store") }}'>
+                    <form method='POST' action='{{ url("branch.store") }}'>
                         <input type='hidden' name='_token' value='{{Session::token()}}'>
 
                         <div class="row justify-content-center">
@@ -89,7 +88,6 @@
                         <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->
                     </form>
                 </div>
-            </div>
         </div>
     </div>
 </div>

@@ -50,7 +50,6 @@ class UserController extends Controller
 		->get();
 
 		/*return the param with all accounts to the view;*/
-		return view('admin.accounts.index', compact('users'));
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
 			return view('admin.accounts.index', compact('users'));
@@ -64,7 +63,24 @@ class UserController extends Controller
 	 */
 	public function create()
 	{
-		return view('users.create');
+		try {
+			
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " accediendo a la creación de cuentas");	
+
+			$user_type = Auth::user()->user_type_id;
+			if($user_type == 1){//admin user
+				return view('admin.accounts.create');
+			}
+		}catch(\Illuminate\Database\QueryException $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error en la base de datos
+			 en la creación de cuentas!');
+		}
+		catch(\Exception $e){
+			report($e);
+			return redirect('clients')->with('error', '¡Error en la creación de cuentas!');
+		}
 	}
 
 	/**
@@ -112,7 +128,7 @@ class UserController extends Controller
 		
 		DB::commit();//commits to database 
 		if($user_type == 1){//admin user
-			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta registrada satisfactoriamente!');;
+			return redirect()->route('user.index')->with('success', '¡Cuenta registrada satisfactoriamente!');;
 			
 		}
 	}catch(\Exception $e) {
@@ -120,13 +136,13 @@ class UserController extends Controller
 		DB::rollback();
 		\Session::flash('error', '¡Ha ocurrido un error al insertar la cuenta!' 
 		.' Si este persiste contacte al administrador del sistema');
-		return redirect('create_account_admin');//aquí redirigen a la página deseada después de validar el error
+		return redirect('user.index');//aquí redirigen a la página deseada después de validar el error
 	}catch(\Throwable $e){//different exception that it´s not contained at \Exception
 		report($e);//this writes the error at the log
 		DB::rollback();
 		\Session::flash('error', '¡Ha ocurrido un error al insertar la cuenta!' 
 		.' Si este persiste contacte al administrador del sistema');
-		return redirect('create_account_admin');//aquí redirigen a la página deseada después de validar el error
+		return redirect('user.index');//aquí redirigen a la página deseada después de validar el error
 	}
 		
 	}
@@ -200,7 +216,7 @@ class UserController extends Controller
 		$user_type = Auth::user()->user_type_id;		
 		DB::commit();//commits to database 
 		if($user_type == 1){//admin user
-			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta actualizada satisfactoriamente!');;
+			return redirect()->route('user.index')->with('success', '¡Cuenta actualizada satisfactoriamente!');;
 			
 		}
 		
@@ -209,13 +225,13 @@ class UserController extends Controller
 		DB::rollback();
 		\Session::flash('error', '¡Ha ocurrido un error al actualizar la cuenta!' 
 		.' Si este persiste contacte al administrador del sistema');
-		return redirect('admin_edit_accounts/'.$id);//aquí redirigen a la página deseada después de validar el error
+		return redirect('user.edit/'.$id);//aquí redirigen a la página deseada después de validar el error
 	}catch(\Throwable $e){//different exception that it´s not contained at \Exception
 		report($e);//this writes the error at the log
 		DB::rollback();
 		\Session::flash('error', '¡Ha ocurrido un error al actualizar la cuenta!' 
 		.' Si este persiste contacte al administrador del sistema');
-		return redirect('admin_edit_accounts/'.$id);//aquí redirigen a la página deseada después de validar el error
+		return redirect('user.edit/'.$id);//aquí redirigen a la página deseada después de validar el error
 	}//End Try-Catch
 
 	}//End update accound
@@ -234,7 +250,7 @@ class UserController extends Controller
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
-			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta desactivada satisfactoriamente!');;
+			return redirect()->route('user.index')->with('success', '¡Cuenta desactivada satisfactoriamente!');;
 		}
 	}
 
@@ -246,7 +262,7 @@ class UserController extends Controller
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
-			return redirect()->route('admin_accounts.index')->with('success', '¡Cuenta activada satisfactoriamente!');;
+			return redirect()->route('user.index')->with('success', '¡Cuenta activada satisfactoriamente!');;
 			
 		}
 	}
