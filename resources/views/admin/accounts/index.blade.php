@@ -5,7 +5,6 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 <div style="padding:10px;">
-
 <div class="card">
             <h5 class="card-header" style="text-align:center">Cuentas</h5>
             <div class="card-body">

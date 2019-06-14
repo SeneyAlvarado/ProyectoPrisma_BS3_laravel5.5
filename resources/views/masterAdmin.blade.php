@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="{{asset('css/simple-sidebar.css')}}">
     <link rel="stylesheet" href="{{asset('css/master-root.css')}}">
     <link rel="stylesheet" href="{{asset('css/glyphicons.css')}}">
+
+    <!--resizes table so the content won´t go down -->
+    <link rel="stylesheet" href="{{asset('css/table.css')}}">
+
+    <!-- align added button to Jquery datatable-->
+    <link rel="stylesheet" href="{{asset('css/custom-button-datatable.css')}}">
+
     <!--<script src="{{asset('js/master-root.js')}}"></script>-->
     <script src="{{asset('js/menus_dinamicos.js')}}"></script>
 	<script src="{{asset('js/app.min.js')}}"></script>
@@ -21,6 +28,10 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- helps to add the right route to create buttons-->
+    <script src="{{asset('js/customButtonDatatable.js')}}"></script>
+
 </head>
 
 <body>
@@ -97,7 +108,7 @@
                     <span class="menu-collapsed">Productos</span>
                 </a>
             </div>
-            <a href="#" class="sidebar-color  list-group-item list-group-item-action border border-left-0 border-right-0 border-light" >
+            <a href={{route('clients')}} class="sidebar-color  list-group-item list-group-item-action border border-left-0 border-right-0 border-light" >
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-user fa-fw mr-3"></span>
                     <span class=" menu-collapsed">Clientes</span>    
@@ -130,7 +141,7 @@
 
     <!-- MAIN -->
     <div class="col">
-    <div class="container-fluid">
+    <div class="container-fluid size-changer">
         @if(session('error'))
         <div class="alert alert-danger alert-dismissible" style="text-align: center; padding:20px;" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
