@@ -73,6 +73,10 @@ class ProductController extends Controller
 	 */
 	public function show($id)
 	{
+		$nameBranch = 
+		DB::table('products')->join('branches', 'branch_id','=', 'products.branch_id')
+		->select('branches.name');
+		
 		$product = $this->model->findOrFail($id);
 		
 		return view('products.show', compact('product'));

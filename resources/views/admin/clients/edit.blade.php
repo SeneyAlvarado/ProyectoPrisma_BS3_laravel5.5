@@ -1,4 +1,4 @@
-@extends('masterPrueba3')
+@extends('masterAdmin')
 @section('contenido_Admin')
 <script src="{{asset('js/patternFields.js')}}"></script>
 

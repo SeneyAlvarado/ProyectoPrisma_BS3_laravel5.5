@@ -134,7 +134,7 @@ Route::get('branch.index', 'BranchController@index')->name('branch.index');
 Route::get('branch.create', 'BranchController@create')->name('branch.create');
 Route::post('branch.store', 'BranchController@store')->name('branch.store');
 Route::get('branch.edit/{id}', 'BranchController@edit')->name('branch.edit');
-Route::put('branch.update/{id}', 'BranchController@update')->name('branch.update');
+Route::post('branch.update', 'BranchController@update')->name('branch.update');
 Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('branch.desactivate');
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /*-------------------------------------------*/

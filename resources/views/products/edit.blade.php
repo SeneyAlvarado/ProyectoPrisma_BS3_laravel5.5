@@ -46,8 +46,13 @@
                     <div class="justify-content-center offset-md-2 col-md-4" style="margin-top:10px;">
                         <label for="active_flag"><strong>Active Flag</strong></label>
                         <br>
+                        @if($product->active_flag == 1)
                         <input type="radio" name="active_flag" value="1" checked> Activo<br>
-                        <input type="radio" name="active_flag" value="0"> Desactivado<br>
+                        <input type="radio" name="active_flag" value="0" disabled=""> Desactivado<br>
+                        @else
+                        <input type="radio" name="active_flag" value="1" disabled=""> Activo<br>
+                        <input type="radio" name="active_flag" value="0" checked> Desactivado<br>
+                        @endif
                     </div>
                     <div class="offset-md-2 col-md-7">
                         <hr>
