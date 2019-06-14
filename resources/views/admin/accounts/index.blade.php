@@ -40,7 +40,6 @@
                                <td class="text-center">Desactivo</td>
                                @endif
                                <td class="text-center">
-                              
                                     <a class="btn btn-warning style-btn-edit btn-size" href="{{ route('user.edit', $user->id) }}">Editar</a>
                                    @if($user->active_flag == 1)
                                    <form style="display:inline" action="{{ route('user.desactivate', $user->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar la cuenta de {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">

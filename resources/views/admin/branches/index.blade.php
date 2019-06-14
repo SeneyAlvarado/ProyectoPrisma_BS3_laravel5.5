@@ -8,20 +8,43 @@
         <h5 class="card-header" style="text-align:center">Cuentas</h5>
         <div class="card-body">
 
-        <button style="margin-bottom:15px;" id="mybutton" class = ' margin-button-agregar btn btn-success mobile' onclick="myFunction()">Agregar Sucursal</button>
-            <form action="{{ route('branch.store') }}" method="POST">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">+</button>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Agregar sucursal</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        <form action="{{ route('branch.store') }}" method="POST">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div id="myDIV" style="display: none; margin-bottom:15px;">
-                    <div class="row " id="agregar">
-                    <div>
-                        <input placeholder="Nombre" class="nombre margin-lft form-control" name = "descripcion" type="text" id="nombre_recinto" pattern="[a-zA-Z áéíóúÁÉÍÓÚñÑ]{2,48}" title="No se permiten números en este campo"> 
-                    </div>
-                    <div>
-                        <button  style="margin-left:10px;" class = 'margin-button btn btn-success mobile' type ='submit'>Agregar</button>
+                    <div class="row justify-content-center">
+                    <div class="col-md-8">
+                    <label for="name"><strong>Nombre de sucursal</strong></label>
+                        <input placeholder="Nombre" class="nombre margin-lft form-control" name = "name" type="text" id="nombre_recinto" pattern="[a-zA-Z áéíóúÁÉÍÓÚñÑ]{2,48}" title="No se permiten números en este campo"> 
                     </div>
                     </div>
-                </div>
+                    <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <button  style="margin-top:15px;" class = 'btn-block margin-button btn btn-info' type ='submit'>Agregar</button>
+                    </div>
+                    <div class="col-md-4">    
+                        <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cancelar</button>
+                    </div>
+                    </div>
             </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
            <div class="">
             @if($branches->count())
            <div class="table-responsive">
@@ -34,8 +57,9 @@
                    </thead>
 
                    <tbody>
-                       @foreach($branches as $branch)
                        <?php $count = 1;?>
+                       @foreach($branches as $branch)
+                       
                            <tr>
                                <td class="text-center">{{$count}}</td>
                                <?php $count = $count + 1;?>
@@ -46,8 +70,8 @@
                                <td class="text-center">Desactiva</td>
                                @endif
                                <td class="text-center">
-                              
-                                    <a class="btn btn-warning style-btn-edit btn-size" href="{{ route('branch.edit', $branch->id) }}">Editar</a>
+                                    <button type="button" class="btn btn-info style-btn-edit btn-size" data-toggle="modal" onCLick="myFunction('{{$branch->name}}', '{{$branch->id}}')">Editar</button>
+                                    
                                    @if($branch->active_flag == 1)
                                    <form style="display:inline" action="{{ route('branch.desactivate', $branch->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar la sucursal de {{$branch->name}}?');">
                                        {{csrf_field()}}
@@ -76,22 +100,56 @@
     </div>
 </div>
 </div>
+
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Editar sucursal</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        <form method = 'POST' action='{{ route("branch.update") }}'>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="">
+      
+                    <div class="row justify-content-center">
+                    <div class="col-md-8">
+                    <label for="name"><strong>Nombre de sucursal</strong></label>
+                    <input id="name-field" value="" class="form-control" name = "name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo"> 
+                    </div>
+                    
+                    </div>
+                    <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <button  style="margin-top:15px;" id ="update" class = 'btn-block margin-button btn btn-info' type ='submit'>Actualizar</button>
+                    </div>
+                    <div class="col-md-4">    
+                        <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cancelar</button>
+                    </div>
+                    </div>
+            </form>
+        
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+         
+        </div>
+        
+      </div>
+    </div>
+  </div>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 
 <script>
-function myFunction() {
-	var x = document.getElementById("myDIV");
-	var y = document.getElementById("mybutton");
-	var button = document.getElementById("mybutton");
-	
-    if (x.style.display === "none") {
-		y.style.display ="none";
-        x.style.display = "block";
-        boton.setBackgroundColor(0xFF00FF00);
-    } else {
-
-        x.style.display = "none";
-    }
+function myFunction(name, id) {
+    $(".name").html(name);
+    $("input[name=id]").val(id);
+    $("input[name=name]").val(name);
+    $("#editModal").modal('show');
 }
 </script>
+
 @endsection

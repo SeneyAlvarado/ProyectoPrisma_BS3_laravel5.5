@@ -75,11 +75,17 @@ class BranchController extends Controller
 	 */
 	public function store(Request $request)
 	{
-
-		$inputs = $request->all();
-		$this->model->create($inputs);
-
-		return redirect()->route('branches.index')->with('message', 'Item created successfully.');
+		
+		$brach = new Branch();
+		$brach->active_flag = 1;
+		$brach->name = $request->name;
+		$brach->save();
+		
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return redirect()->route('branch.index')->with('success', '¡Sucursal creada satisfactoriamente!');;
+			
+		}
 	}
 
 	/**
@@ -115,14 +121,38 @@ class BranchController extends Controller
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request)
 	{
-		$inputs = $request->all();
+		try {
+			\Session::put('errorOrigin', " agregando la sucursal");
+			
+			if (strlen(trim($request->name)) == 0){
+				return back()->with('error', 'El nombre de la sucursal es requerido');
+			}
+			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+			$id = $request->id;
+			$branch = $this->model->findOrFail($id);
+			$branch->name = $request->name;
+			$branch->update();
 
-		$branch = $this->model->findOrFail($id);
-		$branch->update($inputs);
+			$user_type = Auth::user()->user_type_id;		
+			DB::commit();//commits to database 
+			if($user_type == 1){//admin user
+				return redirect()->route('branch.index')->with('success', '¡Sucursal actualizada satisfactoriamente!');;	
+			}
 
-		return redirect()->route('branches.index')->with('message', 'Item updated successfully.');
+			}catch(\Illuminate\Database\QueryException $e){
+				report($e);
+				DB::rollback();
+				return redirect('branch.index')->with('error', '¡Error en la base de datos
+				agregando la sucursal!');
+			}
+			catch(\Exception $e){
+				report($e);
+				DB::rollback();
+				return redirect('branch.index')->with('error', '¡Error agregando la sucursal!');
+			}
 	}
 
 	/**
