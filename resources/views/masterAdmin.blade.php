@@ -41,7 +41,7 @@
   </button>
   <ul class="navbar-nav">
   <li class="nav-item a active">
-        <button class="btn btn-default style-return-button" href="#"><span class="glyphicon glyphicon-menu-left"></span></button>
+        <button class="btn btn-default style-return-button" onclick="history.back()"><span class="glyphicon glyphicon-menu-left"></span></button>
       </li>
   </ul>
   <a class="navbar-brand" href="#">
