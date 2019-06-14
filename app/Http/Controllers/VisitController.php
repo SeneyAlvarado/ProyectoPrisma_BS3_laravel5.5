@@ -35,7 +35,7 @@ class VisitController extends Controller
 	{
 		$visits = $this->model->paginate();
 
-		return view('visits/index', compact('visits'));
+		return view('admin/visits/index', compact('visits'));
 	}
 
 	/**
@@ -45,7 +45,7 @@ class VisitController extends Controller
 	 */
 	public function create()
 	{
-		return view('visits.create');
+		return view('admin/visits/create');
 	}
 
 	/**
@@ -80,7 +80,7 @@ class VisitController extends Controller
 	{
 		$visit = $this->model->findOrFail($id);
 		
-		return view('visits.show', compact('visit'));
+		return view('admin/visits/show', compact('visit'));
 	}
 
 	/**
@@ -93,7 +93,7 @@ class VisitController extends Controller
 	{
 		$visit = $this->model->findOrFail($id);
 		
-		return view('visits.edit', compact('visit'));
+		return view('admin/visits/edit', compact('visit'));
 	}
 
 	/**
