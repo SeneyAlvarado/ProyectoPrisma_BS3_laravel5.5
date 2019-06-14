@@ -1,5 +1,6 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
+<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <script src="{{asset('js/load_branches_admin_edit.js')}}"></script>
 <script >
 branch({{$user->branch_id}})
@@ -10,7 +11,7 @@ rol({{$user->user_type_id}})
             <h5 class="card-header" style="text-align:center">Cuentas</h5>
             <div class="card-body">
             <div class="container-fluid">
-           <form method = 'POST' action='{{ route("admin_update_accounts", $user->id) }}'>
+           <form method = 'POST' action='{{ route("user.update", $user->id) }}'>
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                         <input type="hidden" name="_method" value="PUT">
                         <div class="row justify-content-center">
@@ -36,7 +37,7 @@ rol({{$user->user_type_id}})
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-md-4 offset-md-5">
+                            <div class="col-md-4 offset-md-4">
                             @if ($errors->has('user_name'))
                             <span class="help-block">
                                 <strong style="color:red;">{{ $errors->first('user_name') }}</strong>
@@ -69,7 +70,7 @@ rol({{$user->user_type_id}})
                                 <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
                             </div>
                             <div class="col-md-4" style="margin-top:20px; ">  
-                                <a class="btn btn btn-block btn-info" href="{{ route('admin_accounts_index') }}">Regresar</a>
+                                <a class="btn btn btn-block" href="{{ route('user.index') }}">Regresar</a>
                             </div>  
                         </div>           
                     </form>

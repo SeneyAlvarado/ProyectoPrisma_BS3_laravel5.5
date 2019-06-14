@@ -128,10 +128,11 @@ nav.nav-color {
   }
 
   .style-return-button{
-    margin-left:40px; 
+    margin-left:10px; 
+    margin-right:10px;
     border-radius: 12px !important; 
-    background-color:#333333 !important;
-    border-color:#333333 !important;
+    background-color:#96183a !important;
+    border-color:#96183a !important;
     color: white;
     box-shadow: none !important;
     

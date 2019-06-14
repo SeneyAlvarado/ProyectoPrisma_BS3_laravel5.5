@@ -1,0 +1,14 @@
+.btn.btn-block{
+    background-color:#e0e0e0;
+    color: black;
+    /*font-weight:bold;*/
+    font-size: 15px;
+}
+
+.btn.btn-success.btn-block {
+    background-color:#96183a;
+    border:none;
+    color: white;
+    /*font-weight:bold;*/
+    font-size: 15px;
+}
