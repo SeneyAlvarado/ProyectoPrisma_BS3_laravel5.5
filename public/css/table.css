@@ -1,0 +1,20 @@
+@media screen and (max-width: 1138px) and (min-width: 1000px)  {
+    .size-changer {
+        width: 70vw !important;
+        /*background-color: powderblue !important;*/
+      }
+}
+
+@media screen and (max-width: 999px) and (min-width: 850px)  {
+    .size-changer {
+        width: 67vw !important;
+        /*background-color: darkblue !important;*/
+      }
+}
+
+@media screen and (max-width: 850px) and (min-width: 768px)  {
+    .size-changer {
+        width: 63vw !important;
+        /*background-color: crimson !important;*/
+      }
+}
