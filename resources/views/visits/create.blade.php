@@ -3,7 +3,7 @@
 @include('error')
 <script src="{{asset('js/createClientsRadio.js')}}"></script>
 <script src="{{asset('js/requiredFields.js')}}"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<!--link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}"-->
 
 <div style="padding:10px;">
 	<div class="panel panel-primary border-panel">

@@ -84,7 +84,7 @@
                             <button class='btn btn-success btn-block' type='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
                         </div>
                         <div class="col-md-4" style="margin-top:5px; ">
-                            <a class="btn btn btn-block btn-info" href="{{ route('user.index') }}">Cancelar</a>
+                            <a class="btn btn btn-block" href="{{ route('user.index') }}">Cancelar</a>
                         </div>
                         </div>
                         <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->
