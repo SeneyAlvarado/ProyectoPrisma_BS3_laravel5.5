@@ -45,7 +45,7 @@ Route::delete('user.activate/{id}', 'UserController@activate')->name('user.activ
 
 /*------------Admin states routes------------*/
 Route::get('estados', 'StateController@index');
-Route::get('editarEstados', function() {
+Route::get('editarEstados', function () {
     return view('states/edit');
 });
 Route::get('editarEstados', function () {
@@ -103,21 +103,27 @@ Route::get('masterRoot', function () {
 });
 /*---------------------------------*/
 /*         products-------------*/
-
-
 Route::get('productIndex', 'ProductController@index');
-
 Route::get('productoShow/{id}', 'ProductController@show');
 Route::get('productoEdit/{id}', 'ProductController@edit');
 Route::get('productoCrea', 'ProductController@store');
 Route::get('productoCreate', 'BranchController@list');
 Route::get('productoUpdate', 'BranchController@list2');
-
-
 Route::get('productIndex2', function () {
     return view('products.index');
 });
 Route::resource('products', 'ProductController');
+Route::get('prueba4', function () {
+    return view('masterPrueba4');
+});
+/*------------Products----- */
+/*------------------------------------------ */
+
+
+
+Route::get('pruebaM', function () {
+    return view('prueba');
+});
 
 
 /*------------Products----- */

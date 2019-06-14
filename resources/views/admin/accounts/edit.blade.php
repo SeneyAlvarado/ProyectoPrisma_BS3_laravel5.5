@@ -1,5 +1,6 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
+<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <script src="{{asset('js/load_branches_admin_edit.js')}}"></script>
 <script >
 branch({{$user->branch_id}})
@@ -69,7 +70,7 @@ rol({{$user->user_type_id}})
                                 <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
                             </div>
                             <div class="col-md-4" style="margin-top:20px; ">  
-                                <a class="btn btn btn-block btn-info" href="{{ route('user.index') }}">Regresar</a>
+                                <a class="btn btn btn-block" href="{{ route('user.index') }}">Regresar</a>
                             </div>  
                         </div>           
                     </form>

@@ -1,27 +1,18 @@
-@extends('masterPrueba3')
-
+@extends('masterAdmin')
 @section('contenido_Admin')
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
-<div class="panel panel-primary border-panel">
-    <div class="panel-heading  border-header bg-color-panel" >
-       <p class="title-panel" style="font-size:20px;">Clientes</p>
-   </div>
-   <div class="panel-body">
-       <section class="">
-       <div class="content-c w3-container mobile">
+<div style="padding:10px;">
+<div class="card">
+            <h5 class="card-header" style="text-align:center">Clientes</h5>
+            <div class="card-body">
+   <div class="container-fluid">
            <div> 
-           <a  class="btn btn-success style-btn-registry"  href="{{ route('clients.create') }} "
-            style="margin-left: 15px; ">Registrar </a>
+           <a  class="btn btn-success style-btn-registry" href="{{ route('clients.create') }} " style="margin-bottom: 10px; ">Crear </a>
            
        </div>
-   </div>
-
-   <div class="panel-heading">
-       <div class="">
-       <div class="">
            @if($clients->count())
            <div class="table-responsive">
                <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
@@ -89,7 +80,7 @@
                                <form style="display:inline" action="{{ route('clients.activate', $client->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea activar la cuenta de {{$clientName}}?');">
                                    {{csrf_field()}}
                                    <input type="hidden" name="_method" value="DELETE">
-                                   <button type="submit"  class="btn btn-primary style-btn-registry btn-size">Activar</button>
+                                   <button type="submit"  class="btn btn-success style-btn-success btn-size">Activar</button>
                                </form>
                                @endif
                            </td>
@@ -106,8 +97,6 @@
        </div>
        </div>
    </div> 
-   </div> 
-   </section>
    </div>
    <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 @endsection

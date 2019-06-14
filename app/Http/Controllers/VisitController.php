@@ -58,8 +58,7 @@ class VisitController extends Controller
 	{
 		$visit = new Visit();
 		$visit->client_name = $request->client_name;
-		date_default_timezone_set('America/Costa_Rica');
-		$visit->date = date("Y-m-d h:i:s");
+		$visit->date = $request->date;
 		$visit->phone = $request->phone;
 		$visit->email = $request->email;
 		$visit->recepcionist_id = null;

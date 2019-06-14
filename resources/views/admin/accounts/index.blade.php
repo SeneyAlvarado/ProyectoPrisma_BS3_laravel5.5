@@ -68,7 +68,5 @@
        </div>
     </div>
 </div>
-</div>
-</div>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 @endsection
