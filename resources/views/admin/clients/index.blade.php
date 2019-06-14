@@ -9,10 +9,6 @@
             <h5 class="card-header" style="text-align:center">Clientes</h5>
             <div class="card-body">
    <div class="container-fluid">
-           <div> 
-           <a  class="btn btn-success style-btn-registry" href="{{ route('clients.create') }} " style="margin-bottom: 10px; ">Crear </a>
-           
-       </div>
            @if($clients->count())
            <div class="table-responsive">
                <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">

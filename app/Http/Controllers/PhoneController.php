@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Phone;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class PhoneController extends Controller
 {

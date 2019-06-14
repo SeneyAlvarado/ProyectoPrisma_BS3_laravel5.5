@@ -6,6 +6,7 @@ use Exception;
 use \Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -66,7 +67,9 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
-        return parent::render($request, $exception);
+
+        //DB::rollback();
+        //return parent::render($request, $exception);
 
         //return parent::render($request, $exception);
         
@@ -79,53 +82,33 @@ class Handler extends ExceptionHandler
         
         //session()->forget('errorOrigin');
         //return dd(session());
-        //return parent::render($request, $exception);
-        
-        //return dd($exception);
-        //return parent::render($request, $exception);
 
         //just in case someone throws it but don´t has the try catch at the code
         if($exception instanceof \App\Exceptions\CustomException) {
-            //$request->session()->flash('message_type', 'negative');
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect()->back();
+            return redirect('home');
 
         }elseif($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡La página a la que ha intentado
             acceder no existe o no es accesible en este momento!');
-            return back();
+            return redirect('home');
         
         }elseif($exception instanceof \Illuminate\Auth\AuthenticationException) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error con la sesión!');
-            return back();
+            return redirect('home');
         
         }elseif($exception instanceof \UnexpectedValueException) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error con un valor no válido ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return back();
+            return redirect('home');
         
         }elseif($exception instanceof \Illuminate\Database\QueryException) {
-            
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datos!'
             .' Si este persiste contacte al administrador del sistema');
-            return back();
-           /* if($request->session()->has('_previous')) {
+            return redirect('home');
+           
+            /* if($request->session()->has('_previous')) {
                 return redirect($request->session()->get('_previous')['url'])->
                 with('message_type', 'negative')->
                 with('message_icon', 'hide')->
@@ -135,40 +118,25 @@ class Handler extends ExceptionHandler
             }*/
         
         }elseif($exception instanceof \RuntimeException) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error de ejecución en el servidor');
-            return back();
+            return redirect('home');
         
         }elseif($exception instanceof \UnexpectedValueException) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error con un valor de la consulta! Si este persiste
             llame al administrador del sistema');
-            return back();
+            return redirect('home');
         
         }elseif($exception instanceof \ErrorException) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect()->back();
+            return redirect('home');
         }elseif($exception instanceof \Throwable) {
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error inesperado ' . $errorOrigin . "!" );
-            return back();
+            return redirect('home');
         }elseif($exception instanceof \Exception) {//this should be the LAST one, gets any Exception
-            \Session::flash('message_type', 'negative');
-			\Session::flash('message_icon', 'hide');
-			\Session::flash('message_header', 'Success');
             \Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect()->back();
+            return redirect('home');
                 
         }else{/*Original error handling*/
             return parent::render($request, $exception);
