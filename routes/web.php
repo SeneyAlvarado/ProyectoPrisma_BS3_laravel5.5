@@ -113,19 +113,6 @@ Route::get('productIndex2', function () {
     return view('products.index');
 });
 Route::resource('products', 'ProductController');
-<<<<<<< HEAD
-Route::get('prueba4', function () {
-    return view('masterPrueba4');
-});
-/*------------Products----- */
-/*------------------------------------------ */
-
-
-
-Route::get('pruebaM', function () {
-    return view('prueba');
-});
-=======
 
 
 /*------------Products----- */
@@ -140,4 +127,3 @@ Route::put('branch.update/{id}', 'BranchController@update')->name('branch.update
 Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('branch.desactivate');
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /*-------------------------------------------*/
->>>>>>> 2d7b96a657dc6ad1c1688ce56760796c09947f43
