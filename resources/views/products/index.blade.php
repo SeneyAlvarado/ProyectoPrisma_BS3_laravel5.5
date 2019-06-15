@@ -33,52 +33,60 @@
                 <div class="">
                     <div class="">
                         @if($products->count())
-                        <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Descripcion</th>
-                                    <th class="text-center">Active_flag</th>
-                                    <th class="text-center">Branch_id</th>
-                                    <th class="text-center">Branch_id</th>
-                                    <th class="text-center">OPTIONS</th>
-                                </tr>
-                            </thead>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
 
-                            <tbody>
-                                @foreach($products as $product)
-                                <tr>
-                                    <td class="text-center"><strong>{{$product->id}}</strong></td>
+                                <!-- <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos"-->
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Descripcion</th>
+                                        <th class="text-center">Active_flag</th>
+                                        <th class="text-center">Branch_id</th>
+                                        <th class="text-center">Branch_id</th>
+                                        <th class="text-center">OPTIONS</th>
+                                    </tr>
+                                </thead>
 
-                                    <td class="text-center">{{$product->name}}</td>
-                                    <td class="text-center">{{$product->description}}</td>
-                                    <td class="text-center">{{$product->active_flag}}</td>
-                                    <td class="text-center">{{$product->branch_id}}</td>
-                                    <td class="text-center">{{$product->branch_id}}</td>
+                                <tbody>
+                                    @foreach($products as $product)
+                                    <tr>
+                                        <td class="text-center"><strong>{{$product->id}}</strong></td>
 
-                                    <td class="text-right">
-                                        <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
+                                        <td class="text-center">{{$product->name}}</td>
+                                        <td class="text-center">{{$product->description}}</td>
+                                        <td class="text-center">{{$product->active_flag}}</td>
+                                        <td class="text-center">{{$product->branch_id}}</td>
+                                        <td class="text-center">{{$product->branch_id}}</td>
+
+                                        <td class="text-center">
+                                            <!-- <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
                                             View
-                                        </a>
-
-                                        <a class="btn btn-warning style-btn-edit btn-size" href="{{ url('productoEdit', $product->id) }}">
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="_method" value="DELETE">
-
-                                            <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        </a> -->
+                                            <div class="row justify-content-center">
+                                                <div>
+                                                    <a class="btn btn-warning style-btn-edit btn-block btn-size" href="{{ url('productoEdit', $product->id) }}">
+                                                        Editar
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <form style="display:inline" action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit" class="btn btn-block btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         {!! $products->render() !!}
                         @else
-                        <h3 class="text-center alert alert-info">Empty!</h3>
+                        <h3 class="text-center alert alert-info">No hay nada para mostrar!</h3>
                         @endif
 
                     </div>
