@@ -90,6 +90,7 @@ class ProductController extends Controller
 
 			$inputs = $request->all();
 			$this->model->create($inputs + ['active_flag'   => 1]);
+			DB::commit(); //commits to database 
 
 			return redirect()->route('products.index')->with('message', 'Producto creado satisfactoriamente!.');
 		} catch (\Illuminate\Database\QueryException $e) {
