@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class StateController extends Controller
 {

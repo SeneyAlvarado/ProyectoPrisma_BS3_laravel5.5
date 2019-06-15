@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\State_work;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class State_workController extends Controller
 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Works_log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class Works_logController extends Controller
 {

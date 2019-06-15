@@ -73,12 +73,12 @@ class ClientController extends Controller
 			}
 		}catch(\Illuminate\Database\QueryException $e){
 			report($e);
-			return redirect('clients')->with('error', '¡Error en la base de datos
+			return redirect('home')->with('error', '¡Error en la base de datos
 			al mostrar los clientes!');
 		}
 		catch(\Exception $e){
 			report($e);
-			return redirect('clients')->with('error', '¡Error al mostrar los cliente!');
+			return redirect('home')->with('error', '¡Error al mostrar los cliente!');
 		}
 	}
 
@@ -374,6 +374,9 @@ class ClientController extends Controller
 			try {
 			
 				\Session::put('errorOrigin', " activando el cliente");
+
+				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
 				$client = $this->model->find($id);
 				
 				if($client == null) {
@@ -383,8 +386,10 @@ class ClientController extends Controller
 					
 					$client->active_flag = 1;
 					$client->save();
-					$user_type = Auth::user()->user_type_id;	
 
+					DB::commit();//commit to database
+
+					$user_type = Auth::user()->user_type_id;	
 					if($user_type == 1){//admin user
 						return redirect('clients')->with('success',
 						'¡Cliente desactivado satisfactoriamente!');
@@ -392,11 +397,13 @@ class ClientController extends Controller
 				}
 			}catch(\Illuminate\Database\QueryException $e){
 				report($e);
+				DB::rollback();
 				return redirect('clients')->with('error', '¡Error en la base de datos
 				al activar el cliente!');
 			}
 			catch(\Exception $e){
 				report($e);
+				DB::rollback();
 				return redirect('clients')->with('error', '¡Error al activar el cliente!');
 			}
 	}
@@ -412,6 +419,9 @@ class ClientController extends Controller
 			try {
 			
 				\Session::put('errorOrigin', " desactivando el cliente");
+
+				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
 				$client = $this->model->find($id);
 				
 				if($client == null) {
@@ -421,8 +431,10 @@ class ClientController extends Controller
 					
 					$client->active_flag = 0;
 					$client->save();
-					$user_type = Auth::user()->user_type_id;	
 
+					DB::commit();//commit to database
+
+					$user_type = Auth::user()->user_type_id;	
 					if($user_type == 1){//admin user
 						return redirect('clients')->with('success',
 						'¡Cliente desactivado satisfactoriamente!');
@@ -430,11 +442,13 @@ class ClientController extends Controller
 				}
 			}catch(\Illuminate\Database\QueryException $e){
 				report($e);
+				DB::rollback();
 				return redirect('clients')->with('error', '¡Error en la base de datos
 				al desactivar el cliente!');
 			}
 			catch(\Exception $e){
 				report($e);
+				DB::rollback();
 				return redirect('clients')->with('error', '¡Error al desactivar el cliente!');
 			}
 	}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Work;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class WorkController extends Controller
 {
