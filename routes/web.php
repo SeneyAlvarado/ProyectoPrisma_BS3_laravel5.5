@@ -46,13 +46,13 @@ Route::delete('user.activate/{id}', 'UserController@activate')->name('user.activ
 /*------------Admin states routes------------*/
 Route::get('estados', 'StateController@index');
 Route::get('editarEstados', function () {
-    return view('states/edit');
+    return view('admin/states/edit');
 });
 Route::get('editarEstados', function () {
-    return view('states/edit');
+    return view('admin/states/edit');
 });
 Route::get('verEstados', function () {
-    return view('states/show');
+    return view('admin/states/show');
 });
 Route::get('crearEstados', 'StateController@create');
 Route::get('verEstados', 'StateController@show');

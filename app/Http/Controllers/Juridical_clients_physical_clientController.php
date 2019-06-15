@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Juridical_clients_physical_client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class Juridical_clients_physical_clientController extends Controller
 {

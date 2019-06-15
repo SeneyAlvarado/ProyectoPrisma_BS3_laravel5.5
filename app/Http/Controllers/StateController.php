@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class StateController extends Controller
 {
@@ -34,7 +35,7 @@ class StateController extends Controller
 	{
 		$states = $this->model->paginate();
 
-		return view('states/index', compact('states'));
+		return view('admin/states/index', compact('states'));
 	}
 
 	/**
@@ -44,7 +45,7 @@ class StateController extends Controller
 	 */
 	public function create()
 	{
-		return view('states/create');
+		return view('admin/states/create');
 	}
 
 	/**
@@ -74,7 +75,7 @@ class StateController extends Controller
 	{
 		$state = $this->model->findOrFail($id);
 		
-		return view('states/index', compact('states'));
+		return view('admin/states/index', compact('states'));
 	}
 
 	/**
@@ -87,7 +88,7 @@ class StateController extends Controller
 	{
 		$state = $this->model->findOrFail($id);
 		
-		return view('states/edit', compact('state'));
+		return view('admin/states/edit', compact('state'));
 	}
 
 	/**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User_type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class User_typeController extends Controller
 {

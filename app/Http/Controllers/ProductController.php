@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class ProductController extends Controller
 {
@@ -32,9 +33,22 @@ class ProductController extends Controller
 	 */
 	public function index()
 	{
-		$products = $this->model->paginate();
-		
-		return view('products.index', compact('products'));
+		try {
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " mostrando los productos");
+			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
+			//Gets all the list of products
+			$products = $this->model->paginate();
+
+			return view('products.index', compact('products'));
+		} catch (\Illuminate\Database\QueryException $e) {
+			report($e);
+			return redirect('home')->with('error', '¡Error en la base de datos
+			al mostrar los productos!');
+		} catch (\Exception $e) {
+			report($e);
+			return redirect('home')->with('error', '¡Error al mostrar los productos!');
+		}
 	}
 
 	/**
@@ -44,7 +58,20 @@ class ProductController extends Controller
 	 */
 	public function create()
 	{
-		return view('products.create');
+		try {
+
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " accediendo a la creación de producto");
+
+			return view('products.create');
+		} catch (\Illuminate\Database\QueryException $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error en la base de datos
+			 en la creación de productos!');
+		} catch (\Exception $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error en la creación de productos!');
+		}
 	}
 
 	/**
@@ -55,14 +82,27 @@ class ProductController extends Controller
 	 */
 	public function store(Request $request)
 	{
-      //  $branches=DB::table('branches')->where('name', '=', $request->branch_id)->get();
+		try {
 
-		$inputs = $request->all();
-		//$inputs->$branch_id($branches);
-		$this->model->create($inputs + ['active_flag' =>1]);
-		//$this->model->create($inputs);
+			\Session::put('errorOrigin', " agregando el producto!");
 
-		return redirect()->route('products.index')->with('message', 'Item created successfully.');
+			//  $branches=DB::table('branches')->where('name', '=', $request->branch_id)->get();
+
+			$inputs = $request->all();
+			$this->model->create($inputs + ['active_flag'   => 1]);
+			DB::commit(); //commits to database 
+
+			return redirect()->route('products.index')->with('message', 'Producto creado satisfactoriamente!.');
+		} catch (\Illuminate\Database\QueryException $e) {
+			report($e);
+			DB::rollback();
+			return redirect('productIndex')->with('error', '¡Error en la base de datos
+			agregando el producto!');
+		} catch (\Exception $e) {
+			report($e);
+			DB::rollback();
+			return redirect('productIndex')->with('error', '¡Error agregando el producto!');
+		}
 	}
 
 	/**
@@ -73,9 +113,26 @@ class ProductController extends Controller
 	 */
 	public function show($id)
 	{
-		$product = $this->model->findOrFail($id);
-		
-		return view('products.show', compact('product'));
+		try {
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " mostrando los productos");
+			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
+			//Gets all the list of products
+			$nameBranch =
+				DB::table('products')->join('branches', 'branch_i  d ', '=', 'products.branch_id')
+				->select('branches.name');
+
+			$product = $this->model->findOrFail($id);
+
+			return view('products.show', compact('product'));
+		} catch (\Illuminate\Database\QueryException $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error en la base de datos
+		al mostrar los productos!');
+		} catch (\Exception $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error al mostrar los productos!');
+		}
 	}
 
 	/**
@@ -86,9 +143,20 @@ class ProductController extends Controller
 	 */
 	public function edit($id)
 	{
-		$product = $this->model->findOrFail($id);
-		
-		return view('products.edit', compact('product'));
+		try {
+			//try y catch faltan
+			\Session::put('errorOrigin', " editando el producto");
+			$product = $this->model->findOrFail($id);
+
+			return view('products.edit', compact('product'));
+		} catch (\Illuminate\Database\QueryException $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error en la base de datos
+			al editar el producto!');
+		} catch (\Exception $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error al editar el producto!');
+		}
 	}
 
 	/**
@@ -100,12 +168,29 @@ class ProductController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		$inputs = $request->all();
+		try {
 
-		$product = $this->model->findOrFail($id);		
-		$product->update($inputs);
+			\Session::put('errorOrigin', " actualizando el producto!");
 
-		return redirect()->route('products.index')->with('message', 'Item updated successfully.');
+			$inputs = $request->all();
+			DB::beginTransaction(); //starts database transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+
+			$product = $this->model->findOrFail($id);
+			$product->update($inputs);
+
+			DB::commit(); //commits to database 
+			return redirect()->route('products.index')->with('message', 'Producto actualizado satisfactoriamente!.');
+		} catch (\Illuminate\Database\QueryException $e) {
+			report($e);
+			DB::rollback();
+			return redirect('productIndex')->with('error', '¡Error en la base de datos
+		actualizando el producto!');
+		} catch (\Exception $e) {
+			report($e);
+			DB::rollback();
+			return redirect('productIndex')->with('error', '¡Error actualizando el producto!');
+		}
 	}
 
 	/**
@@ -116,8 +201,20 @@ class ProductController extends Controller
 	 */
 	public function destroy($id)
 	{
-		$this->model->destroy($id);
+		try {
 
-		return redirect()->route('products.index')->with('message', 'Item deleted successfully.');
+			\Session::put('errorOrigin', " eliminando el producto");
+			$client = $this->model->find($id);
+			$this->model->destroy($id);
+
+			return redirect()->route('products.index')->with('message', 'Producto eliminado satisfactoriamente.');
+		} catch (\Illuminate\Database\QueryException $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error en la base de datos
+		al eliminar el producto!');
+		} catch (\Exception $e) {
+			report($e);
+			return redirect('productIndex')->with('error', '¡Error al eliminar el producto!');
+		}
 	}
 }

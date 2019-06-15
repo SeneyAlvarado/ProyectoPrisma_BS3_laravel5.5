@@ -8,6 +8,10 @@
 
 @section('contenido_Admin')
 <script src="{{asset('js/load_branches_admin.js')}}"></script>
+<script src="{{asset('js/createClientsRadio.js')}}"></script>
+<script src="{{asset('js/patternFields.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+
 @include('error')
 
 <div class="panel panel-primary border-panel">
@@ -46,8 +50,13 @@
                     <div class="justify-content-center offset-md-2 col-md-4" style="margin-top:10px;">
                         <label for="active_flag"><strong>Active Flag</strong></label>
                         <br>
+                        @if($product->active_flag == 1)
                         <input type="radio" name="active_flag" value="1" checked> Activo<br>
-                        <input type="radio" name="active_flag" value="0"> Desactivado<br>
+                        <input type="radio" name="active_flag" value="0" disabled=""> Desactivado<br>
+                        @else
+                        <input type="radio" name="active_flag" value="1" disabled=""> Activo<br>
+                        <input type="radio" name="active_flag" value="0" checked> Desactivado<br>
+                        @endif
                     </div>
                     <div class="offset-md-2 col-md-7">
                         <hr>
@@ -61,16 +70,17 @@
                         <hr>
                     </div>
                     <div class="row justify-content-center col-md-7 offset-md-2">
-                        <div class="col-md-6 " style="margin-top:20px; width:70; height:100px;">
-                            <a class='btn btn-block' style="background-color:#707b7c " href="{{ route('products.index') }}">
-                                <p style="color: #fdfefe ">Guardar</p>
-                            </a></div>
+                        <div class="col-md-6 " style="margin-top:20px;  ">
+                            <button class='btn btn-success btn-block' type='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
+                        </div>
                         <div class="col-md-6 " style="margin-top:20px;">
-                            <a class="btn btn-block  " style="background-color:#2c3e50 " href="{{url('productIndex')}}">
-                                <p style="color: #fdfefe ">Regresar</p>
+                            <a class="btn btn btn-block btn-danger " shref="{{url()->previous()}}">
+                                <i class="fa fa-floppy-o"></i> Regresar
                             </a>
                         </div>
+
                     </div>
+
                 </form>
             </div>
     </div>

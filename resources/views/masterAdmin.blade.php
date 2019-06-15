@@ -41,7 +41,7 @@
   </button>
   <ul class="navbar-nav">
   <li class="nav-item a active">
-        <button class="btn btn-default style-return-button" href="#"><span class="glyphicon glyphicon-menu-left"></span></button>
+        <button class="btn btn-default style-return-button" onclick="history.back()"><span class="glyphicon glyphicon-menu-left"></span></button>
       </li>
   </ul>
   <a class="navbar-brand" href="#">
@@ -61,8 +61,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
             <a class="dropdown-item" href="#">Trabajos</a>
-            <a class="dropdown-item" href="#">Estados</a>
-            <a class="dropdown-item" href="#">Cuentas</a>
+            <a class="dropdown-item" href="estados">Estados</a>
+            <a class="dropdown-item" href="user.index">Cuentas</a>
         </div>
       </li><!-- Smaller devices menu END -->
       
@@ -71,12 +71,11 @@
 
   <div class="dropdown">
   <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
-    Nombre del mae
+      {{ auth()->user()->name . " " . auth()->user()->lastname}}
   </button>
   <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Link 1</a>
-    <a class="dropdown-item" href="#">Link 2</a>
-    <a class="dropdown-item" href="#">Link 3</a>
+    <a class="dropdown-item" href="#">Cambiar contraseña</a>
+    <a class="dropdown-item" href="#">Cerrar sesión</a>
   </div>
 </div>
 
@@ -101,7 +100,7 @@
                 <a href="#" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Visualizar</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+                <a href="estados" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Estados</span>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
@@ -129,7 +128,7 @@
                     <span class="menu-collapsed">Cuentas</span>
                 </div>
             </a>
-            <a href="#" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+            <a href="visitas" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
                     <span class="menu-collapsed">Visitas</span>
