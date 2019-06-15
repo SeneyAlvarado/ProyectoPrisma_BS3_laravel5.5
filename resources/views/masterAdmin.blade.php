@@ -62,7 +62,7 @@
         <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
             <a class="dropdown-item" href="#">Trabajos</a>
             <a class="dropdown-item" href="estados">Estados</a>
-            <a class="dropdown-item" href="#">Cuentas</a>
+            <a class="dropdown-item" href="user.index">Cuentas</a>
         </div>
       </li><!-- Smaller devices menu END -->
       
@@ -71,12 +71,11 @@
 
   <div class="dropdown">
   <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
-    Nombre del mae
+      {{ auth()->user()->name . " " . auth()->user()->lastname}}
   </button>
   <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Link 1</a>
-    <a class="dropdown-item" href="#">Link 2</a>
-    <a class="dropdown-item" href="#">Link 3</a>
+    <a class="dropdown-item" href="#">Cambiar contraseña</a>
+    <a class="dropdown-item" href="#">Cerrar sesión</a>
   </div>
 </div>
 
