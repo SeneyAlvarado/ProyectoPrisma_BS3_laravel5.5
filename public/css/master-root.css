@@ -101,19 +101,36 @@ nav.nav-color {
 
   .style-btn-edit {
     width:93px;
-    background-color: #ABABAB !important;
+    background-color:#e0e0e0 !important;
+    color: black !important;
     border:0px !important;
     margin-top:3px;
-    color:white !important;
   }
 
+  .style-btn-edit:hover {
+    background-color:#CACACA !important;
+    color: black;
+  }
+
+
   .style-btn-success {
+    background-color:#96183a !important;
+    color:white !important;
     width:93px;
     border:0px !important;
     margin-top:3px;
   }
 
+  .style-btn-success:hover {
+    background-color:#333333 !important;
+  }
+
+  .style-btn-delete:hover {
+    background-color:#333333 !important;
+  }
   .style-btn-delete {
+    background-color:#8C8C8C !important;
+    color:white !important;
     border:0px !important;
     margin-top:3px;
   }

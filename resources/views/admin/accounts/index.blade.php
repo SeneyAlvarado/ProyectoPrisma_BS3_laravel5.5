@@ -45,7 +45,7 @@
                                    <form style="display:inline" action="{{ route('user.desactivate', $user->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar la cuenta de {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Desactivar</button>
+                                       <button type="submit" class="btn style-btn-delete btn-danger btn-size">Desactivar</button>
                                    </form>
                                    @else
                                    <form style="display:inline" action="{{ route('user.activate', $user->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar la cuenta de {{$user->name}} {{$user->lastname}} {{$user->second_lastname}}?');">

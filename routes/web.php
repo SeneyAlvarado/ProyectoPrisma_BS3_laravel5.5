@@ -62,8 +62,9 @@ Route::delete('eliminarEstados/{id}', 'StateController@destroy');
 Route::post('guardarEstado', 'StateController@store');
 /*-------------------------------------------*/
 
-/*------------Admin orders routes------------*/
-
+/*------------Orders routes------------*/
+Route::get('orders', 'OrderController@index')->name('orders');/**View the accounts list*/
+Route::get('contact.show/{id}', 'ClientController@show')->name('contact.show');
 /*-------------------------------------------*/
 
 /*------------Works routes------------*/
@@ -138,3 +139,4 @@ Route::post('branch.update', 'BranchController@update')->name('branch.update');
 Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('branch.desactivate');
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /*-------------------------------------------*/
+

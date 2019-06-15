@@ -5,10 +5,23 @@
     font-size: 15px;
 }
 
+.btn.btn-block:hover {
+    background-color:#CACACA;
+    color: black;
+    /*font-weight:bold;*/
+    font-size: 15px;
+}
+
 .btn.btn-success.btn-block {
     background-color:#96183a;
     border:none;
-    color: white;
+    color: white !important;
     /*font-weight:bold;*/
     font-size: 15px;
+}
+
+.btn.btn-success.btn-block:hover {
+    background-color:#333333;
+    border:none;
+    
 }

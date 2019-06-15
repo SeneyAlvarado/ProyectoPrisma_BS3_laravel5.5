@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Client;
+use App\Phone;
+use App\Physical_client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -32,9 +37,35 @@ class OrderController extends Controller
 	 */
 	public function index()
 	{
-		$orders = $this->model->paginate();
+		$orders = DB::table('orders')
+		->join('clients', 'orders.client_contact', 'clients.id')
+		->select('orders.approximate_date as approximate_date',
+		'orders.active_flag as active_flag',
+		'orders.branch_id as branch_id',
+		'orders.client_contact as client_contact',
+		'orders.client_owner as client_owner',
+		'orders.entry_date as entry_date',
+		'orders.id as id',
+		'orders.quotation_number as quotation_number',
+		'orders.state_id as state_id',
+		'clients.id as client_id',
+		'clients.name as name',
+		'clients.type as client_type')
+		->get();
+		$physical_client;
+		foreach($orders as $order){
+			if($order->client_type == 1) {
+				$physical_client = Physical_client::where('id', $order->client_owner)->First();
+				$order->name = $order->name . " " . $physical_client->lastname  . " " . $physical_client->second_lastname;
+			}
 
-		return view('orders/index', compact('orders'));
+		}
+
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.orders.index', compact('orders'));
+		}
+
 	}
 
 	/**

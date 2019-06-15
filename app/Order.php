@@ -10,4 +10,6 @@ class Order extends Model
 state_id', '
 state_id', 'branch_id', 'branch_id', 'active_flag'];
 public $timestamps = false;
+
+
 }
