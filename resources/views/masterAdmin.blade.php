@@ -32,6 +32,9 @@
     <!-- helps to add the right route to create buttons-->
     <script src="{{asset('js/customButtonDatatable.js')}}"></script>
 
+    <!-- notifications js handling-->
+    <script src="{{asset('js/notifications.js')}}"></script>
+
 </head>
 
 <body>
@@ -69,6 +72,19 @@
     </ul>
   </div>
 
+  <div class="dropdown" onclick="markReadNotifications()">
+    <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
+        <span class="glyphicon glyphicon-bell fa-fw mr-3"></span>
+        <span id="numberNotification" class="badge">{{count(auth()->user()->unreadNotifications)}}</span>
+    </button>
+    <div class="dropdown-menu">
+        @forelse (auth()->user()->unreadNotifications as $notification)
+            <a class="dropdown-item" href="#">{{$notification->data['message']}}</a>
+        @empty
+        <a class="dropdown-item" href="#">Sin notificaciones</a>
+        @endforelse 
+    </div>
+  </div>
   <div class="dropdown">
   <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
       {{ auth()->user()->name . " " . auth()->user()->lastname}}

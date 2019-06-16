@@ -144,3 +144,9 @@ Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch
 /*----------------------Reports------------------ */
 Route::get('reportes', 'ReportController@generate');
 /*------------------------------------------------*/
+
+/*---------------------------------Notifications----------------------*/
+Route::get('/markReadNotifications', function() {
+    auth()->user()->unreadNotifications->markAsRead();
+});
+/**************End of notification routes --------------------------- */
