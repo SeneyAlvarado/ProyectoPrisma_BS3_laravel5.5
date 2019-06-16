@@ -140,3 +140,4 @@ Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('bran
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /*-------------------------------------------*/
 
+//Route::get('/contact.show/{id}', 'ClientController@ajax_contact');

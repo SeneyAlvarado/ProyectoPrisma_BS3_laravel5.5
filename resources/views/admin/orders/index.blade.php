@@ -13,6 +13,7 @@
             </div>
            <div class="">
             @if($orders->count())
+            
            <div class="table-responsive">
                <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
                    <thead>
@@ -27,11 +28,20 @@
 
                    <tbody>
                        @foreach($orders as $order)
+                       <?php  
+                        $date = explode("-", $order->approximate_date);
+                        $year = $date[0];
+                        $month = $date[1];
+                        $day = $date[2];
+                        $new_day_without_time = explode(" ", $day);
+                        $day = $new_day_without_time[0];
+                        $approximate_date = $day . "/" . $month . "/" . $year;
+                    ?>
                            <tr>
                                <td class="text-center">{{$order->id}}</td>
                                <td class="text-center">{{$order->quotation_number}}</td>
                                <td class="text-center"><a href="">{{$order->name}}</a></td>
-                               <td class="text-center">{{$order->approximate_date}}</td>
+                               <td class="text-center">{{$approximate_date}}</td>
                                <td class="text-center">
                                <div class="btn-group">
                                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,7 +56,7 @@
                                     </div>
                                     </div>
                                 </td>
-                               <td class="text-center"><a href="{{ route('contact.show', $order->client_contact) }}">Información</a></td>
+                               <td class="text-center"><a href="{{ url('contact.show', $order->id) }}" >Información</a></td>
                                
                                <td class="text-center">
                                    
@@ -80,5 +90,24 @@
     </div>
 </div>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
+
+<script>
+
+    function infoContact(id){
+        onclick="infoContact('{{$order->client_contact}}')"
+        $.ajax({
+            url: '/contact.show/2',
+            type: 'GET',
+            dataType: "json",
+            success:function(datos){
+                var myJSON = JSON.stringify(datos);
+                alert(myJSON);
+            }, error:function() {
+                alert("¡Ha habido un error! Elija correctamente la sucursal." +
+                "Si este error persiste por favor comuníquese con el equipo técnico");   
+            }
+            });   
+    } 
+</script>
 
 @endsection

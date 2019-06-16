@@ -456,7 +456,6 @@ class ClientController extends Controller
 
 	public function show($id)
 	{
-
 		$client = $this->model->find($id);
 
 				if($client == null) {
@@ -486,13 +485,30 @@ class ClientController extends Controller
 			}
 	}
 
-	public function ajax_contact(){//Prueba para cargar la info con ajax en un modal
-		return "hola";
-        $branches=DB::table('branches')->where('active_flag', '=', 1)->orderBy('name','desc')->get();
-        if ($branches == null || $branches->isEmpty()) {
-            Flash::message("No hay sucursales para mostrar");
-        }
-        return json_encode(["branches"=>$branches]);
+	public function ajax_contact($id){//Prueba para cargar la info con ajax en un modal
+		$client = $this->model->find($id);
+				if($client == null) {
+					throw new \Exception('Error en editar el cliente con el id:' .$id
+				. " en el método ClientController@edit");
+				} else {
+					
+					if($client->type == 1) {//physical client, fill model attributes
+						$phisClient = Physical_client::where('client_id', $client->id)->first();
+						$client->lastname = $phisClient->lastname;
+						$client->second_lastname = $phisClient->second_lastname;	
+						$client->client_table_id = $phisClient->client_id;	
+					}
+
+					if($client->type == 2) {//juridical client, fill model attributes
+						$jurClient = Juridical_client::where('client_id', $client->id)->first();
+						$client->client_table_id = $jurClient->client_id;	
+					}
+					
+					$client->phones = $client->phones()->where('active_flag', 1)->get();
+					$client->emails = $client->emails()->where('active_flag', 1)->get();
+					
+				}
+        return json_encode(["client"=>$client]);
 	}
 	
 }
