@@ -31,7 +31,7 @@ class OrderController extends Controller
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the orders.
 	 *
 	 * @return Response
 	 */
@@ -53,15 +53,14 @@ class OrderController extends Controller
 		'clients.type as client_type')
 		->get();
 		$physical_client;
-		foreach($orders as $order){
+		foreach($orders as $order){//get the name and de lastname of the physical clients.
 			if($order->client_type == 1) {
-				$physical_client = Physical_client::where('id', $order->client_owner)->First();
-				$order->name = $order->name . " " . $physical_client->lastname  . " " . $physical_client->second_lastname;
+				$physical_client = Physical_client::where('client_id', $order->client_contact)->first();
+				$order->name = $order->name . " " . $physical_client->lastname;
 			}
-
 		}
 
-		$user_type = Auth::user()->user_type_id;
+		$user_type = Auth::user()->user_type_id;//get the user type.
 		if($user_type == 1){//admin user
 			return view('admin.orders.index', compact('orders'));
 		}
@@ -147,4 +146,6 @@ class OrderController extends Controller
 
 		return redirect()->route('orders.index')->with('message', 'Item deleted successfully.');
 	}
+
+	
 }

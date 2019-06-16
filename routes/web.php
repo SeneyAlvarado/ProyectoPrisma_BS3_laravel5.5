@@ -126,7 +126,6 @@ Route::get('pruebaM', function () {
     return view('prueba');
 });
 
-
 /*------------Products----- */
 /*------------------------------------------ */
 
@@ -138,9 +137,16 @@ Route::get('branch.edit/{id}', 'BranchController@edit')->name('branch.edit');
 Route::post('branch.update', 'BranchController@update')->name('branch.update');
 Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('branch.desactivate');
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
-/*-------------------------------------------*/
+/**-------------------------------------------*/
 
+//Route::get('/contact.show/{id}', 'ClientController@ajax_contact');
 
 /*----------------------Reports------------------ */
 Route::get('reportes', 'ReportController@generate');
 /*------------------------------------------------*/
+
+/*---------------------------------Notifications----------------------*/
+Route::get('/markReadNotifications', function() {
+    auth()->user()->unreadNotifications->markAsRead();
+});
+/**************End of notification routes --------------------------- */
