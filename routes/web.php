@@ -140,10 +140,7 @@ Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('bran
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /*-------------------------------------------*/
 
-<<<<<<< HEAD
 
 /*----------------------Reports------------------ */
 Route::get('reportes', 'ReportController@generate');
 /*------------------------------------------------*/
-=======
->>>>>>> 05a26ac9c179cb9b4b8db9c0cbd1c4a7b35d9f02
