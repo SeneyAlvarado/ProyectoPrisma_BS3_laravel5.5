@@ -138,3 +138,8 @@ Route::post('branch.update', 'BranchController@update')->name('branch.update');
 Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('branch.desactivate');
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /*-------------------------------------------*/
+
+
+/*----------------------Reports------------------ */
+Route::get('reportes', 'ReportController@generate');
+/*------------------------------------------------*/

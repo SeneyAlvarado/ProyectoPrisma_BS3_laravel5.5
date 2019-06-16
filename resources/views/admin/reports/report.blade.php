@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <title>Reporte Clientes</title>
+    <head>
+        <style>
+            table {
+                font-family: Arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td,th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Reporte Clientes</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Cedula</th>
+                <th>Estado</th>
+            </tr>
+            @foreach ($clients as $client)
+            <tr>
+                <td>{{$client->id}}</td>
+                <td>{{$client->type}}</td>
+                <td>{{$client->name}}</td>
+                <td>{{$client->address}}</td>
+                <td>{{$client->identification}}</td>
+                <td>{{$client->active_flag}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </body>
+</html>
