@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*------------------------------------------------------------------------*/ 
+/*------------------------------------------------------------------------*/ 
 Route::get('/', function () {
     if (Auth::check()) {
         auth()->logout();
@@ -32,6 +33,16 @@ Route::get('admin', function () {
     return view('masterAdmin');
     //return view('products/index');
 });
+
+/*CAMBIO DE CONTRASENNA ROOT */
+Route::get('contrasennaAdmin', function() {
+    return view('Admin/cambiarContrasenna');
+})->middleware('admin');
+
+Route::resource('cambiarContrasennaAdmin', 'ContrasennaRootController')->middleware('admin');
+/*FIN CAMBIO DE CONTRASENNA ROOT */
+/** -----------------------------------------------------------------------------*/
+/** -----------------------------------------------------------------------------*/
 
 /**-----------User routes------------- */
 Route::get('user.index', 'UserController@index')->name('user.index');/**View the accounts list*/
@@ -140,11 +151,7 @@ Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('bran
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /*-------------------------------------------*/
 
-<<<<<<< HEAD
-//Route::get('/contact.show/{id}', 'ClientController@ajax_contact');
-=======
 
 /*----------------------Reports------------------ */
 Route::get('reportes', 'ReportController@generate');
 /*------------------------------------------------*/
->>>>>>> d85c6c9df30b4dedf1a1a10248ee293dcf1b4fd7
