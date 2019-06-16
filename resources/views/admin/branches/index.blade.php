@@ -1,5 +1,6 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
+<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -8,7 +9,7 @@
         <h5 class="card-header" style="text-align:center">Cuentas</h5>
         <div class="card-body">
 
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">+</button>
+        <button type="button" class="btn btn-info" style="background-color:#96183a; border:none; margin-bottom:10px;" data-toggle="modal" data-target="#myModal">+</button>
 
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
@@ -31,7 +32,7 @@
                     </div>
                     <div class="row justify-content-center">
                     <div class="col-md-4">
-                        <button  style="margin-top:15px;" class = 'btn-block margin-button btn btn-info' type ='submit'>Agregar</button>
+                        <button  style="margin-top:15px;" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Agregar</button>
                     </div>
                     <div class="col-md-4">    
                         <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cancelar</button>
@@ -76,13 +77,13 @@
                                    <form style="display:inline" action="{{ route('branch.desactivate', $branch->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar la sucursal de {{$branch->name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Desactivar</button>
+                                       <button type="submit" class="btn  style-btn-delete btn-secundary btn-size">Desactivar</button>
                                    </form>
                                    @else
                                    <form style="display:inline" action="{{ route('branch.activate', $branch->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar la sucursal de {{$branch->name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit"  class="btn btn-success style-btn-success btn-size">Activar</button>
+                                       <button type="submit"  class="btn btn-secundary style-btn-success btn-size">Activar</button>
                                    </form>
                                    @endif
                                  
@@ -124,7 +125,7 @@
                     </div>
                     <div class="row justify-content-center">
                     <div class="col-md-4">
-                        <button  style="margin-top:15px;" id ="update" class = 'btn-block margin-button btn btn-info' type ='submit'>Actualizar</button>
+                        <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Actualizar</button>
                     </div>
                     <div class="col-md-4">    
                         <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cancelar</button>

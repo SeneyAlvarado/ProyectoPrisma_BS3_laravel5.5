@@ -163,8 +163,29 @@ class BranchController extends Controller
 	 */
 	public function destroy($id)
 	{
-		$this->model->destroy($id);
 
-		return redirect()->route('branches.index')->with('message', 'Item deleted successfully.');
+		$branch = $this->model->findOrFail($id);
+		$branch->active_flag = 0;
+		$branch->save();
+		
+		$user_type = Auth::user()->user_type_id;		
+		if($user_type == 1){//admin user
+			return redirect()->route('branch.index')->with('success', '¡Sucursal desactivada satisfactoriamente!');;
+		}
+
+	}
+
+	
+	public function activate($id)
+	{
+		$branch = $this->model->findOrFail($id);
+		$branch->active_flag = 1;
+		$branch->save();
+		
+		$user_type = Auth::user()->user_type_id;		
+		if($user_type == 1){//admin user
+			return redirect()->route('branch.index')->with('success', '¡Sucursal activada satisfactoriamente!');;
+			
+		}
 	}
 }

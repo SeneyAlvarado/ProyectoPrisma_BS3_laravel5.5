@@ -110,7 +110,13 @@
                     <span class="menu-collapsed">Productos</span>
                 </a>
             </div>
-            <a href={{route('clients')}} class="sidebar-color  list-group-item list-group-item-action border border-left-0 border-right-0 border-light" >
+            <a href="{{route('orders')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="glyphicon glyphicon-edit fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Órdenes</span>
+                </div>
+            </a>
+            <a href="{{route('clients')}}" class="sidebar-color  list-group-item list-group-item-action border border-left-0 border-right-0 border-light" >
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-user fa-fw mr-3"></span>
                     <span class=" menu-collapsed">Clientes</span>    

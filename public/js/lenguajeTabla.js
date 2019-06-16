@@ -6,7 +6,7 @@ $('#tablaDatos').DataTable(
 dom: 'l<"toolbar">frtip',
 initComplete: function(){
    $("div.toolbar")
-      .html('&nbsp<button id="hrefCreate" onclick="redirectCreate();" class="btn btn-success btn-sm" style="border-radius: 4px;margin-bottom: 10px;">&nbsp<span class="glyphicon glyphicon-plus"></span> </button>');           
+      .html('&nbsp<button id="hrefCreate" onclick="redirectCreate();" class=" btn btn-secundary btn-sm" style="color:white; background-color:#96183a !important; border-radius: 4px;margin-bottom: 10px;">&nbsp<span class="glyphicon glyphicon-plus"></span> </button>');           
 }     ,
 stateSave: true,
 "ordering": true,    

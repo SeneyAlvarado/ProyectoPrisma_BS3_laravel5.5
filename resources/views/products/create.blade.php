@@ -77,20 +77,23 @@
             <div class=" row offset-md-2 col-md-7">
                 <div class="col-md-6 " style="margin-top:20px; width:70; height:100px;">
                     <!-- a class='btn btn-block' style="background-color:#707b7c " href="{{ route('products.index') }}" -->
-                    <a class='btn btn-block' style="background-color: #1c2833  " href="{{ route('products.index') }}">
+                    <!--  <a class='btn btn-block' style="background-color: #1c2833  " href="{{ route('products.index') }}">
                         <p style="color: #fdfefe ">Guardar</p>
-                    </a></div>
-                <div class="col-md-6 " style="margin-top:20px;">
-                    <!-- a class="btn btn-block  " style="background-color:#2c3e50 " href="{{url('productIndex')}}" -->
-                    <a class="btn btn-block  " style="background-color:#566573  " href="{{url('productIndex')}}">
-                        <p style="color: #fdfefe ">Regresar</p>
-                    </a>
+                    </a></div> -->
+                    <div class="col-md-5 col-md-offset-2" style="margin-top:5px;  ">
+                        <button class='btn btn-success btn-block' type='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
+                    </div>
+                    <div class="col-md-6 " style="margin-top:20px;">
+                        <!-- a class="btn btn-block  " style="background-color:#2c3e50 " href="{{url('productIndex')}}" -->
+                        <a class="btn btn-block  " style="background-color:#566573  " href="{{url('productIndex')}}">
+                            <p style="color: #fdfefe ">Regresar</p>
+                        </a>
+                    </div>
                 </div>
+                </form>
             </div>
-            </form>
     </div>
-</div>
-<br>
-<br>
-<br>
-@endsection
+    <br>
+    <br>
+    <br>
+    @endsection
