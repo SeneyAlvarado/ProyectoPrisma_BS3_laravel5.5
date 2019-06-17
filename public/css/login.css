@@ -382,7 +382,7 @@ iframe {
   background-position: center;
   position: relative;
   z-index: 1;
-  -webkit-clip-path: polygon(2px 100%,445px 100%,100% 0px,0px 0px);
+  -webkit-clip-path: polygon(0px 100%,645px 100%,100% 0px,0px 0px);
 }
 
 .login100-more::before {
