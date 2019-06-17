@@ -55,10 +55,9 @@ class OrderController extends Controller
 		$physical_client;
 		foreach($orders as $order){//get the name and de lastname of the physical clients.
 			if($order->client_type == 1) {
-				$physical_client = Physical_client::where('id', $order->client_owner)->First();
-				$order->name = $order->name . " " . $physical_client->lastname  ;
+				$physical_client = Physical_client::where('client_id', $order->client_contact)->first();
+				$order->name = $order->name . " " . $physical_client->lastname;
 			}
-
 		}
 
 		$user_type = Auth::user()->user_type_id;//get the user type.

@@ -156,8 +156,3 @@ Route::get('/markReadNotifications', function() {
     auth()->user()->unreadNotifications->markAsRead();
 });
 /**************End of notification routes --------------------------- */
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-//Route::get('/home', 'Auth\LoginController@login')->name('home');

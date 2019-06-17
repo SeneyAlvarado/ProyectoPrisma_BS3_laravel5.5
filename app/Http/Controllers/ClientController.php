@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use App\Notifications\WorkAvailableNotification;
 
 class ClientController extends Controller
 {
@@ -40,7 +41,13 @@ class ClientController extends Controller
 		try {
 			
 			//custom message if this methods throw an exception
-			\Session::put('errorOrigin', " mostrando los clientes");	
+			\Session::put('errorOrigin', " mostrando los clientes");
+			$a = \App\User::where('active_flag' , 1)->get();
+			foreach ($a as $b) {
+				$b->notify(new WorkAvailableNotification());
+			}
+			//dd(auth()->user());
+			//auth()->user()->notify(new WorkAvailableNotification());*/
 
 			//estas son pruebas de errores
 			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
