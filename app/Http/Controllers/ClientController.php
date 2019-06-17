@@ -51,7 +51,7 @@ class ClientController extends Controller
 				$b->notify(new WorkAvailableNotification());
 			}*/
 			//dd(auth()->user());
-			//auth()->user()->notify(new WorkAvailableNotification());*/
+			auth()->user()->notify(new WorkAvailableNotification());
 
 			//estas son pruebas de errores
 			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
