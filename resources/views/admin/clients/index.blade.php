@@ -37,7 +37,7 @@
                             $numeroTel = $phone->number;
                            }
                        } else {
-                        $numeroTel = 'No tiene';
+                        $numeroTel = 'No posee';
                        }
                        
                        $clientEmail = '';
@@ -46,7 +46,7 @@
                             $clientEmail = $clientEmail . '  ' . $email->email;                           
                         }
                        } else {
-                        $clientEmail = 'No tiene';
+                        $clientEmail = 'No posee';
                        }
                        
                        $identification = $client->identification;
