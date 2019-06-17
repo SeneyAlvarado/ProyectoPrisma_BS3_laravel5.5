@@ -149,4 +149,5 @@ Route::get('reportes', 'ReportController@generate');
 Route::get('/markReadNotifications', function() {
     auth()->user()->unreadNotifications->markAsRead();
 });
+Route::get('/getUserNotifications', 'NotificationController@getUserNotifications');
 /**************End of notification routes --------------------------- */

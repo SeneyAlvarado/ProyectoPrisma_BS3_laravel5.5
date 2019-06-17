@@ -71,25 +71,22 @@
       
     </ul>
   </div>
-
-  <div class="dropdown" onclick="markReadNotifications()">
-    <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
+  <div class="dropdown" style="margin-right: 4vw">
+    <button type="button" onclick="markReadNotifications()" 
+    class="btn btn-default dropdown-toggle style-name-button"  
+    data-target="#dropmenu-notifications" data-toggle="dropdown">Notificaciones &nbsp;
         <span class="glyphicon glyphicon-bell fa-fw mr-3"></span>
-        <span id="numberNotification" class="badge">{{count(auth()->user()->unreadNotifications)}}</span>
+        <span id="numberNotification" class="badge">0</span>
     </button>
-    <div class="dropdown-menu">
-        @forelse (auth()->user()->unreadNotifications as $notification)
-            <a class="dropdown-item" href="#">{{$notification->data['message']}}</a>
-        @empty
-        <a class="dropdown-item" href="#">Sin notificaciones</a>
-        @endforelse 
+    <div class="dropdown-menu" id="dropmenu-notifications">
     </div>
   </div>
-  <div class="dropdown">
-  <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
+  <div class="dropdown" style="margin-right: 4vw">
+  <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown"
+  data-target="#dropmenu-user">
       {{ auth()->user()->name . " " . auth()->user()->lastname}}
   </button>
-  <div class="dropdown-menu">
+  <div class="dropdown-menu" id="dropmenu-user">
     <a class="dropdown-item" href="#">Cambiar contraseña</a>
     <a class="dropdown-item" href="#">Cerrar sesión</a>
   </div>

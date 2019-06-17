@@ -42,10 +42,12 @@ class ClientController extends Controller
 			
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " mostrando los clientes");
-			$a = \App\User::where('active_flag' , 1)->get();
+			
+			//NO BORRAR ESTO
+			/*$a = \App\User::where('active_flag' , 1)->get();
 			foreach ($a as $b) {
 				$b->notify(new WorkAvailableNotification());
-			}
+			}*/
 			//dd(auth()->user());
 			//auth()->user()->notify(new WorkAvailableNotification());*/
 
