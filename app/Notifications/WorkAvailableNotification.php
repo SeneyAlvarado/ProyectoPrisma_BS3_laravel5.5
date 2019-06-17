@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Carbon\Carbon;
 
 class WorkAvailableNotification extends Notification
 {
@@ -29,7 +30,7 @@ class WorkAvailableNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -56,6 +57,15 @@ class WorkAvailableNotification extends Notification
     {
         return [
             //
+        ];
+    }
+
+    public function toDatabase($notifiable)
+    {
+        //dd($notifiable);
+        return [
+            "notificationHour" => Carbon::now(new \DateTimeZone(('America/Costa_Rica'))),
+            "message" => "Tiene un nuevo trabajo",
         ];
     }
 }

@@ -2,6 +2,7 @@
 <html>
     <title>Reporte Clientes</title>
     <head>
+        <img src="Imagenes/Prisma.png" width="100px" height="100px" style="display:inline-block;" align="right"/>
         <style>
             table {
                 font-family: Arial, sans-serif;
@@ -20,8 +21,12 @@
             }
         </style>
     </head>
+    <h2 style="display:inline-block;">Reporte Clientes</h2>
     <body>
-        <h2>Reporte Clientes</h2>
+        <br>
+        <br>
+        <br>
+        <br>
         <table>
             <tr>
                 <th>ID</th>
