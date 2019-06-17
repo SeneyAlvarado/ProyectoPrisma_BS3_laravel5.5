@@ -16,7 +16,11 @@ function infoContact(id){
             var myJSON = JSON.stringify(datos);
             $.each(datos, function()
             {
-                name = this.name + " " + this.lastname + " " + this.second_lastname;
+                if(this.type == 1){
+                    name = this.name + " " + this.lastname + " " + this.second_lastname;
+                } else {
+                    name = this.name; 
+                }
                 address = this.address;
                 identification = this.identification;
                 phone = this.phone;

@@ -510,10 +510,7 @@ class ClientController extends Controller
 						$client->client_table_id = $phisClient->client_id;	
 					}
 
-					if($client->type == 2) {//juridical client, fill model attributes
-						$jurClient = Juridical_client::where('client_id', $client->id)->first();
-						$client->client_table_id = $jurClient->client_id;	
-					}
+					
 
 					$phone = Phone::where('client_id', $client->id)->first();
 					$email = Email::where('client_id', $client->id)->first();
@@ -537,12 +534,7 @@ class ClientController extends Controller
 					} else {
 						//$emails = $client->emails()->where('active_flag', 1)->first();
 						$client->email = $email->email;
-					}
-					
-					
-						
-					
-					
+					}	
 				}
         return json_encode(["client"=>$client]);
 	}
