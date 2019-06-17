@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Client;
+use App\Phone;
+use App\Email;
 use App\Physical_client;
 use App\Juridical_client;
 use Illuminate\Http\Request;
@@ -503,9 +505,34 @@ class ClientController extends Controller
 						$jurClient = Juridical_client::where('client_id', $client->id)->first();
 						$client->client_table_id = $jurClient->client_id;	
 					}
+
+					$phone = Phone::where('client_id', $client->id)->first();
+					$email = Email::where('client_id', $client->id)->first();
+
+					if($client->address == null){
+						$client->address = "No posee";
+					}
+
+					if($client->identification == null){
+						$client->identification = "No posee";
+					}
+
+					if($phone == null){
+						$client->phone = "No posee";
+					} else {
+						$client->phone = $phone->number;
+					}
+
+					if($email == null){
+						$client->email = "No posee";
+					} else {
+						//$emails = $client->emails()->where('active_flag', 1)->first();
+						$client->email = $email->email;
+					}
 					
-					$client->phones = $client->phones()->where('active_flag', 1)->get();
-					$client->emails = $client->emails()->where('active_flag', 1)->get();
+					
+						
+					
 					
 				}
         return json_encode(["client"=>$client]);

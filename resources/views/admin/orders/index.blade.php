@@ -40,7 +40,7 @@
                            <tr>
                                <td class="text-center">{{$order->id}}</td>
                                <td class="text-center">{{$order->quotation_number}}</td>
-                               <td class="text-center"><a href="">{{$order->name}}</a></td>
+                               <td class="text-center"><a href="">{{$order->client_owner_name}}</a></td>
                                <td class="text-center">{{$approximate_date}}</td>
                                <td class="text-center">
                                <div class="btn-group">
@@ -56,20 +56,20 @@
                                     </div>
                                     </div>
                                 </td>
-                               <td class="text-center"><a href="{{ url('contact.show', $order->id) }}" >Información</a></td>
+                               <td class="text-center"><a onCLick="infoContact('{{$order->client_contact}}')">{{$order->client_contact_name}}</a></td>
                                
                                <td class="text-center">
                                    
                                    <a class="btn btn-warning" style="background-color:#e0e0e0; border:0px;" href=""><span class="glyphicon glyphicon-folder-open"></a>
                                     <a class="btn btn-warning" href="" style="background-color:#e0e0e0; border:0px;"><span class="glyphicon glyphicon-pencil"></span></a>
                                    @if($order->active_flag == 1)
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea cancelar la orden de {{$order->name}}?');">
+                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea cancelar la orden de {{$order->client_owner_name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
                                        <button type="submit" class="btn style-btn-delete btn-danger btn-size "><span class="glyphicon glyphicon-ban-circle"></span></button>
                                    </form>
                                    @else
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar la orden de {{$order->name}}?');">
+                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar la orden de {{$order->$client_owner_name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
                                        <button type="submit"  class="btn btn-success style-btn-success btn-size">Activar</button>
@@ -89,25 +89,54 @@
        </div>
     </div>
 </div>
+ <!-- The Modal Contact Information-->
+ <div class="modal fade" id="modalContact">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Información de contacto</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5">
+                            <label for="id"><strong>Cédula</strong></label>
+                                <input id="identification-field" value="" class="form-control" name = "identification" type="text" readonly > 
+                        </div>
+                        <div class="col-md-5">
+                            <label for="name"><strong>Nombre</strong></label>
+                            <input id="name-field" value="" class="form-control" name = "name" type="text" readonly> 
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-5">
+                            <label for="id"><strong>Teléfono</strong></label>
+                                <input id="identification-field" value="" class="form-control" name = "phone" type="text" readonly > 
+                        </div>
+                        <div class="col-md-5">
+                            <label for="name"><strong>Correo</strong></label>
+                            <input id="name-field" value="" class="form-control" name = "email" type="text" readonly> 
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <label for="id"><strong>Dirección</strong></label>
+                            <textarea class="form-control" value="" rows="5" id="comment" name= "address" readonly></textarea>
+                        </div>
+                    </div>
+            </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
+<script src="{{asset('js/show_contact.js')}}"></script>
 
-<script>
 
-    function infoContact(id){
-        onclick="infoContact('{{$order->client_contact}}')"
-        $.ajax({
-            url: '/contact.show/2',
-            type: 'GET',
-            dataType: "json",
-            success:function(datos){
-                var myJSON = JSON.stringify(datos);
-                alert(myJSON);
-            }, error:function() {
-                alert("¡Ha habido un error! Elija correctamente la sucursal." +
-                "Si este error persiste por favor comuníquese con el equipo técnico");   
-            }
-            });   
-    } 
-</script>
 
 @endsection
