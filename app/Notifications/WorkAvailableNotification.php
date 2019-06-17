@@ -64,7 +64,7 @@ class WorkAvailableNotification extends Notification
     {
         //dd($notifiable);
         return [
-            "notificationHour" => Carbon::now(new \DateTimeZone(('America/Costa_Rica'))),
+            "notificationHour" => Carbon::now(new \DateTimeZone(('America/Costa_Rica')))->format('d/m/y H:i'),
             "message" => "Tiene un nuevo trabajo",
         ];
     }

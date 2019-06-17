@@ -23,6 +23,7 @@
     <script src="{{asset('js/menus_dinamicos.js')}}"></script>
 	<script src="{{asset('js/app.min.js')}}"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -71,25 +72,22 @@
       
     </ul>
   </div>
-
-  <div class="dropdown" onclick="markReadNotifications()">
-    <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
+  <div class="dropdown" style="margin-right: 4vw">
+    <button type="button" onclick="markReadNotifications()" 
+    class="btn btn-default dropdown-toggle style-name-button"  
+    data-target="#dropmenu-notifications" data-toggle="dropdown">Notificaciones &nbsp;
         <span class="glyphicon glyphicon-bell fa-fw mr-3"></span>
-        <span id="numberNotification" class="badge">{{count(auth()->user()->unreadNotifications)}}</span>
+        <span id="numberNotification" class="badge">0</span>
     </button>
-    <div class="dropdown-menu">
-        @forelse (auth()->user()->unreadNotifications as $notification)
-            <a class="dropdown-item" href="#">{{$notification->data['message']}}</a>
-        @empty
-        <a class="dropdown-item" href="#">Sin notificaciones</a>
-        @endforelse 
+    <div class="dropdown-menu" id="dropmenu-notifications">
     </div>
   </div>
-  <div class="dropdown">
-  <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown">
+  <div class="dropdown" style="margin-right: 4vw">
+  <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown"
+  data-target="#dropmenu-user">
       {{ auth()->user()->name . " " . auth()->user()->lastname}}
   </button>
-  <div class="dropdown-menu">
+  <div class="dropdown-menu" id="dropmenu-user">
     <a class="dropdown-item" href="#">Cambiar contraseña</a>
     <a class="dropdown-item" href="#">Cerrar sesión</a>
   </div>
@@ -170,8 +168,9 @@
     </div><!-- sidebar-container END -->
 
     <!-- MAIN -->
-    <div class="col">
-    <div class="container-fluid size-changer">
+    <div class="col ">
+    <div class=" container-fluid size-changer">
+    
         @if(session('error'))
         <div class="alert alert-danger alert-dismissible" style="text-align: center; padding:20px;" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -198,9 +197,10 @@
         </div>
         @endif
         @yield('contenido_Admin')
-    </div>
+  
     </div><!-- Main Col END -->
     </div><!-- body-row END -->
+    </div>
 
 <script>
 // Hide submenus

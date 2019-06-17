@@ -8,9 +8,9 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 class ResetPasswordController extends Controller
 {
     /*
-    |--------------------------------------------------------------------------
+    |---------------------------------------------------------------------------
     | Password Reset Controller
-    |--------------------------------------------------------------------------
+    |---------------------------------------------------------------------------
     |
     | This controller is responsible for handling password reset requests
     | and uses a simple trait to include this behavior. You're free to
@@ -36,4 +36,15 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+     /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLinkRequestForm()
+    {
+        return view('auth.passwords.email');
+    }
+
 }

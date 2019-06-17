@@ -145,7 +145,7 @@ Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('bran
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
 /**-------------------------------------------*/
 
-Route::get('/contact.show/{id}', 'ClientController@ajax_contact');
+//Route::get('/contact.show/{id}', 'ClientController@ajax_contact');
 
 /*----------------------Reports------------------ */
 Route::get('reportes', 'ReportController@generate');
@@ -155,10 +155,4 @@ Route::get('reportes', 'ReportController@generate');
 Route::get('/markReadNotifications', function() {
     auth()->user()->unreadNotifications->markAsRead();
 });
-Route::get('/getUserNotifications', 'NotificationController@getUserNotifications');
 /**************End of notification routes --------------------------- */
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-//Route::get('/home', 'Auth\LoginController@login')->name('home');

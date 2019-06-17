@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Client;
+use App\Phone;
+use App\Email;
 use App\Physical_client;
 use App\Juridical_client;
 use Illuminate\Http\Request;
@@ -42,12 +44,14 @@ class ClientController extends Controller
 			
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " mostrando los clientes");
-			$a = \App\User::where('active_flag' , 1)->get();
+			
+			//NO BORRAR ESTO
+			/*$a = \App\User::where('active_flag' , 1)->get();
 			foreach ($a as $b) {
 				$b->notify(new WorkAvailableNotification());
-			}
+			}*/
 			//dd(auth()->user());
-			//auth()->user()->notify(new WorkAvailableNotification());*/
+			auth()->user()->notify(new WorkAvailableNotification());
 
 			//estas son pruebas de errores
 			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
@@ -506,14 +510,31 @@ class ClientController extends Controller
 						$client->client_table_id = $phisClient->client_id;	
 					}
 
-					if($client->type == 2) {//juridical client, fill model attributes
-						$jurClient = Juridical_client::where('client_id', $client->id)->first();
-						$client->client_table_id = $jurClient->client_id;	
+					
+
+					$phone = Phone::where('client_id', $client->id)->first();
+					$email = Email::where('client_id', $client->id)->first();
+
+					if($client->address == null){
+						$client->address = "No posee";
 					}
-					
-					$client->phones = $client->phones()->where('active_flag', 1)->get();
-					$client->emails = $client->emails()->where('active_flag', 1)->get();
-					
+
+					if($client->identification == null){
+						$client->identification = "No posee";
+					}
+
+					if($phone == null){
+						$client->phone = "No posee";
+					} else {
+						$client->phone = $phone->number;
+					}
+
+					if($email == null){
+						$client->email = "No posee";
+					} else {
+						//$emails = $client->emails()->where('active_flag', 1)->first();
+						$client->email = $email->email;
+					}	
 				}
         return json_encode(["client"=>$client]);
 	}

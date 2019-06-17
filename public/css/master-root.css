@@ -178,3 +178,13 @@ nav.nav-color {
     border-color:white !important;
     color: white;
   }
+
+  a.infoClient {
+    color:#3A91D1 !important;
+  }
+  a.infoClient:hover {
+    text-decoration:underline !important;
+    cursor:pointer !important;
+  }
+
+ 

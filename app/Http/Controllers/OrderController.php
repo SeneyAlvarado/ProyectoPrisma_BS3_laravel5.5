@@ -38,28 +38,21 @@ class OrderController extends Controller
 	public function index()
 	{
 		$orders = DB::table('orders')
-		->join('clients', 'orders.client_contact', 'clients.id')
-		->select('orders.approximate_date as approximate_date',
-		'orders.active_flag as active_flag',
-		'orders.branch_id as branch_id',
-		'orders.client_contact as client_contact',
-		'orders.client_owner as client_owner',
-		'orders.entry_date as entry_date',
-		'orders.id as id',
-		'orders.quotation_number as quotation_number',
-		'orders.state_id as state_id',
-		'clients.id as client_id',
-		'clients.name as name',
-		'clients.type as client_type')
 		->get();
-		$physical_client;
 		foreach($orders as $order){//get the name and de lastname of the physical clients.
-			if($order->client_type == 1) {
-				$physical_client = Physical_client::where('client_id', $order->client_contact)->first();
-				$order->name = $order->name . " " . $physical_client->lastname;
+			$owner = Client::where('id', $order->client_owner)->first();
+			
+			if($owner->type == 1) {
+				$physical_client = Physical_client::where('client_id', $owner->id)->first();
+				$order->client_owner_name = $owner->name . " " . $physical_client->lastname;
+			} else {
+				$order->client_owner_name = $owner->name;
 			}
+			$contact = Client::where('id', $order->client_contact)->first();
+			
+			$contact_physical = Physical_client::where('client_id', $contact->id)->first();
+			$order->client_contact_name = $contact->name . " " . $contact_physical->lastname;
 		}
-
 		$user_type = Auth::user()->user_type_id;//get the user type.
 		if($user_type == 1){//admin user
 			return view('admin.orders.index', compact('orders'));
