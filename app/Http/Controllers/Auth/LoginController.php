@@ -57,7 +57,7 @@ class LoginController extends Controller
             //return "x";
             //return dd(Auth::user());
             if(Auth::user()->active_flag == 1) { //In case the patient's account is active.
-                return redirect('user.index');
+                return redirect('user');
                 /*$tipo = Auth::user()->tipo;
             if($tipo == 4) {
                 return redirect('paciente');
@@ -82,5 +82,12 @@ class LoginController extends Controller
         } else {  //In case the credentials are incorect.
         return back()->withErrors(['username' => trans('Nombre de usuario o contraseña incorrectos.')]);        
     }
+    }
+
+    public function logout () {
+        auth()->logout();
+        Auth::logout();
+
+        return redirect('/');
     }
 }

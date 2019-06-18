@@ -71,19 +71,19 @@
                                <td class="text-center">Desactiva</td>
                                @endif
                                <td class="text-center">
-                                    <button type="button" class="btn btn-info style-btn-edit btn-size" data-toggle="modal" onCLick="myFunction('{{$branch->name}}', '{{$branch->id}}')">Editar</button>
+                                    <button type="button" class="btn btn-info style-btn-edit btn-size btn-sm" data-toggle="modal" onCLick="myFunction('{{$branch->name}}', '{{$branch->id}}')">Editar</button>
                                     
                                    @if($branch->active_flag == 1)
                                    <form style="display:inline" action="{{ route('branch.desactivate', $branch->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar la sucursal de {{$branch->name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn  style-btn-delete btn-secundary btn-size">Desactivar</button>
+                                       <button type="submit" class="btn  style-btn-delete btn-secundary btn-size btn-sm">Desactivar</button>
                                    </form>
                                    @else
                                    <form style="display:inline" action="{{ route('branch.activate', $branch->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar la sucursal de {{$branch->name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit"  class="btn btn-secundary style-btn-success btn-size">Activar</button>
+                                       <button type="submit"  class="btn btn-secundary style-btn-success btn-size btn-sm">Activar</button>
                                    </form>
                                    @endif
                                  

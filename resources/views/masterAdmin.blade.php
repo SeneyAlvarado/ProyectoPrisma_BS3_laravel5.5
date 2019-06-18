@@ -72,6 +72,7 @@
       
     </ul>
   </div>
+
   <div class="dropdown" style="margin-right: 4vw">
     <button type="button" onclick="markReadNotifications()" 
     class="btn btn-default dropdown-toggle style-name-button"  
@@ -82,6 +83,7 @@
     <div class="dropdown-menu" id="dropmenu-notifications">
     </div>
   </div>
+  
   <div class="dropdown" style="margin-right: 4vw">
   <button type="button" class="btn btn-default dropdown-toggle style-name-button"  data-toggle="dropdown"
   data-target="#dropmenu-user">
@@ -89,7 +91,7 @@
   </button>
   <div class="dropdown-menu" id="dropmenu-user">
     <a class="dropdown-item" href="#">Cambiar contraseña</a>
-    <a class="dropdown-item" href="#">Cerrar sesión</a>
+    <a class="dropdown-item" href="{{ url('/logout') }}">Cerrar sesión</a>
   </div>
 </div>
 
@@ -100,7 +102,7 @@
     <!-- Sidebar -->
     <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
         <!-- Bootstrap List Group -->
-        <ul class="list-group">
+        <ul class="list-group ">
             <!-- Menu with submenu -->
             <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="border border-left-0 border-top-0 border-right-0 border-light sidebar-color list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
@@ -136,7 +138,7 @@
                     <span class=" menu-collapsed">Clientes</span>    
                 </div>
             </a>
-            <a href="{{ url('user.index') }}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+            <a href="{{ url('user') }}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-list fa-fw mr-3"></span>
                     <span class="menu-collapsed">Cuentas</span>
@@ -168,8 +170,7 @@
     </div><!-- sidebar-container END -->
 
     <!-- MAIN -->
-    <div class="col ">
-    <div class=" container-fluid size-changer">
+    <div class="col container-fluid size-changer">
     
         @if(session('error'))
         <div class="alert alert-danger alert-dismissible" style="text-align: center; padding:20px;" role="alert">
@@ -200,7 +201,6 @@
   
     </div><!-- Main Col END -->
     </div><!-- body-row END -->
-    </div>
 
 <script>
 // Hide submenus
@@ -230,7 +230,9 @@ function SidebarCollapse () {
     
     // Collapse/Expand icon
     $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+
 }
+
 </script>
 </body>
 

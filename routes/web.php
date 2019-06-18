@@ -40,7 +40,7 @@ Auth::routes();
 /** -----------------------------------------------------------------------------*/
 
 /**-----------User routes------------- */
-Route::get('user.index', 'UserController@index')->name('user.index');/**View the accounts list*/
+Route::get('user', 'UserController@index')->name('user.index');/**View the accounts list*/
 Route::get('user.create', 'UserController@create')->name('user.create');
 Route::post('user.store', 'UserController@store')->name('user.store');
 Route::get('user.edit/{id}', 'UserController@edit')->name('user.edit');
@@ -162,3 +162,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/home', 'Auth\LoginController@login')->name('home');
+
+/*----------------------Logout------------------ */
+//Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+/*------------------------------------------------*/

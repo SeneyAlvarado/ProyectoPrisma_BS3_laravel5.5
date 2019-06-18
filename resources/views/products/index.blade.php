@@ -18,7 +18,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div class="panel panel-primary border-panel">
     <div class="panel-heading  border-header bg-color-panel">
-        <p class="title-panel" style="font-size:20px;">Materiales</p>
+        <p class="title-panel" style="font-size:20px;">Productos</p>
     </div>
     <div class="panel-body">
         <section class="">
