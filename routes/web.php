@@ -70,6 +70,7 @@ Route::post('guardarEstado', 'StateController@store');
 
 /*------------Orders routes------------*/
 Route::get('orders', 'OrderController@index')->name('orders');/**View the accounts list*/
+Route::get('orders.create', 'OrderController@create')->name('orders.create');/**View the accounts list*/
 Route::get('contact.show/{id}', 'ClientController@show')->name('contact.show');
 /*-------------------------------------------*/
 
@@ -167,3 +168,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /*------------------------------------------------*/
+
+Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/

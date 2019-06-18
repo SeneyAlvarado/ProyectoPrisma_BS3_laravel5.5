@@ -4,10 +4,10 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div style="padding:10px;">
-    <div class="card" style="margin-left:15px; margin-right:15px;">
+    <div class="card margin-bottom-card" >
     <div class="card-header"><h5 style="text-align:center; ">Cuentas</h5></div>
     </div>
-            <div style="margin-top:20px;" class="container-fluid">
+            
            <div class="">
             @if($users->count())
            <div class="table-responsive">
@@ -62,7 +62,7 @@
            @else
                <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
            @endif
-       </div>
+     
 
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 @endsection
