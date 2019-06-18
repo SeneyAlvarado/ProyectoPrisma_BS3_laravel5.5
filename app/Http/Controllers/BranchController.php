@@ -83,7 +83,7 @@ class BranchController extends Controller
 		
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
-			return redirect()->route('branch.index')->with('success', '¡Sucursal creada satisfactoriamente!');;
+			return redirect()->route('branch')->with('success', '¡Sucursal creada satisfactoriamente!');;
 			
 		}
 	}
@@ -139,19 +139,19 @@ class BranchController extends Controller
 			$user_type = Auth::user()->user_type_id;		
 			DB::commit();//commits to database 
 			if($user_type == 1){//admin user
-				return redirect()->route('branch.index')->with('success', '¡Sucursal actualizada satisfactoriamente!');;	
+				return redirect()->route('branch')->with('success', '¡Sucursal actualizada satisfactoriamente!');;	
 			}
 
 			}catch(\Illuminate\Database\QueryException $e){
 				report($e);
 				DB::rollback();
-				return redirect('branch.index')->with('error', '¡Error en la base de datos
+				return redirect('branch')->with('error', '¡Error en la base de datos
 				agregando la sucursal!');
 			}
 			catch(\Exception $e){
 				report($e);
 				DB::rollback();
-				return redirect('branch.index')->with('error', '¡Error agregando la sucursal!');
+				return redirect('branch')->with('error', '¡Error agregando la sucursal!');
 			}
 	}
 
@@ -170,7 +170,7 @@ class BranchController extends Controller
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
-			return redirect()->route('branch.index')->with('success', '¡Sucursal desactivada satisfactoriamente!');;
+			return redirect()->route('branch')->with('success', '¡Sucursal desactivada satisfactoriamente!');;
 		}
 
 	}
@@ -184,7 +184,7 @@ class BranchController extends Controller
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
-			return redirect()->route('branch.index')->with('success', '¡Sucursal activada satisfactoriamente!');;
+			return redirect()->route('branch')->with('success', '¡Sucursal activada satisfactoriamente!');;
 			
 		}
 	}

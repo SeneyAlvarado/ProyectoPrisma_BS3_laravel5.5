@@ -136,7 +136,7 @@ Route::get('pruebaM', function () {
 /*------------------------------------------ */
 
 /**-----------Branch routes------------- */
-Route::get('branch.index', 'BranchController@index')->name('branch.index');
+Route::get('branch', 'BranchController@index')->name('branch');
 Route::get('branch.create', 'BranchController@create')->name('branch.create');
 Route::post('branch.store', 'BranchController@store')->name('branch.store');
 Route::get('branch.edit/{id}', 'BranchController@edit')->name('branch.edit');

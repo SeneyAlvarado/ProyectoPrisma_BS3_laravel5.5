@@ -150,7 +150,7 @@
                     <span class="menu-collapsed">Visitas</span>
                 </div>
             </a>
-            <a href="branch.index" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+            <a href="branch" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-flag fa-fw mr-3"></span>
                     <span class="menu-collapsed">Sucursales</span>

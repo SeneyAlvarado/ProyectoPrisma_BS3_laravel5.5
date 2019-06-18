@@ -6,8 +6,8 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div style="padding:10px;">
     <div class="card">
-        <h5 class="card-header" style="text-align:center">Cuentas</h5>
-        <div class="card-body">
+        <h5 class="card-header" style="text-align:center">Sucursales</h5>
+    </div>
 
         <button type="button" class="btn btn-info" style="background-color:#96183a; border:none; margin-bottom:10px;" data-toggle="modal" data-target="#myModal">+</button>
 
@@ -100,7 +100,7 @@
        </div>
     </div>
 </div>
-</div>
+
 
 <div class="modal fade" id="editModal">
     <div class="modal-dialog modal-md">
