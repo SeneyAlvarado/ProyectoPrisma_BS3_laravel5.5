@@ -80,6 +80,7 @@ class Handler extends ExceptionHandler
             $errorOrigin = "";
         }
         
+        return redirect($errorOrigin);
         //session()->forget('errorOrigin');
         //return dd(session());
 

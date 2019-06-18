@@ -1,15 +1,12 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div style="padding:10px;">
     <div class="card">
         <h5 class="card-header" style="text-align:center">Sucursales</h5>
     </div>
-
-        <button type="button" class="btn btn-info" style="background-color:#96183a; border:none; margin-bottom:10px;" data-toggle="modal" data-target="#myModal">+</button>
 
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
@@ -142,7 +139,7 @@
       </div>
     </div>
   </div>
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
+<script src="{{asset('js/branchTable.js')}}"></script>
 
 <script>
 function myFunction(name, id) {

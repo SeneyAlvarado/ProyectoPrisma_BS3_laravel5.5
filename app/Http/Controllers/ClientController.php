@@ -40,10 +40,11 @@ class ClientController extends Controller
 	 */
 	public function index()
 	{
-		try {
+		//try {
 			
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " mostrando los clientes");
+			\Session::put('errorRoute', "yerickPatrón♥");
 			
 			//NO BORRAR ESTO
 			/*$a = \App\User::where('active_flag' , 1)->get();
@@ -74,7 +75,7 @@ class ClientController extends Controller
 					$jurClient = Juridical_client::where('client_id', $clients[$x]->id)->first();
 					$clients[$x]->client_table_id = $jurClient->client_id;	
 				}
-				$clients[$x]->phones = $clients[$x]->phones()->where('active_flag', 1)->get();
+				$clients[$x]->phones = $clients[$x]->phones()>where('active_flag', 1)->get();
 				$clients[$x]->emails = $clients[$x]->emails()->where('active_flag', 1)->get();
 			}
 			
@@ -82,7 +83,7 @@ class ClientController extends Controller
 			if($user_type == 1){//admin user
 				return view('admin.clients.index', compact('clients'));
 			}
-		}catch(\Illuminate\Database\QueryException $e){
+		/*}catch(\Illuminate\Database\QueryException $e){
 			report($e);
 			return redirect('home')->with('error', '¡Error en la base de datos
 			al mostrar los clientes!');
@@ -90,7 +91,7 @@ class ClientController extends Controller
 		catch(\Exception $e){
 			report($e);
 			return redirect('home')->with('error', '¡Error al mostrar los cliente!');
-		}
+		}*/
 	}
 
 
