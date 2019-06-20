@@ -137,6 +137,3 @@ return [
         'required'              => 'Requerido',
     ],
 ];
-    'attributes' => [],
-
-];

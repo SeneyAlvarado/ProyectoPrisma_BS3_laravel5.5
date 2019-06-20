@@ -41,7 +41,18 @@ class ProductController extends Controller
 			//Gets all the list of products
 			$products = $this->model->paginate();
 
+			
+			
+			$branch = DB::table('branches')->join('products', 'products.branch_id','branches_id')->select(
+				'products.name as name',
+				'products.description as description',
+				'products.active_flag as active_flag',
+				'branch.name as branch_idd',
+				'branch.id as branch_id'
+			)->get();
+
 			return view('products.index', compact('products'));
+			//return view('products.index', compact('branch'));
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
 			return redirect('home')->with('error', '¡Error en la base de datos

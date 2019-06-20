@@ -2,7 +2,15 @@
 <html>
     <title>Reporte Clientes</title>
     <head>
-        <img src="Imagenes/Prisma.png" width="100px" height="100px" style="display:inline-block;" align="right"/>
+        <img src="Imagenes/PrismaReport.png" width="180px" height="80px" style="display:inline-block;"/>
+        <p style="float:right; font-size:18px">Fecha: 
+            <?php
+            use Carbon\Carbon;
+            echo Carbon::now('America/Costa_Rica')->format('d-m-Y H:i');
+            ?>
+        </p>
+        
+        <hr style="color: #96183a;" />
         <style>
             table {
                 font-family: Arial, sans-serif;
