@@ -7,7 +7,7 @@ branch({{$user->branch_id}})
 rol({{$user->user_type_id}})
 </script>
 <div style="padding:10px;">
-<div class="card">
+    <div class="card">
             <h5 class="card-header" style="text-align:center">Cuentas</h5>
             <div class="card-body">
             <div class="container-fluid">

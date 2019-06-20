@@ -6,6 +6,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -103,16 +104,16 @@ class ProductController extends Controller
 			$this->model->create($inputs + ['active_flag'   => 1]);
 			DB::commit(); //commits to database 
 
-			return redirect()->route('products.index')->with('message', 'Producto creado satisfactoriamente!.');
+			return redirect()->route('products')->with('message', 'Producto creado satisfactoriamente!.');
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
 			DB::rollback();
-			return redirect('productIndex')->with('error', '¡Error en la base de datos
+			return redirect('products')->with('error', '¡Error en la base de datos
 			agregando el producto!');
 		} catch (\Exception $e) {
 			report($e);
 			DB::rollback();
-			return redirect('productIndex')->with('error', '¡Error agregando el producto!');
+			return redirect('products')->with('error', '¡Error agregando el producto!');
 		}
 	}
 
@@ -138,11 +139,11 @@ class ProductController extends Controller
 			return view('products.show', compact('product'));
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
-			return redirect('productIndex')->with('error', '¡Error en la base de datos
+			return redirect('products')->with('error', '¡Error en la base de datos
 		al mostrar los productos!');
 		} catch (\Exception $e) {
 			report($e);
-			return redirect('productIndex')->with('error', '¡Error al mostrar los productos!');
+			return redirect('products')->with('error', '¡Error al mostrar los productos!');
 		}
 	}
 
@@ -162,11 +163,11 @@ class ProductController extends Controller
 			return view('products.edit', compact('product'));
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
-			return redirect('productIndex')->with('error', '¡Error en la base de datos
+			return redirect('products')->with('error', '¡Error en la base de datos
 			al editar el producto!');
 		} catch (\Exception $e) {
 			report($e);
-			return redirect('productIndex')->with('error', '¡Error al editar el producto!');
+			return redirect('products')->with('error', '¡Error al editar el producto!');
 		}
 	}
 
@@ -191,16 +192,16 @@ class ProductController extends Controller
 			$product->update($inputs);
 
 			DB::commit(); //commits to database 
-			return redirect()->route('products.index')->with('message', 'Producto actualizado satisfactoriamente!.');
+			return redirect()->route('products')->with('message', 'Producto actualizado satisfactoriamente!.');
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
 			DB::rollback();
-			return redirect('productIndex')->with('error', '¡Error en la base de datos
+			return redirect('products')->with('error', '¡Error en la base de datos
 		actualizando el producto!');
 		} catch (\Exception $e) {
 			report($e);
 			DB::rollback();
-			return redirect('productIndex')->with('error', '¡Error actualizando el producto!');
+			return redirect('products')->with('error', '¡Error actualizando el producto!');
 		}
 	}
 
@@ -210,6 +211,7 @@ class ProductController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
+	/*
 	public function destroy($id)
 	{
 		try {
@@ -227,5 +229,61 @@ class ProductController extends Controller
 			report($e);
 			return redirect('productIndex')->with('error', '¡Error al eliminar el producto!');
 		}
+	}*/
+
+	public function destroy($id)
+		{
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " desactivando el producto");	
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "products");
+				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+				$product = $this->model->find($id);
+				
+				if($product == null) {
+					throw new \Exception('Error en desactivar el producto con el id:' .$id
+				. " en el método ProductController@destroy");
+				} else {
+					$product->active_flag = 0;
+					$product->save();
+					DB::commit();//commit to database
+					$user_type = Auth::user()->user_type_id;	
+					if($user_type == 1){//admin user
+						return redirect('products')->with('success',
+						'¡Producto desactivado satisfactoriamente!');
+					}
+				}
+	}
+
+	public function activate($id)
+		{
+			
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " activando el producto");	
+
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "products");
+
+				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+				$product = $this->model->find($id);
+				
+				if($product == null) {
+					throw new \Exception('Error al activar el producto con el id:' .$id
+				. " en el método ProductController@activate");
+				} else {
+					
+					$product->active_flag = 1;
+					$product->save();
+
+					DB::commit();//commit to database
+
+					$user_type = Auth::user()->user_type_id;	
+					if($user_type == 1){//admin user
+						return redirect('products')->with('success',
+						'¡Producto activado satisfactoriamente!');
+					}
+				}
 	}
 }

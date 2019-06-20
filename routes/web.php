@@ -112,29 +112,32 @@ Route::get('masterRoot', function () {
 });
 /*---------------------------------*/
 /*         products-------------*/
-Route::get('productIndex', 'ProductController@index');
-Route::get('productoShow/{id}', 'ProductController@show');
-Route::get('productoEdit/{id}', 'ProductController@edit');
-Route::get('productoCrea', 'ProductController@store');
-Route::get('productoCreate', 'BranchController@list');
-Route::get('productoUpdate', 'BranchController@list2');
-Route::get('productIndex2', function () {
-    return view('products.index');
-});
-Route::resource('products', 'ProductController');
-Route::get('prueba4', function () {
-    return view('masterPrueba4');
-});
+
+//Route::get('productIndex', 'ProductController@index');
+//Route::get('productoShow/{id}', 'ProductController@show');
+//Route::get('productoEdit/{id}', 'ProductController@edit');
+//Route::get('productoCrea', 'ProductController@store');
+//Route::get('productoCreate', 'BranchController@list');
+//Route::get('productoUpdate', 'BranchController@list2');
+//Route::get('productIndex2', function () {
+    //return view('products.index');
+//});
+//Route::resource('products', 'ProductController');
+//Route::get('prueba4', function () {
+    //return view('masterPrueba4');
+//});
 /*------------Products----- */
 /*------------------------------------------ */
 
 
-
-Route::get('pruebaM', function () {
-    return view('prueba');
-});
-
-/*------------Products----- */
+/*------------Products---------------------- */
+Route::get('products', 'ProductController@index')->name('products');
+Route::get('products.create', 'BranchController@list')->name('products.create');
+Route::post('products.store', 'ProductController@store')->name('products.store');
+Route::get('products.edit/{id}', 'ProductController@edit')->name('products.edit');
+Route::put('products.update/{id}', 'ProductController@update')->name('products.update');
+Route::delete('products.deactivate/{id}', 'ProductController@destroy')->name('products.deactivate');
+Route::delete('products.activate/{id}', 'ProductController@activate')->name('products.activate');
 /*------------------------------------------ */
 
 /**-----------Branch routes------------- */
