@@ -58,7 +58,7 @@
                                         <td class="text-center">{{$product->description}}</td>
                                         <td class="text-center">{{$product->active_flag}}</td>
                                         <td class="text-center">{{$product->branch_id}}</td>
-                                        <td class="text-center">{{$product->branch_id}}</td>
+                                        <td class="text-center">{{$product->branch_idd}}</td>
 
                                         <td class="text-center">
                                             <!-- <a class="btn btn-xs btn-primary" href="{{ url('productoShow', $product->id) }}">
