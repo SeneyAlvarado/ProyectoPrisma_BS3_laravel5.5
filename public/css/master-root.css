@@ -191,3 +191,12 @@ nav.nav-color {
     margin-bottom:25px;
   }
  
+  .style-btn-registry {
+    background-color:#96183a !important;
+    border-color:#96183a !important;
+  }
+
+  .style-btn-registry:hover {
+    background-color:#333333 !important;
+    border-color:#333333 !important;
+  }
