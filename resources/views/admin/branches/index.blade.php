@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div style="padding:10px;">
-    <div class="card">
+    <div class="card margin-bottom-card ">
         <h5 class="card-header" style="text-align:center">Sucursales</h5>
     </div>
 

@@ -67,7 +67,10 @@ class OrderController extends Controller
 	 */
 	public function create()
 	{
-		return view('orders.create');
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.orders.create');
+		}
 	}
 
 	/**
@@ -140,5 +143,22 @@ class OrderController extends Controller
 		return redirect()->route('orders.index')->with('message', 'Item deleted successfully.');
 	}
 
+	public function ajax_list_clients(){
+		$clients=DB::table('clients')
+		->join('physical_clients', 'clients.id', 'physical_clients.client_id')
+		->where('active_flag', '=', 1)
+		->orderBy('name','desc')->get();
+
+		foreach($clients as $client){
+			if($client->type == 1){
+				
+			}
+		}
+		if ($clients == null || $clients->isEmpty()) {
+			Flash::message("No hay clientes para mostrar");
+		}
+		return json_encode(["clients"=>$clients]);
+		
+	}
 	
 }

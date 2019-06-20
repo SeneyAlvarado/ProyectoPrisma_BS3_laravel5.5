@@ -3,13 +3,10 @@
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <div class="card" style="margin-top:10px;">
+    <div class="card margin-bottom-card" style="margin-top:10px;">
         <h5 class="card-header" style="text-align:center">Órdenes</h5>
     </div>
-            <div class="container-fluid">
-            <div> 
-                <a class="btn btn-success style-btn-registry" href="" style="margin-bottom: 10px; ">+</a>
-            </div>
+ 
            <div class="">
             @if($orders->count())
             
@@ -84,7 +81,7 @@
            @else
                <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
            @endif
-       </div>
+ 
  <!-- The Modal Contact Information-->
  <div class="modal fade" id="modalContact">
     <div class="modal-dialog modal-lg">

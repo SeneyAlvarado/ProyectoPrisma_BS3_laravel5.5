@@ -49,7 +49,7 @@ function getUserNotifications(){
 
         }, error:function() {
             noNotificationsAvailable();
-            alert("¡Ha habido un error con las notificaciones!");
+            //alert("¡Ha habido un error con las notificaciones!");
         }
     });
 }
