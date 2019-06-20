@@ -120,4 +120,15 @@ class StateController extends Controller
 
 		return redirect('estados')->with('message', 'El estado se eliminó correctamente.');
 	}
+
+
+	public function active_states_drop()
+	{
+		$states = DB::table('states')->where('active_flag', '=', 1)->orderBy('name','asc')->get();
+        if ($states == null || $states->isEmpty()) {
+            \Session::flash('error', 'No hay estados activos para mostrar');
+        }
+        return json_encode(["states"=>$states]);
+	}
+
 }

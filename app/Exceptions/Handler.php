@@ -79,8 +79,15 @@ class Handler extends ExceptionHandler
         } else{
             $errorOrigin = "";
         }
+
+        if($request->session()->has('errorRoute'))
+        {
+            $errorRoute = $request->session()->pull('errorRoute');
+        } else{
+            $errorRoute = "error";
+        }
         
-        return redirect($errorOrigin);
+        //return redirect($errorOrigin);
         //session()->forget('errorOrigin');
         //return dd(session());
 
@@ -88,26 +95,26 @@ class Handler extends ExceptionHandler
         if($exception instanceof \App\Exceptions\CustomException) {
             \Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect('home');
+            return redirect($errorRoute);
 
         }elseif($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             \Session::flash('error', '¡La página a la que ha intentado
             acceder no existe o no es accesible en este momento!');
-            return redirect('home');
+            return redirect($errorRoute);
         
         }elseif($exception instanceof \Illuminate\Auth\AuthenticationException) {
             \Session::flash('error', '¡Ha ocurrido un error con la sesión!');
-            return redirect('home');
+            return redirect($errorRoute);
         
         }elseif($exception instanceof \UnexpectedValueException) {
             \Session::flash('error', '¡Ha ocurrido un error con un valor no válido ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect('home');
+            return redirect($errorRoute);
         
         }elseif($exception instanceof \Illuminate\Database\QueryException) {
-            \Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datos!'
-            .' Si este persiste contacte al administrador del sistema');
-            return redirect('home');
+            \Session::flash('error', '¡Ha ocurrido un error en la consulta a la base de datos al' . 
+            $errorOrigin . "!" .' Si este persiste contacte al administrador del sistema');
+            return redirect($errorRoute);
            
             /* if($request->session()->has('_previous')) {
                 return redirect($request->session()->get('_previous')['url'])->
@@ -119,25 +126,27 @@ class Handler extends ExceptionHandler
             }*/
         
         }elseif($exception instanceof \RuntimeException) {
-            \Session::flash('error', '¡Ha ocurrido un error de ejecución en el servidor');
-            return redirect('home');
+            \Session::flash('error', '¡Ha ocurrido un error de ejecución en el servidor al' . 
+            $errorOrigin . "!");
+            return redirect($errorRoute);
         
         }elseif($exception instanceof \UnexpectedValueException) {
-            \Session::flash('error', '¡Ha ocurrido un error con un valor de la consulta! Si este persiste
+            \Session::flash('error', '¡Ha ocurrido un error con un valor de la consulta al' . 
+            $errorOrigin . "!" . ' Si este persiste
             llame al administrador del sistema');
-            return redirect('home');
+            return redirect($errorRoute);
         
         }elseif($exception instanceof \ErrorException) {
             \Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect('home');
+            return redirect($errorRoute);
         }elseif($exception instanceof \Throwable) {
             \Session::flash('error', '¡Ha ocurrido un error inesperado ' . $errorOrigin . "!" );
-            return redirect('home');
+            return redirect($errorRoute);
         }elseif($exception instanceof \Exception) {//this should be the LAST one, gets any Exception
             \Session::flash('error', '¡Ha ocurrido un error ' . $errorOrigin . "!" 
             .' Si este persiste contacte al administrador del sistema');
-            return redirect('home');
+            return redirect($errorRoute);
                 
         }else{/*Original error handling*/
             return parent::render($request, $exception);

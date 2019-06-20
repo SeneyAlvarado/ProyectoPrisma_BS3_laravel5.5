@@ -47,11 +47,11 @@ class ResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Solictud de reestablecimiento de contrasenna')
+            ->subject('Solicitud de reestablecimiento de contraseña - SMP Prisma')
             ->greeting('Hola  '. $notifiable->name)
-            ->line('Recibes este correo por que se solicito un reestablecimineto de contrasenna para tu cuenta.')
+            ->line('Recibes este correo por que se solicitó un reestablecimiento de contraseña para tu cuenta.')
             ->action('Reestablecer Contrasenna', url(config('app.url').route('password.reset', $this->token, false)))
-            ->line('Si no realizaste esta peticion, puedes ignorar este correo y nada habra cambiado.')
-            ->salutation('Saludos!');
+            ->line('Si no realizaste esta petición, puedes ignorar este correo y nada habrá cambiado.')
+            ->salutation('¡Saludos!');
     }
 }

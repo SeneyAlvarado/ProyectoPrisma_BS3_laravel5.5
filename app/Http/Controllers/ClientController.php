@@ -40,11 +40,11 @@ class ClientController extends Controller
 	 */
 	public function index()
 	{
-		//try {
-			
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " mostrando los clientes");
-			\Session::put('errorRoute', "yerickPatrón♥");
+
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "error");
 			
 			//NO BORRAR ESTO
 			/*$a = \App\User::where('active_flag' , 1)->get();
@@ -53,10 +53,6 @@ class ClientController extends Controller
 			}*/
 			//dd(auth()->user());
 			auth()->user()->notify(new WorkAvailableNotification());
-
-			//estas son pruebas de errores
-			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
-			//DB::table('shdhgjd')->get();
 
 			//Gets all clients with their phone and emails
 			$clients = $this->model::all();
@@ -75,7 +71,7 @@ class ClientController extends Controller
 					$jurClient = Juridical_client::where('client_id', $clients[$x]->id)->first();
 					$clients[$x]->client_table_id = $jurClient->client_id;	
 				}
-				$clients[$x]->phones = $clients[$x]->phones()>where('active_flag', 1)->get();
+				$clients[$x]->phones = $clients[$x]->phones()->where('active_flag', 1)->get();
 				$clients[$x]->emails = $clients[$x]->emails()->where('active_flag', 1)->get();
 			}
 			
@@ -83,15 +79,6 @@ class ClientController extends Controller
 			if($user_type == 1){//admin user
 				return view('admin.clients.index', compact('clients'));
 			}
-		/*}catch(\Illuminate\Database\QueryException $e){
-			report($e);
-			return redirect('home')->with('error', '¡Error en la base de datos
-			al mostrar los clientes!');
-		}
-		catch(\Exception $e){
-			report($e);
-			return redirect('home')->with('error', '¡Error al mostrar los cliente!');
-		}*/
 	}
 
 
@@ -102,24 +89,17 @@ class ClientController extends Controller
 	 */
 	public function create()
 	{
-		try {
 			
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " accediendo a la creación de clientes");	
+
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "clients");
 
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
 				return view('admin.clients.create');
 			}
-		}catch(\Illuminate\Database\QueryException $e){
-			report($e);
-			return redirect('clients')->with('error', '¡Error en la base de datos
-			 en la creación de clientes!');
-		}
-		catch(\Exception $e){
-			report($e);
-			return redirect('clients')->with('error', '¡Error en la creación de clientes!');
-		}
 	}
 
 	/**
@@ -130,9 +110,12 @@ class ClientController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		try {
 
+			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " agregando el cliente");
+
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "clients.create");
 
 			if (strlen(trim($request->name)) == 0){
 				return back()->with('error', 'El campo Nombre es requerido');
@@ -149,7 +132,6 @@ class ClientController extends Controller
 			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
 			
-
 			$inputs = $request->except('lastname', 'second_lastname', 'number', 'email');
 			$client_id = $this->model->create($inputs + ['active_flag' => 1])->id;
 
@@ -172,7 +154,7 @@ class ClientController extends Controller
 			};
 
 			$type = $request->type;
-			if($request->type == "1"){
+			if($type == "1"){
 				$physical_client = new \App\Physical_client;
 				$physical_client->lastname = $request->lastname;
 				$physical_client->second_lastname = $request->second_lastname;
@@ -180,7 +162,7 @@ class ClientController extends Controller
 				$physical_client->save();
 			}
 
-			if($request->type == "2"){
+			if($type == "2"){
 				$juridical_client = new \App\Juridical_client;
 				$juridical_client->client_id = $client_id;
 				$juridical_client->save();
@@ -188,19 +170,6 @@ class ClientController extends Controller
 
 			DB::commit();//commits to database 
 			return redirect('clients')->with('success', '¡Cliente registrado satisfactoriamente!');
-
-		}catch(\Illuminate\Database\QueryException $e){
-			report($e);
-			DB::rollback();
-			return redirect('clients')->with('error', '¡Error en la base de datos
-			agregando el cliente!');
-		}
-		catch(\Exception $e){
-			report($e);
-			DB::rollback();
-			return redirect('clients')->with('error', '¡Error agregando el cliente!');
-		}
-		
 	}
 
 	/**
@@ -212,9 +181,11 @@ class ClientController extends Controller
 	public function edit($id)
 	{
 
-		try {
-		//try y catch faltan
+			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " editando el cliente");	
+
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "clients");
 
 				$client = $this->model->find($id);
 
@@ -244,16 +215,6 @@ class ClientController extends Controller
 			}
 			
 			}//end clients not null else
-				
-		}catch(\Illuminate\Database\QueryException $e){
-			report($e);
-			return redirect('clients')->with('error', '¡Error en la base de datos
-			al editar el cliente!');
-		}
-		catch(\Exception $e){
-			report($e);
-			return redirect('clients')->with('error', '¡Error al editar el cliente!');
-		}
 	}
 
 	/**
@@ -266,9 +227,11 @@ class ClientController extends Controller
 	public function update(Request $request, $id)
 	{
 		
-		try {
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " actualizando el cliente");	
 
-			\Session::put('errorOrigin', " actualizando el cliente");
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "clients");
 			
 			if (strlen(trim($request->name)) == 0){
 				return back()->with('error', 'El campo Nombre es requerido');
@@ -360,17 +323,6 @@ class ClientController extends Controller
 			return redirect('clients')->with('success', '¡Cliente actualizado satisfactoriamente!');
 
 		}//end if client not null
-		}catch(\Illuminate\Database\QueryException $e){
-			report($e);
-			DB::rollback();
-			return redirect('clients')->with('error', '¡Error en la base de datos
-			actualizando el cliente!');
-		}
-		catch(\Exception $e){
-			report($e);
-			DB::rollback();
-			return redirect('clients')->with('error', '¡Error actualizando el cliente!');
-		}
 	}
 
 
@@ -383,9 +335,12 @@ class ClientController extends Controller
 	 */
 	public function activate($id)
 		{
-			try {
 			
-				\Session::put('errorOrigin', " activando el cliente");
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " activando el cliente");	
+
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "clients");
 
 				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
@@ -407,17 +362,6 @@ class ClientController extends Controller
 						'¡Cliente desactivado satisfactoriamente!');
 					}
 				}
-			}catch(\Illuminate\Database\QueryException $e){
-				report($e);
-				DB::rollback();
-				return redirect('clients')->with('error', '¡Error en la base de datos
-				al activar el cliente!');
-			}
-			catch(\Exception $e){
-				report($e);
-				DB::rollback();
-				return redirect('clients')->with('error', '¡Error al activar el cliente!');
-			}
 	}
 
 	/**
@@ -428,9 +372,12 @@ class ClientController extends Controller
 	 */
 	public function destroy($id)
 		{
-			try {
 			
-				\Session::put('errorOrigin', " desactivando el cliente");
+			//custom message if this methods throw an exception
+			\Session::put('errorOrigin', " desactivando el cliente");	
+
+			//custom route to REDIRECT redirect('x') if there's an error
+			\Session::put('errorRoute', "clients");
 
 				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
@@ -452,17 +399,6 @@ class ClientController extends Controller
 						'¡Cliente desactivado satisfactoriamente!');
 					}
 				}
-			}catch(\Illuminate\Database\QueryException $e){
-				report($e);
-				DB::rollback();
-				return redirect('clients')->with('error', '¡Error en la base de datos
-				al desactivar el cliente!');
-			}
-			catch(\Exception $e){
-				report($e);
-				DB::rollback();
-				return redirect('clients')->with('error', '¡Error al desactivar el cliente!');
-			}
 	}
 
 

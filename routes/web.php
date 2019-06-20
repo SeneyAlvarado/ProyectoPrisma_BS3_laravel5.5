@@ -97,9 +97,10 @@ Route::delete('clients.activate/{id}', 'ClientController@activate')->name('clien
 /* end of clients routes */
 
 
-/*------------Load branches and rols------------*/
-Route::get('/branchDrop', 'UserController@ajax_branch');/**Fill the select item with the branches*/
-Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the roles*/
+/*------------Load branches, rols, active_states------------*/
+Route::get('/branchDrop', 'UserController@ajax_branch');/**Fill the select item with the ACTIVE branches*/
+Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the ACTIVE roles*/
+Route::get('/active_states_drop', 'StateController@active_states_drop');/**Fill the select item with the ACTIVE states*/
 /*-------------------------------------------*/
 
 Route::get('/branchDrop', 'UserController@ajax_branch');
@@ -157,6 +158,17 @@ Route::get('/markReadNotifications', function() {
 });
 Route::get('/getUserNotifications', 'NotificationController@getUserNotifications');
 /**************End of notification routes --------------------------- */
+
+
+/*---------------------------------state_user_types----------------------*/
+Route::get('state_user_types', 'State_user_typeController@index')->name('state_user_types');
+Route::get('state_user_types.create', 'State_user_typeController@create')->name('state_user_types.create');
+Route::post('state_user_types.store', 'State_user_typeController@store')->name('state_user_types.store');
+Route::get('state_user_types.edit/{id}', 'State_user_typeController@edit')->name('state_user_types.edit');
+Route::post('state_user_types.update/{id}', 'State_user_typeController@update')->name('state_user_types.update');
+Route::delete('state_user_types.deactivate/{id}', 'State_user_typeController@destroy')->name('state_user_types.deactivate');
+/**************End of state_user_types routes --------------------------- */
+
 
 Auth::routes();
 

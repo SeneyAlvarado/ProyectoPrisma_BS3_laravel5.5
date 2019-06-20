@@ -1,20 +1,109 @@
-@media screen and (max-width: 1138px) and (min-width: 1000px)  {
-    .size-changer {
-        width: 70vw !important;
-        /*background-color: powderblue !important;*/
-      }
+
+/*NO BORRAR AÚN AUNQUE ESTÉ COMENTADO, ESTÁ EN FASE DE  PRUEBAS */
+/*@media screen and (max-width: 1040px) and (min-width: 768px)  {
+  .size-changer {
+    width: 30% !important;
+    float: left;
+    background-color: lightsalmon !important;
+    }
 }
 
 @media screen and (max-width: 999px) and (min-width: 850px)  {
     .size-changer {
         width: 67vw !important;
-        /*background-color: darkblue !important;*/
+        background-color: darkblue !important;
       }
 }
 
 @media screen and (max-width: 850px) and (min-width: 768px)  {
     .size-changer {
         width: 63vw !important;
-        /*background-color: crimson !important;*/
+        background-color: crimson !important;
+      }
+}*/
+
+/*
+@media screen and (min-width: 1321px)  {
+  .size-changer {
+    }
+}
+
+@media screen and (max-width: 1320px) and (min-width: 1291px)  {
+  .size-changer {
+      width: 80% !important;
+      margin: auto;
+      background-color: lightcoral !important;
+    }
+}
+
+@media screen and (max-width: 1290px) and (min-width: 1231px)  {
+  .size-changer {
+      width: 80% !important;
+      margin: auto;
+      background-color: indigo !important;
+    }
+}
+
+@media screen and (max-width: 1230px) and (min-width: 1181px)  {
+  .size-changer {
+      width: 120% !important;
+      float: left;
+      background-color: gold !important;
+    }
+}
+
+@media screen and (max-width: 1180px) and (min-width: 1116px)  {
+  .size-changer {
+      width: 78% !important;
+      margin: auto;
+      background-color: forestgreen !important;
+    }
+}
+
+@media screen and (max-width: 1115px) and (min-width: 1060px)  {
+    .size-changer {
+        width: 77% !important;
+        margin: auto;
+        background-color: powderblue !important;
       }
 }
+
+@media screen and (max-width: 1059px) and (min-width: 1000px)  {
+    .size-changer {
+        width: 74vw !important;
+        margin: auto;
+        background-color: darkorchid !important;
+      }
+}
+
+@media screen and (max-width: 999px) and (min-width: 950px)  {
+    .size-changer {
+        width: 73vw !important;
+        margin: auto;
+        background-color: chartreuse !important;
+      }
+}
+
+@media screen and (max-width: 949px) and (min-width: 900px)  {
+  .size-changer {
+      width: 72vw !important;
+      margin: auto;
+      background-color: deeppink !important;
+    }
+}
+
+@media screen and (max-width: 899px) and (min-width: 850px)  {
+  .size-changer {
+      width: 70vw !important;
+      margin: auto;
+      background-color: darkblue !important;
+    }
+}
+
+@media screen and (max-width: 849px) and (min-width: 768px)  {
+    .size-changer {
+        width: 68vw !important;
+        margin: auto;
+        background-color: crimson !important;
+      }
+}*/

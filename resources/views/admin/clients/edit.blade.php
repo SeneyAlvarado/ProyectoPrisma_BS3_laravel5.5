@@ -30,7 +30,7 @@
                                             </div>                                      
                                     </div>
                                             
-                                    <div>   
+                                    <div class="row justify-content-center"> 
                                         <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                                             <label for="identification" ><strong>Cédula</strong><strong style="font-size: 15px"> </strong></label> 
                                                                     <!-- the strong whitespace is used to align it with the * required field -->
@@ -44,6 +44,7 @@
                                         </div>
                                     </div>
                                     @if($client->type == 1)
+                                    <div class="row justify-content-center">
                                             <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
                                                 <label for="lastname" ><strong>Primer Apellido</strong><strong style="color:red; font-size: 15px">*</strong></label> 
                                                 <input id="lastname" placeholder="Primer Apellido" class="form-control" name = "lastname"
@@ -54,8 +55,9 @@
                                                 <input id="second_lastname"placeholder="Segundo Apellido" class="form-control" name = "second_lastname"
                                                 value="{{ old('second_lastname', $client->second_lastname) }}" type="text" required>            
                                             </div>
+                                    </div>
                                         @endif
-                                        <div>   
+                                        <div class="row justify-content-center"> 
                                                 <?php $emails = $client->emails;  $phones = $client->phones;?>
                                                 @if($phones->count())
                                                 <div class="col-md-4 col-md-offset-2" style="margin-top:10px;">
@@ -84,7 +86,7 @@
                                                 </div>
                                                 @endif
                                             </div>
-                                        <div>   
+                                        <div class="row justify-content-center">   
                                             <div class="col-md-8 col-md-offset-2" style="margin-top:10px;">
                                                 <label for="address">Dirección</label>
                                                 <textarea placeholder="Escriba la dirección del cliente" class="form-control" type="text" name="address" id="address" 
@@ -92,14 +94,14 @@
                                             </div>
                                             </div>
                                        
-                                        <div>   
+                                            <div class="row justify-content-center">   
                                                 <div class="col-md-4 col-md-offset-2" style="margin-top:20px;">
                                                         <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button></div>
                                                 <div class="col-md-4 " style="margin-top:20px;">
                                                 <a  class="btn btn btn-danger btn-block" href="{{url()->previous()}}">Cancelar</a>
                                                     </div>
                                             </div>
-                                        
+                                            <br>
                                     <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->
                                 </form>
                         </div>

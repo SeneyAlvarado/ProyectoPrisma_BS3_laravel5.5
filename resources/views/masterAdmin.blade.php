@@ -80,7 +80,7 @@
         <span class="glyphicon glyphicon-bell fa-fw mr-3"></span>
         <span id="numberNotification" class="badge">0</span>
     </button>
-    <div class="dropdown-menu" id="dropmenu-notifications">
+    <div class="dropdown-menu" id="dropmenu-notifications" style="max-height:157px; overflow:auto;">
     </div>
   </div>
   
