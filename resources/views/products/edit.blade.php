@@ -14,13 +14,11 @@
 
 @include('error')
 
-<div class="panel panel-primary border-panel">
-    <div class="panel-heading  border-header bg-color-panel">
-        <p class="title-panel" style="font-size:20px;">Crear Producto</p>
-    </div>
-    <div class="panel-body">
-        <section class="">
-            <div class="">
+<div style="padding:10px;">
+    <div class="card">
+            <h5 class="card-header" style="text-align:center">Cuentas</h5>
+            <div class="card-body">
+            <div class="container-fluid">
                 <form action="{{ route('products.update', $product->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -84,8 +82,8 @@
                 </form>
             </div>
     </div>
-    <br>
-    <br>
-    <br>
+    </div>
+    </div>
+
     <script src="{{asset('js/load_branches_admin.js')}}"></script>
     @endsection

@@ -24,9 +24,9 @@ class HomeController extends Controller
     public function index()
     {
        // return view('home');
-       if (Auth::check()) {
-            auth()->logout();
-        }
+     //  if (Auth::check()) {
+        //    auth()->logout();
+      //  }
         return view('login');
         
     }
