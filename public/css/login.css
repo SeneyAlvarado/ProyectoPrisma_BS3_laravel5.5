@@ -349,6 +349,9 @@ iframe {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -o-flex;
+  display: -o-box;
+  display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
