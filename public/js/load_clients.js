@@ -71,7 +71,7 @@ function listClients_contact(){
 
 
 $(document).ready(function(){
-    alert("documentknsddsf");
+    //alert("documentknsddsf");
     listClients();
     listClients_contact();
 })
