@@ -72,6 +72,7 @@ Route::post('guardarEstado', 'StateController@store');
 Route::get('orders', 'OrderController@index')->name('orders');/**View the accounts list*/
 Route::get('orders.create', 'OrderController@create')->name('orders.create');/**View the accounts list*/
 Route::get('contact.show/{id}', 'ClientController@show')->name('contact.show');
+Route::post('orders.store', 'OrderController@store')->name('orders.store');
 /*-------------------------------------------*/
 
 /*------------Works routes------------*/

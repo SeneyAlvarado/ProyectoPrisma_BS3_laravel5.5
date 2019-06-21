@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Auth;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -81,10 +82,19 @@ class OrderController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$inputs = $request->all();
-		$this->model->create($inputs);
+		//return $request;
+		$order = new Order();
+		$order->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$order->approximate_date = Carbon::parse($request->date)->format('Y-m-d H:i:s');
+		$order->quotation_number = $request->payment;
+		$order->client_owner = $request->owner_client;
+		$order->client_contact = $request->contact_client;
+		$order->state_id = 1;
+		$order->branch_id = $request->dropBranch;
+		$order->active_flag = 1;
+		$order->save();
 
-		return redirect()->route('orders.index')->with('message', 'Item created successfully.');
+		return redirect()->route('orders')->with('message', 'Orden creada satisfactoriamente');
 	}
 
 	/**
