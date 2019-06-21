@@ -22,7 +22,7 @@
 							<div class="col-md-5" style="margin-top:10px;">
 								<label for="date-field"><strong>Fecha</strong></label>
 								<div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-									<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
+									<input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
 									<div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
 										<div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
 									</div>
