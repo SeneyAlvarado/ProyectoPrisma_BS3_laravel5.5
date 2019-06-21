@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Carbon\Carbon;
 
 class VisitController extends Controller
 {
@@ -59,13 +60,14 @@ class VisitController extends Controller
 	{
 		$visit = new Visit();
 		$visit->client_name = $request->client_name;
-		$visit->date = $request->date;
+		$visit->date = Carbon::parse($request->date)->format('Y-m-d H:i:s');
 		$visit->phone = $request->phone;
 		$visit->email = $request->email;
 		$visit->recepcionist_id = null;
 		$visit->details = $request->details;
 		$visit->active_flag = 1;
 		$visit->visitor_id = Auth::user()->id;
+		//return $visit;
 		$visit->save();
 
 		return redirect('visitas')->with('message', 'El elemento fue creado correctamente');

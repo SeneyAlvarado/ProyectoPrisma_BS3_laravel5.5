@@ -37,13 +37,13 @@
 						{{ csrf_field() }}
 						<div class="form-group wrap-input100 validate-input m-b-26" data-validate="Username is required">
 							<label>Nombre de usuario</label>
-							<input class="form-control" type="text" id="username" name='username'>
+							<input class="form-control" type="text" id="username" name='username' required>
 
 						</div>
 
 						<div class="form-group wrap-input100 validate-input m-b-18" data-validate="Password is required">
 							<label>Contraseña</label>
-							<input class="form-control" type="password" id="password" name="password">
+							<input class="form-control" type="password" id="password" name="password" required>
 
 						</div>
 
