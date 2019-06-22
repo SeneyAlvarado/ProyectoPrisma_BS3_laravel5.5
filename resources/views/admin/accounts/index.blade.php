@@ -6,6 +6,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
 <script src="{{asset('js/multiple-materials-select.js')}}"></script>
+<script src="{{asset('js/load_materials.js')}}"></script>
 <div style="padding:10px;">
     <div class="card margin-bottom-card" >
     <div class="card-header"><h5 style="text-align:center; ">Cuentas</h5></div>
@@ -66,15 +67,7 @@
 <form action="" method="post" id="formulario">
 <div class="row justify-content-center">
     <div class="col-md-4">
-        <select multiple class="form-control" name="origen[]" id="origen" multiple="multiple" size="4">
-        <option value="1">Opción 1</option>
-        <option value="2">Opción 2</option>
-        <option value="3">Opción 3</option>
-        <option value="4">Opción 4</option>
-        <option value="5">Opción 5</option>
-        <option value="6">Opción 6</option>
-        <option value="7">Opción 7</option>
-        <option value="8">Opción 8</option>
+        <select multiple class="form-control" name="origen" id="origen" multiple="multiple" size="4">
         </select>
     </div>
     <div class="col-md-1" style="text-align:center">
@@ -82,7 +75,7 @@
         <input type="button" class="btn-remove-material quitar der btn btn-default" value="-">
     </div>
     <div class="col-md-4">
-        <select class=" form-control" name="destino[]" id="destino" multiple="multiple" size="4"></select>
+        <select class=" form-control" name="destino" id="destino" multiple="multiple" size="4"></select>
     </div>
 </div>
 </form>

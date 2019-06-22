@@ -200,6 +200,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /*------------------------------------------------*/
 
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
+Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
 
 /*----------------------Change Password------------------ */
 Route::resource('change_password', 'ChanngePasswordController');
