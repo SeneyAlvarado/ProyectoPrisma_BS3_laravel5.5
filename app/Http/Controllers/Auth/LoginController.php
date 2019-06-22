@@ -57,7 +57,13 @@ class LoginController extends Controller
             //return "x";
             //return dd(Auth::user());
             if(Auth::user()->active_flag == 1) { //In case the patient's account is active.
-                return redirect('user');
+                $user_type = Auth::user()->user_type_id;    
+                if($user_type == 1){//admin user
+                    return redirect('user');
+                 } else if ($user_type == 2) {
+                    return view('designer.password.change_password');
+                 }
+                
                 /*$tipo = Auth::user()->tipo;
             if($tipo == 4) {
                 return redirect('paciente');

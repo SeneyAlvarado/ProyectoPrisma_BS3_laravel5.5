@@ -139,6 +139,7 @@ Route::get('products.edit/{id}', 'ProductController@edit')->name('products.edit'
 Route::put('products.update/{id}', 'ProductController@update')->name('products.update');
 Route::delete('products.deactivate/{id}', 'ProductController@destroy')->name('products.deactivate');
 Route::delete('products.activate/{id}', 'ProductController@activate')->name('products.activate');
+Route::get('active_products_branch', 'ProductController@active_products_branch');
 /*------------------------------------------ */
 
 /**---------------------------------------------------------- */
@@ -199,6 +200,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /*------------------------------------------------*/
 
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
+Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
 
 /*----------------------Change Password------------------ */
 Route::resource('change_password', 'ChanngePasswordController');

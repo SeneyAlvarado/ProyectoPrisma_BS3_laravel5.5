@@ -155,19 +155,33 @@ class OrderController extends Controller
 
 	public function ajax_list_clients(){
 		$clients=DB::table('clients')
-		->join('physical_clients', 'clients.id', 'physical_clients.client_id')
 		->where('active_flag', '=', 1)
 		->orderBy('name','desc')->get();
 
 		foreach($clients as $client){
 			if($client->type == 1){
-				
+				$phisClient = Physical_client::where('client_id', $client->id)->first();
+				$client->lastname = $phisClient->lastname;
+				$client->second_lastname = $phisClient->second_lastname;		
 			}
 		}
 		if ($clients == null || $clients->isEmpty()) {
 			Flash::message("No hay clientes para mostrar");
 		}
 		return json_encode(["clients"=>$clients]);
+		
+	}
+
+	public function ajax_list_materials(){
+		$materials=DB::table('materials')
+		->where('active_flag', '=', 1)
+		->where('branch_id', '=', Auth::user()->branch_id)
+		->orderBy('id','asc')->get();
+
+		if ($materials == null || $materials->isEmpty()) {
+			Flash::message("No hay materiales para mostrar");
+		}
+		return json_encode(["materials"=>$materials]);
 		
 	}
 	

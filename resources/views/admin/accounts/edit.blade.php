@@ -2,6 +2,7 @@
 @section('contenido_Admin')
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <script src="{{asset('js/load_branches_admin_edit.js')}}"></script>
+<script src="{{asset('js/check_inputs_create_user.js')}}"></script>
 <script >
 branch({{$user->branch_id}})
 rol({{$user->user_type_id}})
@@ -11,7 +12,7 @@ rol({{$user->user_type_id}})
             <h5 class="card-header" style="text-align:center">Cuentas</h5>
             <div class="card-body">
             <div class="container-fluid">
-           <form method = 'POST' action='{{ route("user.update", $user->id) }}'>
+           <form method = 'POST' action='{{ route("user.update", $user->id) }}' onsubmit="return check_inputs_create_user(this)">
                         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                         <input type="hidden" name="_method" value="PUT">
                         <div class="row justify-content-center">
