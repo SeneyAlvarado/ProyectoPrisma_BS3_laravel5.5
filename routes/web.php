@@ -141,6 +141,19 @@ Route::delete('products.deactivate/{id}', 'ProductController@destroy')->name('pr
 Route::delete('products.activate/{id}', 'ProductController@activate')->name('products.activate');
 /*------------------------------------------ */
 
+/**---------------------------------------------------------- */
+Route::get('materials', 'MaterialController@index')->name('materials');
+Route::get('materials.create', 'BranchController@listMaterial')->name('material.create');
+Route::post('materials.store', 'MaterialController@store')->name('materials.store');
+Route::put('materials.update/{id}', 'MaterialController@update')->name('materials.update');
+Route::get('materials.edit/{id}', 'MaterialController@edit')->name('materials.edit');
+Route::delete('materials.deactivate/{id}', 'MaterialController@destroy')->name('materials.deactivate');
+Route::delete('materials.activate/{id}', 'MaterialController@activate')->name('materials.activate');
+
+
+
+/**---------------------------------------------------------- */
+
 /**-----------Branch routes------------- */
 Route::get('branch', 'BranchController@index')->name('branch');
 Route::get('branch.create', 'BranchController@create')->name('branch.create');
