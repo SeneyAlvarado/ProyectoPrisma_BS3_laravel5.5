@@ -71,7 +71,7 @@
                             <button class='btn btn-success btn-block' type='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
                         </div>
                         <div class="col-md-6 " style="margin-top:20px;">
-                            <a class="btn btn btn-block btn-danger " shref="{{url()->previous()}}">
+                            <a class="btn btn btn-block btn-danger " href="{{materials}}">
                                 <i class="fa fa-floppy-o"></i> Regresar
                             </a>
                         </div>

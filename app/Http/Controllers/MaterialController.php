@@ -99,7 +99,27 @@ class MaterialController extends Controller
 	 */
 	public function edit($id)
 	{
-		$material = $this->model->findOrFail($id);
+		$material = $this->model->find($id);
+		if ($material == null) {
+			throw new \Exception('Error en editar material con el id:' .$id
+				. " en el método MaterialController@edit");
+		} else {
+			$branch = DB::table('branches')->join(
+				'materials',
+				'branches.id',
+				'=',
+				'materials.branch_id'
+			)->select(
+				'materials.id as id',
+				'materials.name as name',
+				'materials.description as description',
+				'materials.active_flag as active_flag',
+				'branches.name as branch_idd',
+				'branches.id as branch_id'
+			)->get();
+			//return $material;
+		}
+		
 
 		return view('materials.edit', compact('material'));
 	}

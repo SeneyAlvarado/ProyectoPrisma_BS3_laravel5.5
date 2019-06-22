@@ -4,11 +4,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div style="padding:10px;">
-    <div class="card">
-        <h5 class="card-header" style="text-align:center">Estados</h5>
-            <div class="card-body">
-                <div class="container-fluid">
-                <div class="">
+        <div class="card margin-bottom-card">
+                <div class="card-header">
+                    <h5 style="text-align:center; ">Estados</h5>
+                </div>
+            </div>
+            <div class="">
                     @if($states->count())
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
@@ -42,11 +43,9 @@
                         </table>
                     </div>
                     @else
+                    <a class="btn btn-success style-btn-registry" href="{{ url('states.create') }} " style="margin-bottom: 10px; ">Registrar </a>
                     <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
                     @endif
-                </div>
-            </div>
-        </div> 
     </div> 
 </div>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
