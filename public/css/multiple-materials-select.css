@@ -1,0 +1,24 @@
+.btn-add-material {
+    margin-top:8px;
+    margin-bottom:8px;
+    background-color:#96183a !important;
+    border-color:#96183a !important;
+}
+
+.btn-add-material:hover {
+    background-color:#333333 !important;
+    border-color:#333333 !important;
+}
+
+.btn-remove-material {
+    margin-top:8px;
+    margin-bottom:8px;
+    background-color:#e0e0e0 !important;
+    width:37px;
+}
+
+.btn-remove-material:hover {
+    background-color:#CACACA !important;
+
+    color: black !important;
+}

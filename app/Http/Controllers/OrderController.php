@@ -155,13 +155,14 @@ class OrderController extends Controller
 
 	public function ajax_list_clients(){
 		$clients=DB::table('clients')
-		->join('physical_clients', 'clients.id', 'physical_clients.client_id')
 		->where('active_flag', '=', 1)
 		->orderBy('name','desc')->get();
 
 		foreach($clients as $client){
 			if($client->type == 1){
-				
+				$phisClient = Physical_client::where('client_id', $client->id)->first();
+				$client->lastname = $phisClient->lastname;
+				$client->second_lastname = $phisClient->second_lastname;		
 			}
 		}
 		if ($clients == null || $clients->isEmpty()) {

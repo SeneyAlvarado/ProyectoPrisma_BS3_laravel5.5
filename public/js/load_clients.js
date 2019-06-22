@@ -54,9 +54,7 @@ function listClients_contact(){
            }
            if (this.type == 1){
             $('#selectList_contact').append('<option value="' + this.id + '">' + this.id + ". " + identification + " " + this.name + " " + this.lastname + " " + this.second_lastname + '</option>');
-           } else {
-            $('#selectList_contact').append('<option value="' + this.id + '">' + this.id + ". " + identification + " " + this.name + '</option>');
-           }
+           } 
            
        }) 
        
