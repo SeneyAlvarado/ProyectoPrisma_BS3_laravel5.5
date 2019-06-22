@@ -65,7 +65,7 @@ nav.nav-color {
 }
 
 .sidebar-expanded a:hover {
-    background: #333333 !important;
+    background: #6C0C25 !important;
    
   }
 
@@ -79,7 +79,7 @@ nav.nav-color {
   }
 
   .sidebar-color-collapse{
-    background-color: #821633 !important;  
+    background-color: #96183a !important;  
   }
 
   .borders {
@@ -89,7 +89,7 @@ nav.nav-color {
   }
 
   .active-collapse {
-    background-color: #333333 !important;
+    background-color: #6C0C25 !important;
   }
 
   .borders {

@@ -90,7 +90,7 @@
       {{ auth()->user()->name . " " . auth()->user()->lastname}}
   </button>
   <div class="dropdown-menu" id="dropmenu-user">
-    <a class="dropdown-item" href="#">Cambiar contraseña</a>
+    <a class="dropdown-item" href="{{ url('change_password.search_user') }}">Cambiar contraseña</a>
     <a class="dropdown-item" href="{{ url('/logout') }}">Cerrar sesión</a>
   </div>
 </div>
