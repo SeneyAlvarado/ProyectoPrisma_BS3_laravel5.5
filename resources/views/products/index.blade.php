@@ -60,7 +60,7 @@
             </table>
         </div>
         @else
-        <a class="btn btn-success style-btn-registry" href="{{ url('productoCreate') }} " style="margin-bottom: 10px; ">Registrar </a>
+        <a class="btn btn-success style-btn-registry" href="{{ url('products.create') }} " style="margin-bottom: 10px; ">Registrar </a>
         <h3 class="text-center alert alert-info">No hay nada para mostrar!</h3>
         @endif
     </div>

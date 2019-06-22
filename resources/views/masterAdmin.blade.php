@@ -116,7 +116,7 @@
                 <a href="#" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Visualizar</span>
                 </a>
-                <a href="states" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+              <a href="{{url('states')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Estados</span>
                 </a>
                 <a href="{{route('materials')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
@@ -144,13 +144,13 @@
                     <span class="menu-collapsed">Cuentas</span>
                 </div>
             </a>
-            <a href="visits" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+            <a href="{{url('visits')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
                     <span class="menu-collapsed">Visitas</span>
                 </div>
             </a>
-            <a href="branch" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+            <a href="{{url('branch')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="glyphicon glyphicon-flag fa-fw mr-3"></span>
                     <span class="menu-collapsed">Sucursales</span>
