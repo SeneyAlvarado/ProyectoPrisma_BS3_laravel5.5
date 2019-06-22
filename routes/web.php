@@ -139,6 +139,7 @@ Route::get('products.edit/{id}', 'ProductController@edit')->name('products.edit'
 Route::put('products.update/{id}', 'ProductController@update')->name('products.update');
 Route::delete('products.deactivate/{id}', 'ProductController@destroy')->name('products.deactivate');
 Route::delete('products.activate/{id}', 'ProductController@activate')->name('products.activate');
+Route::get('active_products_branch/{branch_id}', 'ProductController@active_products_branch');
 /*------------------------------------------ */
 
 /**---------------------------------------------------------- */
