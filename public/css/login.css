@@ -389,6 +389,9 @@ iframe {
   position: relative;
   z-index: 1;
   -webkit-clip-path: polygon(0px 100%,645px 100%,100% 0px,0px 0px);
+  clip-path: polygon(0px 100%,645px 100%,100% 0px,0px 0px);
+  -o-clip-path: polygon(0px 100%,645px 100%,100% 0px,0px 0px);
+  -ms-clip-path: polygon(0px 100%,645px 100%,100% 0px,0px 0px);
 }
 
 .login100-more::before {
