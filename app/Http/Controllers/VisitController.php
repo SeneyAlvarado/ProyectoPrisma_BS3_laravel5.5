@@ -70,7 +70,7 @@ class VisitController extends Controller
 		//return $visit;
 		$visit->save();
 
-		return redirect('visitas')->with('message', 'El elemento fue creado correctamente');
+		return redirect('visits')->with('success', 'El elemento fue creado correctamente');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class VisitController extends Controller
 	 */
 	public function show($id)
 	{
-		$visit = $this->model->findOrFail($id);
+		$visit = $this->model->find($id);
 		
 		return view('admin/visits/show', compact('visit'));
 	}
@@ -94,7 +94,7 @@ class VisitController extends Controller
 	 */
 	public function edit($id)
 	{
-		$visit = $this->model->findOrFail($id);
+		$visit = $this->model->find($id);
 		
 		return view('admin/visits/edit', compact('visit'));
 	}
@@ -110,11 +110,11 @@ class VisitController extends Controller
 	{
 		$inputs = $request->all();
 
-		$visit = $this->model->findOrFail($id);		
+		$visit = $this->model->find($id);		
 		$visit->update($inputs);
 		
 
-		return redirect('visitas')->with('message', 'Item updated successfully.');
+		return redirect('visits')->with('success', 'Los cambios se guardaron exitosamente');
 	}
 
 	/**
@@ -127,6 +127,6 @@ class VisitController extends Controller
 	{
 		$this->model->destroy($id);
 
-		return redirect('visitas')->with('message', 'Item deleted successfully.');
+		return redirect('visits')->with('success', 'La información de la visita se eliminó correctamente.');
 	}
 }

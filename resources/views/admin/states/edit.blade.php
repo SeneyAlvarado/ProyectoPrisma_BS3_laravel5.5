@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="">
-                        <form action="{{ url('actualizarEstados', $state->id) }}" method="POST">
+                        <form action="{{ url('updateState', $state->id) }}" method="POST">
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="row justify-content-center">
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-3" style="margin-top:5px; ">
-                                    <a class="btn btn btn-block" href="{{ url('estados') }}">Cancelar</a>
+                                    <a class="btn btn btn-block" href="{{ url('states') }}">Cancelar</a>
                                 </div>
                             </div>
                         </form>

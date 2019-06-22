@@ -8,9 +8,6 @@
         <h5 class="card-header" style="text-align:center">Visitas</h5>
             <div class="card-body">
                 <div class="container-fluid">
-                    <div> 
-                        <a class="btn btn-success style-btn-registry" href="{{ url('crearVisita') }} " style="margin-bottom: 10px; ">Crear </a>
-                    </div>
                     <div class="">
                         @if($visits->count())
                         <div class="table-responsive">
@@ -40,8 +37,8 @@
                                             <td class="text-center">Desactivo</td>
                                             @endif
                                             <td class="text-center">
-                                                <a class="btn btn-warning style-btn-edit btn-size"  href="{{ url('editarVisita', $visit->id) }}">Detalles</a>
-                                                <form action="{{ url('eliminarVisita', $visit->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
+                                                <a class="btn btn-warning style-btn-edit btn-size"  href="{{ url('editVisit', $visit->id) }}">Detalles</a>
+                                                <form action="{{ url('deleteVisit', $visit->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Eliminar</button>

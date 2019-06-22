@@ -8,9 +8,6 @@
         <h5 class="card-header" style="text-align:center">Estados</h5>
             <div class="card-body">
                 <div class="container-fluid">
-                    <div> 
-                        <a class="btn btn-success style-btn-registry" href="{{ url('crearEstados') }} " style="margin-bottom: 10px; ">Crear </a>
-                    </div>
                 <div class="">
                     @if($states->count())
                     <div class="table-responsive">
@@ -32,8 +29,8 @@
                                     <td class="text-center">Desactivo</td>
                                     @endif
                                     <td class="text-center">
-                                        <a class="btn btn-warning style-btn-edit btn-size" href="{{ url('editarEstados', $state->id) }}">Detalles</a>
-                                        <form action="{{ url('eliminarEstados', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
+                                        <a class="btn btn-warning style-btn-edit btn-size" href="{{ url('editState', $state->id) }}">Detalles</a>
+                                        <form action="{{ url('deleteState', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
                                             {{csrf_field()}}
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Eliminar</button>

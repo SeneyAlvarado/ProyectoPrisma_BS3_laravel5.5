@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-                    <form action="{{ url('guardarEstado') }}" method="POST">
+                    <form action="{{ url('saveState') }}" method="POST">
                         <input type="hidden" name="_token" value='{{Session::token()}}'>
                         <div class="row justify-content-center">
                             <div class="col-md-7 align-self-center">
@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-md-1"></div>
                             <div class="col-md-3" style="margin-top:5px; ">
-                                <a class="btn btn btn-block" href="{{ url('estados') }}">Cancelar</a>
+                                <a class="btn btn btn-block" href="{{ url('states') }}">Cancelar</a>
                             </div>
                         </div>
                         
