@@ -6,7 +6,7 @@
 @endsection
 
 @section('contenido_Admin')
-<script src="{{asset('js/load_branches_admin_edit.js')}}"></script>
+<script src="{{asset('js/load_branches_edit.js')}}"></script>
 <script src="{{asset('js/createClientsRadio.js')}}"></script>
 <script src="{{asset('js/patternFields.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
@@ -21,6 +21,7 @@
                 <form action="{{ route('materials.update', $material->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" id="branch_id"  value="{{ $material->branch_id }}">
 
                     <div>
                         <div class=" row offset-md-2 col-md-7" style="margin-top:10px;">
@@ -82,5 +83,5 @@
     </div>
 </div>
 
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
+<script src="{{asset('js/load_branches_edit.js')}}"></script>
 @endsection
