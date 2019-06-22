@@ -6,7 +6,7 @@
 @endsection
 
 @section('contenido_Admin')
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
+<script src="{{asset('js/load_branches_admin_edit.js')}}"></script>
 <script src="{{asset('js/createClientsRadio.js')}}"></script>
 <script src="{{asset('js/patternFields.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">

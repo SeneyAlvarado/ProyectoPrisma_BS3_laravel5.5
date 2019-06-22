@@ -18,8 +18,3 @@ function loadMaterials(){
    }
    });
 }
-
-
-$(document).ready(function(){
-    loadMaterials();
-})

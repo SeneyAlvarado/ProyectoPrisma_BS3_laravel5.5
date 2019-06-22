@@ -16,8 +16,12 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('/js/dateTimePicker_minDateToday.js')}}"></script>
 <script src="{{asset('/js/order_multistep_form.js')}}"></script>
+<script src="{{asset('js/multiple-materials-select.js')}}"></script>
+<script src="{{asset('js/load_materials.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/order_multistep_form.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
+
 
 <div style="padding:10px;">
     <div class="card">
@@ -30,6 +34,14 @@
                         <input type='hidden' name='_token' value='{{Session::token()}}'>
 
                         <div class="tab">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 ">
+                                    <label for="user_name"><strong>Número Cotización</strong></label>
+                                    <input id="user_name" placeholder="# Cotización" class="form-control"
+                                        name="user_name" type='text' pattern="[0-9]*"
+                                        title="No se permite ingresar letras en este campo">
+                                </div>
+                            </div>
                             <input type="text" id="searchOwnerInput" onkeyup="searchOwner()">
                             <div class="row justify-content-center">
 
@@ -51,22 +63,18 @@
                                 </div>
                             </div>
 
+                            <!--
                             <div class="row justify-content-center" style="margin-top:20px;">
-                                <!--<div class="col-md-4 " >
+                                <div class="col-md-4 " >
                                 <label for="name"><strong>Detalle de orden</strong></label>
                                 <input id="order_detail" placeholder="Detalle de la órden" class="form-control" name="order_detail" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ0-9 \s]{2,48}" title="" required>
-                            </div> -->
+                            </div> 
                                 <div class="col-md-4">
                                     <label for="branch"><strong>Sucursal</strong></label>
                                     <select id="dropBranch" name="dropBranch" class="form-control"></select>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <label for="user_name"><strong>Número Cotización</strong></label>
-                                    <input id="user_name" placeholder="# Cotización" class="form-control"
-                                        name="user_name" type='text' pattern="[0-9]*"
-                                        title="No se permite ingresar letras en este campo" required>
-                                </div>
-                            </div>
+                                </div> 
+                        </div>-->
+
                             <!-- <div class="row justify-content-center">
                             <div class="col-md-4 offset-md-5">
                             @ //if ($errors->has('delibery_date'))
@@ -153,18 +161,23 @@
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div class="col-md-4">
-                                                    <select multiple class="form-control" name="origen" id="origen" multiple="multiple" size="4">
+                                                    <select multiple class="form-control" name="origen" id="origen"
+                                                        multiple="multiple" size="4">
                                                     </select>
                                                 </div>
                                                 <div class="col-md-1" style="text-align:center">
-                                                    <input type="button" class="btn-add-material pasar izq btn btn-success" value="+">
-                                                    <input type="button" class="btn-remove-material quitar der btn btn-default" value="-">
+                                                    <input type="button"
+                                                        class="btn-add-material pasar izq btn btn-success" value="+">
+                                                    <input type="button"
+                                                        class="btn-remove-material quitar der btn btn-default"
+                                                        value="-">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <select class=" form-control" name="destino" id="destino" multiple="multiple" size="4"></select>
+                                                    <select class=" form-control" name="destino" id="destino"
+                                                        multiple="multiple" size="4"></select>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="row" style="margin-top:20px;">
                                                 <div class="col-md-4 offset-md-2">
                                                     <label for="branch"><strong>¿Posee adelanto
@@ -359,8 +372,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-4 col-md-offset-2" style="margin-top:5px;  ">
                                 <!-- next button, the "Siguiente" text is added at the js -->
-                                <button id="nextBtn" name="xD" onclick="nextPrev(1)"
-                                    class='btn btn-success btn-block'></button>
+                                <a id="nextBtn" name="xD" onclick="nextPrev(1)" class='btn btn-success btn-block'></a>
                             </div>
                             <div class="col-md-4" style="margin-top:5px; ">
                                 <a class="btn btn btn-block" id="prevBtn" onclick="nextPrev(-1)">Regresar</a>

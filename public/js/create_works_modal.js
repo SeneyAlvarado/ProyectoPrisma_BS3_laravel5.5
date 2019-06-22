@@ -5,16 +5,11 @@ $(document).ready(function () {//cleans the modals when page is accesed/reloaded
 
 //shows add work modal
 function showModalWork() {
-    var branch_id = $("#dropBranch").children("option:selected").val();
-    if (branch_id == "defecto") {
-        alert("Hubo un error con su selección de sucursal, por favor verifique la misma y vuelva a intentarlo.")
-        return false;
-    } else {
-        active_product_branch(branch_id)
+        active_product_branch();
+        loadMaterials();
         $("#modalWork").modal('show');
     }
 
-}
 
 function addWorkToTable() {
     var advance_payment_add = $("input[name='advance_payment_add']:checked").val();
@@ -137,9 +132,9 @@ function priority_addTransform(priority_add) {
 
 
 /**Javascrip to fill the list of clients to create a ne order*/
-function active_product_branch(branch_id) {
+function active_product_branch() {
     $.ajax({
-        url: '/active_products_branch/' +branch_id,
+        url: '/active_products_branch',
         type: 'GET',
         dataType: "json",
         success: function (datos) {
@@ -153,8 +148,8 @@ function active_product_branch(branch_id) {
             })
 
         }, error: function () {
-            alert("¡Ha habido un error! Elija correctamente la sucursal." +
-                "Si este error persiste por favor comuníquese con el equipo técnico");
+            alert("¡Ha habido un error cargando los productos!" +
+                " Si este error persiste por favor comuníquese con el equipo técnico");
         }
     });
 }

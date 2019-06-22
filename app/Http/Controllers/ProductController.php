@@ -298,7 +298,7 @@ class ProductController extends Controller
 		}
 	}
 
-	public function active_products_branch($branch_id)
+	public function active_products_branch()
 	{
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " cargando los productos de la sucursal");
@@ -306,7 +306,7 @@ class ProductController extends Controller
 			//custom route to REDIRECT redirect('x') if there's an error
 			\Session::put('errorRoute', "orders");
 
-			$products = $this->model->where('branch_id', $branch_id)
+			$products = $this->model->where('branch_id', '=', Auth::user()->branch_id)
 			->where('active_flag', 1)->orderBy('id', 'asc')->get();
 
 			return json_encode(["products"=>$products]);
