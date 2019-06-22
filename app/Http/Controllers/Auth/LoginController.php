@@ -76,11 +76,13 @@ class LoginController extends Controller
             }*/
 
           } else { //In case the patient's account was desactive.
-            return back()->withErrors(['password' => 'Su cuenta está desactivada. Contacte con el 
-            Servicio de Salud para verificar el procedimiento de activación']);        
+            //return back()->withErrors(['password' => 'Su cuenta está desactivada. Contacte con 
+            //Grupo Prisma para verificar']);     
+            return back()->with('error', 'Su cuenta está desactivada. Contacte con Grupo Prisma para verificar');
         }
         } else {  //In case the credentials are incorect.
-        return back()->withErrors(['username' => trans('Nombre de usuario o contraseña incorrectos.')]);        
+        //return back()->withErrors(['username' => trans('Nombre de usuario o contraseña incorrectos.')]);        
+        return back()->with('error', 'Nombre de usuario o contraseña incorrectos');
     }
     }
 
