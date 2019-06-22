@@ -199,3 +199,9 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /*------------------------------------------------*/
 
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
+
+/*----------------------Change Password------------------ */
+Route::resource('change_password', 'ChanngePasswordController');
+Route::get('change_password.search_user', 'ChanngePasswordController@search_user')->name('change_password.search_user');
+Route::get('change_password/admin', function () {return view('admin.password.change_password');})->name('password_admin');
+/*------------------------------------------------*/
