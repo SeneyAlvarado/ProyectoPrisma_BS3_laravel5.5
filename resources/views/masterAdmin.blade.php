@@ -119,7 +119,7 @@
                 <a href="estados" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Estados</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+                <a href="{{route('materials')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Materiales</span>
                 </a>
                 <a href="{{route('products')}}" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">

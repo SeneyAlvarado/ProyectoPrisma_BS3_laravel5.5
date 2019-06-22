@@ -1,8 +1,7 @@
 @extends('masterAdmin')
-
 @section('header')
 <div class="page-header">
-    <h1><i class="glyphicon glyphicon-edit"></i> Product / Edit #{{$product->id}}</h1>
+    <h1><i class="glyphicon glyphicon-edit"></i> Product / Edit #{{$material->id}}</h1>
 </div>
 @endsection
 
@@ -16,17 +15,17 @@
 
 <div style="padding:10px;">
     <div class="card">
-        <h5 class="card-header" style="text-align:center">Productos</h5>
+        <h5 class="card-header" style="text-align:center">Materiales</h5>
         <div class="card-body">
             <div class="container-fluid">
-                <form action="{{ route('products.update', $product->id) }}" method="POST">
+                <form action="{{ route('materials.update', $material->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div>
                         <div class=" row offset-md-2 col-md-7" style="margin-top:10px;">
                             <label for="name">Nombre</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', $product->name ) }}" />
+                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', $material->name ) }}" />
                         </div>
                     </div>
                     <br>
@@ -37,7 +36,7 @@
                     <div>
                         <div class="row offset-md-2 col-md-7" style="margin-top:10px;">
                             <label for="description-field">Description</label>
-                            <textarea class="form-control" name="description" id="description-field" value="{{ old('description', $product->description ) }}" rows="4" cols="50">{{ old('description', $product->description ) }}</textarea>
+                            <textarea class="form-control" name="description" id="description-field" value="{{ old('description', $material->description ) }}" rows="4" cols="50">{{ old('description', $material->description ) }}</textarea>
                         </div>
                     </div>
 
@@ -48,7 +47,7 @@
                     <div class="justify-content-center offset-md-2 col-md-4" style="margin-top:10px;">
                         <label for="active_flag"><strong>Active Flag</strong></label>
                         <br>
-                        @if($product->active_flag == 1)
+                        @if($material->active_flag == 1)
                         <input type="radio" name="active_flag" value="1" checked> Activo<br>
                         <input type="radio" name="active_flag" value="0" disabled=""> Desactivado<br>
                         @else

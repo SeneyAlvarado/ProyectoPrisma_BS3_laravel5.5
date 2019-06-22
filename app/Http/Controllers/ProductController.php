@@ -6,7 +6,10 @@ use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-use Illuminate\Support\Facades\Auth;
+use Auth;
+use App\Branch;
+
+
 
 class ProductController extends Controller
 {
@@ -41,14 +44,18 @@ class ProductController extends Controller
 			//Gets all the list of products
 			$products = $this->model->paginate();
 
-			
-			
-			$branch = DB::table('branches')->join('products', 'products.branch_id','branches_id')->select(
+			$products = DB::table('branches')->join(
+				'products',
+				'branches.id',
+				'=',
+				'products.branch_id'
+			)->select(
+				'products.id as id',
 				'products.name as name',
 				'products.description as description',
 				'products.active_flag as active_flag',
-				'branch.name as branch_idd',
-				'branch.id as branch_id'
+				'branches.name as branch_idd',
+				'branches.id as branch_id'
 			)->get();
 
 			return view('products.index', compact('products'));
@@ -232,58 +239,62 @@ class ProductController extends Controller
 	}*/
 
 	public function destroy($id)
-		{
-			//custom message if this methods throw an exception
-			\Session::put('errorOrigin', " desactivando el producto");	
-			//custom route to REDIRECT redirect('x') if there's an error
-			\Session::put('errorRoute', "products");
-				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
-			//will be made. Also, all transactions can be rollbacked.
-				$product = $this->model->find($id);
-				
-				if($product == null) {
-					throw new \Exception('Error en desactivar el producto con el id:' .$id
+	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " desactivando el producto");
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "products");
+		DB::beginTransaction(); //starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+		$product = $this->model->find($id);
+
+		if ($product == null) {
+			throw new \Exception('Error en desactivar el producto con el id:' . $id
 				. " en el método ProductController@destroy");
-				} else {
-					$product->active_flag = 0;
-					$product->save();
-					DB::commit();//commit to database
-					$user_type = Auth::user()->user_type_id;	
-					if($user_type == 1){//admin user
-						return redirect('products')->with('success',
-						'¡Producto desactivado satisfactoriamente!');
-					}
-				}
+		} else {
+			$product->active_flag = 0;
+			$product->save();
+			DB::commit(); //commit to database
+			$user_type = Auth::user()->user_type_id;
+			if ($user_type == 1) { //admin user
+				return redirect('products')->with(
+					'success',
+					'¡Producto desactivado satisfactoriamente!'
+				);
+			}
+		}
 	}
 
 	public function activate($id)
-		{
-			
-			//custom message if this methods throw an exception
-			\Session::put('errorOrigin', " activando el producto");	
+	{
 
-			//custom route to REDIRECT redirect('x') if there's an error
-			\Session::put('errorRoute', "products");
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " activando el producto");
 
-				DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
-			//will be made. Also, all transactions can be rollbacked.
-				$product = $this->model->find($id);
-				
-				if($product == null) {
-					throw new \Exception('Error al activar el producto con el id:' .$id
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "products");
+
+		DB::beginTransaction(); //starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+		$product = $this->model->find($id);
+
+		if ($product == null) {
+			throw new \Exception('Error al activar el producto con el id:' . $id
 				. " en el método ProductController@activate");
-				} else {
-					
-					$product->active_flag = 1;
-					$product->save();
+		} else {
 
-					DB::commit();//commit to database
+			$product->active_flag = 1;
+			$product->save();
 
-					$user_type = Auth::user()->user_type_id;	
-					if($user_type == 1){//admin user
-						return redirect('products')->with('success',
-						'¡Producto activado satisfactoriamente!');
-					}
-				}
+			DB::commit(); //commit to database
+
+			$user_type = Auth::user()->user_type_id;
+			if ($user_type == 1) { //admin user
+				return redirect('products')->with(
+					'success',
+					'¡Producto activado satisfactoriamente!'
+				);
+			}
+		}
 	}
 }

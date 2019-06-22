@@ -1,9 +1,8 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 @extends('masterAdmin')
-
 @section('header')
 <div class="page-header">
-    <h1><i class="glyphicon glyphicon-plus"></i> Productos </h1>
+    <h1><i class="glyphicon glyphicon-plus"></i> Materiales </h1>
 </div>
 @endsection
 
@@ -13,11 +12,11 @@
 
 <div style="padding:10px;">
     <div class="card">
-        <h5 class="card-header" style="text-align:center">Productos</h5>
+        <h5 class="card-header" style="text-align:center">Materiales</h5>
         <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-                    <form action="{{ route('products.store') }}" method="POST">
+                    <form action="{{ route('materials.store') }}" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <!-- <div class="row justify-content-center"> -->
@@ -93,7 +92,7 @@
                             </div>
                             <div class="col-md-6 " style="margin-top:20px;">
                                 <!--   <div class="col-md-4" style="margin-top:5px; "> -->
-                                <a class="btn btn btn-block" href="{{ route('products')}}">Regresar</a>
+                                <a class="btn btn btn-block" href="{{ route('materials')}}">Regresar</a>
                             </div>
                         </div>
                     </form>

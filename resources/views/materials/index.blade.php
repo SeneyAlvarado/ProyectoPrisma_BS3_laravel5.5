@@ -8,12 +8,12 @@
 <div style="padding:10px;">
     <div class="card margin-bottom-card">
         <div class="card-header">
-            <h5 style="text-align:center; ">Productos</h5>
+            <h5 style="text-align:center; ">Materiales</h5>
         </div>
     </div>
     <div class="">
 
-        @if($products->count())
+        @if($materials->count())
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
                 <thead>
@@ -27,27 +27,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $product)
+                    @foreach($materials as $material)
                     <tr>
-                        <td class="text-center"><strong>{{$product->id}}</strong></td>
-                        <td class="text-center">{{$product->name}}</td>
-                        <td class="text-center">{{$product->description}}</td>
-                        @if($product->active_flag == 1)
+                        <td class="text-center"><strong>{{$material->id}}</strong></td>
+                        <td class="text-center">{{$material->name}}</td>
+                        <td class="text-center">{{$material->description}}</td>
+                        @if($material->active_flag == 1)
                         <td class="text-center">Activo</td>
                         @else
                         <td class="text-center">Inactivo</td>
                         @endif
-                        <td class="text-center">{{$product->branch_idd}}</td>
+                        <td class="text-center">{{$material->branch_idd}}</td>
                         <td class="text-center">
-                            <a class="btn btn-warning style-btn-edit btn-size btn-sm" href="{{ route('products.edit', $product->id) }}"> Editar</a>
-                            @if($product->active_flag == 1)
-                            <form style="display:inline" action="{{ route('products.deactivate', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el producto {{$product->name}}');">
+                            <a class="btn btn-warning style-btn-edit btn-size btn-sm" href="{{ route('materials.edit', $material->id) }}"> Editar</a>
+                            @if($material->active_flag == 1)
+                            <form style="display:inline" action="{{ route('materials.deactivate', $material->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el materail {{$material->name}}');">
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn style-btn-delete btn-danger btn-size btn-sm">Desactivar</button>
                             </form>
                             @else
-                            <form style="display:inline" action="{{ route('products.activate', $product->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el producto {{$product->name}}');">
+                            <form style="display:inline" action="{{ route('materials.activate', $material->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el material {{$material->name}}');">
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-success style-btn-success btn-size btn-sm">Activar</button>
@@ -60,7 +60,7 @@
             </table>
         </div>
         @else
-        <a class="btn btn-success style-btn-registry" href="{{ url('productoCreate') }} " style="margin-bottom: 10px; ">Registrar </a>
+        <a class="btn btn-success style-btn-registry" href="{{ route('material.create') }} " style="margin-bottom: 10px; ">Registrar </a>
         <h3 class="text-center alert alert-info">No hay nada para mostrar!</h3>
         @endif
     </div>
