@@ -25,18 +25,15 @@
                                 </thead>
                                 <tbody>
                                     @foreach($visits as $visit)
+                                    @if($visit->active_flag == 1)
                                         <tr>
                                             <td class="text-center"><strong>{{$visit->id}}</strong></td>    
                                             <td class="text-center">{{$visit->client_name}}</td> 
                                             <td class="text-center">{{\Carbon\Carbon::parse($visit->date)->format('d/m/Y')}}</td> 
                                             <td class="text-center">{{$visit->phone}}</td> 
                                             <td class="text-center">{{$visit->email}}</td> 
-                                            <td class="text-center">{{$visit->visitor_id}}</td> 
-                                            @if($visit->active_flag == 1)
+                                            <td class="text-center">{{$visit->visitor_id}}</td>
                                             <td class="text-center">Activo</td>
-                                            @else
-                                            <td class="text-center">Desactivo</td>
-                                            @endif
                                             <td class="text-center">
                                                 <a class="btn btn-warning style-btn-edit btn-size"  href="{{ url('editVisit', $visit->id) }}">Detalles</a>
                                                 <form action="{{ url('deleteVisit', $visit->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
@@ -46,6 +43,7 @@
                                             </form>
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>
