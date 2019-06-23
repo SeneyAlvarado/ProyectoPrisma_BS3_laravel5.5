@@ -18,7 +18,7 @@ class MaterialController extends Controller
 	protected $model;
 
 	/**
-	 * Create instance of controller with Model
+	 * Create instance of controller with Material Model 
 	 *
 	 * @return void
 	 */
@@ -28,7 +28,7 @@ class MaterialController extends Controller
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the materials.
 	 *
 	 * @return Response
 	 */
@@ -50,12 +50,12 @@ class MaterialController extends Controller
 			'branches.id as branch_id'
 		)->get();
 
-		return view('materials.index', compact('materials'));
-		//return $materials;
+		return view('materials/index', compact('materials'));
+		
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new material.
 	 *
 	 * @return Response
 	 */
@@ -65,7 +65,7 @@ class MaterialController extends Controller
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created material in storage.
 	 *
 	 * @param Request $request
 	 * @return Response
@@ -74,8 +74,7 @@ class MaterialController extends Controller
 	{
 		$inputs = $request->all();
 		$this->model->create($inputs + ['active_flag' => 1]);
-
-		return redirect()->route('materials')->with('message', 'Item created successfully.');
+		return redirect()->route('materials')->with('success', '¡Material creado satisfactoriamente!');
 	}
 
 	/**
@@ -86,13 +85,17 @@ class MaterialController extends Controller
 	 */
 	public function show($id)
 	{
-		$material = $this->model->findOrFail($id);
-
-		return view('materials.show', compact('material'));
+		$material = $this->model->find($id);
+		if($material==null){
+			throw new \Exception('Error en mostrar el material con el id:' .$id
+				. " en el método MaterialController@show");
+		} else {
+			return view('materials.show', compact('material'));
+		}
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the form for editing the specific material.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -104,24 +107,8 @@ class MaterialController extends Controller
 			throw new \Exception('Error en editar material con el id:' .$id
 				. " en el método MaterialController@edit");
 		} else {
-			$branch = DB::table('branches')->join(
-				'materials',
-				'branches.id',
-				'=',
-				'materials.branch_id'
-			)->select(
-				'materials.id as id',
-				'materials.name as name',
-				'materials.description as description',
-				'materials.active_flag as active_flag',
-				'branches.name as branch_idd',
-				'branches.id as branch_id'
-			)->get();
-			//return $material;
-		}
-		
-
-		return view('materials.edit', compact('material'));
+			return view('materials.edit', compact('material'));
+		}		
 	}
 
 	/**
@@ -135,14 +122,18 @@ class MaterialController extends Controller
 	{
 		$inputs = $request->all();
 
-		$material = $this->model->findOrFail($id);
-		$material->update($inputs);
-
-		return redirect()->route('materials.index')->with('message', 'Item updated successfully.');
+		$material = $this->model->find($id);
+		if($material == null) {
+			throw new \Exception('Error en actualizar el material con el id:' .$id
+				. " en el método MaterialController@update");
+		} else {
+			$material->update($inputs);
+			return redirect()->route('materials')->with('success', '¡Material actualizado satisfactoriamente!');
+		}
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Deactivate the specified material from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -181,6 +172,10 @@ class MaterialController extends Controller
 		}
 	}
 
+	/**
+	 * Activate the specified material from storage.
+	 * 
+	 */
 	public function activate($id)
 	{
 

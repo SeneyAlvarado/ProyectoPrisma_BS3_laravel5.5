@@ -33,6 +33,12 @@ class StateController extends Controller
 	 */
 	public function index()
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " mostrando los estados");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "error");
+		
 		$states = $this->model->paginate();
 
 		return view('admin/states/index', compact('states'));
@@ -45,6 +51,12 @@ class StateController extends Controller
 	 */
 	public function create()
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " accediendo a la creación de estados");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "states");
+
 		return view('admin/states/create');
 	}
 
@@ -56,26 +68,23 @@ class StateController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " agregando el estado");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "states.create");
+
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+			
 		$state = new State();
 		$state->name=$request->name;
 		$state->description=$request->description;
 		$state->active_flag = 1;
 		$state->save();
 
-		return redirect('states')->with('success', 'El estado se guardó correctamente');
-	}
-
-	/**
-	 * Display the specified state.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$state = $this->model->find($id);
-		
-		return view('admin/states/index', compact('states'));
+		DB::commit();//commits to database 
+		return redirect('states')->with('success', '¡Estado registrado satisfactoriamente!');
 	}
 
 	/**
@@ -86,9 +95,19 @@ class StateController extends Controller
 	 */
 	public function edit($id)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " editando el estado");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "states");
+
 		$state = $this->model->find($id);
-		
-		return view('admin/states/edit', compact('state'));
+		if($state==null){
+			throw new \Exception('Error en editar el estado con el id:' .$id
+				. " en el método StateController@edit");
+		} else{
+			return view('admin/states/edit', compact('state'));
+		}
 	}
 
 	/**
@@ -100,25 +119,78 @@ class StateController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " actualizando el estado");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "states");
+		
 		$inputs = $request->all();
-
-		$state = $this->model->find($id);		
-		$state->update($inputs);
-
-		return redirect('states')->with('success', 'Los cambios se guardaron exitosamente');
+		DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+			
+		$state = $this->model->find($id);
+		if($state==null){
+			throw new \Exception('Error en actualizar el estado con el id:' .$id
+				. " en el método StateController@update");
+		} else {
+			$state->update($inputs);
+			DB::commit();//commits to database 
+			return redirect('states')->with('success', '¡Estado actualizado satisfactoriamente!');
+		}
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified state from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function deactivate($id)
 	{
-		$this->model->destroy($id);
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " desactivando el estado");	
 
-		return redirect('states')->with('success', 'El estado se eliminó correctamente.');
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "states");
+
+		DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+		$state = $this->model->find($id);
+		if($state==null){
+			throw new \Exception('Error en desactivar el estado con el id:' .$id
+				. " en el método StateController@destroy");
+		} else {
+			$state->active_flag = 0;
+			$state->save();
+			DB::commit();//commit to database
+			return redirect('states')->with('success', '¡Estado desactivado satisfactoriamente!');
+		}
+	}
+
+	/**
+	 * Active the specified state from storage.
+	 */
+	public function activate($id)
+	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " activando el estado");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "states");
+
+			DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+			$state = $this->model->find($id);
+			if($state==null){
+				throw new \Exception('Error en activar el estado con el id:' .$id
+					. " en el método StateController@active");
+			} else{
+				$state->active_flag = 1;
+				$state->save();
+				DB::commit();//commit to database
+				return redirect('states')->with('success', '¡Estado activado satisfactoriamente!');
+			}
 	}
 
 

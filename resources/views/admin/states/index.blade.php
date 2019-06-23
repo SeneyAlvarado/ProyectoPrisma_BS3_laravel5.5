@@ -31,11 +31,19 @@
                                     @endif
                                     <td class="text-center">
                                         <a class="btn btn-warning style-btn-edit btn-size" href="{{ url('editState', $state->id) }}">Detalles</a>
-                                        <form action="{{ url('deleteState', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Eliminar</button>
-                                        </form>
+                                        @if($state->active_flag == 1)
+                                   <form style="display:inline" action="{{ url('deactivateState', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea desactivar el estado {{$state->name}}?');">
+                                       {{csrf_field()}}
+                                       <input type="hidden" name="_method" value="DELETE">
+                                       <button type="submit" class="btn style-btn-delete btn-danger btn-size btn-sm">Desactivar</button>
+                                   </form>
+                                   @else
+                                   <form style="display:inline" action="{{ url('activateState', $state->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Desea activar el estado {{$state->name}}?');">
+                                       {{csrf_field()}}
+                                       <input type="hidden" name="_method" value="DELETE">
+                                       <button type="submit"  class="btn btn-success style-btn-success btn-size btn-sm">Activar</button>
+                                   </form>
+                                   @endif
                                     </td>
                                 </tr>
                                 @endforeach

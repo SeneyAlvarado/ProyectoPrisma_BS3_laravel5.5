@@ -61,10 +61,11 @@ Route::get('showStates', function () {
     return view('admin/states/show');
 });
 Route::get('states.create', 'StateController@create');
-Route::get('showStates', 'StateController@show');
+//Route::get('showStates', 'StateController@show');
 Route::get('editState/{id}', 'StateController@edit');
 Route::put('updateState/{id}', 'StateController@update');
-Route::delete('deleteState/{id}', 'StateController@destroy');
+Route::delete('deactivateState/{id}', 'StateController@deactivate');
+Route::delete('activateState/{id}', 'StateController@activate');
 Route::post('saveState', 'StateController@store');
 /*-------------------------------------------*/
 
