@@ -4,11 +4,11 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <div style="padding:10px;">
         <div class="card">
-            <h5 class="card-header" style="text-align:center">Estados</h5>
+            <h5 class="card-header" style="text-align:center">Visitas</h5>
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="">
-            			<form action="{{ url('actualizarVisita', $visit->id) }}" method="POST">
+            			<form action="{{ url('updateVisit', $visit->id) }}" method="POST">
                 			<input type="hidden" name="_method" value="PUT">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="row justify-content-center">
@@ -39,7 +39,7 @@
                                     <button class='btn btn-success btn-block' type='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
 								</div>
 								<div class="col-md-5" style="margin-top:5px; ">
-                                    <a class="btn btn btn-block" href="{{ url('visitas') }}">Cancelar</a>
+                                    <a class="btn btn btn-block" href="{{ url('visits') }}">Cancelar</a>
                                 </div>
                             </div>
 						</form>

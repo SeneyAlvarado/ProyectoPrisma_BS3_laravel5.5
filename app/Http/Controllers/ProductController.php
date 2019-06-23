@@ -104,7 +104,6 @@ class ProductController extends Controller
 		try {
 
 			\Session::put('errorOrigin', " agregando el producto!");
-
 			//  $branches=DB::table('branches')->where('name', '=', $request->branch_id)->get();
 
 			$inputs = $request->all();

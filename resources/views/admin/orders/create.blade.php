@@ -124,6 +124,12 @@
                                         <div class="modal-body">
                                             <div class="row justify-content-center">
                                                 <div class="col-md-5">
+<<<<<<< HEAD
+                                                        <label for="avatar"><strong>Adjuntar archivo</strong></label>
+                                                            <input id="avatar" class="form-control" name = "avatar" type="file" > 
+                                                </div>
+
+=======
                                                     <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                     <div class="input-group date" id="datetimepicker4"
                                                         data-target-input="nearest">
@@ -157,6 +163,7 @@
                                                             Adicionales</strong></label>
                                                     <textarea class="form-control" value="" rows="5"
                                                         id="observation_add" name="observation_add"></textarea>
+>>>>>>> 9c8b1fc92c5504f3b1f3750cc5b6b350cc11c65c
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center">

@@ -12,7 +12,7 @@
         <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-					<form action="{{ url('guardarVisita') }}" method="POST">
+					<form action="{{ url('saveVisit') }}" method="POST">
 						<input type="hidden" name="_token" value='{{Session::token()}}'>
 						<div class="row justify-content-center">
 							<div class="col-md-5 col-md-offset-2" style="margin-top:10px;">
@@ -30,7 +30,7 @@
 								<script type="text/javascript">
 									$(function () {
 										$('#datetimepicker4').datetimepicker({
-											format: 'L',
+											format: 'DD-MM-YYYY',
 											defaultDate: new Date()
 										});
 									});
@@ -56,7 +56,7 @@
 								<button class='btn btn-success btn-block' type='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
 							</div>
 							<div class="col-md-5" style="margin-top:5px; ">
-								<a class="btn btn btn-block" href="{{ url('visitas') }}">Cancelar</a>
+								<a class="btn btn btn-block" href="{{ url('visits') }}">Cancelar</a>
 							</div>
 						</div>
 					</div>
