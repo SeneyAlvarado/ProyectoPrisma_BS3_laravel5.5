@@ -16,7 +16,8 @@ class CreateWorksTable extends Migration {
             $table->increments('id');
             $table->integer('priority');
             $table->integer('advance_payment');
-            $table->dateTime('approximate_date')->nullable();
+			$table->dateTime('approximate_date')->nullable();
+			$table->dateTime('entry_date')->nullable();
             $table->dateTime('designer_date')->nullable();
             $table->dateTime('print_date')->nullable();
             $table->dateTime('post_production_date')->nullable();
@@ -25,7 +26,9 @@ class CreateWorksTable extends Migration {
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('product_id')->unsigned()->nullable();
+            $table->foreign('product_id')->references('id')->on('products');
             $table->integer('active_flag');
             //$table->timestamps();
         });
