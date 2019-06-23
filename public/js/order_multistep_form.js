@@ -66,11 +66,11 @@ function validateForm() {
         alert("Elija correctamente los clientes")
         return false;
     }
-    var branch = $("#dropBranch").children("option:selected").val();
+    /*var branch = $("#dropBranch").children("option:selected").val();
     if(branch == "defecto"){
         alert("Elija correctamente la sucursal")
         return false;
-    }
+    }*/
 
     return correctValidation();
     
