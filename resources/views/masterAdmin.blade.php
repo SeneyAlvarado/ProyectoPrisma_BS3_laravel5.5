@@ -113,7 +113,7 @@
             </a>
             <!-- Submenu content -->
             <div id='submenu1' class="collapse sidebar-submenu">
-                <a href="#" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
+                <a href="{{route('works.index')}}" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
                     <span class="menu-collapsed">Visualizar</span>
                 </a>
               <a href="{{url('states')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">

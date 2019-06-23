@@ -72,8 +72,17 @@ class MaterialController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " agregando el material");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "materials.create");
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
 		$inputs = $request->all();
 		$this->model->create($inputs + ['active_flag' => 1]);
+		DB::commit();//commits to database 
+
 		return redirect()->route('materials')->with('success', '¡Material creado satisfactoriamente!');
 	}
 
@@ -102,6 +111,10 @@ class MaterialController extends Controller
 	 */
 	public function edit($id)
 	{
+		\Session::put('errorOrigin', " editando el material");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "materials");
 		$material = $this->model->find($id);
 		if ($material == null) {
 			throw new \Exception('Error en editar material con el id:' .$id
@@ -120,6 +133,11 @@ class MaterialController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " actualizando el material");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "materials");
 		$inputs = $request->all();
 
 		$material = $this->model->find($id);

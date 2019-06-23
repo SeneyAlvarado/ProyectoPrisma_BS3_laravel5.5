@@ -6,7 +6,7 @@
         <p style="float:right; font-size:18px">Fecha: 
             <?php
             use Carbon\Carbon;
-            echo Carbon::now('America/Costa_Rica')->format('d-m-Y H:i');
+            echo Carbon::now('America/Costa_Rica')->format('d/m/Y H:i');
             ?>
         </p>
         

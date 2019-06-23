@@ -15,9 +15,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('/js/dateTimePicker_minDateToday.js')}}"></script>
+<script src="{{asset('/js/datetimepicker_editModal.js')}}"></script>
 <script src="{{asset('/js/order_multistep_form.js')}}"></script>
-<script src="{{asset('js/multiple-materials-select.js')}}"></script>
-<script src="{{asset('js/load_materials.js')}}"></script>
+<script src="{{asset('/js/multiple-materials-select.js')}}"></script>
+<script src="{{asset('/js/multiple-material-editModal.js')}}"></script>
+<script src="{{asset('/js/load_materials.js')}}"></script>
+<script src="{{asset('/js/load_products_branch.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/order_multistep_form.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
@@ -32,6 +35,10 @@
                     <form method='POST' action='{{ route("orders.store") }}'
                         onsubmit="return check_clients_branch_select(this)">
                         <input type='hidden' name='_token' value='{{Session::token()}}'>
+                        <input type='hidden' id='hiddenDateCR'
+                            value='{{\Carbon\Carbon::now('America/Costa_Rica')->addDay(7)->format('d/m/Y')}}'>
+                        <input type='hidden' id='editRow' value=''>
+
 
                         <div class="tab">
                             <div class="row justify-content-center">
@@ -47,7 +54,7 @@
 
                                 <div class="col-md-8 align-self-center">
                                     <label for="name"><strong>Cliente</strong></label>
-                                    <select multiple class="form-control" id="selectList" name="owner_client">
+                                    <select size="4" class="form-control" id="selectList" name="owner_client">
                                     </select>
                                 </div>
                             </div>
@@ -58,7 +65,7 @@
 
                                 <div class="col-md-8 align-self-center">
                                     <label for="name"><strong>Cliente de contacto</strong></label>
-                                    <select multiple class="form-control" id="selectList_contact" name="contact_client">
+                                    <select size="4" class="form-control" id="selectList_contact" name="contact_client">
                                     </select>
                                 </div>
                             </div>
@@ -123,13 +130,15 @@
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                             <div class="row justify-content-center">
+                                                <label for="avatar"><strong>Adjuntar archivo</strong></label>
+                                                <input id="avatar" class="form-control" name="avatar" type="file">
                                                 <div class="col-md-5">
                                                     <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                     <div class="input-group date" id="datetimepicker4"
                                                         data-target-input="nearest">
                                                         <input id="dateInput_add" type="text" name="date"
                                                             class="form-control datetimepicker-input"
-                                                            data-target="#datetimepicker4" />
+                                                            data-target="#datetimepicker4" onkeydown="return false">
                                                         <div class="input-group-append" data-target="#datetimepicker4"
                                                             data-toggle="datetimepicker">
                                                             <div class="input-group-text"><span
@@ -145,7 +154,7 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-md-8 align-self-center">
                                                     <label for="product_branch"><strong>Producto</strong></label>
-                                                    <select multiple class="form-control" id="product_branch"
+                                                    <select size="4" class="form-control" id="product_branch"
                                                         name="product_branch">
                                                     </select>
                                                 </div>
@@ -155,10 +164,13 @@
                                                 <div class="col-md-10">
                                                     <label for="observation_add"><strong>Observaciones
                                                             Adicionales</strong></label>
-                                                    <textarea class="form-control" value="" rows="5"
-                                                        id="observation_add" name="observation_add"></textarea>
+                                                    <textarea class="form-control" onkeyup="countCharsAddModal(this);"
+                                                        value="" rows="5" id="observation_add"
+                                                        name="observation_add"></textarea>
+                                                    <p id="charNumAdd">0 caracteres</p>
                                                 </div>
                                             </div>
+                                            <input type="text" id="searchOriginInputAdd" onkeyup="searchOriginAdd()">
                                             <div class="row justify-content-center">
                                                 <div class="col-md-4">
                                                     <select multiple class="form-control" name="origen" id="origen"
@@ -190,14 +202,14 @@
                                                         <span class="radio">
                                                             <label>Sí</label>
                                                             <label>
-                                                                <input type="radio" value="1" class="radiobox"
-                                                                    name="advance_payment_add">
+                                                                <input id="payment_add1" type="radio" value="1"
+                                                                    class="radiobox" name="advance_payment_add">
                                                             </label>
 
                                                             <label>
                                                                 <label style="margin-left:20px;">No</label>
-                                                                <input type="radio" value="0" class="radiobox"
-                                                                    name="advance_payment_add" checked>
+                                                                <input id="payment_add0" type="radio" value="0"
+                                                                    class="radiobox" name="advance_payment_add" checked>
                                                             </label>
                                                         </span>
                                                     </div>
@@ -212,14 +224,14 @@
                                                         <span class="radio">
                                                             <label>Sí</label>
                                                             <label>
-                                                                <input type="radio" value="1" class="radiobox"
-                                                                    name="priority_add">
+                                                                <input id="priority_add1" type="radio" value="1"
+                                                                    class="radiobox" name="priority_add">
                                                             </label>
 
                                                             <label>
                                                                 <label style="margin-left:20px;">No</label>
-                                                                <input type="radio" value="0" class="radiobox"
-                                                                    name="priority_add" checked>
+                                                                <input id="priority_add0" type="radio" value="0"
+                                                                    class="radiobox" name="priority_add" checked>
                                                             </label>
                                                         </span>
                                                     </div>
@@ -259,31 +271,59 @@
                                             <div class="row justify-content-center">
                                                 <div class="col-md-5">
                                                     <label for="date-field"><strong>Fecha de entrega</strong></label>
-                                                    <div class="input-group date" id="datetimepicker4"
+                                                    <div class="input-group date" id="datetimepicker5"
                                                         data-target-input="nearest">
                                                         <input id="dateInput_edit" type="text" name="date"
                                                             class="form-control datetimepicker-input"
-                                                            data-target="#datetimepicker4" />
-                                                        <div class="input-group-append" data-target="#datetimepicker4"
+                                                            data-target="#datetimepicker5" onkeydown="return false">
+                                                        <div class="input-group-append" data-target="#datetimepicker5"
                                                             data-toggle="datetimepicker">
                                                             <div class="input-group-text"><span
                                                                     class="glyphicon glyphicon-calendar"></span></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-5">
-                                                    <label for="id"><strong>Aquí podría ir adjuntar archivo, pero eso
-                                                            podría pegar la inserción</strong></label>
-                                                    <input id="identification-field" value="" class="form-control"
-                                                        name="identification" type="text" readonly>
+                                            </div>
+
+                                            <br>
+                                            <input type="text" id="searchProductInput_Edit"
+                                                onkeyup="searchProductEdit()">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-8 align-self-center">
+                                                    <label for="product_branch_edit"><strong>Producto</strong></label>
+                                                    <select class="form-control" id="product_branch_edit"
+                                                        name="product_branch_edit" size="4">
+                                                    </select>
                                                 </div>
                                             </div>
+
                                             <div class="row justify-content-center" style="margin-top:20px;">
                                                 <div class="col-md-10">
                                                     <label for="observation_edit"><strong>Observaciones
                                                             Adicionales</strong></label>
-                                                    <textarea class="form-control" value="" rows="5"
+                                                    <textarea class="form-control" type="text"
+                                                        onkeyup="countCharsEditModal(this);" value="" rows="5"
                                                         id="observation_edit" name="observation_edit"></textarea>
+                                                    <p id="charNumEdit">0 caracteres</p>
+                                                </div>
+                                            </div>
+                                            <input type="text" id="searchOriginInputEdit" onkeyup="searchOriginEdit()">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-4">
+                                                    <select multiple class="form-control" name="origen_edit"
+                                                        id="origen_edit" multiple="multiple" size="4">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-1" style="text-align:center">
+                                                    <input type="button"
+                                                        class="btn-add-material pasar izq btn btn-success" value="+">
+                                                    <input type="button"
+                                                        class="btn-remove-material quitar der btn btn-default"
+                                                        value="-">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select class=" form-control" name="destino_edit" id="destino_edit"
+                                                        multiple="multiple" size="4"></select>
                                                 </div>
                                             </div>
                                             <div class="row" style="margin-top:20px;">
@@ -298,14 +338,15 @@
                                                         <span class="radio">
                                                             <label>Sí</label>
                                                             <label>
-                                                                <input type="radio" value="1" class="radiobox"
-                                                                    name="advance_payment_edit">
+                                                                <input id="payment_edit1" type="radio" value="1"
+                                                                    class="radiobox" name="advance_payment_edit">
                                                             </label>
 
                                                             <label>
                                                                 <label style="margin-left:20px;">No</label>
-                                                                <input type="radio" value="0" class="radiobox"
-                                                                    name="advance_payment_edit" checked>
+                                                                <input id="payment_edit0" type="radio" value="0"
+                                                                    class="radiobox" name="advance_payment_edit"
+                                                                    checked>
                                                             </label>
                                                         </span>
                                                     </div>
@@ -320,14 +361,14 @@
                                                         <span class="radio">
                                                             <label>Sí</label>
                                                             <label>
-                                                                <input type="radio" value="1" class="radiobox"
-                                                                    name="priority_edit">
+                                                                <input id="priority_edit1" type="radio" value="1"
+                                                                    class="radiobox" name="priority_edit">
                                                             </label>
 
                                                             <label>
                                                                 <label style="margin-left:20px;">No</label>
-                                                                <input type="radio" value="0" class="radiobox"
-                                                                    name="priority_edit" checked>
+                                                                <input id="priority_edit0" type="radio" value="0"
+                                                                    class="radiobox" name="priority_edit" checked>
                                                             </label>
                                                         </span>
                                                     </div>
@@ -337,7 +378,7 @@
 
                                         <div class="row justify-content-center">
                                             <div class="col-md-4 col-md-offset-2" style="margin-top:5px;  ">
-                                                <a class='btn btn-success btn-block' onclick="addWorkToTable();"
+                                                <a class='btn btn-success btn-block' onclick="updateWork();"
                                                     type='submit'>Agregar a la orden</a>
                                             </div>
                                             <div class="col-md-4" style="margin-top:5px; ">

@@ -42,7 +42,7 @@ class ProductController extends Controller
 			\Session::put('errorOrigin', " mostrando los productos");
 			//throw new \App\Exceptions\CustomException('Aquí ponen el nombre descriptivo de su error');
 			//Gets all the list of products
-			//$products = $this->model->paginate();
+			$products = $this->model->paginate();
 
 			$products = DB::table('branches')->join(
 				'products',
@@ -104,8 +104,8 @@ class ProductController extends Controller
 		try {
 
 			\Session::put('errorOrigin', " agregando el producto!");
-
 			//  $branches=DB::table('branches')->where('name', '=', $request->branch_id)->get();
+			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
 
 			$inputs = $request->all();
 			$this->model->create($inputs + ['active_flag'   => 1]);
@@ -141,7 +141,7 @@ class ProductController extends Controller
 				DB::table('products')->join('branches', 'branch_i  d ', '=', 'products.branch_id')
 				->select('branches.name');
 
-			$product = $this->model->findOrFail($id);
+			$product = $this->model->find($id);
 
 			return view('products.show', compact('product'));
 		} catch (\Illuminate\Database\QueryException $e) {
@@ -165,7 +165,7 @@ class ProductController extends Controller
 		try {
 			//try y catch faltan
 			\Session::put('errorOrigin', " editando el producto");
-			$product = $this->model->findOrFail($id);
+			$product = $this->model->find($id);
 
 			return view('products.edit', compact('product'));
 		} catch (\Illuminate\Database\QueryException $e) {
@@ -195,7 +195,7 @@ class ProductController extends Controller
 			DB::beginTransaction(); //starts database transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
 
-			$product = $this->model->findOrFail($id);
+			$product = $this->model->find($id);
 			$product->update($inputs);
 
 			DB::commit(); //commits to database 

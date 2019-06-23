@@ -208,3 +208,6 @@ Route::resource('change_password', 'ChanngePasswordController');
 Route::get('change_password.search_user', 'ChanngePasswordController@search_user')->name('change_password.search_user');
 Route::get('change_password/admin', function () {return view('admin.password.change_password');})->name('password_admin');
 /*------------------------------------------------*/
+
+
+Route::resource('works', 'WorkController');
