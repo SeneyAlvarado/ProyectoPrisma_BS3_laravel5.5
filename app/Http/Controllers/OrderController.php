@@ -82,6 +82,7 @@ class OrderController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$request->file('avatar')->store('public');
 		//return $request;
 		$order = new Order();
 		$order->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));

@@ -23,7 +23,7 @@
             <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-                    <form method='POST' action='{{ route("orders.store") }}' onsubmit="return check_clients_branch_select(this)">
+                    <form method='POST' action='{{ route("orders.store") }}' enctype="multipart/form-data" onsubmit="return check_clients_branch_select(this)">
                         <input type='hidden' name='_token' value='{{Session::token()}}'>
 
                         <div class="tab">
@@ -86,9 +86,10 @@
                                         </div>
                                 </div>    
                                                 <div class="col-md-5">
-                                                        <label for="id"><strong>Aquí podría ir adjuntar archivo, pero eso podría pegar la inserción</strong></label>
-                                                            <input id="identification-field" value="" class="form-control" name = "identification" type="text" readonly > 
+                                                        <label for="avatar"><strong>Adjuntar archivo</strong></label>
+                                                            <input id="avatar" class="form-control" name = "avatar" type="file" > 
                                                 </div>
+
                                                 </div>
                                                 <div class="row justify-content-center" style="margin-top:20px;">
                                                     <div class="col-md-10">

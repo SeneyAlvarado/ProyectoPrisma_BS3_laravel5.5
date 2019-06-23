@@ -125,8 +125,8 @@ class VisitController extends Controller
 	 */
 	public function destroy($id)
 	{
+		
 		$this->model->destroy($id);
-
 		return redirect('visitas')->with('message', 'Item deleted successfully.');
 	}
 }
