@@ -123,6 +123,8 @@ class VisitController extends Controller
 
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "visits");
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
 		$inputs = $request->all();
 		$visit = $this->model->find($id);	
 		if ($visit==null) {
@@ -130,6 +132,7 @@ class VisitController extends Controller
 				. " en el método VisitController@update");
 		} else {
 			$visit->update($inputs);
+			DB::commit();//commits to database 
 			return redirect('visits')->with('success', '¡Visita actualizada satisfactoriamente!');
 		}
 	}
@@ -148,12 +151,15 @@ class VisitController extends Controller
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "visits");
 		$visit = $this->model->find($id);
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
 		if($visit==null){
 			throw new \Exception('Error en eliminar visita con el id:' .$id
 				. " en el método VisitController@destroy");
 		}else{
 			$visit->active_flag = 0;
-		$material->save();
+			$visit->save();
+			DB::commit();//commits to database 
 		return redirect('visits')->with('success', '¡Visita eliminada correctamente!');
 		}
 	}
