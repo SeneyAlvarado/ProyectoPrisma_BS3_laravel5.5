@@ -172,5 +172,18 @@ class OrderController extends Controller
 		return json_encode(["clients"=>$clients]);
 		
 	}
+
+	public function ajax_list_materials(){
+		$materials=DB::table('materials')
+		->where('active_flag', '=', 1)
+		->where('branch_id', '=', Auth::user()->branch_id)
+		->orderBy('id','asc')->get();
+
+		if ($materials == null || $materials->isEmpty()) {
+			Flash::message("No hay materiales para mostrar");
+		}
+		return json_encode(["materials"=>$materials]);
+		
+	}
 	
 }

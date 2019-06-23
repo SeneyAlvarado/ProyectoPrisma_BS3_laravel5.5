@@ -1,13 +1,7 @@
 @extends('masterAdmin')
-
-@section('header')
-<div class="page-header">
-    <h1><i class="glyphicon glyphicon-edit"></i> Product / Edit #{{$product->id}}</h1>
-</div>
-@endsection
-
 @section('contenido_Admin')
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
+
+<script src="{{asset('js/load_branches_edit.js')}}"></script>
 <script src="{{asset('js/createClientsRadio.js')}}"></script>
 <script src="{{asset('js/patternFields.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
@@ -22,6 +16,7 @@
                 <form action="{{ route('products.update', $product->id) }}" method="POST">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" id="branch_id"  value="{{ $product->branch_id }}">
 
                     <div>
                         <div class=" row offset-md-2 col-md-7" style="margin-top:10px;">
@@ -72,7 +67,7 @@
                             <button class='btn btn-success btn-block' type='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
                         </div>
                         <div class="col-md-6 " style="margin-top:20px;">
-                            <a class="btn btn btn-block btn-danger " shref="{{url()->previous()}}">
+                            <a class="btn btn btn-block btn-danger " href="{{route('products')}}">
                                 <i class="fa fa-floppy-o"></i> Regresar
                             </a>
                         </div>
@@ -83,5 +78,5 @@
     </div>
 </div>
 
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
+<script src="{{asset('js/load_branches_edit.js')}}"></script>
 @endsection

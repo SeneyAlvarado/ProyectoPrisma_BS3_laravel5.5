@@ -50,22 +50,23 @@ Route::delete('user.activate/{id}', 'UserController@activate')->name('user.activ
 /*-------------------------------------------*/
 
 /*------------Admin states routes------------*/
-Route::get('estados', 'StateController@index');
-Route::get('editarEstados', function () {
+Route::get('states', 'StateController@index');
+Route::get('editState', function () {
     return view('admin/states/edit');
 });
-Route::get('editarEstados', function () {
+Route::get('editState', function () {
     return view('admin/states/edit');
 });
-Route::get('verEstados', function () {
+Route::get('showStates', function () {
     return view('admin/states/show');
 });
-Route::get('crearEstados', 'StateController@create');
-Route::get('verEstados', 'StateController@show');
-Route::get('editarEstados/{id}', 'StateController@edit');
-Route::put('actualizarEstados/{id}', 'StateController@update');
-Route::delete('eliminarEstados/{id}', 'StateController@destroy');
-Route::post('guardarEstado', 'StateController@store');
+Route::get('states.create', 'StateController@create');
+//Route::get('showStates', 'StateController@show');
+Route::get('editState/{id}', 'StateController@edit');
+Route::put('updateState/{id}', 'StateController@update');
+Route::delete('deactivateState/{id}', 'StateController@deactivate');
+Route::delete('activateState/{id}', 'StateController@activate');
+Route::post('saveState', 'StateController@store');
 /*-------------------------------------------*/
 
 /*------------Orders routes------------*/
@@ -80,12 +81,12 @@ Route::get('trabajos', 'WorkController@index');
 /*-------------------------------------------*/
 
 /*------------Visit routes------------*/
-Route::get('visitas', 'VisitController@index');
-Route::get('crearVisita', 'VisitController@create');
-Route::post('guardarVisita', 'VisitController@store');
-Route::get('editarVisita/{id}', 'VisitController@edit');
-Route::put('actualizarVisita/{id}', 'VisitController@update');
-Route::delete('eliminarVisita/{id}', 'VisitController@destroy');
+Route::get('visits', 'VisitController@index');
+Route::get('visits.create', 'VisitController@create');
+Route::post('saveVisit', 'VisitController@store');
+Route::get('editVisit/{id}', 'VisitController@edit');
+Route::put('updateVisit/{id}', 'VisitController@update');
+Route::delete('deleteVisit/{id}', 'VisitController@destroy');
 /*-------------------------------------------*/
 
 /* clients */
@@ -139,6 +140,7 @@ Route::get('products.edit/{id}', 'ProductController@edit')->name('products.edit'
 Route::put('products.update/{id}', 'ProductController@update')->name('products.update');
 Route::delete('products.deactivate/{id}', 'ProductController@destroy')->name('products.deactivate');
 Route::delete('products.activate/{id}', 'ProductController@activate')->name('products.activate');
+Route::get('active_products_branch', 'ProductController@active_products_branch');
 /*------------------------------------------ */
 
 /**---------------------------------------------------------- */
@@ -199,6 +201,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /*------------------------------------------------*/
 
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
+Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
 
 /*----------------------Change Password------------------ */
 Route::resource('change_password', 'ChanngePasswordController');

@@ -35,6 +35,11 @@ class VisitController extends Controller
 	 */
 	public function index()
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " mostrando las visitas");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "error");
 		$visits = $this->model->paginate();
 
 		return view('admin/visits/index', compact('visits'));
@@ -47,6 +52,10 @@ class VisitController extends Controller
 	 */
 	public function create()
 	{
+		\Session::put('errorOrigin', " accediendo a la creación de visitas");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "visits");
 		return view('admin/visits/create');
 	}
 
@@ -58,6 +67,13 @@ class VisitController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " agregando la visita");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "visits.create");
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
 		$visit = new Visit();
 		$visit->client_name = $request->client_name;
 		$visit->date = Carbon::parse($request->date)->format('Y-m-d H:i:s');
@@ -67,23 +83,9 @@ class VisitController extends Controller
 		$visit->details = $request->details;
 		$visit->active_flag = 1;
 		$visit->visitor_id = Auth::user()->id;
-		//return $visit;
 		$visit->save();
-
-		return redirect('visitas')->with('message', 'El elemento fue creado correctamente');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$visit = $this->model->findOrFail($id);
-		
-		return view('admin/visits/show', compact('visit'));
+		DB::commit();//commits to database 
+		return redirect('visits')->with('success', '¡Visita registrada satisfactoriamente!');
 	}
 
 	/**
@@ -94,9 +96,17 @@ class VisitController extends Controller
 	 */
 	public function edit($id)
 	{
-		$visit = $this->model->findOrFail($id);
-		
-		return view('admin/visits/edit', compact('visit'));
+		\Session::put('errorOrigin', " editando la visita");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "visits");
+		$visit = $this->model->find($id);
+		if($visit==null){
+			throw new \Exception('Error en editar visita con el id:' .$id
+				. " en el método VisitController@edit");
+		} else {
+			return view('admin/visits/edit', compact('visit'));
+		}
 	}
 
 	/**
@@ -107,26 +117,44 @@ class VisitController extends Controller
 	 * @return Response
 	 */
 	public function update(Request $request, $id)
-	{
+	{		
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " actualizando la visita");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "visits");
 		$inputs = $request->all();
-
-		$visit = $this->model->findOrFail($id);		
-		$visit->update($inputs);
-		
-
-		return redirect('visitas')->with('message', 'Item updated successfully.');
+		$visit = $this->model->find($id);	
+		if ($visit==null) {
+			throw new \Exception('Error en actualizar visita con el id:' .$id
+				. " en el método VisitController@update");
+		} else {
+			$visit->update($inputs);
+			return redirect('visits')->with('success', '¡Visita actualizada satisfactoriamente!');
+		}
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified visit from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
-		
-		$this->model->destroy($id);
-		return redirect('visitas')->with('message', 'Item deleted successfully.');
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " eliminando la visita");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "visits");
+		$visit = $this->model->find($id);
+		if($visit==null){
+			throw new \Exception('Error en eliminar visita con el id:' .$id
+				. " en el método VisitController@destroy");
+		}else{
+			$visit->active_flag = 0;
+		//$material->save();
+		return redirect('visits')->with('success', '¡Visita eliminada correctamente!');
+		}
 	}
 }
