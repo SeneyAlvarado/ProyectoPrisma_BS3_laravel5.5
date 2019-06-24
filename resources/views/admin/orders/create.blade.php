@@ -14,6 +14,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 <script src="{{asset('/js/dateTimePicker_minDateToday.js')}}"></script>
 <script src="{{asset('/js/datetimepicker_editModal.js')}}"></script>
 <script src="{{asset('/js/order_multistep_form.js')}}"></script>
@@ -32,23 +33,16 @@
         <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-                    <form method='POST' action='{{ route("orders.store") }}'
-                        onsubmit="return check_clients_branch_select(this)">
-                        <input type='hidden' name='_token' value='{{Session::token()}}'>
+                    <form method='POST' action='{{ route("orders.store") }}' id="orderForm">
+                        <!-- onsubmit="return check_clients_branch_select(this)" -->
+                        <input type='hidden' id='_token' name='_token' value='{{Session::token()}}'>
+                        <input type='hidden' id='dolarExchangeRate' value='{{$dolarRate}}'>
                         <input type='hidden' id='hiddenDateCR'
                             value='{{\Carbon\Carbon::now('America/Costa_Rica')->addDay(7)->format('d/m/Y')}}'>
                         <input type='hidden' id='editRow' value=''>
 
 
                         <div class="tab">
-                            <div class="row justify-content-center">
-                                <div class="col-md-4 ">
-                                    <label for="user_name"><strong>Número Cotización</strong></label>
-                                    <input id="user_name" placeholder="# Cotización" class="form-control"
-                                        name="user_name" type='text' pattern="[0-9]*"
-                                        title="No se permite ingresar letras en este campo">
-                                </div>
-                            </div>
                             <input type="text" id="searchOwnerInput" onkeyup="searchOwner()">
                             <div class="row justify-content-center">
 
@@ -69,27 +63,71 @@
                                     </select>
                                 </div>
                             </div>
+                            <br>
+                            <!--div class="row justify-content-center">
+                                    <label for="branch"><strong>¿Posee adelanto
+                                            económico?</strong></label>
+                                    <div class="input-group row justify-content-center" id="advance_payment_add">
+                                        <span class="radio">
+                                            <label>Sí</label>
+                                            <label>
+                                                <input id="payment_add1" type="radio" value="1" class="radiobox"
+                                                    name="advance_payment_add">
+                                            </label>
 
-                            <!--
-                            <div class="row justify-content-center" style="margin-top:20px;">
-                                <div class="col-md-4 " >
-                                <label for="name"><strong>Detalle de orden</strong></label>
-                                <input id="order_detail" placeholder="Detalle de la órden" class="form-control" name="order_detail" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ0-9 \s]{2,48}" title="" required>
-                            </div> 
+                                            <label>
+                                                <label style="margin-left:20px;">No</label>
+                                                <input id="payment_add0" type="radio" value="0" class="radiobox"
+                                                    name="advance_payment_add" checked>
+                                            </label>
+                                        </span>
+                                    </div>
+                            </div-->
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 ">
+                                    <label for="quotation_number"><strong>Número Cotización</strong></label>
+                                    <input id="quotation_number" placeholder="# Cotización" class="form-control"
+                                        name="quotation_number" type='text' pattern="[0-9]*"
+                                        title="No se permite ingresar letras ni números con decimales o negativos 
+                                        en este campo"
+                                         min=”0″>
+                                </div>
+                                <div class="col-md-4" style="margin-top:5px;">
+                                    <div class="input-group row justify-content-center">
+                                        <label for="branch"><strong>Moneda de transacción</strong></label>
+                                        <span class="radio">
+                                            <label>Colones</label>
+                                            <label>
+                                                <input id="colones" type="radio" value="0" class="radiobox" name="coin">
+                                            </label>
+
+                                            <label>
+                                                <label style="margin-left:20px;">Dólares</label>
+                                                <input id="dolars" type="radio" value="1" class="radiobox" name="coin"
+                                                    checked>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
                                 <div class="col-md-4">
-                                    <label for="branch"><strong>Sucursal</strong></label>
-                                    <select id="dropBranch" name="dropBranch" class="form-control"></select>
-                                </div> 
-                        </div>-->
-
-                            <!-- <div class="row justify-content-center">
-                            <div class="col-md-4 offset-md-5">
-                            @ //if ($errors->has('delibery_date'))
-                            <span class="help-block">
-                                <strong style="color:red;">{{ $errors->first('delibery_date') }}</strong>
-                            </span>
-                            @//endif
-                            </div> -->
+                                    <label for="order_total"><strong>Total de la orden</strong></label>
+                                    <input id="order_total" placeholder="Monto total de la orden" class="form-control"
+                                        name="order_total" type='text'
+                                        title="No se permite ingresar letras o números negativos en este campo" 
+                                        value="0" min=”0″ step=any onkeyup="showConvertedTotal()">
+                                        <p id="pOrder" style="display:none"></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="order_advanced_payment"><strong>Adelanto de pago</strong></label>
+                                    <input id="order_advanced_payment" placeholder="Monto del adelanto de pago" class="form-control"
+                                        name="order_advanced_payment" type='text'
+                                        title="No se permite ingresar letras o números negativos en este campo"
+                                        value="0" min=”0″ step=any onkeyup="showConvertedAdvanced()">
+                                        <p id="pAdvanced" style="display:none"></p>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Here we had the advanced payment, it was moved to the Work-->
@@ -105,7 +143,7 @@
                                             <thead>
                                                 <th class="text-center">Fecha de entrega</th>
                                                 <th class="text-center">Prioridad</th>
-                                                <th class="text-center">Adelanto de pago</th>
+                                                <th class="text-center">Producto</th>
                                                 <th class="text-center">Opciones</th>
                                             </thead>
 
@@ -191,30 +229,7 @@
                                             </div>
 
                                             <div class="row" style="margin-top:20px;">
-                                                <div class="col-md-4 offset-md-2">
-                                                    <label for="branch"><strong>¿Posee adelanto
-                                                            económico?</strong></label>
-                                                    <div class="input-group " id="advance_payment_add">
-
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <!-- this &nbsp; inserts whitespaces to center the text -->
-
-                                                        <span class="radio">
-                                                            <label>Sí</label>
-                                                            <label>
-                                                                <input id="payment_add1" type="radio" value="1"
-                                                                    class="radiobox" name="advance_payment_add">
-                                                            </label>
-
-                                                            <label>
-                                                                <label style="margin-left:20px;">No</label>
-                                                                <input id="payment_add0" type="radio" value="0"
-                                                                    class="radiobox" name="advance_payment_add" checked>
-                                                            </label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 offset-md-1">
+                                                <div class="col-md-3 offset-md-5">
                                                     <label for="branch"><strong>¿Posee prioridad?</strong></label>
                                                     <div class="input-group " id="priority_add">
 
@@ -327,30 +342,6 @@
                                                 </div>
                                             </div>
                                             <div class="row" style="margin-top:20px;">
-                                                <div class="col-md-4 offset-md-2">
-                                                    <label for="branch"><strong>¿Posee adelanto
-                                                            económico?</strong></label>
-                                                    <div class="input-group " id="advance_payment_edit">
-
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <!-- this &nbsp; inserts whitespaces to center the text -->
-
-                                                        <span class="radio">
-                                                            <label>Sí</label>
-                                                            <label>
-                                                                <input id="payment_edit1" type="radio" value="1"
-                                                                    class="radiobox" name="advance_payment_edit">
-                                                            </label>
-
-                                                            <label>
-                                                                <label style="margin-left:20px;">No</label>
-                                                                <input id="payment_edit0" type="radio" value="0"
-                                                                    class="radiobox" name="advance_payment_edit"
-                                                                    checked>
-                                                            </label>
-                                                        </span>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-3 offset-md-1">
                                                     <label for="branch"><strong>¿Posee prioridad?</strong></label>
                                                     <div class="input-group " id="priority_edit">
@@ -379,7 +370,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-md-4 col-md-offset-2" style="margin-top:5px;  ">
                                                 <a class='btn btn-success btn-block' onclick="updateWork();"
-                                                    type='submit'>Agregar a la orden</a>
+                                                    type='submit'>Actualizar información</a>
                                             </div>
                                             <div class="col-md-4" style="margin-top:5px; ">
                                                 <a class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</a>
@@ -407,13 +398,11 @@
                         <div style="text-align:center;margin-top:40px;">
                             <span class="step"></span>
                             <span class="step"></span>
-                            <span class="step"></span>
-                            <span class="step"></span>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-4 col-md-offset-2" style="margin-top:5px;  ">
                                 <!-- next button, the "Siguiente" text is added at the js -->
-                                <a id="nextBtn" name="xD" onclick="nextPrev(1)" class='btn btn-success btn-block'></a>
+                                <a id="nextBtn" onclick="nextPrev(1);" class='btn btn-success btn-block'></a>
                             </div>
                             <div class="col-md-4" style="margin-top:5px; ">
                                 <a class="btn btn btn-block" id="prevBtn" onclick="nextPrev(-1)">Regresar</a>

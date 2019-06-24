@@ -27,20 +27,20 @@
             <tbody>
                 @foreach($orders as $order)
                 <?php  
-                        $date = explode("-", $order->approximate_date);
-                        $year = $date[0];
-                        $month = $date[1];
-                        $day = $date[2];
-                        $new_day_without_time = explode(" ", $day);
-                        $day = $new_day_without_time[0];
-                        $approximate_date = $day . "/" . $month . "/" . $year;
+                        //$date = explode("-", $order->approximate_date);
+                       // $year = $date[0];
+                        //$month = $date[1];
+                        //$day = $date[2];
+                       // $new_day_without_time = explode(" ", $day);
+                        //$day = $new_day_without_time[0];
+                        //$approximate_date = $day . "/" . $month . "/" . $year;
                     ?>
                 <tr>
                     <td class="text-center">{{$order->id}}</td>
                     <td class="text-center">{{$order->quotation_number}}</td>
                     <td class="text-center"><a class="infoClient"
                             onCLick="infoContact('{{$order->client_owner}}')">{{$order->client_owner_name}}</a></td>
-                    <td class="text-center">{{$approximate_date}}</td>
+                    <td class="text-center"></td>
                     <td class="text-center" style="min-width:150px;">
                         <div class="dropdown">
                             <a class="btn btn-secondary dropdown-toggle" data-target="#drop-states" href="#"

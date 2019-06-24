@@ -15,19 +15,18 @@ class CreateWorksTable extends Migration {
 		Schema::create('works', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('priority');
-            $table->integer('advance_payment');
-			$table->dateTime('approximate_date')->nullable();
-			$table->dateTime('entry_date')->nullable();
+			$table->dateTime('approximate_date');
+			$table->dateTime('entry_date');
             $table->dateTime('designer_date')->nullable();
             $table->dateTime('print_date')->nullable();
             $table->dateTime('post_production_date')->nullable();
             $table->integer('drying_hours')->nullable();
-            $table->string('observation', 1500)->nullable();
+            $table->string('observation', 700);
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->integer('product_id')->unsigned()->nullable();
+			$table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('active_flag');
             //$table->timestamps();

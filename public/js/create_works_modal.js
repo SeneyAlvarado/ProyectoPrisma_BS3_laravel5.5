@@ -1,6 +1,8 @@
 $(document).ready(function () {//cleans the modals when page is accesed/reloaded
     cleanAddWorkModals();
     cleanEditWorkModals();
+    cleanExchangeInputs();
+    updateByCoin();
 });
 
 //shows add work modal
@@ -11,25 +13,23 @@ function showModalWork() {
 }
 
 function addWorkToTable() {
-    var advance_payment_add = $("input[name='advance_payment_add']:checked").val();
-    advance_payment_add = advancedPaymentTransform(advance_payment_add);//transforms advanced payment # into text
-
     var priority_add = $("input[name='priority_add']:checked").val();
     priority_add = priority_addTransform(priority_add);//transforms priority_add # into text
 
     var observation_add = $("#observation_add").val();
-    if(isEmptyOrSpaces(observation_add)){
+    if (isEmptyOrSpaces(observation_add)) {
         return alert("Por favor escriba una observación");
     }
-    if(observation_add.length < 5){
+    if (observation_add.length < 5) {
         return alert("Por favor escriba una observación de un mínimo de 5 caracteres");
     }
-    if(observation_add.length > 600){
+    if (observation_add.length > 600) {
         return alert("Por favor escriba una observación de un máximo de 600 caracteres");
     }
     var product = $("#product_branch").children("option:selected").val();
+    var productName = $("#product_branch").children("option:selected").html();
 
-    if(product == "defecto") {
+    if (product == "defecto") {
         return alert("Por favor seleccione un producto");
     }
 
@@ -44,12 +44,11 @@ function addWorkToTable() {
     if (isEmptyOrSpaces(dateInput_add)) {//if date is empty or just whitespace
         return alert("Por favor seleccione una fecha válida");
     }
-    //alert(advance_payment_add);
     //alert(priority_add);
     //alert(observation_add);
     //alert(dateInput_add);
 
-    var table = document.getElementById("worksTable").getElementsByTagName('tbody')[0];
+    /*var table = document.getElementById("worksTable").getElementsByTagName('tbody')[0];
     var row = table.insertRow(0);
 
     var td0 = row.insertCell(0);
@@ -57,7 +56,6 @@ function addWorkToTable() {
     var td2 = row.insertCell(2);
     var td3 = row.insertCell(3);
 
-    rowCount = $('#worksTable tr').length;
 
     td0.innerHTML = dateInput_add;
     td0.id = "date" + rowCount;
@@ -67,23 +65,37 @@ function addWorkToTable() {
     td1.id = "priority" + rowCount;
     td1.className = "text-center";
 
-    td2.innerHTML = advance_payment_add;
-    td2.id = "payment" + rowCount;
-    td2.className = "text-center";
+*/
+    // = $('#worksTable tr').length;
 
+    var table = $('#worksTable').DataTable();
+
+    rowCount = table.rows().count();
+    /*if(rowCount != 0) {
+        rowCount = rowCount-3;
+    }*/
+    //alert(rowCount);
     hiden_observation_add = '<input id="observation' + rowCount +
         '" type="hidden" value="' + observation_add + '"></input>'
 
-    hiden_product_id = '<input id="product' + rowCount +
-        '" type="hidden" value="' + product + '"></input>'
+    /*product_id = '<input id="product' + rowCount +
+        '" type="hidden" value="' + product + '"></input>'*/
 
     hiden_materials = '<input id="materials' + rowCount +
         '" type="hidden" value="' + materials + '"></input>'
 
 
-    td3.innerHTML = hiden_observation_add + hiden_product_id + hiden_materials +
-        '<a onClick="loadEditWorkModal(\'' + rowCount + '\')"  class="btn btn-warning style-btn-edit btn-size">Editar</a>';
-    td3.className = "text-center";
+    editAndHidden = hiden_observation_add + hiden_materials +
+        '<a onClick="loadEditWorkModal(\'' + rowCount + '\')"  class="btn btn-warning style-btn-edit btn-size">Detalles</a>';
+
+    var table = $('#worksTable').DataTable();
+    table.rows.add(
+        [[dateInput_add, priority_add, productName, editAndHidden]]
+    ).draw();
+
+    $("#product" + rowCount).attr("value", product);
+    //alert($("#product"+ rowCount).attr("value"));
+    //$("#product"+ rowCount).attr("value");
 
     $("#modalWork").modal('toggle');
     cleanAddWorkModals();
@@ -106,18 +118,11 @@ function loadEditWorkModal(rowCount) {
         document.getElementById("priority_edit1").checked = true;
     }
 
-    var payment = $("#payment" + rowCount).html();
-    if (payment != "Posee adelanto") {
-        document.getElementById("payment_edit0").checked = true;
-    } else {
-        document.getElementById("payment_edit1").checked = true;
-    }
-
     var observation = $("#observation" + rowCount).val();
     //alert(observation);
     $("#observation_edit").val(observation);
 
-    var product = $("#product" + rowCount).val();
+    var product = $("#product"+ rowCount).attr("value");
     //alert("product " + product);
     activeProductBranchSelected(product);
 
@@ -148,7 +153,6 @@ function cleanAddWorkModals() {
     $("#observation_add").val("");
     $("#dateInput_add").val($("#hiddenDateCR").val());
     $("#destino").empty();
-    document.getElementById("payment_add0").checked = true;
     document.getElementById("priority_add0").checked = true;
 }
 
@@ -158,7 +162,6 @@ function cleanEditWorkModals() {
     $("#observation_edit").val("");
     $("#dateInput_edit").val("");
     $("#destino_edit").empty();
-    document.getElementById("payment_edit0").checked = true;
     document.getElementById("priority_edit0").checked = true;
 }
 
@@ -168,17 +171,6 @@ function isEmptyOrSpaces(str) {
     return str === null || str.match(/^ *$/) !== null;
 }
 
-
-
-//transforms advanced payment # into text
-function advancedPaymentTransform(advance_payment_add) {
-    if (advance_payment_add == "1") {
-        return "Posee adelanto";
-    }
-    if (advance_payment_add == "0") {
-        return "Sin adelanto";
-    }
-}
 
 //transforms priority_add # into text
 function priority_addTransform(priority_add) {
@@ -278,24 +270,23 @@ function updateWork() {
     if (isEmptyOrSpaces(dateInput_edit)) {//if date is empty or just whitespace
         return alert("Por favor seleccione una fecha válida");
     }
-    var advance_payment_edit = $("input[name='advance_payment_edit']:checked").val();
-    advance_payment_edit = advancedPaymentTransform(advance_payment_edit);//transforms advanced payment # into text
 
     var priority_edit = $("input[name='priority_edit']:checked").val();
     priority_edit = priority_addTransform(priority_edit);//transforms priority_add # into text
 
     var observation_edit = $("#observation_edit").val();
 
-    if(observation_edit.length < 5){
+    if (observation_edit.length < 5) {
         return alert("Por favor escriba una observación de un mínimo de 5 caracteres");
     }
-    if(observation_edit.length > 600){
+    if (observation_edit.length > 600) {
         return alert("Por favor escriba una observación de un máximo de 600 caracteres");
     }
 
     var product = $("#product_branch_edit").children("option:selected").val();
+    var productName = $("#product_branch_edit").children("option:selected").html();
 
-    if(product == "defecto") {
+    if (product == "defecto") {
         return alert("Por favor seleccione un producto");
     }
 
@@ -306,41 +297,46 @@ function updateWork() {
         }
     });
 
- //////////////Inserting new data into row////////////
+    //////////////Inserting new data into row////////////
 
     $("#date" + rowCount).html(dateInput_edit);
     $("#priority" + rowCount).html(priority_edit);
-    $("#payment" + rowCount).html(advance_payment_edit);
     $("#observation" + rowCount).val(observation_edit);
-    $("#product" + rowCount).val(product);
+    $("#product" + rowCount).attr("value", product);
+    $("#product" + rowCount).html(productName);
     $("#materials" + rowCount).val(materials);
 
- ///////////End inserting new data into row///////////
+    ///////////End inserting new data into row///////////
 
     $("#modalEditWork").modal('toggle');
     cleanEditWorkModals();
 }
 
-function countCharsAddModal(obj){
+function countCharsAddModal(obj) {
     var maxLength = 600;
     var strLength = obj.value.length;
     var charRemain = (maxLength - strLength);
-    
-    if(charRemain < 0){
-        document.getElementById("charNumAdd").innerHTML = '<span style="color: red;">Ha excedido el límite de '+maxLength+' caracteres</span>';
-    }else{
-        document.getElementById("charNumAdd").innerHTML = charRemain+' caracteres restantes';
+
+    if (charRemain < 0) {
+        document.getElementById("charNumAdd").innerHTML = '<span style="color: red;">Ha excedido el límite de ' + maxLength + ' caracteres</span>';
+    } else {
+        document.getElementById("charNumAdd").innerHTML = charRemain + ' caracteres restantes';
     }
 }
 
-function countCharsEditModal(obj){
+function countCharsEditModal(obj) {
     var maxLength = 600;
     var strLength = obj.value.length;
     var charRemain = (maxLength - strLength);
-    
-    if(charRemain < 0){
-        document.getElementById("charNumEdit").innerHTML = '<span style="color: red;">Ha excedido el límite de '+maxLength+' caracteres</span>';
-    }else{
-        document.getElementById("charNumEdit").innerHTML = charRemain+' caracteres restantes';
+
+    if (charRemain < 0) {
+        document.getElementById("charNumEdit").innerHTML = '<span style="color: red;">Ha excedido el límite de ' + maxLength + ' caracteres</span>';
+    } else {
+        document.getElementById("charNumEdit").innerHTML = charRemain + ' caracteres restantes';
     }
+}
+
+function cleanExchangeInputs() {
+    $("#order_advanced_payment").val("");
+    $("#order_total").val("");
 }

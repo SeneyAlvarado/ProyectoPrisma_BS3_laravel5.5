@@ -200,8 +200,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /*------------------------------------------------*/
 
+/**************************Order ROUTES ////////////////// */
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
 Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
+Route::post('/addOrdersWorks', 'OrderController@addOrdersWorks');/**Fill the select item with the branches*/
+/*/////// END OF ORDER ROUTES ////////////////// */
 
 /*----------------------Change Password------------------ */
 Route::resource('change_password', 'ChanngePasswordController');
@@ -211,3 +214,5 @@ Route::get('change_password/admin', function () {return view('admin.password.cha
 
 
 Route::resource('works', 'WorkController');
+
+Route::get('/dolarExchangeRate', 'CoinController@dolarExchangeRate');/**Fill the select item with the branches*/
