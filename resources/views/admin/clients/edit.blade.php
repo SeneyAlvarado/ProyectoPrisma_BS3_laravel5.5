@@ -2,12 +2,12 @@
 @section('contenido_Admin')
 <script src="{{asset('js/patternFields.js')}}"></script>
 
-<div class="panel panel-primary border-panel">
-        <div class="panel-heading  border-header bg-color-panel" >
-                <p class="title-panel" style="font-size:20px;">Clientes</p>
-            </div>
-            <div class="panel-body">
-                    <section class="">
+<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<div style="padding:10px;">
+        <div class="card">
+            <h5 class="card-header" style="text-align:center">Clientes</h5>
+            <div class="card-body">
+                <div class="container-fluid">
                     <div class="">
                                 <form method = 'POST' action='{{ route("clients.update", $client->id) }}'>
                                     <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
@@ -98,14 +98,15 @@
                                                 <div class="col-md-4 col-md-offset-2" style="margin-top:20px;">
                                                         <button class = 'btn btn-success btn-block' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button></div>
                                                 <div class="col-md-4 " style="margin-top:20px;">
-                                                <a  class="btn btn btn-danger btn-block" href="{{url()->previous()}}">Cancelar</a>
+                                                <a  class="btn btn btn-block" href="{{url()->previous()}}">Cancelar</a>
                                                     </div>
                                             </div>
                                             <br>
                                     <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->
                                 </form>
+                            </div>
                         </div>
-                    </section>
+                    </div>
                 </div>
-    </div>
+        </div>
 @endsection

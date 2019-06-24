@@ -14,7 +14,7 @@
 							<div class="row justify-content-center">
 								<div class="col-md-5 col-md-offset-2" style="margin-top:10px;">
 									<label for="client_name-field"><strong>Nombre cliente</strong></label>
-									<input class="form-control" type="text" name="client_name" id="client_name-field" value="{{ old('client_name', $visit->client_name ) }}" />
+									<input class="form-control" type="text" name="client_name" id="client_name-field" value="{{ old('client_name', $visit->client_name ) }}" required/>
 								</div> 
 								<div class="col-md-5" style="margin-top:10px;">
 									<label for="date-field"><strong>Fecha</strong></label>
@@ -30,7 +30,7 @@
 								</div> 
 								<div class="col-md-10 col-md-offset-2" style="margin-top:15px;">
 									<label for="details-field"><strong>Detalles</strong></label>
-									<textarea class="form-control" type="text" name="details" id="details-field" value="" rows="5" style="resize: none;">{{ old('details', $visit->details ) }}</textarea>
+									<textarea class="form-control" type="text" name="details" id="details-field" value="" rows="5" style="resize: none;" required>{{ old('details', $visit->details ) }}</textarea>
 								</div> 
 							</div>
 							<br>

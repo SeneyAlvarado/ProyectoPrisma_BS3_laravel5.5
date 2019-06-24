@@ -51,7 +51,6 @@ class MaterialController extends Controller
 		)->get();
 
 		return view('materials/index', compact('materials'));
-		
 	}
 
 	/**
@@ -72,8 +71,17 @@ class MaterialController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " agregando el material");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "materials.create");
+		DB::beginTransaction(); //starts databse transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
 		$inputs = $request->all();
 		$this->model->create($inputs + ['active_flag' => 1]);
+		DB::commit(); //commits to database 
+
 		return redirect()->route('materials')->with('success', '¡Material creado satisfactoriamente!');
 	}
 
@@ -86,8 +94,8 @@ class MaterialController extends Controller
 	public function show($id)
 	{
 		$material = $this->model->find($id);
-		if($material==null){
-			throw new \Exception('Error en mostrar el material con el id:' .$id
+		if ($material == null) {
+			throw new \Exception('Error en mostrar el material con el id:' . $id
 				. " en el método MaterialController@show");
 		} else {
 			return view('materials.show', compact('material'));
@@ -102,13 +110,17 @@ class MaterialController extends Controller
 	 */
 	public function edit($id)
 	{
+		\Session::put('errorOrigin', " editando el material");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "materials");
 		$material = $this->model->find($id);
 		if ($material == null) {
-			throw new \Exception('Error en editar material con el id:' .$id
+			throw new \Exception('Error en editar material con el id:' . $id
 				. " en el método MaterialController@edit");
 		} else {
 			return view('materials.edit', compact('material'));
-		}		
+		}
 	}
 
 	/**
@@ -120,11 +132,19 @@ class MaterialController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " actualizando el material");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "materials");
 		$inputs = $request->all();
 
 		$material = $this->model->find($id);
-		if($material == null) {
-			throw new \Exception('Error en actualizar el material con el id:' .$id
+		$material->branch_id = $request->dropBranch;
+		DB::commit();//commits to database 
+
+		if ($material == null) {
+			throw new \Exception('Error en actualizar el material con el id:' . $id
 				. " en el método MaterialController@update");
 		} else {
 			$material->update($inputs);
@@ -160,6 +180,7 @@ class MaterialController extends Controller
 				. " en el método MaterialController@destroy");
 		} else {
 			$material->active_flag = 0;
+
 			$material->save();
 			DB::commit(); //commit to database
 			$user_type = Auth::user()->user_type_id;

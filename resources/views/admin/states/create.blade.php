@@ -13,10 +13,10 @@
                         <div class="row justify-content-center">
                             <div class="col-md-7 align-self-center">
                                 <label for="name-field"><strong>Nombre</strong></label>
-                                <input class="form-control" type="text" name="name" id="name-field" value="" />
+                                <input class="form-control" type="text" name="name" id="name-field" value="" required/>
                             </div> <div class="col-md-7 align-self-center">
                                 <label for="description-field"><strong>Descripción</strong></label>
-                                <input class="form-control" type="text" name="description" id="description-field" value="" />
+                                <input class="form-control" type="text" name="description" id="description-field" value="" required/>
                             </div>
                         </div>
                         <br>

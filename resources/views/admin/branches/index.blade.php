@@ -24,7 +24,7 @@
                     <div class="row justify-content-center">
                     <div class="col-md-8">
                     <label for="name"><strong>Nombre de sucursal</strong></label>
-                        <input placeholder="Nombre" class="nombre margin-lft form-control" name = "name" type="text" id="nombre_recinto" pattern="[a-zA-Z áéíóúÁÉÍÓÚñÑ]{2,48}" title="No se permiten números en este campo"> 
+                        <input placeholder="Nombre" class="nombre margin-lft form-control" name = "name" type="text" id="nombre_recinto" required pattern="[a-zA-Z áéíóúÁÉÍÓÚñÑ]{2,48}" title="No se permiten números en este campo"> 
                     </div>
                     </div>
                     <div class="row justify-content-center">
