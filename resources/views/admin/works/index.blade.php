@@ -58,7 +58,7 @@
                                @if ($work->color == "red")
                                <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#C20202" class="glyphicon glyphicon-time"></span></td>
                                 @elseif ($work->color == "green")
-                                <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#0296C2" class="glyphicon glyphicon-time"></span></td>
+                                <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#0FA001" class="glyphicon glyphicon-time"></span></td>
                                 @else
                                 <td class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
                                 @endif
