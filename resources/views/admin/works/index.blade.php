@@ -13,7 +13,7 @@
            <div class="">
             @if($works->count())
            <div class="table-responsive">
-               <table class="table table-striped table-bordered table-condensed table-hover compact " id="tablaDatos">
+               <table class="table table-bordered table-condensed table-hover compact " id="tablaDatos">
                    <thead>
                         <th class="text-center">Número</th>
                         <th class="text-center">Cliente</th>
@@ -54,16 +54,16 @@
                             onCLick="infoContact('{{$work->client_owner}}')">{{$work->client_name}}</a></td>
                                <td class="text-center">{{$work->work_state}}</td>
                                <td class="text-center">{{$entry_date}}</td>
-                               <!--<td class="text-center">{{$approximate_date}}</td>-->
+                               <td class="text-center">{{$approximate_date}}</td>
                                @if ($work->color == "red")
-                               <td style="color:#C20202; " class="text-center"><strong>{{$approximate_date}}</strong></td>
+                               <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#C20202" class="glyphicon glyphicon-time"></span></td>
                                 @elseif ($work->color == "green")
-                                <td style="color:#0296C2; " class="text-center"><strong>{{$approximate_date}}</strong></td>
+                                <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#0296C2" class="glyphicon glyphicon-time"></span></td>
                                 @else
-                                <td style="color:#DFAC02;" class="text-center"><strong>{{$approximate_date}}</strong></td>
+                                <td class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
                                 @endif
 
-                                <td class="text-center "><strong>{{$work->time_left}}</strong></td>
+                                <!--<td class="text-center "><strong>{{$work->time_left}}</strong></td>-->
                                 <!--@if ($work->color == "red")
                                 <td style="color:red;" class="text-center "><strong>{{$work->time_left}}</strong></td>
                                 @elseif ($work->color == "green")
