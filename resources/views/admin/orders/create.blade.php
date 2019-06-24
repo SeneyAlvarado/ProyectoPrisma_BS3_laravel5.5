@@ -42,29 +42,39 @@
 
                         <div class="tab">
                             <div class="row justify-content-center">
-                                <div class="col-md-4 ">
+                                
+                            </div>
+                            <div class="row " style=" margin-bottom:10px;">
+                                <div class="col-md-3 offset-md-2">
+                                <label for="user_name"><strong>Buscar cliente</strong></label>
+                                    <input type="text" placeholder="Buscar cliente" class="form-control" id="searchOwnerInput" onkeyup="searchOwner()">
+                                </div>
+                                <div class="col-md-3 offset-md-2">
                                     <label for="user_name"><strong>Número Cotización</strong></label>
                                     <input id="user_name" placeholder="# Cotización" class="form-control"
                                         name="user_name" type='text' pattern="[0-9]*"
                                         title="No se permite ingresar letras en este campo">
                                 </div>
                             </div>
-                            <input type="text" id="searchOwnerInput" onkeyup="searchOwner()">
                             <div class="row justify-content-center">
 
                                 <div class="col-md-8 align-self-center">
-                                    <label for="name"><strong>Cliente</strong></label>
+                                    
                                     <select size="4" class="form-control" id="selectList" name="owner_client">
                                     </select>
                                 </div>
                             </div>
 
-
-                            <input type="text" id="searchContactInput" onkeyup="searchContact()">
+                            <div class="row " style="margin-top:15px; margin-bottom:10px;">
+                                <div class="col-md-3 offset-md-2">
+                                    <label for="user_name"><strong>Buscar contacto</strong></label>
+                                    <input type="text" class="form-control"  placeholder="Buscar contacto" id="searchContactInput" onkeyup="searchContact()">
+                                </div>
+                            </div>    
                             <div class="row justify-content-center">
 
                                 <div class="col-md-8 align-self-center">
-                                    <label for="name"><strong>Cliente de contacto</strong></label>
+                                    
                                     <select size="4" class="form-control" id="selectList_contact" name="contact_client">
                                     </select>
                                 </div>
@@ -407,8 +417,7 @@
                         <div style="text-align:center;margin-top:40px;">
                             <span class="step"></span>
                             <span class="step"></span>
-                            <span class="step"></span>
-                            <span class="step"></span>
+ 
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-4 col-md-offset-2" style="margin-top:5px;  ">
