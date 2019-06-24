@@ -4,9 +4,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
-<script src="{{asset('js/multiple-materials-select.js')}}"></script>
-<script src="{{asset('js/load_materials.js')}}"></script>
+
 <div style="padding:10px;">
     <div class="card margin-bottom-card" >
     <div class="card-header"><h5 style="text-align:center; ">Cuentas</h5></div>
@@ -64,7 +62,7 @@
 
            </div>
 
-<form action="" method="post" id="formulario">
+<!--<form action="" method="post" id="formulario">
 <div class="row justify-content-center">
     <div class="col-md-4">
         <select multiple class="form-control" name="origen" id="origen" multiple="multiple" size="4">
@@ -78,7 +76,7 @@
         <select class=" form-control" name="destino" id="destino" multiple="multiple" size="4"></select>
     </div>
 </div>
-</form>
+</form>-->
                
            @else
                <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>

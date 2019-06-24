@@ -27,9 +27,6 @@
                                 <input id="name" placeholder="Nombre" class="form-control" name="name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo">
                             </div>
                         </div>
-                        <div class="offset-md-2 col-md-7">
-                            <hr>
-                        </div>
                         <div>
                             <div class="row offset-md-2 col-md-7" style="margin-top:10px;">
                                 <!--<div class="col-md-4 align-self-center"> -->
@@ -39,9 +36,6 @@
 
                                 <!-- <input id="description" placeholder="Descripci[on" class="form-control" name="description" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required> -->
                             </div>
-                        </div>
-                        <div class="offset-md-2 col-md-7">
-                            <hr>
                         </div>
                         <div class="row offset-md-2 col-md-7" style="margin-top:10px;">
                             <!-- <div class="row " style="margin-top:15px;"> -->
@@ -61,9 +55,6 @@
                             </select>
                             <!-- </div> -->
                         </div>
-                        <div class="offset-md-2 col-md-7">
-                            <hr>
-                        </div>
 
                         <!-- <div class="row justify-content-center" style="margin-top:15px;">
                             <div class="col-md-8">
@@ -73,16 +64,6 @@
                                 <input type="radio" name="active_flag" value="0"> Desactivado<br>
                             </div>
                         </div> -->
-                        <div class="justify-content-center offset-md-2 col-md-4" style="margin-top:10px;">
-                            <label for="active_flag"><strong>Estado</strong></label>
-                            <br>
-                            <input type="radio" name="active_flag" value="1" checked> Activo<br>
-                            <input type="radio" name="active_flag" value="0"> Desactivado<br>
-
-                        </div>
-                        <div class="offset-md-2 col-md-7">
-                            <hr>
-                        </div>
 
                         <div class="row justify-content-center col-md-7 offset-md-2">
                             <!-- <div class="row justify-content-center"> -->

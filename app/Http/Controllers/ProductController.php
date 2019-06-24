@@ -104,8 +104,7 @@ class ProductController extends Controller
 		try {
 
 			\Session::put('errorOrigin', " agregando el producto!");
-			//  $branches=DB::table('branches')->where('name', '=', $request->branch_id)->get();
-			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			DB::beginTransaction(); //starts databse transaction. If there´s no commit no transaction
 
 			$inputs = $request->all();
 			$this->model->create($inputs + ['active_flag'   => 1]);
@@ -196,6 +195,8 @@ class ProductController extends Controller
 			//will be made. Also, all transactions can be rollbacked.
 
 			$product = $this->model->find($id);
+			$product->branch_id = $request->dropBranch;
+
 			$product->update($inputs);
 
 			DB::commit(); //commits to database 
@@ -211,32 +212,6 @@ class ProductController extends Controller
 			return redirect('products')->with('error', '¡Error actualizando el producto!');
 		}
 	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	/*
-	public function destroy($id)
-	{
-		try {
-
-			\Session::put('errorOrigin', " eliminando el producto");
-			$client = $this->model->find($id);
-			$this->model->destroy($id);
-
-			return redirect()->route('products.index')->with('message', 'Producto eliminado satisfactoriamente.');
-		} catch (\Illuminate\Database\QueryException $e) {
-			report($e);
-			return redirect('productIndex')->with('error', '¡Error en la base de datos
-		al eliminar el producto!');
-		} catch (\Exception $e) {
-			report($e);
-			return redirect('productIndex')->with('error', '¡Error al eliminar el producto!');
-		}
-	}*/
 
 	public function destroy($id)
 	{
@@ -300,16 +275,15 @@ class ProductController extends Controller
 
 	public function active_products_branch()
 	{
-			//custom message if this methods throw an exception
-			\Session::put('errorOrigin', " cargando los productos de la sucursal");
-			
-			//custom route to REDIRECT redirect('x') if there's an error
-			\Session::put('errorRoute', "orders");
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " cargando los productos de la sucursal");
 
-			$products = $this->model->where('branch_id', '=', Auth::user()->branch_id)
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "orders");
+
+		$products = $this->model->where('branch_id', '=', Auth::user()->branch_id)
 			->where('active_flag', 1)->orderBy('id', 'asc')->get();
 
-			return json_encode(["products"=>$products]);
+		return json_encode(["products" => $products]);
 	}
-
 }

@@ -43,22 +43,35 @@
 
 
                         <div class="tab">
-                            <input type="text" id="searchOwnerInput" onkeyup="searchOwner()">
+                            <div class="row justify-content-center">
+                            </div>
+                            <div class="row " style=" margin-bottom:10px;">
+                                <div class="col-md-3 offset-md-2">
+                                    <label for="user_name"><strong>Buscar cliente</strong></label>
+                                    <input type="text" placeholder="Buscar cliente" class="form-control"
+                                        id="searchOwnerInput" onkeyup="searchOwner()">
+                                </div>
+                            </div>
                             <div class="row justify-content-center">
 
                                 <div class="col-md-8 align-self-center">
-                                    <label for="name"><strong>Cliente</strong></label>
+
                                     <select size="4" class="form-control" id="selectList" name="owner_client">
                                     </select>
                                 </div>
                             </div>
 
-
-                            <input type="text" id="searchContactInput" onkeyup="searchContact()">
+                            <div class="row " style="margin-top:15px; margin-bottom:10px;">
+                                <div class="col-md-3 offset-md-2">
+                                    <label for="user_name"><strong>Buscar contacto</strong></label>
+                                    <input type="text" class="form-control" placeholder="Buscar contacto"
+                                        id="searchContactInput" onkeyup="searchContact()">
+                                </div>
+                            </div>
                             <div class="row justify-content-center">
 
                                 <div class="col-md-8 align-self-center">
-                                    <label for="name"><strong>Cliente de contacto</strong></label>
+
                                     <select size="4" class="form-control" id="selectList_contact" name="contact_client">
                                     </select>
                                 </div>
@@ -87,10 +100,8 @@
                                 <div class="col-md-4 ">
                                     <label for="quotation_number"><strong>Número Cotización</strong></label>
                                     <input id="quotation_number" placeholder="# Cotización" class="form-control"
-                                        name="quotation_number" type='text' pattern="[0-9]*"
-                                        title="No se permite ingresar letras ni números con decimales o negativos 
-                                        en este campo"
-                                         min=”0″>
+                                        name="quotation_number" type='text' pattern="[0-9]*" title="No se permite ingresar letras ni números con decimales o negativos 
+                                        en este campo" min=”0″>
                                 </div>
                                 <div class="col-md-4" style="margin-top:5px;">
                                     <div class="input-group row justify-content-center">
@@ -115,17 +126,17 @@
                                     <label for="order_total"><strong>Total de la orden</strong></label>
                                     <input id="order_total" placeholder="Monto total de la orden" class="form-control"
                                         name="order_total" type='text'
-                                        title="No se permite ingresar letras o números negativos en este campo" 
+                                        title="No se permite ingresar letras o números negativos en este campo"
                                         value="0" min=”0″ step=any onkeyup="showConvertedTotal()">
-                                        <p id="pOrder" style="display:none"></p>
+                                    <p id="pOrder" style="display:none"></p>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="order_advanced_payment"><strong>Adelanto de pago</strong></label>
-                                    <input id="order_advanced_payment" placeholder="Monto del adelanto de pago" class="form-control"
-                                        name="order_advanced_payment" type='text'
+                                    <input id="order_advanced_payment" placeholder="Monto del adelanto de pago"
+                                        class="form-control" name="order_advanced_payment" type='text'
                                         title="No se permite ingresar letras o números negativos en este campo"
                                         value="0" min=”0″ step=any onkeyup="showConvertedAdvanced()">
-                                        <p id="pAdvanced" style="display:none"></p>
+                                    <p id="pAdvanced" style="display:none"></p>
                                 </div>
                             </div>
                         </div>
@@ -398,6 +409,7 @@
                         <div style="text-align:center;margin-top:40px;">
                             <span class="step"></span>
                             <span class="step"></span>
+
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-4 col-md-offset-2" style="margin-top:5px;  ">

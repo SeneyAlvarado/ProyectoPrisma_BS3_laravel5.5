@@ -216,3 +216,4 @@ Route::get('change_password/admin', function () {return view('admin.password.cha
 Route::resource('works', 'WorkController');
 
 Route::get('/dolarExchangeRate', 'CoinController@dolarExchangeRate');/**Fill the select item with the branches*/
+Route::get('/work.show/{id}', 'WorkController@show');
