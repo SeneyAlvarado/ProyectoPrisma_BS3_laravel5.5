@@ -14,10 +14,10 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-7 align-self-center">
                                         <label for="name-field"><strong>Nombre</strong></label>
-                                    <input class="form-control" type="text" name="name" id="name-field" value="{{ old('name', $state->name ) }}" />
+                                    <input class="form-control" type="text" name="name" id="name-field" value="{{ old('name', $state->name ) }}" required />
                                 </div> <div class="col-md-7 align-self-center">
                                         <label for="description-field"><strong>Descripción</strong></label>
-                                    <input class="form-control" type="text" name="description" id="description-field" value="{{ old('description', $state->description ) }}" />
+                                    <input class="form-control" type="text" name="description" id="description-field" value="{{ old('description', $state->description ) }}" required/>
                                 </div>
                             </div>
                             <br>

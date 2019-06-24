@@ -105,7 +105,7 @@ class UserController extends Controller
 		/**Check if exist a user with ne same username in the sistem */
 		$username = User::where('username', $request->user_name)->get();
 		if(!$username->isEmpty()) {
-			return back()->withErrors(['user_name' => trans('Ya existe una cuenta registrada con este nombre de usuario.')]);
+			return back()->withErrors(['user_name' => trans('Ya existe una cuenta registrada con este nombre de usuario.')])->withInput();
 		}
 
 		/**Check if exist a user with ne same email in the sistem

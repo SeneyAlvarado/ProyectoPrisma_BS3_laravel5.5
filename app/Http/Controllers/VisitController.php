@@ -74,18 +74,23 @@ class VisitController extends Controller
 		\Session::put('errorRoute', "visits.create");
 		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
 			//will be made. Also, all transactions can be rollbacked.
-		$visit = new Visit();
-		$visit->client_name = $request->client_name;
-		$visit->date = Carbon::parse($request->date)->format('Y-m-d H:i:s');
-		$visit->phone = $request->phone;
-		$visit->email = $request->email;
-		$visit->recepcionist_id = null;
-		$visit->details = $request->details;
-		$visit->active_flag = 1;
-		$visit->visitor_id = Auth::user()->id;
-		$visit->save();
-		DB::commit();//commits to database 
-		return redirect('visits')->with('success', '¡Visita registrada satisfactoriamente!');
+
+		if($request->email == null and $request->phone== null){
+			return back()->with('error','Debe brindar un número de teléfono o un correo electrónico')->withInput();
+		} else {
+			$visit = new Visit();
+			$visit->client_name = $request->client_name;
+			$visit->date = Carbon::parse($request->date)->format('Y-m-d H:i:s');
+			$visit->phone = $request->phone;
+			$visit->email = $request->email;
+			$visit->recepcionist_id = null;
+			$visit->details = $request->details;
+			$visit->active_flag = 1;
+			$visit->visitor_id = Auth::user()->id;
+			$visit->save();
+			DB::commit();//commits to database 
+			return redirect('visits')->with('success', '¡Visita registrada satisfactoriamente!');
+		}
 	}
 
 	/**
@@ -131,9 +136,13 @@ class VisitController extends Controller
 			throw new \Exception('Error en actualizar visita con el id:' .$id
 				. " en el método VisitController@update");
 		} else {
-			$visit->update($inputs);
-			DB::commit();//commits to database 
-			return redirect('visits')->with('success', '¡Visita actualizada satisfactoriamente!');
+			if($request->email == null and $request->phone== null){
+				return back()->with('error','Debe brindar un número de teléfono o un correo electrónico')->withInput();
+			} else {
+				$visit->update($inputs);
+				DB::commit();//commits to database 
+				return redirect('visits')->with('success', '¡Visita actualizada satisfactoriamente!');
+			}
 		}
 	}
 

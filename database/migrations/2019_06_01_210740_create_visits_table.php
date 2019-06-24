@@ -16,8 +16,8 @@ class CreateVisitsTable extends Migration {
             $table->increments('id');
             $table->string('client_name', 70);
             $table->dateTime('date');
-            $table->integer('phone');
-            $table->string('email', 50);
+            $table->integer('phone')->nullable();;
+            $table->string('email', 50)->nullable();;
             $table->string('details', 1000);
             $table->integer('visitor_id')->unsigned();
             $table->foreign('visitor_id')->references('id')->on('users');

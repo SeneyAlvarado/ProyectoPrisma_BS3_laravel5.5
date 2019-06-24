@@ -15,21 +15,21 @@
                         <div class="row justify-content-center">
                             <div class="col-md-4 align-self-center" >
                                 <label for="name"><strong>Nombre</strong></label>
-                                <input id="name" placeholder="Nombre" class="form-control" name="name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo">
+                            <input id="name" placeholder="Nombre" class="form-control" name="name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" value="{{old('name')}}">
                             </div>
                             <div class="col-md-4 align-self-center" >
                                 <label for="lastname"><strong>Primer apellido</strong></label>
-                                <input id="lastname" placeholder="Primer Apellido" class="form-control" name="lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>
+                                <input id="lastname" placeholder="Primer Apellido" class="form-control" name="lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" value="{{old('lastname')}}" required>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-4 " style="margin-top:15px;">
                                 <label for="name"><strong>Segundo apellido</strong></label>
-                                <input id="second_lastname" placeholder="Segundo Apellido" class="form-control" name="second_lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>
+                                <input id="second_lastname" placeholder="Segundo Apellido" class="form-control" name="second_lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" value="{{old('second_lastname')}}" required>
                             </div>
                             <div class="col-md-4 " style="margin-top:15px;">
                                 <label for="user_name"><strong>Nombre de usuario</strong></label>
-                                <input id="user_name" placeholder="Nombre de usuario" class="form-control" name="user_name" type='text' required>
+                                <input id="user_name" placeholder="Nombre de usuario" class="form-control" name="user_name" type='text' value="{{old('user_name')}}" required>
                             </div>
                         </div>
                         <div class="row justify-content-center">
@@ -44,17 +44,17 @@
                         <div class="row justify-content-center">
                         <div class="col-md-4 " style="margin-top:15px;">
                             <label for="email"><strong>Correo electrónico</strong></label>
-                            <input id="email" placeholder="Correo electrónico" class="form-control" name="email" type='email' required>
+                            <input id="email" placeholder="Correo electrónico" class="form-control" name="email" type='email' value="{{old('email')}}" required>
                         </div>
                         <div class="col-md-4" style="margin-top:15px;">
                             <label for="branch"><strong>Sucursal</strong></label>
-                            <select id="dropBranch" name="dropBranch" class="form-control"></select>
+                            <select id="dropBranch" name="dropBranch" class="form-control" value="{{old('dropBranch')}}"></select>
                         </div>
                         </div>
                         <div class="row justify-content-center">
                         <div class="col-md-4" style="margin-top:15px;">
                             <label for="rol"><strong>Puesto</strong></label>
-                            <select class="form-control" name="dropRol" id="dropRol">
+                            <select class="form-control" name="dropRol" id="dropRol" value="{{old('dropRol')}}">
                             </select>
                         </div>
                         
