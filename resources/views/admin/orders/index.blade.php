@@ -18,7 +18,7 @@
                 <th class="text-center">Orden</th>
                 <th class="text-center">Cotización</th>
                 <th class="text-center">Cliente</th>
-                <th class="text-center">Entrega</th>
+              
                 <th class="text-center" style="min-width:150px;">Estado</th>
                 <th class="text-center">Contacto</th>
                 <th class="text-center">Opciones</th>
@@ -40,7 +40,7 @@
                     <td class="text-center">{{$order->quotation_number}}</td>
                     <td class="text-center"><a class="infoClient"
                             onCLick="infoContact('{{$order->client_owner}}')">{{$order->client_owner_name}}</a></td>
-                    <td class="text-center"></td>
+                   
                     <td class="text-center" style="min-width:150px;">
                         <div class="dropdown">
                             <a class="btn btn-secondary dropdown-toggle" data-target="#drop-states" href="#"
@@ -50,9 +50,9 @@
                             </a>
 
                             <div class="dropdown-menu" id="#drop-states" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="#">Insertado</a>
+                                <a class="dropdown-item" href="#">Cancelado</a>
+                                <a class="dropdown-item" href="#">Finalizado</a>
                             </div>
                         </div>
                     </td>

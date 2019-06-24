@@ -29,9 +29,18 @@ State_id</th> <th>Branch_id</th> <th>Branch_id</th> <th>Active_flag</th>
                             <tr>
                                 <td class="text-center"><strong>{{$order->id}}</strong></td>
 
-                                <td>{{$order->entry_date}}</td> <td>{{$order->approximate_date}}</td> <td>{{$order->quotation_number}}</td> <td>{{$order->client_owner}}</td> <td>{{$order->client_owner}}</td> <td>{{$order->client_contact}}</td> <td>{{$order->client_contact}}</td> <td>{{$order->
-state_id}}</td> <td>{{$order->
-state_id}}</td> <td>{{$order->branch_id}}</td> <td>{{$order->branch_id}}</td> <td>{{$order->active_flag}}</td>
+                                <td>{{$order->entry_date}}</td>
+                                <td>{{$order->approximate_date}}</td> 
+                                <td>{{$order->quotation_number}}</td> 
+                                <td>{{$order->client_owner}}</td> 
+                                <td>{{$order->client_owner}}</td> 
+                                <td>{{$order->client_contact}}</td> 
+                                <td>{{$order->client_contact}}</td> 
+                                <td>{{$order->state_id}}</td> 
+                                <td>{{$order->state_id}}</td> 
+                                <td>{{$order->branch_id}}</td> 
+                                <td>{{$order->branch_id}}</td> 
+                                <td>{{$order->active_flag}}</td>
                                 
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-primary" href="{{ route('orders.show', $order->id) }}">
