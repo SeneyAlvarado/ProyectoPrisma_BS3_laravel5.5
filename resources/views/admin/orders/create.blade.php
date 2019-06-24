@@ -179,8 +179,10 @@
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                             <div class="row justify-content-center">
+                                            <div class="col-md-5">
                                                 <label for="avatar"><strong>Adjuntar archivo</strong></label>
                                                 <input id="avatar" class="form-control" name="avatar" type="file">
+                                            </div>    
                                                 <div class="col-md-5">
                                                     <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                     <div class="input-group date" id="datetimepicker4"
@@ -198,12 +200,17 @@
                                             </div>
 
                                             <br>
-                                            <input type="text" id="searchProductInput" onkeyup="searchProduct()">
-
+                                            
+                                            <div class=" row ">
+                                                <div class="col-md-3 offset-md-1">
+                                                    <label for="user_name"><strong>Buscar producto</strong></label>
+                                                    <input type="text" class="form-control" placeholder="Buscar producto" id="searchProductInput" onkeyup="searchProduct()">
+                                                </div>
+                                            </div>
                                             <div class="row justify-content-center">
-                                                <div class="col-md-8 align-self-center">
-                                                    <label for="product_branch"><strong>Producto</strong></label>
-                                                    <select size="4" class="form-control" id="product_branch"
+                                                <div class="col-md-10 align-self-center">
+                                                
+                                                    <select size="4" style="margin-top:8px;" class="form-control" id="product_branch"
                                                         name="product_branch">
                                                     </select>
                                                 </div>
@@ -214,24 +221,31 @@
                                                     <label for="observation_add"><strong>Observaciones
                                                             Adicionales</strong></label>
                                                     <textarea class="form-control" onkeyup="countCharsAddModal(this);"
-                                                        value="" rows="5" id="observation_add"
+                                                        value="" rows="4" id="observation_add"
                                                         name="observation_add"></textarea>
                                                     <p id="charNumAdd">0 caracteres</p>
                                                 </div>
                                             </div>
-                                            <input type="text" id="searchOriginInputAdd" onkeyup="searchOriginAdd()">
-                                            <div class="row justify-content-center">
+                                            <div class=" row ">
+                                                <div class="col-md-3 offset-md-1">
+                                                    <label for="user_name"><strong>Buscar materiales</strong></label>
+                                                    <input type="text" class="form-control" placeholder="Buscar materiales" id="searchOriginInputAdd" onkeyup="searchOriginAdd()">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row justify-content-center" style="margin-top:8px;">
                                                 <div class="col-md-4">
                                                     <select multiple class="form-control" name="origen" id="origen"
                                                         multiple="multiple" size="4">
                                                     </select>
                                                 </div>
-                                                <div class="col-md-1" style="text-align:center">
-                                                    <input type="button"
-                                                        class="btn-add-material pasar izq btn btn-success" value="+">
-                                                    <input type="button"
-                                                        class="btn-remove-material quitar der btn btn-default"
-                                                        value="-">
+                                                <div class="col-md-2" style="text-align:center">
+                                                    <div>
+                                                        <input type="button" class="btn-add-material pasar izq btn btn-success" value="Agregar »">
+                                                    </div>
+                                                    <div>  
+                                                        <input type="button" class="btn-remove-material quitar der btn btn-default" value="« Eliminar">
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <select class=" form-control" name="destino" id="destino"
