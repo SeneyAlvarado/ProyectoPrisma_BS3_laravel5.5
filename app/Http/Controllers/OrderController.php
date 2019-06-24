@@ -311,6 +311,25 @@ class OrderController extends Controller
 		}
 		return json_encode(["materials" => $materials]);
 	}
+
+
+
+	/**
+       * This method generate an specific order report
+       */
+      public function selectOrder($id)
+      {
+            //custom message if this methods throw an exception
+		\Session::put('errorOrigin', " creando reporte orden");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+        \Session::put('errorRoute', "orders");
+			$order=$this->model->find($id);
+			$order->works=Work::where('order_id', $id)->get();
+            $pdf = \App::make('dompdf.wrapper');
+          	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
+            return $pdf->stream('detalleOrden'.$order->id.'.pdf');
+      }
 }
 
  

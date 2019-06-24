@@ -170,6 +170,7 @@ Route::get('/contact.show/{id}', 'ClientController@ajax_contact');
 
 /*----------------------Reports------------------ */
 Route::get('reportes', 'ReportController@generate');
+Route::get('reportOrder/{id}', 'OrderController@selectOrder');
 /*------------------------------------------------*/
 
 /*---------------------------------Notifications----------------------*/

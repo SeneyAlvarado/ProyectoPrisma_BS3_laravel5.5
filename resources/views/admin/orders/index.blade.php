@@ -60,7 +60,8 @@
                             onCLick="infoContact('{{$order->client_contact}}')">{{$order->client_contact_name}}</a></td>
 
                     <td class="text-center">
-
+                            <a class="btn btn-warning" href="{{url('reportOrder', $order->id)}}" style="background-color:#e0e0e0; border:0px;"><span
+                                class="glyphicon glyphicon-file"></span></a>
                         <a class="btn btn-warning" style="background-color:#e0e0e0; border:0px;" href=""><span
                                 class="glyphicon glyphicon-folder-open"></a>
                         <a class="btn btn-warning" href="" style="background-color:#e0e0e0; border:0px;"><span
