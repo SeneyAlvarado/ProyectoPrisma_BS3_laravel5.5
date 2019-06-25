@@ -280,23 +280,73 @@ class OrderController extends Controller
 		return redirect()->route('orders.index')->with('message', 'Item deleted successfully.');
 	}
 
+	/**
+	 * 
+	 * Get all the clients in the systema with their pohone number and email.
+	 * 
+	 * */
 	public function ajax_list_clients()
 	{
-		$clients = DB::table('clients')
+		$clients = DB::table('clients')//get all the clients order by id
 			->where('active_flag', '=', 1)
-			->orderBy('name', 'desc')->get();
+			->orderBy('id', 'asc')->get();
 
 		foreach ($clients as $client) {
-			if ($client->type == 1) {
+			if($client->identification == null) {
+				$client->identification = "No posee";
+			} else {
+				$client->identification = $client->identification;
+			}
+			$client->phone = $this->getPhone($client);
+			$client->email = $this->getEmail($client);
+
+			if ($client->type == 1) {//extracts the full name if the client are physical 
 				$phisClient = Physical_client::where('client_id', $client->id)->first();
-				$client->lastname = $phisClient->lastname;
-				$client->second_lastname = $phisClient->second_lastname;
+				$client->name = $client->name . " " . $phisClient->lastname . " " . $phisClient->second_lastname;
+				
 			}
 		}
 		if ($clients == null || $clients->isEmpty()) {
 			Flash::message("No hay clientes para mostrar");
 		}
 		return json_encode(["clients" => $clients]);
+	}
+
+
+	/**
+	 * 
+	 * Get the phone number of a specific client
+	 * 
+	 */
+	private function getPhone($client){
+		$phone = DB::table('phones')
+		->where('client_id', '=', $client->id)
+		->first();
+		$phone_number;
+		if($phone == null ) {
+			$phone_number = "No posee";
+		} else {
+			$phone_number = $phone->number;
+		}
+		return $phone_number;//return the phone number of the client
+	}
+
+	/**
+	 * 
+	 * Get the email of a specific client
+	 * 
+	 */
+	private function getEmail($client){
+		$email = DB::table('emails')
+		->where('client_id', '=', $client->id)
+		->first();
+		$email_client;
+		if($email == null ) {
+			$email_client = "No posee";
+		} else {
+			$email_client = $email->email;
+		}
+		return $email_client;//return the email of the client
 	}
 
 	public function ajax_list_materials()

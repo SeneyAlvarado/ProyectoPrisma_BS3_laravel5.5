@@ -112,6 +112,19 @@ nav.nav-color {
     color: black;
   }
 
+  .style-btn-search {
+    /*width:62px;*/
+    background-color:#e0e0e0 !important;
+    color: black !important;
+    border:0px !important;
+    margin-top:3px;
+  }
+
+  .style-btn-search:hover {
+    background-color:#CACACA !important;
+    color: black;
+  }
+
 
   .style-btn-success {
     background-color:#96183a !important;

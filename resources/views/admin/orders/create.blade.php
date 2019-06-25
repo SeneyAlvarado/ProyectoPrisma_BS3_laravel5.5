@@ -22,10 +22,15 @@
 <script src="{{asset('/js/multiple-material-editModal.js')}}"></script>
 <script src="{{asset('/js/load_materials.js')}}"></script>
 <script src="{{asset('/js/load_products_branch.js')}}"></script>
+
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/order_multistep_form.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
 
+
+
+  
+    
 
 <div style="padding:10px;">
     <div class="card">
@@ -43,8 +48,68 @@
 
 
                         <div class="tab">
-                            <div class="row justify-content-center">
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div>
+                                        <label style="margin: 0;" ><strong>Cliente:&nbsp</strong></label><label id="client_name" value=" " type="text" name="client_name"></label>
+                                        <button style="margin-left:5px;" type="button" class="btn btn-secundary style-btn-search btn-sm" style="width:50px !important; margin:0px;" onClick="listClientsTable()">Buscar</button>
+                                    </div>
+                                    <div id="hideId" style="display:none;">
+                                        <label style="margin: 0;" ><strong>Cédula:&nbsp</strong></label><label id="identification" value=" " type="text" name="identification"></label>
+                                    </div>
+                                    <div id="hidePhone" style="display:none;">
+                                        <label style="margin: 0;" ><strong>Teléfono:&nbsp</strong></label><label id="phone" value=" " type="text" name="phone"></label>
+                                    </div>
+                                    <div id="hideEmail" style="display:none;">
+                                        <label style="margin: 0;" ><strong>Correo:&nbsp</strong></label><label id="email" value=" " type="text" name="email"></label>
+                                    </div>
+                                    <input type="hidden" class="form-control" id="client_id" name="client_id">
+                                </div>
+                                
+                                <div class="col-md-3 ">
+                                    <div id="hide_quotation" style="display:none;">
+                                        <label style="margin: 0;" for="quotation_number"><strong>Número Cotización</strong></label>
+                                        <input id="quotation_number" placeholder="# Cotización" class="form-control"
+                                            name="quotation_number" type='text' pattern="[0-9]*" title="No se permite ingresar letras ni números con decimales o negativos 
+                                            en este campo" min=”0″>
+                                    </div>
+                                    <div id="hide_total" style="display:none;">
+                                        <label style="margin: 0px; margin-top: 10px;" for="order_total"><strong>Total de la orden</strong></label>
+                                        <input id="order_total" placeholder="Monto total de la orden" class="form-control"
+                                            name="order_total" type='text'
+                                            title="No se permite ingresar letras o números negativos en este campo"
+                                            value="0" min=”0″ step=any onkeyup="showConvertedTotal()">
+                                        <p id="pOrder" style="display:none"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" >
+                                    <div id="hide_money" style="display:none; paddign-left:10px;" class="input-group row justify-content-center">
+                                        <label for="branch"><strong>Moneda de transacción</strong></label>
+                                        <span class="radio">
+                                            <label style="margin: 0;">Colones</label>
+                                            <label>
+                                                <input id="colones" type="radio" value="0" class="radiobox" name="coin">
+                                            </label>
+
+                                            <label style="margin: 0;">
+                                                <label style="margin-left:20px;">Dólares</label>
+                                                <input id="dolars" type="radio" value="1" class="radiobox" name="coin"
+                                                    checked>
+                                            </label>
+                                        </span>
+                                    </div>
+                                    <div id="hide_advancement" style="display:none;">
+                                        <label style="margin:0; margin-top: 8px;" for="order_advanced_payment"><strong>Adelanto de pago</strong></label>
+                                        <input id="order_advanced_payment" placeholder="Monto del adelanto"
+                                            class="form-control" name="order_advanced_payment" type='text'
+                                            title="No se permite ingresar letras o números negativos en este campo"
+                                            value="0" min=”0″ step=any onkeyup="showConvertedAdvanced()">
+                                        <p id="pAdvanced" style="display:none"></p>
+                                    </div>
+                                </div> 
                             </div>
+
+
                             <div class="row " style=" margin-bottom:10px;">
                                 <div class="col-md-3 offset-md-2">
                                     <label for="user_name"><strong>Buscar cliente</strong></label>
@@ -97,47 +162,10 @@
                                     </div>
                             </div-->
                             <div class="row justify-content-center">
-                                <div class="col-md-4 ">
-                                    <label for="quotation_number"><strong>Número Cotización</strong></label>
-                                    <input id="quotation_number" placeholder="# Cotización" class="form-control"
-                                        name="quotation_number" type='text' pattern="[0-9]*" title="No se permite ingresar letras ni números con decimales o negativos 
-                                        en este campo" min=”0″>
-                                </div>
-                                <div class="col-md-4" style="margin-top:5px;">
-                                    <div class="input-group row justify-content-center">
-                                        <label for="branch"><strong>Moneda de transacción</strong></label>
-                                        <span class="radio">
-                                            <label>Colones</label>
-                                            <label>
-                                                <input id="colones" type="radio" value="0" class="radiobox" name="coin">
-                                            </label>
-
-                                            <label>
-                                                <label style="margin-left:20px;">Dólares</label>
-                                                <input id="dolars" type="radio" value="1" class="radiobox" name="coin"
-                                                    checked>
-                                            </label>
-                                        </span>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="row justify-content-center">
-                                <div class="col-md-4">
-                                    <label for="order_total"><strong>Total de la orden</strong></label>
-                                    <input id="order_total" placeholder="Monto total de la orden" class="form-control"
-                                        name="order_total" type='text'
-                                        title="No se permite ingresar letras o números negativos en este campo"
-                                        value="0" min=”0″ step=any onkeyup="showConvertedTotal()">
-                                    <p id="pOrder" style="display:none"></p>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="order_advanced_payment"><strong>Adelanto de pago</strong></label>
-                                    <input id="order_advanced_payment" placeholder="Monto del adelanto de pago"
-                                        class="form-control" name="order_advanced_payment" type='text'
-                                        title="No se permite ingresar letras o números negativos en este campo"
-                                        value="0" min=”0″ step=any onkeyup="showConvertedAdvanced()">
-                                    <p id="pAdvanced" style="display:none"></p>
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -441,6 +469,53 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- The modal of the qwner clients of the order-->
+<div class="modal fade" id="table-clients">
+    <div class="modal-dialog" style="min-width:80%" >
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Clientes</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="table-responsive" style="text-align:center">
+                <div id="tableDiv" style="display:">
+                    <table style="overflow: visible !important;"
+                                class="table table-striped table-sm table-bordered table-drop table-condensed table-hover compact order-column"
+                                id="tableClients">
+                        <thead>
+                            <th class="text-center" style="width: 40px">Número</th>
+                            <th class="text-center" style="width: 160px">Cédula</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center" style="width: 140px">Teléfono</th>
+                            
+                            <th class="text-center" style="width: 110px">Opción</th>
+                        </thead>
+
+                        <tbody id="tableBody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
 <script>
     /*$('#datepicker').datepicker({
   uiLibrary: 'bootstrap4',
