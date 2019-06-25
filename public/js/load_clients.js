@@ -1,62 +1,6 @@
-/**Javascrip to fill the list of clients to create a ne order*/
-function listClients(){
-    $.ajax({
-   url: '/fillnames',
-   type: 'GET',
-   dataType: "json",
-   success:function(datos){ 
-   $('#selectList').empty();
-  //alert(JSON.stringify(datos));
-   var identification; 
-   $.each(datos, function()
-   {
-       $.each(this, function(){
-            $('#selectList').append('<option value="' + this.id + '">' + this.id + ". " + this.identification + " " + this.name + this.phone + " " + this.email + '</option>');  
-       }) 
-       
-   })
-
-   }, error:function() {
-       alert("¡Ha habido un error! al cargar el cliente." +
-       "Si este error persiste por favor comuníquese con el equipo técnico");   
-   }
-   });
-}
-
-function listClients_contact(){
-    $.ajax({
-   url: '/fillnames',
-   type: 'GET',
-   dataType: "json",
-   success:function(datos){ 
-   $('#selectList_contact').empty();
-   $('#selectList_contact').append("<option value='defecto' selected='selected'>Seleccione un cliente</option>");  
-   
-   $.each(datos, function()
-   {
-       $.each(this, function(){  
-            $('#selectList_contact').append('<option value="' + this.id + '">' + this.id + ". " + this.identification + " " + this.name  + '</option>'); 
-       }) 
-       
-   })
-
-   }, error:function() {
-       alert("¡Ha habido un error! Elija correctamente la sucursal." +
-       "Si este error persiste por favor comuníquese con el equipo técnico");   
-   }
-   });
-}
 
 
-$(document).ready(function(){
-    //alert("documentknsddsf");
-    listClients();
-    listClients_contact();
-})
-
-
-
-/**Javascrip to fill the list of clients to create a ne order*/
+/**Javascrip to fill the list of clients in the table to create a new order*/
 function listClientsTable(){
     
     $.ajax({
