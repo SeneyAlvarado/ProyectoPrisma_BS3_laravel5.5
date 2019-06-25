@@ -5,6 +5,36 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
+
+  
+<style>
+  .formStyle { 
+  padding: 10px; 
+  margin-bottom: 5px; 
+  border-bottom-width: 1px; 
+  border-bottom-style: solid; 
+  border-bottom-color: #B9B9B9; 
+  border-top-style: none; 
+  border-right-style: none; 
+  border-left-style: none; 
+  font-size: 1em;
+  font-weight: 100;
+}
+.formStyle1 { 
+    width:150px;
+}
+.formStyle2 { 
+    width:159px;
+}
+.formStyle3 { 
+    width:178px;
+}
+  input:focus {
+  outline: none;
+  border-color: #5e9bfc;
+}
+  </style>
+
 <div style="padding:10px;">
     <div class="card margin-bottom-card" >
     <div class="card-header"><h5 style="text-align:center; ">Cuentas</h5></div>
@@ -61,6 +91,34 @@
                </table>
 
            </div>
+
+
+
+
+
+
+           <div class="col-md-4">
+                <div>
+                    <label>N° cotización:</label>
+                    <input type="email" name="email" class="formStyle formStyle1" placeholder="N° cotización" required />
+                </div>
+                <div>
+                    <label>Monto total:</label>
+                    <input type="email" name="email" class="formStyle formStyle2" placeholder="Total orden" required />
+                </div>
+                <div>
+                    <label>Adelanto:</label>
+                    <input type="email" name="email" class="formStyle formStyle3" placeholder="Total adelanto" required />
+                </div>
+            </div>
+
+
+
+
+
+
+
+
 
 <!--<form action="" method="post" id="formulario">
 <div class="row justify-content-center">
