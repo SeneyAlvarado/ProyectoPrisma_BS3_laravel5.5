@@ -25,9 +25,9 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>  
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
     <!-- helps to add the right route to create buttons-->
@@ -35,6 +35,9 @@
 
     <!-- notifications js handling-->
     <script src="{{asset('js/notifications.js')}}"></script>
+
+    <!-- notifications js handling-->
+    <script src="{{asset('/js/dropdownDoubleClickFix.js')}}"></script>
 
 </head>
 
@@ -100,7 +103,7 @@
 <!-- Bootstrap row -->
 <div class="row" id="body-row">
     <!-- Sidebar -->
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block col-md-2"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
         <!-- Bootstrap List Group -->
         <ul class="list-group ">
             <!-- Menu with submenu -->
@@ -170,7 +173,7 @@
     </div><!-- sidebar-container END -->
 
     <!-- MAIN -->
-    <div class="col container-fluid size-changer">
+    <div class="col-md-10 container-fluid size-changer">
     
         @if(session('error'))
         <div class="alert alert-danger alert-dismissible" style="text-align: center; padding:20px;" role="alert">

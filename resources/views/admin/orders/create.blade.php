@@ -29,8 +29,8 @@
 
 
 
-  
-    
+
+
 
 <div style="padding:10px;">
     <div class="card">
@@ -38,52 +38,59 @@
         <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-                    <form method='POST' action='{{ route("orders.store") }}' id="orderForm">
-                        <!-- onsubmit="return check_clients_branch_select(this)" -->
+                    <form method='POST' action="javascript:formValidation();" id="orderForm">
                         <input type='hidden' id='_token' name='_token' value='{{Session::token()}}'>
                         <input type='hidden' id='dolarExchangeRate' value='{{$dolarRate}}'>
                         <input type='hidden' id='hiddenDateCR'
                             value='{{\Carbon\Carbon::now('America/Costa_Rica')->addDay(7)->format('d/m/Y')}}'>
                         <input type='hidden' id='editRow' value=''>
 
-
-                        <div class="tab">
                             <div class="row ">
                                 <div class="col-md-6">
                                     <div>
-                                        <label style="margin: 0;" ><strong>Cliente:&nbsp</strong></label><label id="client_name" value=" " type="text" name="client_name"></label>
-                                        <button style="margin-left:5px;" type="button" class="btn btn-secundary style-btn-search btn-sm" style="width:50px !important; margin:0px;" onClick="listClientsTable()">Buscar</button>
+                                        <label style="margin: 0;"><strong>Cliente:&nbsp</strong></label><label
+                                            id="client_name" value=" " type="text" name="client_name"></label>
+                                        <button style="margin-left:5px;" type="button"
+                                            class="btn btn-secundary style-btn-search btn-sm"
+                                            style="width:50px !important; margin:0px;"
+                                            onClick="listClientsTable();">Buscar</button>
                                     </div>
                                     <div id="hideId" style="display:none;">
-                                        <label style="margin: 0;" ><strong>Cédula:&nbsp</strong></label><label id="identification" value=" " type="text" name="identification"></label>
+                                        <label style="margin: 0;"><strong>Cédula:&nbsp</strong></label><label
+                                            id="identification" value=" " type="text" name="identification"></label>
                                     </div>
                                     <div id="hidePhone" style="display:none;">
-                                        <label style="margin: 0;" ><strong>Teléfono:&nbsp</strong></label><label id="phone" value=" " type="text" name="phone"></label>
+                                        <label style="margin: 0;"><strong>Teléfono:&nbsp</strong></label><label
+                                            id="phone" value=" " type="text" name="phone"></label>
                                     </div>
                                     <div id="hideEmail" style="display:none;">
-                                        <label style="margin: 0;" ><strong>Correo:&nbsp</strong></label><label id="email" value=" " type="text" name="email"></label>
+                                        <label style="margin: 0;"><strong>Correo:&nbsp</strong></label><label id="email"
+                                            value=" " type="text" name="email"></label>
                                     </div>
                                     <input type="hidden" class="form-control" id="client_id" name="client_id">
                                 </div>
-                                
+
                                 <div class="col-md-3 ">
                                     <div id="hide_quotation" style="display:none;">
-                                        <label style="margin: 0;" for="quotation_number"><strong>Número Cotización</strong></label>
+                                        <label style="margin: 0;" for="quotation_number"><strong>Número
+                                                Cotización</strong></label>
                                         <input id="quotation_number" placeholder="# Cotización" class="form-control"
-                                            name="quotation_number" type='text' pattern="[0-9]*" title="No se permite ingresar letras ni números con decimales o negativos 
-                                            en este campo" min=”0″>
+                                            name="quotation_number" type='number' title="No se permite ingresar letras ni números con decimales o negativos 
+                                            en este campo" min=”0″ required>
                                     </div>
                                     <div id="hide_total" style="display:none;">
-                                        <label style="margin: 0px; margin-top: 10px;" for="order_total"><strong>Total de la orden</strong></label>
-                                        <input id="order_total" placeholder="Monto total de la orden" class="form-control"
-                                            name="order_total" type='text'
+                                        <label style="margin: 0px; margin-top: 10px;" for="order_total"><strong>Total de
+                                                la orden</strong></label>
+                                        <input id="order_total" placeholder="Monto total de la orden"
+                                            class="form-control" name="order_total" type='text'
                                             title="No se permite ingresar letras o números negativos en este campo"
                                             value="0" min=”0″ step=any onkeyup="showConvertedTotal()">
                                         <p id="pOrder" style="display:none"></p>
                                     </div>
                                 </div>
-                                <div class="col-md-3" >
-                                    <div id="hide_money" style="display:none; paddign-left:10px;" class="input-group row justify-content-center">
+                                <div class="col-md-3">
+                                    <div id="hide_money" style="display:none; paddign-left:10px;"
+                                        class="input-group row justify-content-center">
                                         <label for="branch"><strong>Moneda de transacción</strong></label>
                                         <span class="radio">
                                             <label style="margin: 0;">Colones</label>
@@ -99,14 +106,15 @@
                                         </span>
                                     </div>
                                     <div id="hide_advancement" style="display:none;">
-                                        <label style="margin:0; margin-top: 8px;" for="order_advanced_payment"><strong>Adelanto de pago</strong></label>
+                                        <label style="margin:0; margin-top: 8px;"
+                                            for="order_advanced_payment"><strong>Adelanto de pago</strong></label>
                                         <input id="order_advanced_payment" placeholder="Monto del adelanto"
                                             class="form-control" name="order_advanced_payment" type='text'
                                             title="No se permite ingresar letras o números negativos en este campo"
                                             value="0" min=”0″ step=any onkeyup="showConvertedAdvanced()">
                                         <p id="pAdvanced" style="display:none"></p>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
 
@@ -162,17 +170,14 @@
                                     </div>
                             </div-->
                             <div class="row justify-content-center">
-                                
+
                             </div>
                             <div class="row justify-content-center">
-                                
+
                             </div>
-                        </div>
 
                         <!-- Here we had the advanced payment, it was moved to the Work-->
                         <!----------------------------------------------------------------- TAB 2 ------------------------------------------->
-                        <div class="tab">
-
                             <div class="row justify-content-center">
                                 <div class="table-responsive">
                                     <div id="tableDiv" style="display:">
@@ -207,10 +212,10 @@
                                         <!-- Modal body -->
                                         <div class="modal-body">
                                             <div class="row justify-content-center">
-                                            <div class="col-md-5">
-                                                <label for="avatar"><strong>Adjuntar archivo</strong></label>
-                                                <input id="avatar" class="form-control" name="avatar" type="file">
-                                            </div>    
+                                                <div class="col-md-5">
+                                                    <label for="avatar"><strong>Adjuntar archivo</strong></label>
+                                                    <input id="avatar" class="form-control" name="avatar" type="file">
+                                                </div>
                                                 <div class="col-md-5">
                                                     <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                     <div class="input-group date" id="datetimepicker4"
@@ -228,18 +233,20 @@
                                             </div>
 
                                             <br>
-                                            
+
                                             <div class=" row ">
                                                 <div class="col-md-3 offset-md-1">
                                                     <label for="user_name"><strong>Buscar producto</strong></label>
-                                                    <input type="text" class="form-control" placeholder="Buscar producto" id="searchProductInput" onkeyup="searchProduct()">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Buscar producto" id="searchProductInput"
+                                                        onkeyup="searchProduct()">
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div class="col-md-10 align-self-center">
-                                                
-                                                    <select size="4" style="margin-top:8px;" class="form-control" id="product_branch"
-                                                        name="product_branch">
+
+                                                    <select size="4" style="margin-top:8px;" class="form-control"
+                                                        id="product_branch" name="product_branch">
                                                     </select>
                                                 </div>
                                             </div>
@@ -257,10 +264,12 @@
                                             <div class=" row ">
                                                 <div class="col-md-3 offset-md-1">
                                                     <label for="user_name"><strong>Buscar materiales</strong></label>
-                                                    <input type="text" class="form-control" placeholder="Buscar materiales" id="searchOriginInputAdd" onkeyup="searchOriginAdd()">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Buscar materiales" id="searchOriginInputAdd"
+                                                        onkeyup="searchOriginAdd()">
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="row justify-content-center" style="margin-top:8px;">
                                                 <div class="col-md-4">
                                                     <select multiple class="form-control" name="origen" id="origen"
@@ -269,10 +278,14 @@
                                                 </div>
                                                 <div class="col-md-2" style="text-align:center">
                                                     <div>
-                                                        <input type="button" class="btn-add-material pasar izq btn btn-success" value="Agregar »">
+                                                        <input type="button"
+                                                            class="btn-add-material pasar izq btn btn-success"
+                                                            value="Agregar »">
                                                     </div>
-                                                    <div>  
-                                                        <input type="button" class="btn-remove-material quitar der btn btn-default" value="« Eliminar">
+                                                    <div>
+                                                        <input type="button"
+                                                            class="btn-remove-material quitar der btn btn-default"
+                                                            value="« Eliminar">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -436,7 +449,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <!----------------------------------------------------------------- END TAB 2 ------------------------------------------->
 
 
@@ -448,18 +460,14 @@
                                   </div> -->
 
                         <!-- Circles which indicates the steps of the form: -->
-                        <div style="text-align:center;margin-top:40px;">
-                            <span class="step"></span>
-                            <span class="step"></span>
-
-                        </div>
+                        <br>
                         <div class="row justify-content-center">
                             <div class="col-md-4 col-md-offset-2" style="margin-top:5px;  ">
                                 <!-- next button, the "Siguiente" text is added at the js -->
-                                <a id="nextBtn" onclick="nextPrev(1);" class='btn btn-success btn-block'></a>
+                                <button id="nextBtn" type="submit" class='btn btn-success btn-block'>GuardarXD</button>
                             </div>
                             <div class="col-md-4" style="margin-top:5px; ">
-                                <a class="btn btn btn-block" id="prevBtn" onclick="nextPrev(-1)">Regresar</a>
+                                <a class="btn btn btn-block" id="prevBtn" onclick="history.back()">Regresar</a>
                             </div>
                         </div>
                         <!--<a style="margin-top: 5px;" href="/especialistas" class = 'btn btn-primary'><i class="fa fa-home"></i>Ver Especialistas</a>-->
@@ -474,47 +482,47 @@
 
 <!-- The modal of the qwner clients of the order-->
 <div class="modal fade" id="table-clients">
-    <div class="modal-dialog" style="min-width:80%" >
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Clientes</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-            <div class="table-responsive" style="text-align:center">
-                <div id="tableDiv" style="display:">
-                    <table style="overflow: visible !important;"
-                                class="table table-striped table-sm table-bordered table-drop table-condensed table-hover compact order-column"
-                                id="tableClients">
-                        <thead>
-                            <th class="text-center" style="width: 40px">Número</th>
-                            <th class="text-center" style="width: 160px">Cédula</th>
-                            <th class="text-center">Nombre</th>
-                            <th class="text-center" style="width: 140px">Teléfono</th>
-                            
-                            <th class="text-center" style="width: 110px">Opción</th>
-                        </thead>
+    <div class="modal-dialog" style="min-width:80%">
+        <div class="modal-content">
 
-                        <tbody id="tableBody">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Clientes</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-                        </tbody>
-                    </table>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="table-responsive" style="text-align:center">
+                    <div id="tableDiv" style="display:">
+                        <table style="overflow: visible !important;"
+                            class="table table-striped table-sm table-bordered table-drop table-condensed table-hover compact order-column"
+                            id="tableClients">
+                            <thead>
+                                <th class="text-center" style="width: 40px">Número</th>
+                                <th class="text-center" style="width: 160px">Cédula</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center" style="width: 140px">Teléfono</th>
+
+                                <th class="text-center" style="width: 110px">Opción</th>
+                            </thead>
+
+                            <tbody id="tableBody">
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+
         </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-        
-      </div>
     </div>
-  </div>
+</div>
 
 <script>
     /*$('#datepicker').datepicker({

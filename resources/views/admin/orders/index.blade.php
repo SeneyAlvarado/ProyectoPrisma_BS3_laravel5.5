@@ -42,7 +42,7 @@
                             onCLick="infoContact('{{$order->client_owner}}')">{{$order->client_owner_name}}</a></td>
                    
                     <td class="text-center" style="min-width:150px;">
-                        <div class="dropdown">
+                        <div class="dropdown" style="display: block">
                             <a class="btn btn-secondary dropdown-toggle" data-target="#drop-states" href="#"
                                 role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
