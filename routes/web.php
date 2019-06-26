@@ -222,3 +222,5 @@ Route::get('/work.show/{id}', 'WorkController@show');
 
 Route::resource('client_contacts', 'Client_contactController');
 Route::get('client_contacts.index/{id}', 'Client_contactController@index')->name('client_contacts.index');
+Route::get('client_contacts.create/{id}', 'Client_contactController@create')->name('client_contacts.create');
+Route::get('client_contacts.store/{owner_id}/{contact_id}', 'Client_contactController@store')->name('client_contacts.store');

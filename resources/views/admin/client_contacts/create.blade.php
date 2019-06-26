@@ -11,7 +11,7 @@
     </div>
             
            <div class="">
-            @if($contacts->count())
+            @if($clients->count())
            <div class="table-responsive">
                <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
                    <thead>
@@ -24,19 +24,17 @@
                    </thead>
 
                    <tbody>
-                       @foreach($contacts as $contact)
+                       @foreach($clients as $client)
                            <tr>
-                               <td class="text-center">{{$contact->id}}</td>
-                               <td class="text-center">{{$contact->identification}}</td>
-                               <td class="text-center">{{$contact->contact_name}}</td>
-                               <td class="text-center">{{$contact->email}}</td>
-                               <td class="text-center">{{$contact->phone}}</td>
+                               <td class="text-center">{{$client->id}}</td>
+                               <td class="text-center">{{$client->identification}}</td>
+                               <td class="text-center">{{$client->name}}</td>
+                               <td class="text-center">{{$client->email}}</td>
+                               <td class="text-center">{{$client->phone}}</td>
                                <td class="text-center">
-                                <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar el contacto de {{$contact->contact_name}}?');">
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit"  class="btn btn-success style-btn-success btn-size btn-sm">Eliminar</button>
-                                </form>
+                               <a class="btn btn-success style-btn-success btn-sm" href="{{ route('client_contacts.store',  [$client->owner_id, $client->id]) }}" 
+                                   style=" width:90px;" onclick="return confirm('¿Desea agregar a {{$client-> name}} a la lista de contactos de {{$client->owner_name}}?');">Seleccionar </a>
+                               
                                </td>
                            </tr>
                        @endforeach
@@ -46,7 +44,7 @@
            </div>
                
            @else
-               <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
+               <h3 class="text-center alert alert-info header-gris">Debe registrar clientes en el sistema</h3>
            @endif
      
 
