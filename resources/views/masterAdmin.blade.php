@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{asset('css/custom-button-datatable.css')}}">
 
     <!--<script src="{{asset('js/master-root.js')}}"></script>-->
-    <script src="{{asset('js/menus_dinamicos.js')}}"></script>
+  
 	<script src="{{asset('js/app.min.js')}}"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -30,6 +30,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
+    <script src="{{asset('js/menus_dinamicos.js')}}"></script>
     <!-- helps to add the right route to create buttons-->
     <script src="{{asset('js/customButtonDatatable.js')}}"></script>
 
