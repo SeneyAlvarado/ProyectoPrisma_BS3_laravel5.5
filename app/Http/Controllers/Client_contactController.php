@@ -45,7 +45,7 @@ class Client_contactController extends Controller
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "error");
 
-		$contacts = Client_contact::where('client_id', $id)
+		$contacts = Client_contact::where('client_id', $id)->where('contact_id', '!=', $id)
 		->where('active_flag', 1)->get();
 		
 		foreach($contacts as $contact){//get the name of the contact client.
@@ -113,11 +113,34 @@ class Client_contactController extends Controller
 
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "error");
-	
-		$clients = Client::where('active_flag', 1)
-		->where('type', 1)
-		->where('id', '<>', $id)
-		->get();
+
+		$contacts = Client_contact::where('client_id', $id)
+		->where('active_flag', 1)->get();
+
+		//return $contacts;
+		$contactsID = array();
+		if (is_array($contacts) || is_object($contacts))
+		{
+    		foreach ($contacts as $contact)
+    		{
+				array_push($contactsID, $contact->contact_id);
+			}
+			
+			//return $contactsID;
+			//if the client has contacts, do not bring those contacts
+			//this is made to nullify the posibility of adding the same contact more than once
+			$clients = Client::where('active_flag', 1)
+			->where('type', 1)
+			->where('id', '<>', $id)
+			->whereNotIn('clients.id', $contactsID)
+			->get();
+		} else {
+			//if the client doesn´t have any contact
+			$clients = Client::where('active_flag', 1)
+			->where('type', 1)
+			->where('id', '<>', $id)
+			->get();
+		}
 
 		$owner_name = Client::where('id', $id)->first();
 		
