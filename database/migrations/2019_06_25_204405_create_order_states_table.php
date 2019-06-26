@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrder_statesTable extends Migration {
+class CreateOrderStatesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,8 +14,7 @@ class CreateOrder_statesTable extends Migration {
 	{
 		Schema::create('order_states', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 45);
-            $table->string('description', 45);
+            $table->string('name', 20);
             $table->integer('active_flag');
         });
 	}

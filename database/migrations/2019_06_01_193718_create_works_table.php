@@ -24,8 +24,8 @@ class CreateWorksTable extends Migration {
             $table->string('observation', 700);
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
+            $table->integer('designer_id')->unsigned();
+			$table->foreign('designer_id')->references('id')->on('users');
 			$table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('active_flag');
