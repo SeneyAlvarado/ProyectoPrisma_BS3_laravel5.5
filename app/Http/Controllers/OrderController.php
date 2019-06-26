@@ -7,7 +7,9 @@ use App\Work;
 use App\Material_work;
 use App\State_work;
 use App\Client;
+use App\Product;
 use App\Phone;
+use App\Branch;
 use App\Physical_client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -315,7 +317,7 @@ class OrderController extends Controller
 
 
 	/**
-       * This method generate an specific order report
+       * This method generate an specific detail order report
        */
       public function selectOrder($id)
       {
@@ -325,7 +327,21 @@ class OrderController extends Controller
 		//custom route to REDIRECT redirect('x') if there's an error
         \Session::put('errorRoute', "orders");
 			$order=$this->model->find($id);
-			$order->works=Work::where('order_id', $id)->get();
+			$client=Client::where('id', $order->client_owner)->first();
+			if($client->type == 1) {
+				$phisClient = Physical_client::where('client_id', $order->client_owner)->first();
+				$order->client_owner=$client->name ." ".$phisClient->lastname." ".$phisClient->second_lastname;
+				
+			} else {
+				$order->client_owner=$client->name;
+			}
+			$order->branch_id=(Branch::where('id', $order->branch_id)->first())->name;	
+			$works= Work::where('order_id', $id)->get();
+			foreach ($works as $work) {
+				$work->product_id=(Product::where('id',$work->product_id)->first())->name;
+			}
+			$order->works=$works;
+			//return view('/admin/reports/reportDetailsOrder', compact('order'));
             $pdf = \App::make('dompdf.wrapper');
           	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
             return $pdf->stream('detalleOrden'.$order->id.'.pdf');
