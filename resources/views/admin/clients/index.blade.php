@@ -5,10 +5,10 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <div style="padding:10px;">
-    <div class="card">
+    <div class="card margin-bottom-card">
         <h5 class="card-header" style="text-align:center">Clientes</h5>
-        <div class="card-body">
-            <div class="container-fluid">
+        </div>
+            <div class="">
                 @if($clients->count())
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
@@ -64,18 +64,19 @@
                                 <td class="text-center">Desactivo</td>
                                 @endif
                                 <td class="text-center">
-                                    <a class="btn btn-warning style-btn-edit btn-size" href="{{ route('clients.edit', [$client->id]) }}">Detalles</a>
+                                    <a class="btn btn-warning style-btn-edit btn-sm" style="width:75px;" href="{{ route('client_contacts.index', [$client->id]) }}">Contacto</a>
+                                    <a class="btn btn-warning style-btn-edit btn-sm" style="width:50px;" href="{{ route('clients.edit', [$client->id]) }}">Editar</a>
                                     @if($client->active_flag == 1)
                                     <form style="display:inline" action="{{ route('clients.deactivate', $client->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea desactivar la cuenta de {{$clientName}}?');">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Desactivar</button>
+                                        <button type="submit" class="btn  style-btn-delete btn-danger btn-sm">Desactivar</button>
                                     </form>
                                     @else
                                     <form style="display:inline" action="{{ route('clients.activate', $client->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea activar la cuenta de {{$clientName}}?');">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-success style-btn-success btn-size">Activar</button>
+                                        <button type="submit" class="btn btn-success style-btn-success btn-sm">Activar</button>
                                     </form>
                                     @endif
                                 </td>
@@ -91,7 +92,7 @@
                 @endif
 
             </div>
-        </div>
+     
     </div>
 </div>
 <script src="{{asset('js/lenguajeTabla.js')}}"></script>
