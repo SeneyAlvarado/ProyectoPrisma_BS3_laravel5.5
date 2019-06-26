@@ -6,6 +6,7 @@ use App\Order;
 use App\Work;
 use App\Material_work;
 use App\State_work;
+use App\Client_contact;
 use App\Client;
 use App\Order_state;
 use App\Phone;
@@ -385,6 +386,27 @@ class OrderController extends Controller
 			Flash::message("No hay materiales para mostrar");
 		}
 		return json_encode(["materials" => $materials]);
+	}
+
+	public function ajax_fill_contacts($id)
+	{
+		$contacts = Client_contact::where('client_id', $id)
+		->where('active_flag', 1)->get();
+		
+		foreach($contacts as $contact){//get the name of the contact client.
+			$client = Client::where('id', $contact->contact_id)->first();
+			$physical_client = Physical_client::where('client_id', $contact->contact_id)->first();
+			$contact->identification = $client->identification;
+			$contact->contact_name = $client->name . " " . $physical_client->lastname . " " . $physical_client->second_lastname;
+			//$contact->phone = $this->getPhone($contact->contact_id);
+			//$contact->email = $this->getEmail($contact->contact_id);
+			//$contact->client_owner = $id;
+		}
+
+		if ($contacts == null || $contacts->isEmpty()) {
+			//Flash::message("No hay contactos para mostrar");
+		}
+		return json_encode(["contacts" => $contacts]);
 	}
 
 

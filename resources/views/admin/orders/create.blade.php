@@ -27,7 +27,33 @@
 <link rel="stylesheet" type="text/css" href="{{asset('/css/order_multistep_form.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
 
-
+<style>
+.formStyle { 
+  padding: 10px; 
+  margin-bottom: 5px; 
+  border-bottom-width: 1px; 
+  border-bottom-style: solid; 
+  border-bottom-color: #B9B9B9; 
+  border-top-style: none; 
+  border-right-style: none; 
+  border-left-style: none; 
+  font-size: 1em;
+  font-weight: 100;
+}
+.formStyle1 { 
+    width:115px;
+}
+.formStyle2 { 
+    width:117px;
+}
+.formStyle3 { 
+    width:115px;
+}
+  input:focus {
+  outline: none;
+  border-color: #5e9bfc;
+}
+</style>
 
 
 
@@ -49,11 +75,15 @@
                                 <div class="col-md-6">
                                     <div>
                                         <label style="margin: 0;"><strong>Cliente:&nbsp</strong></label><label
-                                            id="client_name" value=" " type="text" name="client_name"></label>
+                                            id="" value=" " type="text" name=""></label>
                                         <button style="margin-left:5px;" type="button"
                                             class="btn btn-secundary style-btn-search btn-sm"
                                             style="width:50px !important; margin:0px;"
                                             onClick="listClientsTable();">Buscar</button>
+                                    </div>
+                                    <div id="hideName" style="display:none;">
+                                    <label style="margin: 0;"><strong>Nombre:&nbsp</strong></label><label
+                                            id="client_name" value=" " type="text" name="client_name"></label>
                                     </div>
                                     <div id="hideId" style="display:none;">
                                         <label style="margin: 0;"><strong>Cédula:&nbsp</strong></label><label
@@ -68,30 +98,29 @@
                                             value=" " type="text" name="email"></label>
                                     </div>
                                     <input type="hidden" class="form-control" id="client_id" name="client_id">
+                                    
                                 </div>
 
                                 <div class="col-md-3 ">
-                                    <div id="hide_quotation" style="display:none;">
-                                        <label style="margin: 0;" for="quotation_number"><strong>Número
-                                                Cotización</strong></label>
-                                        <input id="quotation_number" placeholder="# Cotización" class="form-control"
+                                    <div>
+                                    <label><strong>N° cotización:</strong></label>
+                                        <input id="quotation_number" placeholder="Cotización" class="formStyle formStyle1 "
                                             name="quotation_number" type='number' title="No se permite ingresar letras ni números con decimales o negativos 
                                             en este campo" min=”0″ required>
                                     </div>
-                                    <div id="hide_total" style="display:none;">
-                                        <label style="margin: 0px; margin-top: 10px;" for="order_total"><strong>Total de
-                                                la orden</strong></label>
-                                        <input id="order_total" placeholder="Monto total de la orden"
-                                            class="form-control" name="order_total" type='text'
+                                    <div >
+                                        <label style="margin: 0px; margin-top: 16px;" for="order_total"><strong>Monto total:&nbsp&nbsp</strong></label>
+                                        <input id="order_total" placeholder="Monto total"
+                                            class="formStyle formStyle2" name="order_total" type='text'
                                             title="No se permite ingresar letras o números negativos en este campo"
                                             value="0" min=”0″ step=any onkeyup="showConvertedTotal()">
                                         <p id="pOrder" style="display:none"></p>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div id="hide_money" style="display:none; paddign-left:10px;"
+                                    <div style=""
                                         class="input-group row justify-content-center">
-                                        <label for="branch"><strong>Moneda de transacción</strong></label>
+                                        <label for="branch" style="margin: 0;"><strong>Moneda de transacción</strong></label>
                                         <span class="radio">
                                             <label style="margin: 0;">Colones</label>
                                             <label>
@@ -105,70 +134,25 @@
                                             </label>
                                         </span>
                                     </div>
-                                    <div id="hide_advancement" style="display:none;">
+                                    <div >
                                         <label style="margin:0; margin-top: 8px;"
-                                            for="order_advanced_payment"><strong>Adelanto de pago</strong></label>
-                                        <input id="order_advanced_payment" placeholder="Monto del adelanto"
-                                            class="form-control" name="order_advanced_payment" type='text'
+                                            for="order_advanced_payment"><strong>Adelanto:</strong></label>
+                                        <input id="order_advanced_payment" placeholder="Adelanto"
+                                            class="formStyle formStyle3" name="order_advanced_payment" type='text'
                                             title="No se permite ingresar letras o números negativos en este campo"
                                             value="0" min=”0″ step=any onkeyup="showConvertedAdvanced()">
                                         <p id="pAdvanced" style="display:none"></p>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="row " style=" margin-bottom:10px;">
-                                <div class="col-md-3 offset-md-2">
-                                    <label for="user_name"><strong>Buscar cliente</strong></label>
-                                    <input type="text" placeholder="Buscar cliente" class="form-control"
-                                        id="searchOwnerInput" onkeyup="searchOwner()">
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-
-                                <div class="col-md-8 align-self-center">
-
-                                    <select size="4" class="form-control" id="selectList" name="owner_client">
-                                    </select>
+                            <div class="row hide_contacts" id="hide_contacts" style="display:none;">
+                                <div class="col-md-5" >
+                                    <label for="branch"><strong>Contactos</strong></label>
+                                    <select id="dropContacts" name="dropContacts" class="form-control" ></select>
                                 </div>
                             </div>
 
-                            <div class="row " style="margin-top:15px; margin-bottom:10px;">
-                                <div class="col-md-3 offset-md-2">
-                                    <label for="user_name"><strong>Buscar contacto</strong></label>
-                                    <input type="text" class="form-control" placeholder="Buscar contacto"
-                                        id="searchContactInput" onkeyup="searchContact()">
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-
-                                <div class="col-md-8 align-self-center">
-
-                                    <select size="4" class="form-control" id="selectList_contact" name="contact_client">
-                                    </select>
-                                </div>
-                            </div>
-                            <br>
-                            <!--div class="row justify-content-center">
-                                    <label for="branch"><strong>¿Posee adelanto
-                                            económico?</strong></label>
-                                    <div class="input-group row justify-content-center" id="advance_payment_add">
-                                        <span class="radio">
-                                            <label>Sí</label>
-                                            <label>
-                                                <input id="payment_add1" type="radio" value="1" class="radiobox"
-                                                    name="advance_payment_add">
-                                            </label>
-
-                                            <label>
-                                                <label style="margin-left:20px;">No</label>
-                                                <input id="payment_add0" type="radio" value="0" class="radiobox"
-                                                    name="advance_payment_add" checked>
-                                            </label>
-                                        </span>
-                                    </div>
-                            </div-->
+                            
                             <div class="row justify-content-center">
 
                             </div>
@@ -178,7 +162,7 @@
 
                         <!-- Here we had the advanced payment, it was moved to the Work-->
                         <!----------------------------------------------------------------- TAB 2 ------------------------------------------->
-                            <div class="row justify-content-center">
+                            <div class="row justify-content-center" style="margin-top:20px;">
                                 <div class="table-responsive">
                                     <div id="tableDiv" style="display:">
                                         <table style="overflow: visible !important;"

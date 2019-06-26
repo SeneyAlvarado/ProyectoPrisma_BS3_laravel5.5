@@ -204,6 +204,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /**************************Order ROUTES ////////////////// */
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
 Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
+Route::get('/fillClientContacts/{id}', 'OrderController@ajax_fill_contacts');/**Fill the select item with the branches*/
 Route::post('/addOrdersWorks', 'OrderController@addOrdersWorks');/**Fill the select item with the branches*/
 /*/////// END OF ORDER ROUTES ////////////////// */
 
