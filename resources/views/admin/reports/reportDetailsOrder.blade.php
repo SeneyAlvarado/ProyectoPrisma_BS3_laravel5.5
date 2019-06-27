@@ -54,12 +54,8 @@
                 border:hidden;
             }
         </style>
-        
     </head>
     <body>
-            <script type="text/php">
-                $pdf->page_text(-30, -32, "{PAGE_NUM} of {PAGE_COUNT}", Font_Metrics::get_font("serif"), 10, array(0,0,0));
-             </script>
         <div>
             <table class="personal_information">
                 <tr>
