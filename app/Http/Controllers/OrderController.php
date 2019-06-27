@@ -6,6 +6,7 @@ use App\Order;
 use App\Work;
 use App\Material_work;
 use App\State_work;
+use App\Order_order_state;
 use App\Client_contact;
 use App\Client;
 use App\Product;
@@ -179,12 +180,19 @@ class OrderController extends Controller
 			$orderModel->coin_id = (($order->coin) + 1);
 			$orderModel->branch_id = Auth::user()->branch_id;
 			$orderModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			$orderModel->state_id = 1;
+			//$orderModel->state_id = 1;
 			$orderModel->active_flag = 1;
 			$orderModel->save();
 		}
 
 		$orderID = $orderModel->id;
+
+		$order_state_model = new Order_order_state();
+		$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$order_state_model->order_states_id = 1;//En progreso order_state
+		$order_state_model->order_id = $orderID;
+		$order_state_model->user_id = $userID;
+		$order_state_model->save();
 
 		$worksDecoded = json_decode($worksData);
 		$workCounter = 0;
@@ -201,24 +209,26 @@ class OrderController extends Controller
 			$workModel->product_id = $work->product;
 
 
-			$workModel->user_id = $userID;
 			$workModel->active_flag = 1;
 			$workModel->order_id =	$orderID;
 
 
 			$workModel->save();
 
-			$material_work_Model = new Material_work();
 			$materialsArray = explode(",", $work->materials);
-			foreach ($materialsArray as $materialWork) {
-				$material_work_Model->material_id = $materialWork;
-				$material_work_Model->work_id = $workModel->id;
-				$material_work_Model->save();
-			}
+
+			$material_work_Model = new Material_work();
+				foreach ($materialsArray as $materialWork) {
+					if(!empty($materialWork)){
+						$material_work_Model->material_id = $materialWork;
+						$material_work_Model->work_id = $workModel->id;
+						$material_work_Model->save();
+					}
+				}
 
 			$state_work_Model = new State_work();
 			$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			$state_work_Model->states_id = 1;
+			$state_work_Model->states_id = 1;//Inicio work state
 			$state_work_Model->work_id = $workModel->id;
 			$state_work_Model->user_id = $userID;
 			$state_work_Model->save();
@@ -243,7 +253,7 @@ class OrderController extends Controller
 		$order->quotation_number = $request->payment;
 		$order->client_owner = $request->owner_client;
 		$order->client_contact = $request->contact_client;
-		$order->state_id = 1;
+		//$order->state_id = 1;
 		$order->branch_id = $request->dropBranch;
 		$order->active_flag = 1;
 		$order->save();

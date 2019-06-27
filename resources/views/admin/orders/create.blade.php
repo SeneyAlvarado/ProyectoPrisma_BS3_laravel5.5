@@ -3,7 +3,6 @@
 
 <script src="{{asset('js/load_branches_admin.js')}}"></script>
 <script src="{{asset('js/check_clients_branch_select.js')}}"></script>
-<script src="{{asset('/js/filter_client_selects.js')}}"></script>
 
 <script src="{{asset('js/load_clients.js')}}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
@@ -23,9 +22,11 @@
 <script src="{{asset('/js/load_materials.js')}}"></script>
 <script src="{{asset('/js/load_products_branch.js')}}"></script>
 
+
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/order_multistep_form.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
+
 
 <style>
 .formStyle { 
@@ -70,6 +71,7 @@
                         <input type='hidden' id='hiddenDateCR'
                             value='{{\Carbon\Carbon::now('America/Costa_Rica')->addDay(7)->format('d/m/Y')}}'>
                         <input type='hidden' id='editRow' value=''>
+                        <input type='hidden' id="formatMoney" class="autonumericConversion" name="formatMoney">
 
                             <div class="row ">
                                 <div class="col-md-6">
@@ -104,16 +106,16 @@
                                 <div class="col-md-3 ">
                                     <div>
                                     <label><strong>N° cotización:</strong></label>
-                                        <input id="quotation_number" placeholder="Cotización" class="formStyle formStyle1 "
-                                            name="quotation_number" type='number' title="No se permite ingresar letras ni números con decimales o negativos 
-                                            en este campo" min=”0″ required>
+                                        <input id="quotation_number" placeholder="Cotización" class="formStyle formStyle1 quotationAutoNumeric"
+                                            name="quotation_number" type='text' title="No se permite ingresar letras ni números con decimales o negativos 
+                                            en este campo">
                                     </div>
                                     <div >
                                         <label style="margin: 0px; margin-top: 16px;" for="order_total"><strong>Monto total:&nbsp&nbsp</strong></label>
                                         <input id="order_total" placeholder="Monto total"
-                                            class="formStyle formStyle2" name="order_total" type='text'
+                                            class="formStyle formStyle2 autonumeric" name="order_total" type='text'
                                             title="No se permite ingresar letras o números negativos en este campo"
-                                            value="0" min=”0″ step=any onkeyup="showConvertedTotal()">
+                                            value="0" step=any onkeyup="showConvertedTotal()">
                                         <p id="pOrder" style="display:none"></p>
                                     </div>
                                 </div>
@@ -138,9 +140,9 @@
                                         <label style="margin:0; margin-top: 8px;"
                                             for="order_advanced_payment"><strong>Adelanto:</strong></label>
                                         <input id="order_advanced_payment" placeholder="Adelanto"
-                                            class="formStyle formStyle3" name="order_advanced_payment" type='text'
+                                            class="formStyle formStyle3 autonumeric" name="order_advanced_payment" type='text'
                                             title="No se permite ingresar letras o números negativos en este campo"
-                                            value="0" min=”0″ step=any onkeyup="showConvertedAdvanced()">
+                                            value="0" step=any onkeyup="showConvertedAdvanced()">
                                         <p id="pAdvanced" style="display:none"></p>
                                     </div>
                                 </div>
@@ -514,6 +516,7 @@
   locale: 'es-es',
 });*/
 </script>
+<script src="{{asset('/js/autoNumeric.js')}}"></script>
 <script src="{{asset('/js/create_works_modal.js')}}"></script>
 <script src="{{asset('/js/works_table_create.js')}}"></script>
 
