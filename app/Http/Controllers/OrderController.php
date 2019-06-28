@@ -449,7 +449,7 @@ class OrderController extends Controller
 			}
 			$order->works=$works;
 			//return view('/admin/reports/reportDetailsOrder', compact('order'));
-            $pdf = \App::make('dompdf.wrapper');
+			$pdf = \App::make('dompdf.wrapper');
           	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
             return $pdf->stream('detalleOrden'.$order->id.'.pdf');
       }

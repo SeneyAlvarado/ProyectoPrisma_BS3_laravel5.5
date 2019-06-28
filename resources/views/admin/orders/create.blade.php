@@ -25,39 +25,8 @@
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/order_multistep_form.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/input_style.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
-
-
-<style>
-.formStyle { 
-  padding: 10px; 
-  margin-bottom: 5px; 
-  border-bottom-width: 1px; 
-  border-bottom-style: solid; 
-  border-bottom-color: #B9B9B9; 
-  border-top-style: none; 
-  border-right-style: none; 
-  border-left-style: none; 
-  font-size: 1em;
-  font-weight: 100;
-}
-.formStyle1 { 
-    width:115px;
-}
-.formStyle2 { 
-    width:117px;
-}
-.formStyle3 { 
-    width:115px;
-}
-  input:focus {
-  outline: none;
-  border-color: #5e9bfc;
-}
-</style>
-
-
-
 
 <div style="padding:10px;">
     <div class="card">
