@@ -9,8 +9,11 @@ $('#worksTable').DataTable(
             $("div.toolbar")
                 .html('&nbsp<a id="hrefCreate" onclick="showModalWork();" class=" btn btn-secundary btn-sm" style="color:white; background-color:#96183a !important; border-radius: 4px;margin-bottom: 10px;">&nbsp<span class="glyphicon glyphicon-plus"></span> </a>');
         },
+        responsive: true,
         stateSave: true,
         "ordering": false,
+        "bScrollCollapse": true,
+        "scrollY":        "210px",
         columnDefs: [
             { className: "text-center", targets: "_all" },
 

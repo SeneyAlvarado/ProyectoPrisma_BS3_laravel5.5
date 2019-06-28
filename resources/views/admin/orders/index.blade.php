@@ -1,8 +1,11 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<!-- Styles elements of the order-->
+<link rel="stylesheet" href="{{asset('/css/order.css')}}">
+
 <div class="card margin-bottom-card" style="margin-top:10px;">
     <h5 class="card-header" style="text-align:center">Órdenes</h5>
 </div>
@@ -18,7 +21,7 @@
                 <th class="text-center">Orden</th>
                 <th class="text-center">Cotización</th>
                 <th class="text-center">Cliente</th>
-              
+
                 <th class="text-center" style="min-width:150px;">Estado</th>
                 <th class="text-center">Contacto</th>
                 <th class="text-center">Opciones</th>
@@ -27,6 +30,17 @@
             <tbody>
                 @foreach($orders as $order)
                 <?php  
+                    $actualStateName = "";
+                    $actualStateID = "";
+                    //both arrays are being used, do not erase
+                    
+                    foreach ($order_states as $order_state) {
+                       if($order_state->id == $order->last_order_state_id){
+                        $actualStateID = $order_state->id;
+                        $actualStateName = $order_state->name;
+                       }
+                    }
+                
                         //$date = explode("-", $order->approximate_date);
                        // $year = $date[0];
                         //$month = $date[1];
@@ -34,25 +48,33 @@
                        // $new_day_without_time = explode(" ", $day);
                         //$day = $new_day_without_time[0];
                         //$approximate_date = $day . "/" . $month . "/" . $year;
-                    ?>
+                ?>
                 <tr>
                     <td class="text-center">{{$order->id}}</td>
                     <td class="text-center">{{$order->quotation_number}}</td>
                     <td class="text-center"><a class="infoClient"
                             onCLick="infoContact('{{$order->client_owner}}')">{{$order->client_owner_name}}</a></td>
-                   
+
                     <td class="text-center" style="min-width:150px;">
-                        <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" data-target="#drop-states" href="#"
+                        <div class="dropdown" style="display: block">
+                            <a class="btn btn-secondary btn-sm dropdown-toggle" data-target="#drop-states" href="#"
                                 role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                Estado
+                                {{$actualStateName}}
                             </a>
 
                             <div class="dropdown-menu" id="#drop-states" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Insertado</a>
-                                <a class="dropdown-item" href="#">Cancelado</a>
-                                <a class="dropdown-item" href="#">Finalizado</a>
+
+                                @foreach ($order_states as $order_state)
+                                @if($order_state->id != $actualStateID)
+                                <a class="dropdown-item" href="{{$order_state->id}}">{{$order_state->name}}</a>
+                                @endif
+                                @endforeach
+                            </div>
+                            <div class="progress" style="text-align: center; margin-top: 5px;">
+                                <strong class="percentage-text">{{ $order->finished_percentage. "%"}}</strong>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+                                    style="{{"width:" . $order->finished_percentage. "%"}}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     </td>
@@ -60,7 +82,8 @@
                             onCLick="infoContact('{{$order->client_contact}}')">{{$order->client_contact_name}}</a></td>
 
                     <td class="text-center">
-                            <a class="btn btn-warning" href="{{url('reportOrder', $order->id)}}" style="background-color:#e0e0e0; border:0px;"><span
+                        <a class="btn btn-warning" href="{{url('reportOrder', $order->id)}}"
+                            style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-file"></span></a>
                         <a class="btn btn-warning" style="background-color:#e0e0e0; border:0px;" href=""><span
                                 class="glyphicon glyphicon-folder-open"></a>

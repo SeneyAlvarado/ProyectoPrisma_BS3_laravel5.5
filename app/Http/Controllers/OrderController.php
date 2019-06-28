@@ -6,8 +6,13 @@ use App\Order;
 use App\Work;
 use App\Material_work;
 use App\State_work;
+use App\Order_order_state;
+use App\Client_contact;
 use App\Client;
+use App\Product;
+use App\Order_state;
 use App\Phone;
+use App\Branch;
 use App\Physical_client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,11 +48,33 @@ class OrderController extends Controller
 	 */
 	public function index()
 	{
-		$orders = DB::table('orders')
-			->get();
+		$orders = DB::table('orders')->get();
+		$order_states = new Order_state();
+		$order_states = $order_states->where('active_flag', '1')->get();
+
 		foreach ($orders as $order) { //get the name and de lastname of the physical clients.
 			$owner = Client::where('id', $order->client_owner)->first();
 
+			$active_works = Work::where('order_id', $order->id)->where('active_flag', 1)->get();
+			$finished_works_count = 0;
+
+
+			foreach ($active_works as $active_work) {
+				$state_work = State_work::where('work_id', $active_work->id)->latest('date')->first();
+				///return $active_work;
+				//if the works are in state 2 (Entregado) or state 3 (Cancelado)
+				if($state_work->states_id == 2 || $state_work->states_id == 3){
+					$finished_works_count = $finished_works_count+1;
+				}
+			}
+			
+			$active_works_count = count($active_works);
+			if(is_nan($finished_works_count) || is_nan($active_works_count)){
+				$order->finished_percentage = "Error %";
+			} else {
+				$order->finished_percentage = round(($finished_works_count/$active_works_count)*100);
+			}
+			
 			if ($owner->type == 1) {
 				$physical_client = Physical_client::where('client_id', $owner->id)->first();
 				$order->client_owner_name = $owner->name . " " . $physical_client->lastname;
@@ -58,10 +85,11 @@ class OrderController extends Controller
 
 			$contact_physical = Physical_client::where('client_id', $contact->id)->first();
 			$order->client_contact_name = $contact->name . " " . $contact_physical->lastname;
+			$order->last_order_state_id = DB::table('order_order_states')->where('order_id', $order->id)->latest('date')->first()->order_states_id;
 		}
 		$user_type = Auth::user()->user_type_id; //get the user type.
 		if ($user_type == 1) { //admin user
-			return view('admin.orders.index', compact('orders'));
+			return view('admin.orders.index', compact('orders', 'order_states'));
 		}
 	}
 
@@ -75,7 +103,7 @@ class OrderController extends Controller
 		$dolarRate = app('App\Http\Controllers\CoinController')->dolarExchangeRate();
 		$user_type = Auth::user()->user_type_id;
 		if ($user_type == 1) { //admin user
-			return view('admin.orders.create',compact('dolarRate'));
+			return view('admin.orders.create', compact('dolarRate'));
 		}
 	}
 
@@ -118,15 +146,15 @@ class OrderController extends Controller
 		$orderData = $postData[0];
 		$worksData = $postData[1];
 		$userID = Auth::user()->id;
-		
+
 		DB::beginTransaction();
 
 		$orderModel = new Order();
 		$orderDecoded = json_decode($orderData);
 
 		foreach ($orderDecoded as $order) {
-			
-			if($order->quotation_number == "-1"){//if it´s just whitespaces
+
+			if ($order->quotation_number == "-1") { //if it´s just whitespaces
 				$order->quotation_number = null;
 			} else {
 				$orderModel->quotation_number = $order->quotation_number;
@@ -136,29 +164,36 @@ class OrderController extends Controller
 			$orderModel->client_contact =  $order->contact;
 			$orderModel->client_contact =  $order->contact;
 
-			if($order->order_advanced_payment == "-1"){//if it´s just whitespaces
+			if ($order->order_advanced_payment == "-1") { //if it´s just whitespaces
 				$order->order_advanced_payment = null;
 			} else {
 				$orderModel->advance_payment = $order->order_advanced_payment;
 			}
 
-			if($order->order_total == "-1"){//if it´s just whitespaces
+			if ($order->order_total == "-1") { //if it´s just whitespaces
 				$order->order_total = null;
 			} else {
 				$orderModel->total = $order->order_total;
 			}
 
 			$orderModel->exchange_rate =  $order->exchange_rate;
-			$orderModel->coin_id =  (($order->coin)+1);
-			$orderModel->branch_id = Auth::user()->branch_id; 
+			$orderModel->coin_id = (($order->coin) + 1);
+			$orderModel->branch_id = Auth::user()->branch_id;
 			$orderModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			$orderModel->state_id = 1;
+			//$orderModel->state_id = 1;
 			$orderModel->active_flag = 1;
 			$orderModel->save();
 		}
 
 		$orderID = $orderModel->id;
-		
+
+		$order_state_model = new Order_order_state();
+		$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$order_state_model->order_states_id = 1;//En progreso order_state
+		$order_state_model->order_id = $orderID;
+		$order_state_model->user_id = $userID;
+		$order_state_model->save();
+
 		$worksDecoded = json_decode($worksData);
 		$workCounter = 0;
 
@@ -166,32 +201,34 @@ class OrderController extends Controller
 			${'workModel' . $workCounter} = new Work();
 			$workModel = ${'workModel' . $workCounter};
 			//return json_encode(["data" => $work->date]);
-			
+
 			$workModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
 			$workModel->approximate_date = Carbon::createFromFormat('d/m/Y', $work->date);
 			$workModel->priority = $work->priority;
 			$workModel->observation = $work->observation;
 			$workModel->product_id = $work->product;
 
-		
-			$workModel->user_id = $userID; 
+
 			$workModel->active_flag = 1;
 			$workModel->order_id =	$orderID;
 
-			
+
 			$workModel->save();
 
+			$materialsArray = explode(",", $work->materials);
+
 			$material_work_Model = new Material_work();
-			$materialsArray = explode("," , $work->materials);
-			foreach ($materialsArray as $materialWork) {
-				$material_work_Model->material_id = $materialWork;
-				$material_work_Model->work_id = $workModel->id;
-				$material_work_Model->save();
-			}
+				foreach ($materialsArray as $materialWork) {
+					if(!empty($materialWork)){
+						$material_work_Model->material_id = $materialWork;
+						$material_work_Model->work_id = $workModel->id;
+						$material_work_Model->save();
+					}
+				}
 
 			$state_work_Model = new State_work();
 			$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			$state_work_Model->states_id = 1;
+			$state_work_Model->states_id = 1;//Inicio work state
 			$state_work_Model->work_id = $workModel->id;
 			$state_work_Model->user_id = $userID;
 			$state_work_Model->save();
@@ -216,7 +253,7 @@ class OrderController extends Controller
 		$order->quotation_number = $request->payment;
 		$order->client_owner = $request->owner_client;
 		$order->client_contact = $request->contact_client;
-		$order->state_id = 1;
+		//$order->state_id = 1;
 		$order->branch_id = $request->dropBranch;
 		$order->active_flag = 1;
 		$order->save();
@@ -280,23 +317,74 @@ class OrderController extends Controller
 		return redirect()->route('orders.index')->with('message', 'Item deleted successfully.');
 	}
 
+	/**
+	 * 
+	 * Get all the clients in the systema with their pohone number and email.
+	 * 
+	 * */
 	public function ajax_list_clients()
 	{
-		$clients = DB::table('clients')
+		$clients = DB::table('clients') //get all the clients order by id
 			->where('active_flag', '=', 1)
-			->orderBy('name', 'desc')->get();
+			->orderBy('id', 'asc')->get();
 
 		foreach ($clients as $client) {
-			if ($client->type == 1) {
+			if ($client->identification == null) {
+				$client->identification = "No posee";
+			} else {
+				$client->identification = $client->identification;
+			}
+			$client->phone = $this->getPhone($client);
+			$client->email = $this->getEmail($client);
+
+			if ($client->type == 1) { //extracts the full name if the client are physical 
 				$phisClient = Physical_client::where('client_id', $client->id)->first();
-				$client->lastname = $phisClient->lastname;
-				$client->second_lastname = $phisClient->second_lastname;
+				$client->name = $client->name . " " . $phisClient->lastname . " " . $phisClient->second_lastname;
 			}
 		}
 		if ($clients == null || $clients->isEmpty()) {
 			Flash::message("No hay clientes para mostrar");
 		}
 		return json_encode(["clients" => $clients]);
+	}
+
+
+	/**
+	 * 
+	 * Get the phone number of a specific client
+	 * 
+	 */
+	private function getPhone($client)
+	{
+		$phone = DB::table('phones')
+			->where('client_id', '=', $client->id)
+			->first();
+		$phone_number;
+		if ($phone == null) {
+			$phone_number = "No posee";
+		} else {
+			$phone_number = $phone->number;
+		}
+		return $phone_number; //return the phone number of the client
+	}
+
+	/**
+	 * 
+	 * Get the email of a specific client
+	 * 
+	 */
+	private function getEmail($client)
+	{
+		$email = DB::table('emails')
+			->where('client_id', '=', $client->id)
+			->first();
+		$email_client;
+		if ($email == null) {
+			$email_client = "No posee";
+		} else {
+			$email_client = $email->email;
+		}
+		return $email_client; //return the email of the client
 	}
 
 	public function ajax_list_materials()
@@ -312,10 +400,31 @@ class OrderController extends Controller
 		return json_encode(["materials" => $materials]);
 	}
 
+	public function ajax_fill_contacts($id)
+	{
+		$contacts = Client_contact::where('client_id', $id)
+		->where('active_flag', 1)->get();
+		
+		foreach($contacts as $contact){//get the name of the contact client.
+			$client = Client::where('id', $contact->contact_id)->first();
+			$physical_client = Physical_client::where('client_id', $contact->contact_id)->first();
+			$contact->identification = $client->identification;
+			$contact->contact_name = $client->name . " " . $physical_client->lastname . " " . $physical_client->second_lastname;
+			//$contact->phone = $this->getPhone($contact->contact_id);
+			//$contact->email = $this->getEmail($contact->contact_id);
+			//$contact->client_owner = $id;
+		}
+
+		if ($contacts == null || $contacts->isEmpty()) {
+			//Flash::message("No hay contactos para mostrar");
+		}
+		return json_encode(["contacts" => $contacts]);
+	}
+
 
 
 	/**
-       * This method generate an specific order report
+       * This method generate an specific detail order report
        */
       public function selectOrder($id)
       {
@@ -325,8 +434,22 @@ class OrderController extends Controller
 		//custom route to REDIRECT redirect('x') if there's an error
         \Session::put('errorRoute', "orders");
 			$order=$this->model->find($id);
-			$order->works=Work::where('order_id', $id)->get();
-            $pdf = \App::make('dompdf.wrapper');
+			$client=Client::where('id', $order->client_owner)->first();
+			if($client->type == 1) {
+				$phisClient = Physical_client::where('client_id', $order->client_owner)->first();
+				$order->client_owner=$client->name ." ".$phisClient->lastname." ".$phisClient->second_lastname;
+				
+			} else {
+				$order->client_owner=$client->name;
+			}
+			$order->branch_id=(Branch::where('id', $order->branch_id)->first())->name;	
+			$works= Work::where('order_id', $id)->get();
+			foreach ($works as $work) {
+				$work->product_id=(Product::where('id',$work->product_id)->first())->name;
+			}
+			$order->works=$works;
+			//return view('/admin/reports/reportDetailsOrder', compact('order'));
+			$pdf = \App::make('dompdf.wrapper');
           	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
             return $pdf->stream('detalleOrden'.$order->id.'.pdf');
       }

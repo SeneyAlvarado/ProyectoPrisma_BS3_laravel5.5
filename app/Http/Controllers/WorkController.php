@@ -147,12 +147,12 @@ class WorkController extends Controller
 			if($time_left <= 2) {
 				$color = "red";
 			} else { $color = "yelow";}	
-		} else if($date_diff <= 4) {
+		} else if($date_diff <= 4) {//4 days
 			if($time_left <= 2) {
 				$color = "red";
-			} else if($time_left == 3) {//4 days
+			} else if($time_left <= 4) {
 				$color = "yelow";
-			} else { $color="green";}
+			} 
 		} else if($date_diff % 2 == 0) {//even numbers
 			$days_green = ($date_diff / 2) - 1;
 			$days_yellow = $days_green;
