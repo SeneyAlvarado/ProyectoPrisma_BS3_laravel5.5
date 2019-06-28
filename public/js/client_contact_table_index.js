@@ -15,5 +15,6 @@ $('#tablaDatos').DataTable(
 
 function redirectContactCreate() {
     var clientID = $('#clientID').val();
-    window.location.replace("/client_contacts.create/" + clientID);
+    listContactsTable(clientID);
+    //window.location.replace("/client_contacts.create/" + clientID);
 }

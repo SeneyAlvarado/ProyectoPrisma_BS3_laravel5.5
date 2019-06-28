@@ -225,3 +225,6 @@ Route::resource('client_contacts', 'Client_contactController');
 Route::get('client_contacts.index/{id}', 'Client_contactController@index')->name('client_contacts.index');
 Route::get('client_contacts.create/{id}', 'Client_contactController@create')->name('client_contacts.create');
 Route::get('client_contacts.store/{owner_id}/{contact_id}', 'Client_contactController@store')->name('client_contacts.store');
+Route::get('/fillcontacts/{id}', 'Client_contactController@create');/**Fill the the list of clients*/
+Route::get('/insertContact/{id_owner}/{contact_id}', 'Client_contactController@store');/**Create a new contact of a client*/
+Route::get('/deleteContact/{contact_id}', 'Client_contactController@destroy');/**Fill the select item with the branches*/

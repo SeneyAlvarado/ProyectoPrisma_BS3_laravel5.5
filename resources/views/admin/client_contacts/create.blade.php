@@ -49,7 +49,7 @@
 
         </div>
         @else
-        <h3 class="text-center alert alert-info header-gris">Debe registrar clientes en el sistema</h3>
+        <h3 class="text-center alert alert-info header-gris">No hay contactos para mostar</h3>
         @endif
 
         <script src="{{asset('/js/client_contact_table_create.js')}}"></script>

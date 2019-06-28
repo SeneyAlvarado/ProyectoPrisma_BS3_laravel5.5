@@ -153,10 +153,12 @@ class Client_contactController extends Controller
 			$client->owner_id = $id;
 		}
 		
-		$user_type = Auth::user()->user_type_id;
+		return json_encode(["clients"=>$clients]);
+		
+		/*$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
 			return view('admin.client_contacts.create', compact('clients'));	
-		}
+		}*/
 	}
 
 	/**
@@ -179,10 +181,11 @@ class Client_contactController extends Controller
 		$client_contact->active_flag = 1;
 		$client_contact->save();
 		
-		$user_type = Auth::user()->user_type_id;
+		return json_encode(["client_contact"=>$client_contact]);
+		/*$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
 			return redirect()->route('clients')->with('success', '¡Contacto registrado satisfactoriamente!');
-		}
+		}*/
 		//return redirect()->route('client_contacts.index')->with('message', 'Item created successfully.');
 	}
 
@@ -239,9 +242,11 @@ class Client_contactController extends Controller
 	{
 		$this->model->destroy($id);
 
-		$user_type = Auth::user()->user_type_id;
+		$destroy = "delete";
+		return json_encode(["client_contact"=>$destroy]);
+		/*$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
 			return redirect()->route('clients')->with('success', '¡Contacto eliminado satisfactoriamente!');
-		}
+		}*/
 	}
 }
