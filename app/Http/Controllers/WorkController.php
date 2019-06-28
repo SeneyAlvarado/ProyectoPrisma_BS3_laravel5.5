@@ -127,8 +127,8 @@ class WorkController extends Controller
 		$date_diff=$entry_date->diffInDays($delivery_date);//calculate the difference of days beetwen entry date and delivery date
 		$work->days = $date_diff;//Borrar
 
-		//$actual_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'))->format('Y-m-d');
-		$actual_date = "2019-06-24";
+		$actual_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'))->format('Y-m-d');
+		//$actual_date = "2019-06-24";
 		$actual_date=Carbon::parse($actual_date);//text to date
 
 		$time_left=$actual_date->diffInDays($delivery_date);//calculate the available time
