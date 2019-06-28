@@ -58,6 +58,21 @@ class OrderController extends Controller
 			$active_works = Work::where('order_id', $order->id)->where('active_flag', 1)->get();
 			$finished_works_count = 0;
 
+			$priority_works = Work::where('order_id', $order->id)->where('priority', 1)->get();//get the works with priority of the order
+			
+			if($priority_works->count()) {
+				$order->priority = 1;
+			} else {
+				$order->priority = 0;
+			}
+
+			$latest_work = Work::where('order_id', $order->id)->latest('approximate_date')->first();//get the work
+			$order->latest_color = $this->calculateColor($latest_work);//Set the color according to the delivery time
+			$order->latest_time_left = $latest_work->time_left;
+
+			$first_work = Work::where('order_id', $order->id)->orderBy('approximate_date', 'ASC')->first();//get the work
+			$order->first_color = $this->calculateColor($first_work);//Set the color according to the delivery time
+			$order->first_time_left = $first_work->time_left;
 
 			foreach ($active_works as $active_work) {
 				$state_work = State_work::where('work_id', $active_work->id)->latest('date')->first();
@@ -87,11 +102,75 @@ class OrderController extends Controller
 			$order->client_contact_name = $contact->name . " " . $contact_physical->lastname;
 			$order->last_order_state_id = DB::table('order_order_states')->where('order_id', $order->id)->latest('date')->first()->order_states_id;
 		}
+
+		//return $orders;
 		$user_type = Auth::user()->user_type_id; //get the user type.
 		if ($user_type == 1) { //admin user
 			return view('admin.orders.index', compact('orders', 'order_states'));
 		}
 	}
+
+	/**
+	 * According to the delivery time, assign a color for the delivery of the work.
+	 *
+	 * 
+	 */
+	private function calculateColor($work)
+	{
+		
+		$entry_date=Carbon::parse($entry_date=Carbon::parse($work->entry_date)->format('Y-m-d'));//text to date and format
+		$delivery_date=Carbon::parse($delivery_date=Carbon::parse($work->approximate_date)->format('Y-m-d'));//text to date and format
+			
+		$date_diff=$entry_date->diffInDays($delivery_date);//calculate the difference of days beetwen entry date and delivery date
+		$work->days = $date_diff;//Borrar
+
+		$actual_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'))->format('Y-m-d');
+		$actual_date=Carbon::parse($actual_date);//text to date
+
+		$time_left=$actual_date->diffInDays($delivery_date);//calculate the available time
+
+		if($delivery_date <= $actual_date) {//calculate the delay time
+			$time_left=$actual_date->diffInDays($delivery_date);
+			$time_left = $time_left * -1;
+		}
+
+		$work->time_left = $time_left;//Importante meter en la gráfica, lleva el tiempo restante y el de atraso
+
+		$color = "default";
+		if($date_diff <= 2){//less than 2 days
+			$color = "red";
+		} else if($date_diff <= 3) {//3 days
+			if($time_left <= 2) {
+				$color = "red";
+			} else { $color = "yelow";}	
+		} else if($date_diff <= 4) {//4 days
+			if($time_left <= 2) {
+				$color = "red";
+			} else if($time_left <= 4) {
+				$color = "yelow";
+			} 
+		} else if($date_diff % 2 == 0) {//even numbers
+			$days_green = ($date_diff / 2) - 1;
+			$days_yellow = $days_green;
+			$days_red = 2;
+			if($time_left <= 2) {
+				$color="red";
+			} else if($time_left <= $days_yellow + $days_red) {//considerar si hay que poner <=
+				$color="yellow";
+			} else { $color = "green"; }
+		} else {//odd numbers
+			$days_green = ($date_diff - 1) / 2;
+			$days_yellow = $days_green - 1;
+			$days_red = 2;
+			if($time_left <= 2) {
+				$color="red";
+			} else if($time_left <= $days_yellow + $days_red) {//considerar si hay que poner solo <
+				$color="yellow";
+			} else { $color = "green"; }
+		}
+		return $color;
+	}
+
 
 	/**
 	 * Show the form for creating a new resource.

@@ -18,12 +18,13 @@
             class="table table-striped table-bordered table-drop table-condensed table-hover compact order-column"
             id="tablaDatos">
             <thead>
-                <th class="text-center">Orden</th>
+                <th class="text-center">N°</th>
                 <th class="text-center">Cotización</th>
                 <th class="text-center">Cliente</th>
-
                 <th class="text-center" style="min-width:150px;">Estado</th>
                 <th class="text-center">Contacto</th>
+                <th class="text-center">Próximo</th>
+                <th class="text-center">Último</th>
                 <th class="text-center">Opciones</th>
             </thead>
 
@@ -50,8 +51,12 @@
                         //$approximate_date = $day . "/" . $month . "/" . $year;
                 ?>
                 <tr>
+                @if ($order->priority == 1)
+                    <td class="text-center">{{$order->id}} <span style="color:#E3BA00" class="glyphicon glyphicon-star"></span></td>
+                @else
                     <td class="text-center">{{$order->id}}</td>
-                    <td class="text-center">{{$order->quotation_number}}</td>
+                @endif
+                <td class="text-center">{{$order->quotation_number}}</td>
                     <td class="text-center"><a class="infoClient"
                             onCLick="infoContact('{{$order->client_owner}}')">{{$order->client_owner_name}}</a></td>
 
@@ -80,7 +85,22 @@
                     </td>
                     <td class="text-center"><a class="infoClient"
                             onCLick="infoContact('{{$order->client_contact}}')">{{$order->client_contact_name}}</a></td>
+                    
+                    @if ($order->first_color == "red")
+                        <td  class="text-center"><strong>{{$order->first_time_left}} d. </strong><span style="color:#C20202" class="glyphicon glyphicon-time"></span></td>
+                    @elseif ($order->first_color == "green")
+                        <td  class="text-center"><strong>{{$order->first_time_left}} d. </strong><span style="color:#0FA001" class="glyphicon glyphicon-time"></span></td>
+                    @else
+                        <td class="text-center"><strong>{{$order->first_time_left}} d. </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
+                    @endif
 
+                    @if ($order->latest_color == "red")
+                        <td  class="text-center"><strong>{{$order->latest_time_left}} d. </strong><span style="color:#C20202" class="glyphicon glyphicon-time"></span></td>
+                    @elseif ($order->latest_color == "green")
+                        <td  class="text-center"><strong>{{$order->latest_time_left}} d. </strong><span style="color:#0FA001" class="glyphicon glyphicon-time"></span></td>
+                    @else
+                        <td class="text-center"><strong>{{$order->latest_time_left}} d. </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
+                    @endif
                     <td class="text-center">
                         <a class="btn btn-warning" href="{{url('reportOrder', $order->id)}}"
                             style="background-color:#e0e0e0; border:0px;"><span
