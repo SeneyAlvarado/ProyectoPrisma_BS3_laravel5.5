@@ -531,9 +531,34 @@ class OrderController extends Controller
 			$pdf = \App::make('dompdf.wrapper');
           	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
             return $pdf->stream('detalleOrden'.$order->id.'.pdf');
-      }
-}
+	  
+		}
 
- 
-/* Imprime en Pantalla el Resultado de Valor de COMPRA Y VENTA*/
-/* Pueden utilizar la variable llamada $valor( que es una estructura Arreglo ) con la posicion de compra y venta en sus aplicaciones como gusten. */
+		function changeOrderWorksState($orderID, $stateID) {
+
+			DB::beginTransaction();
+
+			$userID = Auth::user()->id;
+			
+			$order_state_model = new Order_order_state();
+			$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+			$order_state_model->order_states_id = $stateID;//The state that the user choosed
+			$order_state_model->order_id = $orderID;
+			$order_state_model->user_id = $userID;
+			$order_state_model->save();
+
+			$orderWorks = \App\Work::where('order_id', $orderID)->get();
+
+			foreach ($orderWorks as $work) {
+				$state_work_Model = new State_work();
+            	$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+				$state_work_Model->states_id = $stateID;//Inicio work state
+				$state_work_Model->work_id = $work->id;
+				$state_work_Model->user_id = $userID;
+				$state_work_Model->save();
+			}
+	
+			DB::commit();
+			return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
+		}
+}

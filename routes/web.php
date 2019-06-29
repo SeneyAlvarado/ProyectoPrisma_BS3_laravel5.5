@@ -74,6 +74,11 @@ Route::get('orders', 'OrderController@index')->name('orders');/**View the accoun
 Route::get('orders.create', 'OrderController@create')->name('orders.create');/**View the accounts list*/
 Route::get('contact.show/{id}', 'ClientController@show')->name('contact.show');
 Route::post('orders.store', 'OrderController@store')->name('orders.store');
+Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
+Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
+Route::get('/fillClientContacts/{id}', 'OrderController@ajax_fill_contacts');/**Fill the select item with the branches*/
+Route::post('/addOrdersWorks', 'OrderController@addOrdersWorks');/**Fill the select item with the branches*/
+Route::get('/changeOrderWorksState/{orderID}/{stateID}', 'OrderController@changeOrderWorksState');/**Change the state of the order and the works of that order*/ 
 /*-------------------------------------------*/
 
 /*------------Works routes------------*/
@@ -200,13 +205,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 /*------------------------------------------------*/
-
-/**************************Order ROUTES ////////////////// */
-Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
-Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
-Route::get('/fillClientContacts/{id}', 'OrderController@ajax_fill_contacts');/**Fill the select item with the branches*/
-Route::post('/addOrdersWorks', 'OrderController@addOrdersWorks');/**Fill the select item with the branches*/
-/*/////// END OF ORDER ROUTES ////////////////// */
 
 /*----------------------Change Password------------------ */
 Route::resource('change_password', 'ChanngePasswordController');
