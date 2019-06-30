@@ -8,7 +8,7 @@
 
 <!-- Styles elements of the order-->
 <link rel="stylesheet" href="{{asset('/css/order.css')}}">
-<script src="{{asset('/js/changeOrderStates.js')}}"></script>
+<script src="{{asset('/js/Orders/changeOrderStates.js')}}"></script>
 
 <div class="card margin-bottom-card" style="margin-top:10px;">
     <h5 class="card-header" style="text-align:center">Órdenes</h5>
@@ -195,7 +195,7 @@
         </div>
     </div>
     <script src="{{asset('/js/lenguajeTabla.js')}}"></script>
-    <script src="{{asset('/js/show_contact.js')}}"></script>
+    <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 
 

@@ -1,6 +1,6 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <script >
 </script>
 <div style="padding:10px;">

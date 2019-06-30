@@ -7,7 +7,6 @@ function activeProductBranch() {
         dataType: "json",
         success: function (datos) {
             $('#product_branch').empty();
-            $('#product_branch').append("<option value='defecto'  selected='selected'>Seleccione un producto</option>");
             $.each(datos, function () {
                 $.each(this, function () {
                     $('#product_branch').append('<option value="' + this.id + '">' + this.id + ". " + this.name + '</option>');
@@ -30,11 +29,6 @@ function activeProductBranchSelected(selectedProduct) {
         dataType: "json",
         success: function (datos) {
             $('#product_branch_edit').empty();
-            if (selectedProduct == "defecto") {
-                $('#product_branch_edit').append("<option value='defecto'  selected='selected'>Seleccione un producto</option>");
-            } else {
-                $('#product_branch_edit').append("<option value='defecto'>Seleccione un producto</option>");
-            }
             $.each(datos, function () {
                 $.each(this, function () {
                     if (this.id == selectedProduct) {

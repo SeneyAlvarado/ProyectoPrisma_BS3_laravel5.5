@@ -1,6 +1,6 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <div style="padding:10px;">
@@ -139,7 +139,7 @@
       </div>
     </div>
   </div>
-<script src="{{asset('js/branchTable.js')}}"></script>
+<script src="{{asset('/js/Branches/branchTable.js')}}"></script>
 
 <script>
 function myFunction(name, id) {

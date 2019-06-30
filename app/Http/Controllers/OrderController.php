@@ -369,17 +369,19 @@ class OrderController extends Controller
 
 			$owner = $this->getClientData($order->client_owner);	
 			$contact = $order->client_contact;
-			$works = \App\Work::where('order_id', $order->id);
+			$works = \App\Work::where('order_id', $order->id)->get();
+			
 
 			foreach ($works as $work) {
-				$work->materials = Material_work::where('work_id', $work_id);
+				$work->materials = Material_work::where('work_id', $work->id)->get();
+				$work->product_name = \App\Product::where('id', $work->product_id)->first()->name;
 			}
 
-			//return compact('order', 'owner', 'contact', 'work');
+			//return compact('order', 'owner', 'contact', 'works');
 			//return $owner;
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
-				return view('admin.orders.edit', compact('order', 'owner', 'contact', 'work'));
+				return view('admin.orders.edit', compact('order', 'owner', 'contact', 'works'));
 			}
 		}
 	}

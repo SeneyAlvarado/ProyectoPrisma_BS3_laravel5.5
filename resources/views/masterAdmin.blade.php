@@ -9,20 +9,20 @@
   <title>Sistema de Monitoreo de Procesos - Grupo Prisma</title>
   <!-- Bootstrap core CSS 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
-  <link rel="stylesheet" href="{{asset('css/simple-sidebar.css')}}">
-  <link rel="stylesheet" href="{{asset('css/master-root.css')}}">
-  <link rel="stylesheet" href="{{asset('css/glyphicons.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/simple-sidebar.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/master-root.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/glyphicons.css')}}">
   <link rel="shortcut icon" href="Imagenes/log.ico" />
 
   <!--resizes table so the content won´t go down -->
-  <link rel="stylesheet" href="{{asset('css/table.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/table.css')}}">
 
   <!-- align added button to Jquery datatable-->
-  <link rel="stylesheet" href="{{asset('css/custom-button-datatable.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/custom-button-datatable.css')}}">
 
   <!--<script src="{{asset('js/master-root.js')}}"></script>-->
 
-  <script src="{{asset('js/app.min.js')}}"></script>
+  <script src="{{asset('/js/app.min.js')}}"></script>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -32,12 +32,12 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
 
-  <script src="{{asset('js/menus_dinamicos.js')}}"></script>
+  <script src="{{asset('/js/menus_dinamicos.js')}}"></script>
   <!-- helps to add the right route to create buttons-->
-  <script src="{{asset('js/customButtonDatatable.js')}}"></script>
+  <script src="{{asset('/js/customButtonDatatable.js')}}"></script>
 
   <!-- notifications js handling-->
-  <script src="{{asset('js/notifications.js')}}"></script>
+  <script src="{{asset('/js/notifications.js')}}"></script>
 
   <!-- notifications js handling-->
   <script src="{{asset('/js/dropdownDoubleClickFix.js')}}"></script>

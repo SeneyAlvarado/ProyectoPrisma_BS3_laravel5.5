@@ -79,7 +79,7 @@ INSERT INTO `order_states` (`id`, `name`, `active_flag`) VALUES ('3', 'Cancelada
 /************************************************************* *********************************/
 INSERT INTO `orders` (`id`, `entry_date`, `quotation_number`, `client_owner`, `client_contact`, 
 	`branch_id`, `coin_id`, `exchange_rate`, `total`, `advance_payment`, `active_flag`)
-	 VALUES (NULL, '2019-06-06 00:00:00', NULL, '2', '1', '1', '1', '582.11', '2112', NULL, '1');
+	 VALUES (NULL, '2019-06-06 00:00:00', NULL, '2', '1', '1', '2', '582.11', '2112', NULL, '1');
 
 INSERT INTO `order_order_states` (`id`, `date`, `order_states_id`, `order_id`, `user_id`) VALUES (NULL, '2019-06-12 00:00:00', '1', '1', '1');
 

@@ -1,10 +1,8 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
 
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
-<!-- script src="{{asset('js/check_clients_branch_select.js')}}"></script> -->
+<script src="{{asset('/js/Clients/load_clients.js')}}"></script>
 
-<script src="{{asset('js/load_clients.js')}}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
@@ -14,17 +12,17 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-<script src="{{asset('/js/dateTimePicker_minDateToday.js')}}"></script>
-<script src="{{asset('/js/datetimepicker_editModal.js')}}"></script>
-<script src="{{asset('/js/multiple-materials-select.js')}}"></script>
-<script src="{{asset('/js/multiple-material-editModal.js')}}"></script>
-<script src="{{asset('/js/load_materials.js')}}"></script>
-<script src="{{asset('/js/load_products_branch.js')}}"></script>
+<script src="{{asset('/js/Orders/dateTimePicker_minDateToday.js')}}"></script>
+<script src="{{asset('/js/Orders/datetimepicker_editModal.js')}}"></script>
+<script src="{{asset('/js/Orders/multiple-materials-select.js')}}"></script>
+<script src="{{asset('/js/Orders/multiple-material-editModal.js')}}"></script>
+<script src="{{asset('/js/Orders/load_materials.js')}}"></script>
+<script src="{{asset('/js/Orders/load_products_branch.js')}}"></script>
 
 
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/input_style.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/multiple-materials-select.css')}}">
 
 <div style="padding:10px;">
     <div class="card">
@@ -34,10 +32,13 @@
                 <div class="">
                     <form method='POST' action="javascript:formValidation();" id="orderForm">
                         <input type='hidden' id='_token' name='_token' value='{{Session::token()}}'>
+                        <input type='hidden' id='dolarExchangeRate' value='{{$order->exchange_rate}}'>
                         <input type='hidden' id='hiddenDateCR'
                             value='{{\Carbon\Carbon::now('America/Costa_Rica')->addDay(7)->format('d/m/Y')}}'>
                         <input type='hidden' id='editRow' value=''>
                         <input type='hidden' id="formatMoney" class="autonumericConversion" name="formatMoney">
+                        <input type='hidden' id="orderID" value="{{$order->id}}">
+
 
                         <div class="row ">
                             <div class="col-md-6">
@@ -81,7 +82,8 @@
                                 </div>
                                 <div id="hideId" style="display:block;">
                                     <label style="margin: 0;"><strong>Cédula:&nbsp</strong></label><label
-                                        id="identification" value=" " type="text" name="identification">{{$owner->identification}}</label>
+                                        id="identification" value=" " type="text"
+                                        name="identification">{{$owner->identification}}</label>
                                 </div>
                                 <div id="hidePhone" style="display:block;">
                                     <label style="margin: 0;"><strong>Teléfono:&nbsp</strong></label><label id="phone"
@@ -91,7 +93,8 @@
                                     <label style="margin: 0;"><strong>Correo:&nbsp</strong></label><label id="email"
                                         value=" " type="text" name="email">{{$email}}</label>
                                 </div>
-                                <input type="hidden" value="{{$owner->id}}" class="form-control" id="client_id" name="client_id">
+                                <input type="hidden" value="{{$owner->id}}" class="form-control" id="client_id"
+                                    name="client_id">
 
                             </div>
 
@@ -101,7 +104,7 @@
                                     <input id="quotation_number" placeholder="Cotización"
                                         class="formStyle formStyle1 quotationAutoNumeric" name="quotation_number"
                                         type='text' title="No se permite ingresar letras ni números con decimales o negativos 
-                                            en este campo">
+                                en este campo" value="{{$order->quotation_number}}" autocomplete='off'>
                                 </div>
                                 <div>
                                     <label style="margin: 0px; margin-top: 16px;" for="order_total"><strong>Monto
@@ -109,7 +112,8 @@
                                     <input id="order_total" placeholder="Monto total"
                                         class="formStyle formStyle2 autonumeric" name="order_total" type='text'
                                         title="No se permite ingresar letras o números negativos en este campo"
-                                        value="0" step=any onkeyup="showConvertedTotal()">
+                                        value="{{$order->total}}" step=any onkeyup="showConvertedTotal()"
+                                        autocomplete='off'>
                                     <p id="pOrder" style="display:none"></p>
                                 </div>
                             </div>
@@ -118,6 +122,20 @@
                                     <label for="branch" style="margin: 0;"><strong>Moneda de
                                             transacción</strong></label>
                                     <span class="radio">
+                                        @if($order->coin_id == 1)
+                                        <label style="margin: 0;">Colones</label>
+                                        <label>
+                                            <input id="colones" type="radio" value="0" class="radiobox" name="coin"
+                                                checked>
+                                        </label>
+
+                                        <label style="margin: 0;">
+                                            <label style="margin-left:20px;">Dólares</label>
+                                            <input id="dolars" type="radio" value="1" class="radiobox" name="coin">
+                                        </label>
+                                        @endif
+
+                                        @if($order->coin_id == 2)
                                         <label style="margin: 0;">Colones</label>
                                         <label>
                                             <input id="colones" type="radio" value="0" class="radiobox" name="coin">
@@ -128,6 +146,8 @@
                                             <input id="dolars" type="radio" value="1" class="radiobox" name="coin"
                                                 checked>
                                         </label>
+                                        @endif
+
                                     </span>
                                 </div>
                                 <div>
@@ -137,7 +157,7 @@
                                         class="formStyle formStyle3 autonumeric" name="order_advanced_payment"
                                         type='text'
                                         title="No se permite ingresar letras o números negativos en este campo"
-                                        value="0" step=any onkeyup="showConvertedAdvanced()">
+                                        value="0" step=any onkeyup="showConvertedAdvanced()" autocomplete='off'>
                                     <p id="pAdvanced" style="display:none"></p>
                                 </div>
                             </div>
@@ -173,7 +193,50 @@
                                         </thead>
 
                                         <tbody>
+                                            <?php
+                                            $rowCount = 0;
+                                            ?>
+                                            @foreach ($works as $work)
+                                            <?php 
+                                                $priority = "";
+                                                $materials = "";
+                                                if($work->priority == 1){
+                                                    $priority = "Posee prioridad";
+                                                }
+                                                if($work->priority == 0){
+                                                    $priority = "Sin prioridad";
+                                                }
+                                                foreach ($work->materials as $material) {
+                                                    if($materials == ""){
+                                                        $materials = $material->material_id;
+                                                    } else {
+                                                        $materials = $materials . ',' .$material->material_id;
+                                                    }
+                                                }
+                                            ?>
+                                            <tr>
+                                                <td class="text-center" id="date{{$rowCount}}">
+                                                    {{\Carbon\Carbon::parse($work->approximate_date)->format('d/m/Y')}}
+                                                </td>
+                                                <td class="text-center" id="priority{{$rowCount}}">{{$priority}}</td>
+                                                <td class="text-center" id="product0{{$rowCount}}"
+                                                    value="{{$work->product_id}}">
+                                                    {{$work->product_id . ". " . $work->product_name}}</td>
 
+                                                <td>
+                                                    <input id="observation{{$rowCount}}" type="hidden"
+                                                        value="{{$work->observation}}">
+                                                    <input id="materials{{$rowCount}}" type="hidden"
+                                                        value="{{$materials}}">
+                                                    <input id="work{{$rowCount}}" type="hidden" value="{{$work->id}}">
+                                                    <a onclick="loadEditWorkModal('{{$rowCount}}')"
+                                                        class="btn btn-warning style-btn-edit btn-size">Detalles</a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $rowCount = $rowCount + 1;
+                                            ?>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -524,8 +587,8 @@
   locale: 'es-es',
 });*/
 </script>
-<script src="{{asset('/js/autoNumeric.js')}}"></script>
-<script src="{{asset('/js/create_works_modal.js')}}"></script>
-<script src="{{asset('/js/works_table_create.js')}}"></script>
+<script src="{{asset('/js/Validations/autoNumeric.js')}}"></script>
+<script src="{{asset('/js/Orders/edit_works_modal.js')}}"></script>
+<script src="{{asset('/js/Orders/works_table_create.js')}}"></script>
 
 @endsection

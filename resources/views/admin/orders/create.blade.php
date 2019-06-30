@@ -1,10 +1,7 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
 
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
-<!-- script src="{{asset('js/check_clients_branch_select.js')}}"></script> -->
-
-<script src="{{asset('js/load_clients.js')}}"></script>
+<script src="{{asset('/js/Clients/load_clients.js')}}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
@@ -14,17 +11,17 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-<script src="{{asset('/js/dateTimePicker_minDateToday.js')}}"></script>
-<script src="{{asset('/js/datetimepicker_editModal.js')}}"></script>
-<script src="{{asset('/js/multiple-materials-select.js')}}"></script>
-<script src="{{asset('/js/multiple-material-editModal.js')}}"></script>
-<script src="{{asset('/js/load_materials.js')}}"></script>
-<script src="{{asset('/js/load_products_branch.js')}}"></script>
+<script src="{{asset('/js/Orders/dateTimePicker_minDateToday.js')}}"></script>
+<script src="{{asset('/js/Orders/datetimepicker_editModal.js')}}"></script>
+<script src="{{asset('/js/Orders/multiple-materials-select.js')}}"></script>
+<script src="{{asset('/js/Orders/multiple-material-editModal.js')}}"></script>
+<script src="{{asset('/js/Orders/load_materials.js')}}"></script>
+<script src="{{asset('/js/Orders/load_products_branch.js')}}"></script>
 
 
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/input_style.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('css/multiple-materials-select.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/multiple-materials-select.css')}}">
 
 <div style="padding:10px;">
     <div class="card">
@@ -499,8 +496,8 @@
   locale: 'es-es',
 });*/
 </script>
-<script src="{{asset('/js/autoNumeric.js')}}"></script>
-<script src="{{asset('/js/create_works_modal.js')}}"></script>
-<script src="{{asset('/js/works_table_create.js')}}"></script>
+<script src="{{asset('/js/Validations/autoNumeric.js')}}"></script>
+<script src="{{asset('/js/Orders/create_order_works_modal.js')}}"></script>
+<script src="{{asset('/js/Orders/works_table_create.js')}}"></script>
 
 @endsection
