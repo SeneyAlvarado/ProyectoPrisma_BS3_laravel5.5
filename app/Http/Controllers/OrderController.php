@@ -529,6 +529,7 @@ class OrderController extends Controller
 			$order->works=$works;
 			//return view('/admin/reports/reportDetailsOrder', compact('order'));
 			$pdf = \App::make('dompdf.wrapper');
+			PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
           	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
             return $pdf->stream('detalleOrden'.$order->id.'.pdf');
       }
