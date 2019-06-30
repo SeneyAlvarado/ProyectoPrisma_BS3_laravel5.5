@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Material_work;
 use App\Product;
 use App\Work;
+use App\State;
+use App\State_work;
 use App\Client;
 use App\Physical_client;
 use Illuminate\Http\Request;
@@ -44,6 +46,10 @@ class WorkController extends Controller
 
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "error");
+
+		/*work states*/
+		$work_states = new State();
+		$work_states = $work_states->where('active_flag', '1')->get();
 
 		$works = DB::table('works')
 		->join('orders', 'works.order_id', 'orders.id')
@@ -98,15 +104,15 @@ class WorkController extends Controller
 			->where('id', '=', $state_works->states_id)
 			->first();
 
-			$work->work_state = $states->name;
+			$work->work_state = $states->id;
 
 			$work->color = $this->calculateColor($work);
 		}
-
 		//return $works;
+		//return $work_states;
 		$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
-				return view('admin.works.index', compact('works'));
+				return view('admin.works.index', compact('works', 'work_states'));
 			}
 		
 		//return view('works/index', compact('works'));
@@ -279,5 +285,34 @@ class WorkController extends Controller
 		$this->model->destroy($id);
 
 		return redirect()->route('works.index')->with('message', 'Item deleted successfully.');
+	}
+
+	function changeWorkState($workID, $stateID) {
+
+		DB::beginTransaction();
+
+		$userID = Auth::user()->id;
+		
+/*
+		$order_state_model = new Order_order_state();
+		$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$order_state_model->order_states_id = $stateID;//The state that the user choosed
+		$order_state_model->order_id = $orderID;
+		$order_state_model->user_id = $userID;
+		$order_state_model->save();
+
+		$orderWorks = \App\Work::where('order_id', $orderID)->get();
+
+		foreach ($orderWorks as $work) {*/
+			$state_work_Model = new State_work();
+			$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+			$state_work_Model->states_id = $stateID;//Inicio work state
+			$state_work_Model->work_id = $workID;
+			$state_work_Model->user_id = $userID;
+			$state_work_Model->save();
+	/*}*/
+
+		DB::commit();
+		return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
 	}
 }
