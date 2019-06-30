@@ -34,7 +34,6 @@
                 <div class="">
                     <form method='POST' action="javascript:formValidation();" id="orderForm">
                         <input type='hidden' id='_token' name='_token' value='{{Session::token()}}'>
-                        <input type='hidden' id='dolarExchangeRate' value='{{$dolarRate}}'>
                         <input type='hidden' id='hiddenDateCR'
                             value='{{\Carbon\Carbon::now('America/Costa_Rica')->addDay(7)->format('d/m/Y')}}'>
                         <input type='hidden' id='editRow' value=''>
@@ -50,23 +49,49 @@
                                         style="width:50px !important; margin:0px;"
                                         onClick="listClientsTable();">Buscar</button>
                                 </div>
-                                <div id="hideName" style="display:none;">
+                                <?php
+                                    $ownerName = "";
+                                    if($owner->type == "1"){//physical client
+                                        $ownerName =  $owner->name . " " . $owner->lastname . " " . $owner->second_lastname; 
+                                    }
+                                    if($owner->type == "2"){//juridical client
+                                        $ownerName =  $owner->name;
+                                    }
+
+                                    $phone = "";
+                                    if(empty($owner->phones) ||  $owner->phones == null){
+                                        $phone = "No posee";
+                                    } else {
+                                        $phone = $owner->phones->number;
+                                    }
+
+                                    $email = "";
+                                    if(empty($owner->emails) ||  $owner->emails == null){
+                                        $email = "No posee";
+                                    } else {
+                                        $email = $owner->emails->email;
+                                    }
+
+
+
+                                ?>
+                                <div id="hideName" style="display:block;">
                                     <label style="margin: 0;"><strong>Nombre:&nbsp</strong></label><label
-                                        id="client_name" value=" " type="text" name="client_name"></label>
+                                        id="client_name" value=" " type="text" name="client_name">{{$ownerName}}</label>
                                 </div>
-                                <div id="hideId" style="display:none;">
+                                <div id="hideId" style="display:block;">
                                     <label style="margin: 0;"><strong>Cédula:&nbsp</strong></label><label
-                                        id="identification" value=" " type="text" name="identification"></label>
+                                        id="identification" value=" " type="text" name="identification">{{$owner->identification}}</label>
                                 </div>
-                                <div id="hidePhone" style="display:none;">
+                                <div id="hidePhone" style="display:block;">
                                     <label style="margin: 0;"><strong>Teléfono:&nbsp</strong></label><label id="phone"
-                                        value=" " type="text" name="phone"></label>
+                                        value=" " type="text" name="phone">{{$phone}}</label>
                                 </div>
-                                <div id="hideEmail" style="display:none;">
+                                <div id="hideEmail" style="display:block;">
                                     <label style="margin: 0;"><strong>Correo:&nbsp</strong></label><label id="email"
-                                        value=" " type="text" name="email"></label>
+                                        value=" " type="text" name="email">{{$email}}</label>
                                 </div>
-                                <input type="hidden" class="form-control" id="client_id" name="client_id">
+                                <input type="hidden" value="{{$owner->id}}" class="form-control" id="client_id" name="client_id">
 
                             </div>
 

@@ -123,7 +123,7 @@ function cleanAddWorkModals() {
 }
 
 function cleanEditWorkModals() {
-  document.getElementById("searchProductInput_Edit").value = "";
+  document.getElementById("searchProductInputEdit").value = "";
   document.getElementById("searchOriginInputEdit").value = "";
   $("#observation_edit").val("");
   $("#dateInput_edit").val("");
@@ -489,7 +489,7 @@ function showConvertedTotal() {
       colones = colones.slice(1);
       dolarExchangeRate = $("#dolarExchangeRate").val();
       dolarExchangeRate = dolarExchangeRate.replace('.', ",");
-      $("#pOrder").html('₡' + colones + "<br> Tipo de cambio: " + dolarExchangeRate);
+      $("#pOrder").html('₡' + colones + "<br> Tipo de cambio: ₡" + dolarExchangeRate);
     }
   }
 }
@@ -520,7 +520,7 @@ function showConvertedAdvanced() {
       colones = colones.slice(1);
       dolarExchangeRate = $("#dolarExchangeRate").val();
       dolarExchangeRate = dolarExchangeRate.replace('.', ",");
-      $("#pAdvanced").html("₡" + colones + "<br> Tipo de cambio: " + dolarExchangeRate);
+      $("#pAdvanced").html("₡" + colones + "<br> Tipo de cambio: ₡" + dolarExchangeRate);
     }
   }
 }

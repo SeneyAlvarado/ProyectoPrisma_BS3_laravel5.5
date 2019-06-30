@@ -215,11 +215,6 @@ class OrderController extends Controller
 
 	public function addOrdersWorks()
 	{
-		//custom message if this methods throw an exception
-		\Session::put('errorOrigin', " agregando la orden y los trabajos");
-
-		//custom route to REDIRECT redirect('x') if there's an error
-		\Session::put('errorRoute', "orders");
 
 		$postData = Input::get('data');
 		$orderData = $postData[0];
@@ -361,9 +356,50 @@ class OrderController extends Controller
 	 */
 	public function edit($id)
 	{
-		$order = $this->model->findOrFail($id);
+		\Session::put('errorOrigin', " editanto la orden");
 
-		return view('orders.edit', compact('order'));
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "orders");
+
+		$order = $this->model->find($id);
+
+		if($order == null) {
+			throw new \Exception('Error en editar la orden con el id:' .$id
+		. " en el método OrderController@edit");
+		} else {		
+
+			$owner = $this->getClientData($order->client_owner);	
+			$contact = $order->client_contact;
+			$works = \App\Work::where('order_id', $order->id);
+
+			foreach ($works as $work) {
+				$work->materials = Material_work::where('work_id', $work_id);
+			}
+
+			//return compact('order', 'owner', 'contact', 'work');
+			//return $owner;
+			$user_type = Auth::user()->user_type_id;
+			if($user_type == 1){//admin user
+				return view('admin.orders.edit', compact('order', 'owner', 'contact', 'work'));
+			}
+		}
+	}
+
+	public function getClientData($client_id){
+		$client = \App\Client::where('id', $client_id)->first();
+		if($client->type == 1) {//physical client, fill model attributes) 
+			$phisClient = \App\Physical_client::where('client_id', $client->id)->first();
+			$client->lastname = $phisClient->lastname;
+			$client->second_lastname = $phisClient->second_lastname;	
+			$client->client_table_id = $phisClient->client_id;	
+		}
+		if($client->type == 2) {//juridical client, fill model attributes
+			$jurClient = \App\Juridical_client::where('client_id', $client->id)->first();
+			$client->client_table_id = $jurClient->client_id;	
+		}
+		$client->phones = $client->phones()->where('active_flag', 1)->first();
+		$client->emails = $client->emails()->where('active_flag', 1)->first();
+		return $client;
 	}
 
 	/**

@@ -74,6 +74,7 @@ Route::get('orders', 'OrderController@index')->name('orders');/**View the accoun
 Route::get('orders.create', 'OrderController@create')->name('orders.create');/**View the accounts list*/
 Route::get('contact.show/{id}', 'ClientController@show')->name('contact.show');
 Route::post('orders.store', 'OrderController@store')->name('orders.store');
+Route::get('orders.edit/{id}', 'OrderController@edit')->name('orders.edit');
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
 Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
 Route::get('/fillClientContacts/{id}', 'OrderController@ajax_fill_contacts');/**Fill the select item with the branches*/
@@ -111,12 +112,6 @@ Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with t
 Route::get('/active_states_drop', 'StateController@active_states_drop');/**Fill the select item with the ACTIVE states*/
 /*-------------------------------------------*/
 
-Route::get('/branchDrop', 'UserController@ajax_branch');
-
-
-Route::get('masterRoot', function () {
-    return view('masterRoot');
-});
 /*---------------------------------*/
 /*         products-------------*/
 

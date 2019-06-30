@@ -56,7 +56,8 @@
                 ?>
                 <tr>
                 @if ($order->priority == 1)
-                    <td class="text-center">{{$order->id}} <span style="color:#E3BA00" class="glyphicon glyphicon-star"></span></td>
+                    <td title="Posee trabajos con prioridad" class="text-center">{{$order->id}} 
+                        <span style="color:#E3BA00" class="glyphicon glyphicon-star"></span></td>
                 @else
                     <td class="text-center">{{$order->id}}</td>
                 @endif
@@ -108,12 +109,12 @@
                         <td class="text-center"><strong>{{$order->latest_time_left}} d. </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
                     @endif
                     <td class="text-center">
-                        <a class="btn btn-warning" href="{{url('reportOrder', $order->id)}}"
+                        <a title="Generar reporte" class="btn btn-warning" href="{{url('reportOrder', $order->id)}}"
                             style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-file"></span></a>
-                        <a class="btn btn-warning" style="background-color:#e0e0e0; border:0px;" href=""><span
+                        <a title="Ver trabajos" class="btn btn-warning" style="background-color:#e0e0e0; border:0px;" href=""><span
                                 class="glyphicon glyphicon-folder-open"></a>
-                        <a class="btn btn-warning" href="" style="background-color:#e0e0e0; border:0px;"><span
+                        <a title="Editar" class="btn btn-warning" href="" style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-pencil"></span></a>
                         @if($order->active_flag == 1)
                         <form style="display:inline" action="" method="POST" style="display: inline;"
