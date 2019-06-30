@@ -3,8 +3,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
+<!-- used for the spinner class, because boostrap incompatibility -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!-- Styles elements of the order-->
 <link rel="stylesheet" href="{{asset('/css/order.css')}}">
+<script src="{{asset('/js/changeOrderStates.js')}}"></script>
 
 <div class="card margin-bottom-card" style="margin-top:10px;">
     <h5 class="card-header" style="text-align:center">Órdenes</h5>
@@ -62,23 +66,25 @@
 
                     <td class="text-center" style="min-width:150px;">
                         <div class="dropdown" style="display: block">
-                            <a class="btn btn-secondary btn-sm dropdown-toggle" data-target="#drop-states" href="#"
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" id="drop{{$order->id}}"
+                            data-target="#drop-states" href="#" value="{{$actualStateID}}"
                                 role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 {{$actualStateName}}
-                            </a>
+                            </button>
 
-                            <div class="dropdown-menu" id="#drop-states" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$order->id}}" 
+                                aria-labelledby="dropdownMenuLink">
 
                                 @foreach ($order_states as $order_state)
                                 @if($order_state->id != $actualStateID)
-                                <a class="dropdown-item" href="{{$order_state->id}}">{{$order_state->name}}</a>
+                            <button class="dropdown-item" id="orderState{{$order->id}}{{$order_state->id}}" onclick="changeOrderState('{{$order->id}}', '{{$order_state->id}}', '{{$order_state->name}}')">{{$order_state->name}}</button>
                                 @endif
                                 @endforeach
                             </div>
                             <div class="progress" style="text-align: center; margin-top: 5px;">
-                                <strong class="percentage-text">{{ $order->finished_percentage. "%"}}</strong>
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+                            <strong id="percentText{{$order->id}}" class="percentage-text">{{ $order->finished_percentage. "%"}}</strong>
+                                <div id="percentDiv{{$order->id}}" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
                                     style="{{"width:" . $order->finished_percentage. "%"}}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
@@ -187,8 +193,8 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('js/lenguajeTabla.js')}}"></script>
-    <script src="{{asset('js/show_contact.js')}}"></script>
+    <script src="{{asset('/js/lenguajeTabla.js')}}"></script>
+    <script src="{{asset('/js/show_contact.js')}}"></script>
 
 
 

@@ -65,16 +65,39 @@
 
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <li class=" nav-item dropdown d-sm-block d-md-none">
+        <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
             <a class="dropdown-item" href="#">Trabajos</a>
-            <a class="dropdown-item" href="states">Estados</a>
-            <a class="dropdown-item" href="user.index">Cuentas</a>
+            <a class="dropdown-item" href="{{url('states')}}">Estados</a>
+            <a class="dropdown-item" href="{{url('states')}}">Materiales</a>
+            <a class="dropdown-item" href="{{url('states')}}">Productos</a>
+            <a class="dropdown-item" href="{{route('orders')}}">Órdenes</a>
+            <a class="dropdown-item" href="{{route('clients')}}">Clientes</a>
+            <a class="dropdown-item" href="{{ url('user') }}">Cuentas</a>
+            <a class="dropdown-item" href="{{url('visits')}}">Visitas</a>
+            <a class="dropdown-item" href="{{url('branch')}}">Sucursales</a>
           </div>
         </li><!-- Smaller devices menu END -->
+        <ul class=" nav-item dropdown d-sm-block d-md-none">Menú
+          <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú -->
+            <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Trabajos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+              <a class="dropdown-item" href="{{url('states')}}">Estados</a>
+              <a class="dropdown-item" href="{{route('materials')}}">Materiales</a>
+              <a class="dropdown-item" href="{{route('products')}}">Productos</a>
+            </div>
+            <li><a class="dropdown-item" href="{{route('orders')}}">Órdenes</a></li>
+            <li><a class="dropdown-item" href="{{route('clients')}}">Clientes</a></li>
+            <li><a class="dropdown-item" href="{{ url('user') }}">Cuentas</a></li>
+            <li><a class="dropdown-item" href="{{url('visits')}}">Visitas</a></li>
+            <li><a class="dropdown-item" href="{{url('branch')}}">Sucursales</a></li>
+        </ul>
+        <!--</li>-->
 
       </ul>
     </div>
