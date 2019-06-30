@@ -4,7 +4,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
+<script src="{{asset('/js/Works/changeWorkStates.js')}}"></script>
 <div style="padding:10px;">
     <div class="card margin-bottom-card" >
     <div class="card-header"><h5 style="text-align:center; ">Trabajos</h5></div>
@@ -34,8 +34,8 @@
                             $new_day_without_time = explode(" ", $day);
                             $day = $new_day_without_time[0];
                             $approximate_date = $day . "/" . $month . "/" . $year;
-                        ?>
-                        <?php  
+                            
+                            
                             $date = explode("-", $work->entry_date);
                             $year = $date[0];
                             $month = $date[1];
@@ -43,6 +43,19 @@
                             $new_day_without_time = explode(" ", $day);
                             $day = $new_day_without_time[0];
                             $entry_date = $day . "/" . $month . "/" . $year;
+
+
+                            $actualStateName = "";
+                    $actualStateID = "";
+                    //both arrays are being used, do not erase
+                    
+                    foreach ($work_states as $work_state) {
+                       if($work_state->id == $work->work_state){
+                        $actualStateID = $work_state->id;
+                        $actualStateName = $work_state->name;
+                        
+                       }
+                    }
                         ?>
                            <tr class="">
                                 @if ($work->priority == 1)
@@ -52,7 +65,28 @@
                                @endif
                                <td class="text-center"><a class="infoClient"
                             onCLick="infoContact('{{$work->client_owner}}')">{{$work->client_name}}</a></td>
-                               <td class="text-center">{{$work->work_state}}</td>
+
+                            <td class="text-center" style="min-width:150px;">
+                                <div class="dropdown" style="display: block">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="drop{{$work->work_id}}"
+                                    data-target="#drop-states" href="#" value="{{$actualStateID}}"
+                                        role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        {{$actualStateName}}
+                                    </button>
+        
+                                    <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}" 
+                                        aria-labelledby="dropdownMenuLink">
+        
+                                        @foreach ($work_states as $work_state)
+                                        @if($work_state->id != $actualStateID)
+                                    <button class="dropdown-item" id="workState{{$work->work_id}}{{$work_state->id}}" onclick="changeWorkState('{{$work->work_id}}', '{{$work_state->id}}', '{{$work_state->name}}')">{{$work_state->name}}</button>
+                                        @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </td>
+
                                <td class="text-center">{{$entry_date}}</td>
                                <td class="text-center">{{$approximate_date}}</td>
                                @if ($work->color == "red")

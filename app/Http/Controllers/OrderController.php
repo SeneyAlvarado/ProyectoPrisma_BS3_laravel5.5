@@ -102,7 +102,6 @@ class OrderController extends Controller
 			$order->client_contact_name = $contact->name . " " . $contact_physical->lastname;
 			$order->last_order_state_id = DB::table('order_order_states')->where('order_id', $order->id)->latest('date')->first()->order_states_id;
 		}
-
 		//return $orders;
 		$user_type = Auth::user()->user_type_id; //get the user type.
 		if ($user_type == 1) { //admin user
@@ -565,6 +564,7 @@ class OrderController extends Controller
 			$order->works=$works;
 			//return view('/admin/reports/reportDetailsOrder', compact('order'));
 			$pdf = \App::make('dompdf.wrapper');
+			PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
           	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
             return $pdf->stream('detalleOrden'.$order->id.'.pdf');
 	  

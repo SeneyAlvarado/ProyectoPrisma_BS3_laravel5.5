@@ -84,6 +84,7 @@ Route::get('/changeOrderWorksState/{orderID}/{stateID}', 'OrderController@change
 
 /*------------Works routes------------*/
 Route::get('trabajos', 'WorkController@index');
+Route::get('/changeWorkState/{workID}/{stateID}', 'WorkController@changeWorkState');
 /*-------------------------------------------*/
 
 /*------------Visit routes------------*/
