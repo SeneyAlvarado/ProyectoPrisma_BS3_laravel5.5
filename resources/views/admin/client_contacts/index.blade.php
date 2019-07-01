@@ -3,8 +3,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-<script src="{{asset('js/load_contacts.js')}}"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('css/loader.css')}}">
+<script src="{{asset('/js/Client_contacts/load_contacts.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/loader.css')}}">
 
 <div style="padding:10px;">
   
@@ -102,7 +102,7 @@
         </div>
     </div>
 </div>
-        <script src="{{asset('/js/client_contact_table_index.js')}}"></script>
+        <script src="{{asset('/js/Client_contacts/client_contact_table_index.js')}}"></script>
         @endsection
 
        

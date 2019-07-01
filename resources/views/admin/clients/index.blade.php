@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
+<script src="{{asset('/js/lenguajeTabla.js')}}"></script>
 
 <div style="padding:10px;">
     <div class="card margin-bottom-card">
@@ -98,5 +98,5 @@
     </div>
 </div>
 
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
+<script src="{{asset('/js/lenguajeTabla.js')}}"></script>
 @endsection

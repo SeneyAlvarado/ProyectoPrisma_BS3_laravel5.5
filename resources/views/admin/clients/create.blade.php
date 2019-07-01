@@ -1,8 +1,8 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<script src="{{asset('js/createClientsRadio.js')}}"></script>
-<script src="{{asset('js/patternFields.js')}}"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<script src="{{asset('/js/Clients/createClientsRadio.js')}}"></script>
+<script src="{{asset('/js/patternFields.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 
 <div style="padding:10px;">
         <div class="card">

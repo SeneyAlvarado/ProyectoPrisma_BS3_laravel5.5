@@ -1,8 +1,8 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
-<script src="{{asset('js/load_branches_admin_edit.js')}}"></script>
-<script src="{{asset('js/check_inputs_create_user.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
+<script src="{{asset('/js/Users/load_branches_admin_edit.js')}}"></script>
+<script src="{{asset('/js/Users/check_inputs_create_user.js')}}"></script>
 <script >
 branch({{$user->branch_id}})
 rol({{$user->user_type_id}})

@@ -1,6 +1,5 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -52,6 +51,6 @@
         <h3 class="text-center alert alert-info header-gris">No hay contactos para mostar</h3>
         @endif
 
-        <script src="{{asset('/js/client_contact_table_create.js')}}"></script>
+        <script src="{{asset('/js/Client_contacts/client_contact_table_create.js')}}"></script>
 
         @endsection

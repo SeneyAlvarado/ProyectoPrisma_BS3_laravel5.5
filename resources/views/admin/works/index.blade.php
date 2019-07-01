@@ -237,10 +237,10 @@
     </div>
   </div>
 
-<script src="{{asset('js/table_works.js')}}"></script>
-<script src="{{asset('js/show_contact.js')}}"></script>
+<script src="{{asset('/js/Works/table_works.js')}}"></script>
+<script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
-<script src="{{asset('js/work_details.js')}}"></script>
+<script src="{{asset('/js/Works/work_details.js')}}"></script>
 
 
 

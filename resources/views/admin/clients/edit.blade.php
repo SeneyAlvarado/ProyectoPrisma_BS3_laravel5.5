@@ -1,8 +1,8 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<script src="{{asset('js/patternFields.js')}}"></script>
+<script src="{{asset('/js/patternFields.js')}}"></script>
 
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <div style="padding:10px;">
         <div class="card">
             <h5 class="card-header" style="text-align:center">Clientes</h5>

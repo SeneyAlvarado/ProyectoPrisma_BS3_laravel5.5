@@ -1,9 +1,9 @@
 @extends('masterAdmin')
 @section('contenido_Admin')
-<script src="{{asset('/js/load_active_roles.js')}}"></script>
-<script src="{{asset('/js/load_active_states.js')}}"></script>
-<script src="{{asset('/js/check_state_user_type_drop.js')}}"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<script src="{{asset('/js/User_types/load_active_roles.js')}}"></script>
+<script src="{{asset('/js/States/load_active_states.js')}}"></script>
+<script src="{{asset('/js/State_user_type/check_state_user_type_drop.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <div style="padding:10px;">
         <div class="card">
             <h5 class="card-header" style="text-align:center">Acceso a Trabajos</h5>

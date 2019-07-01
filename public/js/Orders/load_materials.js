@@ -5,7 +5,6 @@ function loadMaterials(){
    dataType: "json",
    success:function(datos){ 
    $('#origen').empty();
-   $('#origen').append("<option value='defecto' selected='selected'>Seleccione un material</option>");  
    $.each(datos, function()
    {
        $.each(this, function(){
@@ -27,7 +26,6 @@ function loadMaterialsSelected(materials){
    dataType: "json",
    success:function(datos){ 
    $('#origen_edit').empty();
-   $('#origen_edit').append("<option value='defecto' selected='selected'>Seleccione un material</option>");  
    $.each(datos, function()
    {
        $.each(this, function(){

@@ -37,7 +37,7 @@ function rol(user_type){
     dataType: "json",
     success:function(datos){ 
     $('#dropRol').empty();
-    $('#dropRol').append("<option value='defecto'>Seleccione Sucursal</option>");   
+    $('#dropRol').append("<option value='defecto'>Seleccione Puesto</option>");   
     $.each(datos, function()
     {
         $.each(this, function(){

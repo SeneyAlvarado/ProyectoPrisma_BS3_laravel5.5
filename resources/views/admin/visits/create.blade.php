@@ -4,8 +4,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<script src="{{asset('/js/Users/load_branches_admin.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <div style="padding:10px;">
     <div class="card">
         <h5 class="card-header" style="text-align:center">Visitas</h5>
