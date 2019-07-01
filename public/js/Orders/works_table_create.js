@@ -12,8 +12,6 @@ $('#worksTable').DataTable(
         responsive: true,
         stateSave: true,
         "ordering": false,
-        "bScrollCollapse": true,
-        "scrollY":        "210px",
         columnDefs: [
             { className: "text-center", targets: "_all" },
 
