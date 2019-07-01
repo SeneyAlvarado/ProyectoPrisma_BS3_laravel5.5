@@ -227,4 +227,4 @@ Route::get('/deleteContact/{contact_id}', 'Client_contactController@destroy');/*
 
 
 
-Route::get('products.chart', 'Product_workController@chard_most_sold_product')->name('products.chart');
+Route::post('products.chart', 'WorkController@products_chart')->name('products.chart');
