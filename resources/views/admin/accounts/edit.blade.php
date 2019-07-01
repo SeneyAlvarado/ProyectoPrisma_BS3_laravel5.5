@@ -18,18 +18,18 @@ rol({{$user->user_type_id}})
                         <div class="row justify-content-center">
                             <div class="col-md-4 " style="margin-top:10px;">
                                 <label for="name" ><strong>Nombre</strong></label> 
-                                <input id="name-field" value="{{ old('name', $user->name) }}" class="form-control" name = "name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo"> 
+                                <input id="name-field" value="{{ old('name', $user->name) }}" class="form-control" name = "name" type="text" required pattern="[a-zA-Z ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números o símbolos en este campo"> 
                             </div>
                             <div class="col-md-4 " style="margin-top:10px;">
                                 <label for="name" ><strong>Primer apellido</strong></label> 
-                                <input id="lastname-field" class="form-control" value="{{ old('lastname', $user->lastname) }}" name = "lastname" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>            
+                                <input id="lastname-field" class="form-control" value="{{ old('lastname', $user->lastname) }}" name = "lastname" type="text" pattern="[a-zA-Z ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números o símbolos en este campo" required>            
                             </div>
                         </div>
                       
                         <div class="row justify-content-center">   
                             <div class="col-md-4" style="margin-top:15px;">
                                 <label for="name" ><strong>Segundo apellido</strong></label> 
-                                <input id="second_lastname-field" class="form-control" name = "second_lastname" value="{{ old('second_lastname', $user->second_lastname) }}" type="text" pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo" required>    
+                                <input id="second_lastname-field" class="form-control" name = "second_lastname" value="{{ old('second_lastname', $user->second_lastname) }}" type="text" pattern="[a-zA-Z ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números o símbolos en este campo" required>    
                             </div>
                             <div class="col-md-4" style="margin-top:15px;">
                                 <input class="form-control" type="hidden" name="original_username" id="original_username" value="{{ old('username', $user->username) }}" />

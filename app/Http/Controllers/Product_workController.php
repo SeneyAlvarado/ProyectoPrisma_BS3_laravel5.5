@@ -118,4 +118,27 @@ class Product_workController extends Controller
 
 		return redirect()->route('product_works.index')->with('message', 'Item deleted successfully.');
 	}
+
+
+	public function chard_most_sold_product() {
+		$from = "2019-01-01";
+		$to = "2019-06-13";
+
+		$products = DB::table('products')->where('active_flag', '=', 1)
+		->select('products.name', 'products.id')
+		->get();
+		
+		foreach ($products as $product) {
+			$works = DB::table('works')->where('active_flag', '=', 1)
+			->where('product_id', '=', $product->id)
+			->whereBetween('entry_date', [$from, $to])->get();
+			$product->total = $works->count();
+		}
+
+		$products = collect($products)->sortBy('total')->reverse();
+		$products = collect($products)->take(3);
+
+		return $products;
+		return view('admin/reports/mostProductSell',['products'=>$products]);
+	}
 }

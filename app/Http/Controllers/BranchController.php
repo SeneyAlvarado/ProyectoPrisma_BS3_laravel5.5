@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 
+/**
+ * 
+ * This class is responsible for the management of branches.
+ * 
+ */
 class BranchController extends Controller
 {
 	/**
@@ -28,12 +33,18 @@ class BranchController extends Controller
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the branches in the sistem.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " mostrando las sucursales");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "error");
+
 		$branches = DB::table('branches')->get();
 		
 		$user_type = Auth::user()->user_type_id;
@@ -68,30 +79,31 @@ class BranchController extends Controller
 		$branches = $this->model->paginate();
 		return view('materials.edit', compact('branches'));
 	}
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return view('branches.create');
-	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created branch in storage.
 	 *
 	 * @param Request $request
 	 * @return Response
 	 */
 	public function store(Request $request)
 	{
-		
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " agregando la sucursal");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "branch");
+
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+
 		$brach = new Branch();
 		$brach->active_flag = 1;
 		$brach->name = $request->name;
 		$brach->save();
 		
+		DB::commit();//commits to database 
+
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
 			return redirect()->route('branch')->with('success', '¡Sucursal creada satisfactoriamente!');;
@@ -99,32 +111,7 @@ class BranchController extends Controller
 		}
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$branch = $this->model->findOrFail($id);
-
-		return view('branches.show', compact('branch'));
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$branch = $this->model->findOrFail($id);
-
-		return view('branches.edit', compact('branch'));
-	}
-
+	
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -134,50 +121,56 @@ class BranchController extends Controller
 	 */
 	public function update(Request $request)
 	{
-		try {
-			\Session::put('errorOrigin', " agregando la sucursal");
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " actualizando la sucursal");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "branch");
 			
-			if (strlen(trim($request->name)) == 0){
-				return back()->with('error', 'El nombre de la sucursal es requerido');
-			}
-			DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
-			//will be made. Also, all transactions can be rollbacked.
-			$id = $request->id;
-			$branch = $this->model->findOrFail($id);
-			$branch->name = $request->name;
-			$branch->update();
+		if (strlen(trim($request->name)) == 0){
+			return back()->with('error', 'El nombre de la sucursal es requerido');
+		}
+			
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
 
-			$user_type = Auth::user()->user_type_id;		
-			DB::commit();//commits to database 
-			if($user_type == 1){//admin user
-				return redirect()->route('branch')->with('success', '¡Sucursal actualizada satisfactoriamente!');;	
-			}
+		$id = $request->id;
+		$branch = $this->model->findOrFail($id);
+		$branch->name = $request->name;
+		$branch->update();
 
-			}catch(\Illuminate\Database\QueryException $e){
-				report($e);
-				DB::rollback();
-				return redirect('branch')->with('error', '¡Error en la base de datos
-				agregando la sucursal!');
-			}
-			catch(\Exception $e){
-				report($e);
-				DB::rollback();
-				return redirect('branch')->with('error', '¡Error agregando la sucursal!');
-			}
+		$user_type = Auth::user()->user_type_id;	
+
+		DB::commit();//commits to database 
+		
+		if($user_type == 1){//admin user
+			return redirect()->route('branch')->with('success', '¡Sucursal actualizada satisfactoriamente!');;	
+		}
+
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Desactivate an specific branch.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " desactivando la sucursal");	
 
-		$branch = $this->model->findOrFail($id);
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "branch");
+
+		DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+
+		$branch = $this->model->find($id);
 		$branch->active_flag = 0;
 		$branch->save();
+
+		DB::commit();//commit to database
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
@@ -186,12 +179,29 @@ class BranchController extends Controller
 
 	}
 
-	
+	/**
+	 * Activate an specific branch.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+
 	public function activate($id)
 	{
-		$branch = $this->model->findOrFail($id);
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " activando la cuenta");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "branch");
+
+		DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+
+		$branch = $this->model->find($id);
 		$branch->active_flag = 1;
 		$branch->save();
+
+		DB::commit();//commit to database
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
