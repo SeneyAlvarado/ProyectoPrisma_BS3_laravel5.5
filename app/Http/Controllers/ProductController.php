@@ -286,4 +286,6 @@ class ProductController extends Controller
 
 		return json_encode(["products" => $products]);
 	}
+
+
 }

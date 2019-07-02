@@ -118,4 +118,7 @@ class Product_workController extends Controller
 
 		return redirect()->route('product_works.index')->with('message', 'Item deleted successfully.');
 	}
+
+
+	
 }

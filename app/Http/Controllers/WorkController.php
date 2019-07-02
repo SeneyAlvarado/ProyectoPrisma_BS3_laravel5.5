@@ -315,4 +315,35 @@ class WorkController extends Controller
 		DB::commit();
 		return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
 	}
+
+	public function products_chart(Request $request) 
+	{
+
+		$from=Carbon::parse($request->startDate)->format('Y-m-d');
+		//$to=Carbon::parse($request->endDate)->format('Y-m-d');
+		$to = "2019-06-30";
+		$products = DB::table('products')->where('active_flag', '=', 1)
+		->select('products.name', 'products.id')
+		->get();
+		
+		foreach ($products as $product) {
+			$works = DB::table('works')->where('active_flag', '=', 1)
+			->where('product_id', '=', $product->id)
+			->whereBetween('entry_date', [$from, $to])->get();
+			$product->total = $works->count();
+			$product->start = $request->startDate;
+			$product->end = $request->endDate;
+		}
+
+		$products = collect($products)->sortBy('total')->reverse();
+		$products = collect($products)->take(3);
+
+		/*$pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML(view('admin/reports/mostProductSell', compact('products'))->render()); 
+        return $pdf->stream('ProductosMasVendidos'.$product->end.'.pdf');*/
+
+		//return $products;
+		return view('admin/reports/mostProductSell',['products'=>$products]);
+	}
+
 }

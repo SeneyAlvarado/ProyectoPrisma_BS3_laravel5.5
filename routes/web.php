@@ -159,9 +159,9 @@ Route::delete('materials.activate/{id}', 'MaterialController@activate')->name('m
 
 /**-----------Branch routes------------- */
 Route::get('branch', 'BranchController@index')->name('branch');
-Route::get('branch.create', 'BranchController@create')->name('branch.create');
+//Route::get('branch.create', 'BranchController@create')->name('branch.create');
 Route::post('branch.store', 'BranchController@store')->name('branch.store');
-Route::get('branch.edit/{id}', 'BranchController@edit')->name('branch.edit');
+//Route::get('branch.edit/{id}', 'BranchController@edit')->name('branch.edit');
 Route::post('branch.update', 'BranchController@update')->name('branch.update');
 Route::delete('branch.desactivate/{id}', 'BranchController@destroy')->name('branch.desactivate');
 Route::delete('branch.activate/{id}', 'BranchController@activate')->name('branch.activate');
@@ -222,3 +222,9 @@ Route::get('client_contacts.store/{owner_id}/{contact_id}', 'Client_contactContr
 Route::get('/fillcontacts/{id}', 'Client_contactController@create');/**Fill the the list of clients*/
 Route::get('/insertContact/{id_owner}/{contact_id}', 'Client_contactController@store');/**Create a new contact of a client*/
 Route::get('/deleteContact/{contact_id}', 'Client_contactController@destroy');/**Fill the select item with the branches*/
+
+
+
+
+
+Route::post('products.chart', 'WorkController@products_chart')->name('products.chart');

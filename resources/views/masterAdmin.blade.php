@@ -29,6 +29,18 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
+  <script src="{{asset('/js/Reports/dateTimePicker_productsReport.js')}}"></script>
+  <script src="{{asset('/js/Reports/dateTimePicker_productsReport_endDate.js')}}"></script>
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
+  </script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
 
@@ -173,7 +185,7 @@
         </a>
         <a href="{{url('visits')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
+            <span class="glyphicon glyphicon-copy fa-fw mr-3"></span>
             <span class="menu-collapsed">Visitas</span>
           </div>
         </a>
@@ -183,12 +195,32 @@
             <span class="menu-collapsed">Sucursales</span>
           </div>
         </a>
+        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-start align-items-center">
+            <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
+            <span class="menu-collapsed">Reportes</span>
+            <span class="glyphicon glyphicon-menu-down submenu-icon ml-auto"></span>
+          </div>
+        </a>
+        <!-- Submenu content -->
+        <div id='submenu2' class="collapse sidebar-submenu">
+          <a href="{{route('works.index')}}" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
+            <span class="menu-collapsed">Materiales más usados</span>
+          </a>
+          <a data-target="#productsChart" style="cursor: pointer;" data-toggle="modal" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+            <span class="menu-collapsed">Productos más vendidos</span>
+          </a>
+        </div>
         <a href="#" data-toggle="sidebar-colapse" class="border border-left-0 border-right-0 border-light active-collapse sidebar-color  list-group-item list-group-item-action d-flex align-items-center">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span id="collapse-icon" class="glyphicon glyphicon-resize-horizontal fa fa-2x mr-3"></span>
             <span id="collapse-text" class="menu-collapsed">Cerrar menú</span>
           </div>
         </a>
+
+      
+
+
         <!-- Logo -->
         <li class="list-group-item logo-separator d-flex justify-content-center">
           <!-- <img src='https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg' width="30" height="30" />  -->
@@ -271,5 +303,62 @@
     }
   </script>
 </body>
+
+<div class="modal fade" id="productsChart">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Reporte de productos más vendidos</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        <form method = 'POST' action='{{ route("products.chart") }}'>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="">
+      
+                    <div class="row justify-content-center">
+                      <div class="col-md-5">
+                        <label for="date-field"><strong>Fecha de inicio</strong></label>
+                         <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
+                            <input id="dateInput_edit" type="text" name="startDate" class="form-control datetimepicker-input"
+                              data-target="#datetimepicker5" onkeydown="return false">
+                            <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
+                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-md-5">
+                        <label for="date-field"><strong>Fecha de fin</strong></label>
+                         <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                            <input id="dateInput_edit" type="text" name="endDate" class="form-control datetimepicker-input"
+                              data-target="#datetimepicker4" onkeydown="return false">
+                            <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                      <div class="col-md-4">
+                          <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Generar Reporte</button>
+                      </div>
+                      <div class="col-md-4">    
+                          <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+            </form>
+        
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+         
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 </html>

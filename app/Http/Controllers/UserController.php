@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 use DB;
 use Auth;
 
+/**
+ * 
+ * This class manage the IMEC of the accounts in the database 
+ * 
+ * */
+
 class UserController extends Controller
 {
 	/**
@@ -34,7 +40,13 @@ class UserController extends Controller
 	 */
 	public function index()
 	{
-		
+	
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " mostrando las cuentas");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "error");
+
 		//Gets all de accounts in the sistem
 		$users = DB::table('users') 
 		->join('user_types', 'users.user_type_id', 'user_types.id')
@@ -63,57 +75,50 @@ class UserController extends Controller
 	 */
 	public function create()
 	{
-		try {
-			
-			//custom message if this methods throw an exception
-			\Session::put('errorOrigin', " accediendo a la creación de cuentas");	
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " accediendo a la creación de cuentas");	
 
-			$user_type = Auth::user()->user_type_id;
-			if($user_type == 1){//admin user
-				return view('admin.accounts.create');
-			}
-		}catch(\Illuminate\Database\QueryException $e){
-			report($e);
-			return redirect('clients')->with('error', '¡Error en la base de datos
-			 en la creación de cuentas!');
-		}
-		catch(\Exception $e){
-			report($e);
-			return redirect('clients')->with('error', '¡Error en la creación de cuentas!');
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "user");
+
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1){//admin user
+			return view('admin.accounts.create');
 		}
 	}
 
 	/**
-	 * Store a newly account in storage.
+	 * Store a newly account in the database.
 	 *
 	 * @param Request $request
 	 * @return Response
 	 */
 	public function store(Request $request)
 	{
-		try {
-		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
-			//will be made. Also, all transactions can be rollbacked.
-		$user = new User();
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " agregando la cuenta");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "user.create");
+
 		$password = $request->input('password');
 		$passwordConfirm = $request->input("password_confirmation");
+
 		/**Check if the password is the same in both inputs */
 		if ($password != $passwordConfirm) {
-            return back()->withErrors(['password' => 'Las contraseñas no coinciden']);
+			return back()->withErrors(['password' => 'Las contraseñas no coinciden']);
 		}
-		
+				
 		/**Check if exist a user with ne same username in the sistem */
 		$username = User::where('username', $request->user_name)->get();
 		if(!$username->isEmpty()) {
 			return back()->withErrors(['user_name' => trans('Ya existe una cuenta registrada con este nombre de usuario.')])->withInput();
 		}
 
-		/**Check if exist a user with ne same email in the sistem
-		$email = User::where('email', $request->email)->get();
-		if(!$email->isEmpty()) {
-			return back()->withErrors(['user_name' => trans('Ya existe un usuario con el correo indicado.')]);
-		} */
-
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+		$user = new User();
+		
 		$user->active_flag = 1;
 		$user->branch_id = $request->dropBranch;
 		$user->username = $request->user_name;
@@ -131,24 +136,10 @@ class UserController extends Controller
 			return redirect()->route('user.index')->with('success', '¡Cuenta registrada satisfactoriamente!');;
 			
 		}
-	}catch(\Exception $e) {
-		report($e);//this writes the error at the log
-		DB::rollback();
-		\Session::flash('error', '¡Ha ocurrido un error al insertar la cuenta!' 
-		.' Si este persiste contacte al administrador del sistema');
-		return redirect('user.index');//aquí redirigen a la página deseada después de validar el error
-	}catch(\Throwable $e){//different exception that it´s not contained at \Exception
-		report($e);//this writes the error at the log
-		DB::rollback();
-		\Session::flash('error', '¡Ha ocurrido un error al insertar la cuenta!' 
-		.' Si este persiste contacte al administrador del sistema');
-		return redirect('user.index');//aquí redirigen a la página deseada después de validar el error
-	}
-		
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display the datas of a specific account.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -161,15 +152,20 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the form for editing the specified account of a client.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function edit($id)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " editando la cuenta");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "user");
 	
-		$user = $this->model->findOrFail($id);
+		$user = $this->model->find($id);
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1){//admin user
 			return view('admin.accounts.edit', compact('user'));	
@@ -178,7 +174,7 @@ class UserController extends Controller
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified account in the database.
 	 *
 	 * @param  int  $id
 	 * @param Request $request
@@ -186,8 +182,12 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		try {
-		DB::beginTransaction();
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " actualizando la cuenta");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "user");
+
 		/**Check if exist a user with the same username in the sistem */
 		if ($request->input("user_name") != $request->input("original_username")) {
 			$username = User::where('username', $request->user_name)->get();
@@ -195,15 +195,11 @@ class UserController extends Controller
 				return back()->withErrors(['user_name' => trans('Ya existe una cuenta registrada con este nombre de usuario.')]);
 			}
 		}
-		//Check if exist a user with ne same email in the sistem 
-		if ($request->input("email") != $request->input("original_email")) {
-			$email = User::where('email', $request->email)->get();
-				if(!$email->isEmpty()) {
-			return back()->withErrors(['user_name' => trans('Ya existe un usuario con el correo indicado.')]);
-			}
-		}
 
-		$user = $this->model->findOrFail($id);
+		DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+		
+		$user = $this->model->find($id);
 		$user->branch_id = $request->dropBranch;
 		$user->username = $request->user_name;
 		$user->name = $request->name;
@@ -219,34 +215,30 @@ class UserController extends Controller
 			return redirect()->route('user.index')->with('success', '¡Cuenta actualizada satisfactoriamente!');;
 			
 		}
-		
-	}catch(\Exception $e) {
-		report($e);//this writes the error at the log
-		DB::rollback();
-		\Session::flash('error', '¡Ha ocurrido un error al actualizar la cuenta!' 
-		.' Si este persiste contacte al administrador del sistema');
-		return redirect('user.edit/'.$id);//aquí redirigen a la página deseada después de validar el error
-	}catch(\Throwable $e){//different exception that it´s not contained at \Exception
-		report($e);//this writes the error at the log
-		DB::rollback();
-		\Session::flash('error', '¡Ha ocurrido un error al actualizar la cuenta!' 
-		.' Si este persiste contacte al administrador del sistema');
-		return redirect('user.edit/'.$id);//aquí redirigen a la página deseada después de validar el error
-	}//End Try-Catch
-
 	}//End update accound
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Desactivate an specific account from user.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id)
 	{
-		$user = $this->model->findOrFail($id);
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " desactivando la cuenta");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "user");
+
+		DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+		
+		$user = $this->model->find($id);
 		$user->active_flag = 0;
 		$user->save();
+		
+		DB::commit();//commit to database
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
@@ -254,11 +246,29 @@ class UserController extends Controller
 		}
 	}
 
+	/**
+	 * Activate an specific account from user.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+
 	public function activate($id)
 	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " activando la cuenta");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "user");
+
+		DB::beginTransaction();//starts database transaction. If there´s no commit no transaction
+		//will be made. Also, all transactions can be rollbacked.
+
 		$user = $this->model->findOrFail($id);
 		$user->active_flag = 1;
 		$user->save();
+
+		DB::commit();//commit to database
 		
 		$user_type = Auth::user()->user_type_id;		
 		if($user_type == 1){//admin user
@@ -267,6 +277,11 @@ class UserController extends Controller
 		}
 	}
 
+	/**
+	 * 
+	 * Get all the branches in the database.
+	 * 
+	 */
 	public function ajax_branch(){
         $branches=DB::table('branches')->where('active_flag', '=', 1)->orderBy('name','desc')->get();
         if ($branches == null || $branches->isEmpty()) {
@@ -275,6 +290,12 @@ class UserController extends Controller
         return json_encode(["branches"=>$branches]);
 	}
 
+
+	/**
+	 * 
+	 * Get all the rols in the database.
+	 * 
+	 */
 	public function ajax_rol(){
         $user_types=DB::table('user_types')->where('active_flag', '=', 1)->orderBy('name','asc')->get();
         if ($user_types == null || $user_types->isEmpty()) {
