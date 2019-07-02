@@ -38,6 +38,7 @@
                         <input type='hidden' id='editRow' value=''>
                         <input type='hidden' id="formatMoney" class="autonumericConversion" name="formatMoney">
                         <input type='hidden' id="orderID" value="{{$order->id}}">
+                        <input type='hidden' id="existOrder" value="1">
 
 
                         <div class="row ">
@@ -93,8 +94,10 @@
                                     <label style="margin: 0;"><strong>Correo:&nbsp</strong></label><label id="email"
                                         value=" " type="text" name="email">{{$email}}</label>
                                 </div>
-                                <input type="hidden" value="{{$owner->id}}" class="form-control" id="client_id"
-                                    name="client_id">
+                                <input type="hidden" value="{{$owner->id}}" class="form-control" id="client_owner"
+                                    name="client_owner">
+                                    <input type="hidden" value="{{$order->client_contact}}" class="form-control" id="client_contact"
+                                    name="client_contact">                                    
 
                             </div>
 
@@ -157,7 +160,7 @@
                                         class="formStyle formStyle3 autonumeric" name="order_advanced_payment"
                                         type='text'
                                         title="No se permite ingresar letras o números negativos en este campo"
-                                        value="0" step=any onkeyup="showConvertedAdvanced()" autocomplete='off'>
+                                        value="{{$order->advance_payment}}" step=any onkeyup="showConvertedAdvanced()" autocomplete='off'>
                                     <p id="pAdvanced" style="display:none"></p>
                                 </div>
                             </div>

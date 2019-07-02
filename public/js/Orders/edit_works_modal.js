@@ -6,6 +6,7 @@ $(document).ready(function () {//cleans the modals when page is accesed/reloaded
     initAutonumeric();
     disableMoneyRadio();
     fixProductDateFormat();
+    loadContactClient();
 });
 
 //This function makes the form validate, do not erase it. 
@@ -411,7 +412,7 @@ function submitForm() {
 }
 
 function getWorksData() {
-    var date, priority, observation, product, materials, workData;
+    var date, priority, observation, product, materials, existWork, workData;
     var works_array = [];
     var table = $('#worksTable').DataTable();
     rowCount = table.rows().count();
@@ -431,9 +432,15 @@ function getWorksData() {
         product = $("#product" + i).attr("value");
         materials = $("#materials" + i).val();
 
+        if ($("#work" + i ).length) {
+            existWork = $("#work" + i ).val();
+        } else {
+            existWork = -1;
+        }
+
         workData = {
             date: date, priority: priority, observation: observation,
-            product: product, materials: materials
+            product: product, materials: materials, existWork: existWork
         };
         works_array.push(workData);
         //alert("pbservation en el array: " + workData.observation);
@@ -455,7 +462,7 @@ function getOrderData() {
     if (isEmptyOrSpaces(order_total)) {
         order_total = -1;
     }
-    var owner = $("#client_id").val();
+    var owner = $("#client_owner").val();
     var contact = $("#dropContacts").children("option:selected").val();
     var coin = $("input[name='coin']:checked").val();
     var exchange_rate;
@@ -466,6 +473,9 @@ function getOrderData() {
         exchange_rate = $("#dolarExchangeRate").val();
     }
 
+    var existOrder = $("#existOrder").val();
+    var orderID = $("#orderID").val();
+
     //var advance_payment_add = $("input[name='advance_payment_add']:checked").val();
 
     var orderArray = [];
@@ -473,7 +483,8 @@ function getOrderData() {
     orderArray.push({
         quotation_number: quotation_number, owner: owner, contact: contact,
         order_advanced_payment: order_advanced_payment, order_total: order_total,
-        exchange_rate: exchange_rate, coin: coin,
+        exchange_rate: exchange_rate, coin: coin, existOrder: existOrder,
+        orderID: orderID,
     });
     return JSON.stringify(orderArray);
 }
@@ -543,7 +554,7 @@ function validateForm() {
         return false;
     }
 
-    var owner = $("#client_id").val();
+    var owner = $("#client_owner").val();
     if ($('#dropContacts option').length <= 0) {
         alert("Elija correctamente los clientes");
         return false;
@@ -581,5 +592,12 @@ function trimDeleteEnters(text) {
     text = text.replace(/\r?\n|\r/g, '');
     text = text.trim();
     return text;
+}
+
+function loadContactClient() {
+    var owner = $("#client_owner").val();
+    var contact = $("#client_contact").val();
+    //function at Clients/load_clients.js
+    fillClientContactsSelected(owner, contact);
 }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

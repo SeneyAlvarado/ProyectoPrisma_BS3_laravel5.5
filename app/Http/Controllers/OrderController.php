@@ -221,90 +221,107 @@ class OrderController extends Controller
 		$userID = Auth::user()->id;
 
 		DB::beginTransaction();
-
 		$orderModel = new Order();
 		$orderDecoded = json_decode($orderData);
 
 		foreach ($orderDecoded as $order) {
+			if($order->existOrder == "-1") {
+				if ($order->quotation_number == "-1") { //if it´s just whitespaces
+					$order->quotation_number = null;
+				} else {
+					$orderModel->quotation_number = $order->quotation_number;
+				}
 
-			if ($order->quotation_number == "-1") { //if it´s just whitespaces
-				$order->quotation_number = null;
+				$orderModel->client_owner =  $order->owner;
+				$orderModel->client_contact =  $order->contact;
+				$orderModel->client_contact =  $order->contact;
+
+				if ($order->order_advanced_payment == "-1") { //if it´s just whitespaces
+					$order->order_advanced_payment = null;
+				} else {
+					$orderModel->advance_payment = $order->order_advanced_payment;
+				}
+
+				if ($order->order_total == "-1") { //if it´s just whitespaces
+					$order->order_total = null;
+				} else {
+					$orderModel->total = $order->order_total;
+				}
+
+				$orderModel->exchange_rate =  $order->exchange_rate;
+				$orderModel->coin_id = (($order->coin) + 1);//ATENTION, this is 
+				//because de difference between the JS coin handle vs the databse coin handle.  
+				$orderModel->branch_id = Auth::user()->branch_id;
+				$orderModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+				//$orderModel->state_id = 1;
+				$orderModel->active_flag = 1;
+				$orderModel->save();
+
+				$orderID = $orderModel->id;
+
+				$order_state_model = new Order_order_state();
+				$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+				$order_state_model->order_states_id = 1;//En progreso order_state
+				$order_state_model->order_id = $orderID;
+				$order_state_model->user_id = $userID;
+				$order_state_model->save();
 			} else {
-				$orderModel->quotation_number = $order->quotation_number;
+				$orderID = $order->orderID;
 			}
-
-			$orderModel->client_owner =  $order->owner;
-			$orderModel->client_contact =  $order->contact;
-			$orderModel->client_contact =  $order->contact;
-
-			if ($order->order_advanced_payment == "-1") { //if it´s just whitespaces
-				$order->order_advanced_payment = null;
-			} else {
-				$orderModel->advance_payment = $order->order_advanced_payment;
-			}
-
-			if ($order->order_total == "-1") { //if it´s just whitespaces
-				$order->order_total = null;
-			} else {
-				$orderModel->total = $order->order_total;
-			}
-
-			$orderModel->exchange_rate =  $order->exchange_rate;
-			$orderModel->coin_id = (($order->coin) + 1);
-			$orderModel->branch_id = Auth::user()->branch_id;
-			$orderModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			//$orderModel->state_id = 1;
-			$orderModel->active_flag = 1;
-			$orderModel->save();
 		}
-
-		$orderID = $orderModel->id;
-
-		$order_state_model = new Order_order_state();
-		$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-		$order_state_model->order_states_id = 1;//En progreso order_state
-		$order_state_model->order_id = $orderID;
-		$order_state_model->user_id = $userID;
-		$order_state_model->save();
 
 		$worksDecoded = json_decode($worksData);
 		$workCounter = 0;
 
 		foreach ($worksDecoded as $work) {
-			${'workModel' . $workCounter} = new Work();
-			$workModel = ${'workModel' . $workCounter};
-			//return json_encode(["data" => $work->date]);
+			if($work->existWork == "-1") {//if the work is a new one
 
-			$workModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			$workModel->approximate_date = Carbon::createFromFormat('d/m/Y', $work->date);
-			$workModel->priority = $work->priority;
-			$workModel->observation = $work->observation;
-			$workModel->product_id = $work->product;
+				${'workModel' . $workCounter} = new Work();
+				$workModel = ${'workModel' . $workCounter};
+				//return json_encode(["data" => $work->date]);
 
-
-			$workModel->active_flag = 1;
-			$workModel->order_id =	$orderID;
+				$workModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+				$workModel->approximate_date = Carbon::createFromFormat('d/m/Y', $work->date);
+				$workModel->priority = $work->priority;
+				$workModel->observation = $work->observation;
+				$workModel->product_id = $work->product;
 
 
-			$workModel->save();
+				$workModel->active_flag = 1;
+				$workModel->order_id =	$orderID;
 
-			$materialsArray = explode(",", $work->materials);
 
-			$material_work_Model = new Material_work();
-				foreach ($materialsArray as $materialWork) {
-					if(!empty($materialWork)){
-						$material_work_Model->material_id = $materialWork;
-						$material_work_Model->work_id = $workModel->id;
-						$material_work_Model->save();
+				$workModel->save();
+
+				$materialsArray = explode(",", $work->materials);
+
+				$material_work_Model = new Material_work();
+					foreach ($materialsArray as $materialWork) {
+						if(!empty($materialWork)){
+							$material_work_Model->material_id = $materialWork;
+							$material_work_Model->work_id = $workModel->id;
+							$material_work_Model->save();
+						}
 					}
-				}
 
-			$state_work_Model = new State_work();
-			$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			$state_work_Model->states_id = 1;//Inicio work state
-			$state_work_Model->work_id = $workModel->id;
-			$state_work_Model->user_id = $userID;
-			$state_work_Model->save();
+				$state_work_Model = new State_work();
+				$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+				$state_work_Model->states_id = 1;//Inicio work state
+				$state_work_Model->work_id = $workModel->id;
+				$state_work_Model->user_id = $userID;
+				$state_work_Model->save();
+
+				$work_log_model = new \App\Works_log();
+				$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+				$work_log_model->attribute = "Estado";
+				$work_log_model->value = "Trabajo creado según datos iniciales";
+				$work_log_model->work_id = $workModel->id;
+				$work_log_model->user_id = $userID;
+				$work_log_model->save();
+
+			} else {//if the work already exists and needs an update
+				$this->updateWorksLogBasicInfo($work);
+			}
 		}
 
 		DB::commit();
@@ -405,19 +422,69 @@ class OrderController extends Controller
 
 	/**
 	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @param Request $request
-	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function updateWorksLogBasicInfo($work)
 	{
-		$inputs = $request->all();
+		$workModel = Work::where('id', $work->existWork)->first();
+		$workID = $work->existWork;
 
-		$order = $this->model->findOrFail($id);
-		$order->update($inputs);
+		if($workModel->priority != $work->priority){
+			if($workModel->priority == "1") {
+				$oldPriority = "Sin prioridad";
+				$newPriority = "Posee prioridad";
+			} else {
+				$oldPriority = "Posee prioridad";
+				$newPriority = "Sin prioridad";
+			}
+			$priority = "La prioridad con el antiguo valor de " . '"' . $oldPriority. '"' . 
+			" fue actualizada a " . '"' . $newPriority. '".' . 
+			$workModel->priority = $work->priority;
+			$this->updateLogBasicInfo("Prioridad", $priority, $workID);
+		}
 
-		return redirect()->route('orders.index')->with('message', 'Item updated successfully.');
+		$oldDate = Carbon::parse($workModel->approximate_date)->startOfDay();
+		$newDate = Carbon::createFromFormat('d/m/Y', $work->date)->startOfDay();
+		if($oldDate->notEqualTo($newDate)){
+			$date = "La fecha de entrega con el antiguo valor de " . $oldDate->format('d/m/Y') .  
+			" fue actualizada a " . $newDate->format('d/m/Y');
+			$workModel->approximate_date = $newDate;
+			$this->updateLogBasicInfo("Fecha de entrega aproximada", $date, $workID);
+		}
+
+		if($workModel->observation != $work->observation){
+			$observation = "La observación fue actualizada.";
+			$workModel->observation = $work->observation;
+			$this->updateLogBasicInfo("Observación", $observation, $workID);
+		}
+
+		if($workModel->product_id != $work->product){
+			$oldName = \App\Product::where('id', $workModel->product_id)->first()->name;
+			$newName = \App\Product::where('id', $work->product)->first()->name;
+			$product = "El producto con el antiguo valor de " . '"' . $workModel->product_id . ". " .
+			$oldName. '"' . " fue actualizado a " . '"' . $work->product . ". " .
+			$newName. '".';
+			$workModel->product_id = $work->product;
+			$this->updateLogBasicInfo("Producto", $product, $workID);
+		}
+		$workModel->save();
+		return;
+	}
+
+	/**
+	 * Creates a new log at work_log with the determined values
+	 * @param [type] $attribute The name of the attribute to write
+	 * @param [type] $value The value of the attribute
+	 * @param [type] $workID The id of the work to update
+	 * @return void
+	 */
+	public function updateLogBasicInfo($attribute, $value, $workID) {
+		$work_log_model = new \App\Works_log();
+		$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$work_log_model->attribute = $attribute;
+		$work_log_model->value = $value;
+		$work_log_model->work_id = $workID;
+		$work_log_model->user_id =  Auth::user()->id;
+		$work_log_model->save();
 	}
 
 	/**

@@ -15,7 +15,7 @@ class CreateWorksLogsTable extends Migration {
 		Schema::create('works_logs', function(Blueprint $table) {
             $table->increments('id');
             $table->dateTime('date');
-            $table->string('attribute', 20);
+            $table->string('attribute', 35);
             $table->string('value', 100);
             $table->integer('work_id')->unsigned();
             $table->foreign('work_id')->references('id')->on('works');
