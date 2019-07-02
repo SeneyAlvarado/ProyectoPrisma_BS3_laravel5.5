@@ -141,7 +141,7 @@
             <span class=" menu-collapsed">Clientes</span>
           </div>
         </a>
-        <a href="{{url('visits')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+        <a href="{{route('visits.indexReception')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-copy fa-fw mr-3"></span>
             <span class="menu-collapsed">Visitas</span>
