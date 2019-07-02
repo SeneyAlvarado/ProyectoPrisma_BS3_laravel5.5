@@ -28,7 +28,7 @@ function listContactsTable(id) {
 
 function createContact(id_owner, contact_id){
     document.getElementById("loader").style.justifyContent = "center";
-    //document.getElementById("loader").style.display = "block";
+    document.getElementById("loader").style.display = "block";
     $.ajax({
         url: '/insertContact/' + id_owner + '/' + contact_id,
         type: 'GET',
@@ -43,17 +43,19 @@ function createContact(id_owner, contact_id){
     location.reload();
 }
 
-function deleteContact(contact_id){
-    //document.getElementById("loader").style.display = "block";
-    $.ajax({
-        url: '/deleteContact/' + contact_id,
-        type: 'GET',
-        dataType: "json",
-        success: function (datos) {
+function deleteContact(contact_id, contact_name){
+    if (confirm("¿Desea eliminar el contacto " + contact_name + "?")) {
+        document.getElementById("loader").style.display = "block";
+        $.ajax({
+            url: '/deleteContact/' + contact_id,
+            type: 'GET',
+            dataType: "json",
+            success: function (datos) {
 
-        }, error: function () {
-            alert("¡Ha habido un error al eliminar el contacto");
-        }
-    });
-    location.reload();
+            }, error: function () {
+                alert("¡Ha habido un error al eliminar el contacto");
+            }
+        });
+        location.reload();
+    }
 }
