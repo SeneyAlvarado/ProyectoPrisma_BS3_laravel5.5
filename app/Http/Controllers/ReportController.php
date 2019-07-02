@@ -28,6 +28,7 @@ class ReportController extends Controller
        */
       public function generate()
       {
+        return view('admin/reports/report');
           //custom message if this methods throw an exception
 		\Session::put('errorOrigin', " actualizando el estado");	
 

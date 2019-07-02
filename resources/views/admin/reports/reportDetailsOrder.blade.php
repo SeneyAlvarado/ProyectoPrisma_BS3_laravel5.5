@@ -53,14 +53,30 @@
             table.personal_information td {
                 border:hidden;
             }
+            .pagenumber:before {
+            content: counter(page);
+            }
+            .pagecount:before {
+            content: counter(pages);
+            } 
+
+            #pageCounter {
+  counter-reset: pageTotal;
+}
+/* Show current page number via CSS counter feature */
+.page-number:before {
+                content: counter(page);
+            }
         </style>
+        
     </head>
     <body>
+
         <div>
             <table class="personal_information">
                 <tr>
                     <td>
-                        <label>Número de orden: {{$order->id}}</label>
+                        <label>Número de orden: {{$order->id}} </label>
                     </td>
                     <td>
                         <label>Sucursal: {{$order->branch_id}}</label>
@@ -124,5 +140,12 @@
                 @endforeach
             </table>
         </div>
+        <p>**************************ULTIMA PÁGINA**************************</p>
+        <div class="footer" style="font-size:12pt; font-family: Arial; font-family: Arial;">
+                <span>Page <span class="pagenumber"/> of <span class="pagecount"/></span>
+
+                <footer>
+                        Page <span class="page-number"></span> of DOMPDF_PAGE_COUNT_PLACEHOLDER
+                    </footer>
     </body>
 </html>
