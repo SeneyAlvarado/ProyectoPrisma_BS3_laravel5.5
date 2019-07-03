@@ -271,7 +271,7 @@ class OrderController extends Controller
 				$order_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
 				$order_log_model->attribute = "Estado";
 				$order_log_model->value = "Orden creada según datos iniciales";
-				$order_log_model->order_id = $order->orderID;
+				$order_log_model->order_id = $orderID;
 				$order_log_model->user_id = $userID;
 				$order_log_model->save();
 			} else {

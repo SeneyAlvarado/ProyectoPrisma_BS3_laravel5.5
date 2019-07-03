@@ -3,17 +3,9 @@
 
 <script src="{{asset('/js/Clients/load_clients.js')}}"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
-</script>
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
-<script src="{{asset('/js/Orders/dateTimePicker_minDateToday.js')}}"></script>
-<script src="{{asset('/js/Orders/datetimepicker_editModal.js')}}"></script>
 <script src="{{asset('/js/Orders/multiple-materials-select.js')}}"></script>
 <script src="{{asset('/js/Orders/multiple-material-editModal.js')}}"></script>
 <script src="{{asset('/js/Orders/load_materials.js')}}"></script>
@@ -23,6 +15,20 @@
 <link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/input_style.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/multiple-materials-select.css')}}">
+
+<!-- Neccesary links for the datepicker -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/calendarOwn.css')}}">
+<script src="{{asset('/js/Datepickers/Datepicker_spanish.js')}}"></script>
+<!-- End of neccesary links for the datepicker -->
+
+<!-- Datepickers for THIS PAGE, can be used if other datepickers with same id not used, if other configuration
+ir other input ID needed, please make other JS with your own configuration-->
+<script src="{{asset('/js/Datepickers/datepicker1_fromToday.js')}}"></script>
+<script src="{{asset('/js/Datepickers/datepicker2_fromToday.js')}}"></script>
+<!-- END Datepicker for THIS PAGE -->
+<!-- At this page of ORDERS, I use datepicker1 to add works and datepicker2 to edit those works -->
 
 <div style="padding:10px;">
     <div class="card">
@@ -266,17 +272,7 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
-                                                <div class="input-group date" id="datetimepicker4"
-                                                    data-target-input="nearest">
-                                                    <input id="dateInput_add" type="text" name="date"
-                                                        class="form-control datetimepicker-input"
-                                                        data-target="#datetimepicker4" onkeydown="return false">
-                                                    <div class="input-group-append" data-target="#datetimepicker4"
-                                                        data-toggle="datetimepicker">
-                                                        <div class="input-group-text"><span
-                                                                class="glyphicon glyphicon-calendar"></span></div>
-                                                    </div>
-                                                </div>
+                                                <input type="text" id="datepicker1_fromToday" readonly>
                                             </div>
                                         </div>
 
@@ -398,17 +394,7 @@
                                         <div class="row justify-content-center">
                                             <div class="col-md-5">
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
-                                                <div class="input-group date" id="datetimepicker5"
-                                                    data-target-input="nearest">
-                                                    <input id="dateInput_edit" type="text" name="date"
-                                                        class="form-control datetimepicker-input"
-                                                        data-target="#datetimepicker5" onkeydown="return false">
-                                                    <div class="input-group-append" data-target="#datetimepicker5"
-                                                        data-toggle="datetimepicker">
-                                                        <div class="input-group-text"><span
-                                                                class="glyphicon glyphicon-calendar"></span></div>
-                                                    </div>
-                                                </div>
+                                                <input type="text" id="datepicker2_fromToday" readonly>
                                             </div>
                                         </div>
 
