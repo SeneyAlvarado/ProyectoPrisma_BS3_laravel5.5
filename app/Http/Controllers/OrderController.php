@@ -219,6 +219,7 @@ class OrderController extends Controller
 		$orderData = $postData[0];
 		$worksData = $postData[1];
 		$userID = Auth::user()->id;
+		$updatedData = false;
 
 		DB::beginTransaction();
 		$orderModel = new Order();
@@ -274,6 +275,7 @@ class OrderController extends Controller
 				$order_log_model->user_id = $userID;
 				$order_log_model->save();
 			} else {
+				$updatedData = true;
 				$orderID = $order->orderID;
 				$this->updateOrder($order);
 			}
@@ -329,13 +331,18 @@ class OrderController extends Controller
 				$work_log_model->save();
 
 			} else {//if the work already exists and needs an update
+				$updatedData = true;
 				$this->updateWorksLogBasicInfo($work);
 			}
 		}
 
 		DB::commit();
 
-		\Session::flash('success', 'Orden registrada satisfactoriamente!');
+		if($updatedData){
+			\Session::flash('success', '¡Orden actualizada satisfactoriamente!');
+		} else {
+			\Session::flash('success', '¡Orden registrada satisfactoriamente!');
+		}
 		return json_encode(["data" => "successRequest"]);
 		//$works = json_decode($works);
 		//$order = json_decode($order);

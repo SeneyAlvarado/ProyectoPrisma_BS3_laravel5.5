@@ -385,7 +385,7 @@ function submitForm() {
     urlData.push(order);
     urlData.push(works);
     JSON.stringify(urlData);
-    alert(urlData);
+    //alert(urlData);
     //alert(order);
     //window.location.replace("/addOrdersWorks/" + data);
     //JSON.stringify(array_horario_servicio));

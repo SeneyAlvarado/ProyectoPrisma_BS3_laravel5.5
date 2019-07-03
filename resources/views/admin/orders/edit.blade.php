@@ -96,8 +96,8 @@
                                 </div>
                                 <input type="hidden" value="{{$owner->id}}" class="form-control" id="client_owner"
                                     name="client_owner">
-                                    <input type="hidden" value="{{$order->client_contact}}" class="form-control" id="client_contact"
-                                    name="client_contact">                                    
+                                <input type="hidden" value="{{$order->client_contact}}" class="form-control"
+                                    id="client_contact" name="client_contact">
 
                             </div>
 
@@ -160,7 +160,8 @@
                                         class="formStyle formStyle3 autonumeric" name="order_advanced_payment"
                                         type='text'
                                         title="No se permite ingresar letras o números negativos en este campo"
-                                        value="{{$order->advance_payment}}" step=any onkeyup="showConvertedAdvanced()" autocomplete='off'>
+                                        value="{{$order->advance_payment}}" step=any onkeyup="showConvertedAdvanced()"
+                                        autocomplete='off'>
                                     <p id="pAdvanced" style="display:none"></p>
                                 </div>
                             </div>
@@ -228,9 +229,9 @@
 
                                                 <td>
                                                     <input id="observation{{$rowCount}}" type="hidden"
-                                                        value="{{$work->observation}}">
+                                                        value="{{$work->observation}}" autocomplete='off'>
                                                     <input id="materials{{$rowCount}}" type="hidden"
-                                                        value="{{$materials}}">
+                                                        value="{{$materials}}" autocomplete='off'>
                                                     <input id="work{{$rowCount}}" type="hidden" value="{{$work->id}}">
                                                     <a onclick="loadEditWorkModal('{{$rowCount}}')"
                                                         class="btn btn-warning style-btn-edit btn-size">Detalles</a>
