@@ -112,9 +112,7 @@
                         <a title="Generar reporte" class="btn btn-warning" href="{{url('reportOrder', $order->id)}}"
                             style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-file"></span></a>
-                        <a title="Ver trabajos" class="btn btn-warning" style="background-color:#e0e0e0; border:0px;" href=""><span
-                                class="glyphicon glyphicon-folder-open"></a>
-                        <a title="Editar" class="btn btn-warning" href="" style="background-color:#e0e0e0; border:0px;"><span
+                        <a title="Editar" class="btn btn-warning" href="{{ route('orders.edit', [$order->id]) }}" style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-pencil"></span></a>
                         @if($order->active_flag == 1)
                         <form style="display:inline" action="" method="POST" style="display: inline;"
