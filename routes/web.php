@@ -94,6 +94,8 @@ Route::post('saveVisit', 'VisitController@store');
 Route::get('editVisit/{id}', 'VisitController@edit');
 Route::put('updateVisit/{id}', 'VisitController@update');
 Route::delete('deleteVisit/{id}', 'VisitController@destroy');
+Route::delete('visits.solve/{id}', 'VisitController@solve')->name('visits.solve');
+Route::get('visits.indexReception', 'VisitController@indexReception')->name('visits.indexReception');
 /*-------------------------------------------*/
 
 /* clients */

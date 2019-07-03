@@ -22,6 +22,10 @@ SET time_zone = "+00:00";
  1 - En progreso
  2- Entregada 
  3- Cancelada
+
+ User Types:
+ 1 - Admin
+ 2 - Recepcionista
 */	
 
 INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
