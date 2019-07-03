@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorksLogsTable extends Migration {
+class CreateOrderLogsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,16 +12,15 @@ class CreateWorksLogsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('works_logs', function(Blueprint $table) {
+		Schema::create('order_logs', function(Blueprint $table) {
             $table->increments('id');
             $table->dateTime('date');
             $table->string('attribute', 35);
             $table->string('value', 150);
-            $table->integer('work_id')->unsigned();
-            $table->foreign('work_id')->references('id')->on('works');
+            $table->integer('order_id')->unsigned();
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            //$table->timestamps();
         });
 	}
 
@@ -32,7 +31,7 @@ class CreateWorksLogsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('works_logs');
+		Schema::drop('order_logs');
 	}
 
 }

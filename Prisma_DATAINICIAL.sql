@@ -99,6 +99,11 @@ INSERT INTO `state_work` (`id`, `date`, `states_id`, `work_id`, `user_id`) VALUE
 INSERT INTO `state_work` (`id`, `date`, `states_id`, `work_id`, `user_id`) VALUES (NULL, '2019-06-20 00:00:00', '1', '3', '1');
 
 INSERT INTO `state_work` (`id`, `date`, `states_id`, `work_id`, `user_id`) VALUES (NULL, '2019-06-20 00:00:00', '1', '2', '1');
+
+INSERT INTO `client_contacts` (`id`, `client_id`, `contact_id`, `active_flag`) VALUES (NULL, '2', '1', '1');
+INSERT INTO `client_contacts` (`id`, `client_id`, `contact_id`, `active_flag`) VALUES (NULL, '1', '1', '1');
+INSERT INTO `client_contacts` (`id`, `client_id`, `contact_id`, `active_flag`) VALUES (NULL, '3', '3', '1');
+INSERT INTO `client_contacts` (`id`, `client_id`, `contact_id`, `active_flag`) VALUES (NULL, '3', '1', '1');
 /*********************************************************************************************/
 
 COMMIT;
