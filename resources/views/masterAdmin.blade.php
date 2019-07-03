@@ -22,7 +22,6 @@
 
   <!--<script src="{{asset('js/master-root.js')}}"></script>-->
 
-  <script src="{{asset('/js/app.min.js')}}"></script>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
