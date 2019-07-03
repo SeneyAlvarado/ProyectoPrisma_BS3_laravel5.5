@@ -29,7 +29,7 @@ class VisitController extends Controller
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the visits.
 	 *
 	 * @return Response
 	 */
@@ -40,9 +40,48 @@ class VisitController extends Controller
 
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "error");
-		$visits = $this->model->paginate();
+		
 
-		return view('admin/visits/index', compact('visits'));
+		$user_type = Auth::user()->user_type_id;
+
+		if($user_type == 1){//admin user
+			$visits = DB::table("visits")
+			->orderby('active_flag', 'DESC')->orderby('id', 'DESC')->get();
+
+			foreach($visits as $visit ) {//search the name of the visitor
+				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
+				$visit->visitor = $visitor->name . " " . $visitor->lastname;
+				if($visit->email == null) {
+					$visit->email = "No posee";
+				}
+				if(($visit->phone == null) || ($visit->phone == "")) {
+					$visit->phone = "No posee";
+				}
+			} 
+		
+			//return $visits;
+			return view('admin/visits/index', compact('visits'));
+		
+		} else if($user_type == 2){//reception user
+			
+			$visits = DB::table("visits")->where("active_flag", '<>', 0)
+			->orderby('active_flag', 'ASC')->orderby('id', 'DESC')->get();
+
+			foreach($visits as $visit ) {//search the name of the visitor
+				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
+				$visit->visitor = $visitor->name . " " . $visitor->lastname;
+
+				if($visit->email == null) {
+					$visit->email = "No posee";
+				}
+				if($visit->phone == null) {
+					$visit->phone = "No posee";
+				}
+			}	
+			//return $visits;
+			return view('reception/visits/index', compact('visits'));
+		}
+
 	}
 
 	/**
@@ -170,6 +209,28 @@ class VisitController extends Controller
 			$visit->save();
 			DB::commit();//commits to database 
 		return redirect('visits')->with('success', '¡Visita eliminada correctamente!');
+		}
+	}
+
+	public function solve($id)
+	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " resolviendo la visita");	
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "visits");
+		$visit = $this->model->find($id);
+		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
+			//will be made. Also, all transactions can be rollbacked.
+		if($visit==null){
+			throw new \Exception('Error en resolver visita con el id:' .$id
+				. " en el método VisitController@solve");
+		}else{
+			$visit->active_flag = 3;
+			$visit->recepcionist_id = Auth::user()->id;
+			$visit->save();
+			DB::commit();//commits to database 
+			return redirect('visits')->with('success', '¡Visita resualta correctamente!');
 		}
 	}
 }

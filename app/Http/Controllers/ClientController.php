@@ -78,6 +78,8 @@ class ClientController extends Controller
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
 				return view('admin.clients.index', compact('clients'));
+			} else if($user_type == 2){//reception user
+				return view('reception.clients.index', compact('clients'));
 			}
 	}
 
@@ -99,7 +101,10 @@ class ClientController extends Controller
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
 				return view('admin.clients.create');
+			} else if($user_type == 2){//reception user
+				return view('reception.clients.create');
 			}
+
 	}
 
 	/**
@@ -210,8 +215,9 @@ class ClientController extends Controller
 				
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
-				//return $client;
 				return view('admin.clients.edit', compact('client'));
+			} else if($user_type == 2){//reception user
+				return view('reception.clients.edit', compact('client'));
 			}
 			
 			}//end clients not null else
@@ -355,12 +361,7 @@ class ClientController extends Controller
 					$client->save();
 
 					DB::commit();//commit to database
-
-					$user_type = Auth::user()->user_type_id;	
-					if($user_type == 1){//admin user
-						return redirect('clients')->with('success',
-						'¡Cliente desactivado satisfactoriamente!');
-					}
+					return redirect('clients')->with('success', '¡Cliente activado satisfactoriamente!');
 				}
 	}
 
@@ -390,14 +391,9 @@ class ClientController extends Controller
 					
 					$client->active_flag = 0;
 					$client->save();
-
+					
 					DB::commit();//commit to database
-
-					$user_type = Auth::user()->user_type_id;	
-					if($user_type == 1){//admin user
-						return redirect('clients')->with('success',
-						'¡Cliente desactivado satisfactoriamente!');
-					}
+					return redirect('clients')->with('success', '¡Cliente desactivado satisfactoriamente!');
 				}
 	}
 

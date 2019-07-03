@@ -213,3 +213,27 @@ nav.nav-color {
     background-color:#333333 !important;
     border-color:#333333 !important;
   }
+
+  .style-btn-solve {
+    background-color:#333333 !important;
+    color:white !important;
+    width:80px;
+    border:0px !important;
+    margin-top:3px;
+  }
+
+  .style-btn-solve:hover {
+    cursor: no-drop !important;
+  }
+
+  .style-btn-delete-visit {
+    background-color:#9D9D9D !important;
+    color:white !important;
+    width:67px;
+    border:0px !important;
+    margin-top:3px;
+  }
+
+  .style-btn-delete-visit:hover {
+    cursor: no-drop !important;
+  }

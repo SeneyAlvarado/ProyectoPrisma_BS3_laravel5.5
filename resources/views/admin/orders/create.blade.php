@@ -36,6 +36,7 @@
                             value='{{\Carbon\Carbon::now('America/Costa_Rica')->addDay(7)->format('d/m/Y')}}'>
                         <input type='hidden' id='editRow' value=''>
                         <input type='hidden' id="formatMoney" class="autonumericConversion" name="formatMoney">
+                        <input type='hidden' id="existOrder" value="-1">
 
                         <div class="row ">
                             <div class="col-md-6">

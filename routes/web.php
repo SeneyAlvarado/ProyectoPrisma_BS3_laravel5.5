@@ -78,7 +78,7 @@ Route::get('orders.edit/{id}', 'OrderController@edit')->name('orders.edit');
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
 Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
 Route::get('/fillClientContacts/{id}', 'OrderController@ajax_fill_contacts');/**Fill the select item with the branches*/
-Route::post('/addOrdersWorks', 'OrderController@addOrdersWorks');/**Fill the select item with the branches*/
+Route::post('/addOrdersWorks', 'OrderController@addOrdersWorks');/**Add the JSON of orders and works to the DB*/
 Route::get('/changeOrderWorksState/{orderID}/{stateID}', 'OrderController@changeOrderWorksState');/**Change the state of the order and the works of that order*/ 
 /*-------------------------------------------*/
 
@@ -94,6 +94,7 @@ Route::post('saveVisit', 'VisitController@store');
 Route::get('editVisit/{id}', 'VisitController@edit');
 Route::put('updateVisit/{id}', 'VisitController@update');
 Route::delete('deleteVisit/{id}', 'VisitController@destroy');
+Route::delete('visits.solve/{id}', 'VisitController@solve')->name('visits.solve');
 /*-------------------------------------------*/
 
 /* clients */

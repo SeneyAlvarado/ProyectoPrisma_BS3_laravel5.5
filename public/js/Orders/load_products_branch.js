@@ -32,7 +32,7 @@ function activeProductBranchSelected(selectedProduct) {
             $.each(datos, function () {
                 $.each(this, function () {
                     if (this.id == selectedProduct) {
-                        $('#product_branch_edit').append('<option selected="true" value="' + this.id + '">' + this.name + '</option>');
+                        $('#product_branch_edit').append('<option selected="true" value="' + this.id + '">' + this.id + ". " +  this.name + '</option>');
                     } else {
                         $('#product_branch_edit').append('<option value="' + this.id + '">' + this.id + ". " + this.name + '</option>');
                     }

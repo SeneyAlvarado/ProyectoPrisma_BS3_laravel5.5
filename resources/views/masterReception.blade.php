@@ -32,6 +32,14 @@
   <script src="{{asset('/js/Reports/dateTimePicker_productsReport.js')}}"></script>
   <script src="{{asset('/js/Reports/dateTimePicker_productsReport_endDate.js')}}"></script>
   
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
+  </script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
@@ -69,39 +77,20 @@
 
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú
+        <li class=" nav-item dropdown d-sm-block d-md-none">
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
             <a class="dropdown-item" href="#">Trabajos</a>
-            <a class="dropdown-item" href="{{url('states')}}">Estados</a>
-            <a class="dropdown-item" href="{{url('states')}}">Materiales</a>
-            <a class="dropdown-item" href="{{url('states')}}">Productos</a>
             <a class="dropdown-item" href="{{route('orders')}}">Órdenes</a>
             <a class="dropdown-item" href="{{route('clients')}}">Clientes</a>
-            <a class="dropdown-item" href="{{ url('user') }}">Cuentas</a>
             <a class="dropdown-item" href="{{url('visits')}}">Visitas</a>
-            <a class="dropdown-item" href="{{url('branch')}}">Sucursales</a>
+            <a class="dropdown-item" href="{{url('change_password.search_user')}}">Contraseña</a>
+            <a class="dropdown-item" href="{{url('/logout')}}">Cerrar sesión</a>
           </div>
-        </li><!-- Smaller devices menu END -->
-        <ul class=" nav-item dropdown d-sm-block d-md-none">Menú
-          <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú -->
-            <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Trabajos
-            </a>
-            <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-              <a class="dropdown-item" href="{{url('states')}}">Estados</a>
-              <a class="dropdown-item" href="{{route('materials')}}">Materiales</a>
-              <a class="dropdown-item" href="{{route('products')}}">Productos</a>
-            </div>
-            <li><a class="dropdown-item" href="{{route('orders')}}">Órdenes</a></li>
-            <li><a class="dropdown-item" href="{{route('clients')}}">Clientes</a></li>
-            <li><a class="dropdown-item" href="{{ url('user') }}">Cuentas</a></li>
-            <li><a class="dropdown-item" href="{{url('visits')}}">Visitas</a></li>
-            <li><a class="dropdown-item" href="{{url('branch')}}">Sucursales</a></li>
-        </ul>
-        <!--</li>-->
+        </li>
+        
 
       </ul>
     </div>
@@ -134,29 +123,12 @@
       <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
       <!-- Bootstrap List Group -->
       <ul class="list-group ">
-        <!-- Menu with submenu -->
-        <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="border border-left-0 border-top-0 border-right-0 border-light sidebar-color list-group-item list-group-item-action flex-column align-items-start">
+        <a href="{{route('works.index')}}" class="border border-left-0 border-right-0 border-top-0  border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
+            <span class="glyphicon glyphicon-edit fa-fw mr-3"></span>
             <span class="menu-collapsed">Trabajos</span>
-            <span class="glyphicon glyphicon-menu-down submenu-icon ml-auto"></span>
           </div>
         </a>
-        <!-- Submenu content -->
-        <div id='submenu1' class="collapse sidebar-submenu">
-          <a href="{{route('works.index')}}" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
-            <span class="menu-collapsed">Visualizar</span>
-          </a>
-          <a href="{{url('states')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
-            <span class="menu-collapsed">Estados</span>
-          </a>
-          <a href="{{route('materials')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
-            <span class="menu-collapsed">Materiales</span>
-          </a>
-          <a href="{{route('products')}}" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
-            <span class="menu-collapsed">Productos</span>
-          </a>
-        </div>
         <a href="{{route('orders')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-edit fa-fw mr-3"></span>
@@ -169,40 +141,12 @@
             <span class=" menu-collapsed">Clientes</span>
           </div>
         </a>
-        <a href="{{ url('user') }}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="glyphicon glyphicon-list fa-fw mr-3"></span>
-            <span class="menu-collapsed">Cuentas</span>
-          </div>
-        </a>
         <a href="{{url('visits')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-copy fa-fw mr-3"></span>
             <span class="menu-collapsed">Visitas</span>
           </div>
         </a>
-        <a href="{{url('branch')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="glyphicon glyphicon-flag fa-fw mr-3"></span>
-            <span class="menu-collapsed">Sucursales</span>
-          </div>
-        </a>
-        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
-            <span class="menu-collapsed">Reportes</span>
-            <span class="glyphicon glyphicon-menu-down submenu-icon ml-auto"></span>
-          </div>
-        </a>
-        <!-- Submenu content -->
-        <div id='submenu2' class="collapse sidebar-submenu">
-          <a href="{{route('works.index')}}" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
-            <span class="menu-collapsed">Materiales más usados</span>
-          </a>
-          <a data-target="#productsChart" style="cursor: pointer;" data-toggle="modal" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
-            <span class="menu-collapsed">Productos más vendidos</span>
-          </a>
-        </div>
         <a href="#" data-toggle="sidebar-colapse" class="border border-left-0 border-right-0 border-light active-collapse sidebar-color  list-group-item list-group-item-action d-flex align-items-center">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span id="collapse-icon" class="glyphicon glyphicon-resize-horizontal fa fa-2x mr-3"></span>
@@ -210,13 +154,7 @@
           </div>
         </a>
 
-      
-
-
-        <!-- Logo -->
-        <li class="list-group-item logo-separator d-flex justify-content-center">
-          <!-- <img src='https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg' width="30" height="30" />  -->
-        </li>
+        
       </ul><!-- List Group END-->
     </div><!-- sidebar-container END -->
 
@@ -248,7 +186,7 @@
         {{@session('info')}}
       </div>
       @endif
-      @yield('contenido_Admin')
+      @yield('content_Reception')
 
     </div><!-- Main Col END -->
   </div><!-- body-row END -->
@@ -264,7 +202,6 @@
     $('[data-toggle=sidebar-colapse]').click(function() {
       SidebarCollapse();
     });
-
     function SidebarCollapse() {
       $('.menu-collapsed').toggleClass('d-none');
       $('.sidebar-submenu').toggleClass('d-none');
@@ -278,17 +215,13 @@
         $('#sidebar-container').removeClass("col-2").addClass("col-xs-1");
         $('#contentDiv').removeClass("col-10").addClass("col-11");
       }
-
       // Treating d-flex/d-none on separators with title
       var SeparatorTitle = $('.sidebar-separator-title');
       if (SeparatorTitle.hasClass('d-flex')) {
         SeparatorTitle.removeClass('d-flex');
-
       } else {
         SeparatorTitle.addClass('d-flex');
-
       }
-
       // Collapse/Expand icon
       $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
 
@@ -296,61 +229,5 @@
   </script>
 </body>
 
-<div class="modal fade" id="productsChart">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Reporte de productos más vendidos</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body">
-        <form method = 'POST' action='{{ route("products.chart") }}'>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="">
-      
-                    <div class="row justify-content-center">
-                      <div class="col-md-5">
-                        <label for="date-field"><strong>Fecha de inicio</strong></label>
-                         <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                            <input id="dateInput_edit" type="text" name="startDate" class="form-control datetimepicker-input"
-                              data-target="#datetimepicker5" onkeydown="return false">
-                            <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
-                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="col-md-5">
-                        <label for="date-field"><strong>Fecha de fin</strong></label>
-                         <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                            <input id="dateInput_edit" type="text" name="endDate" class="form-control datetimepicker-input"
-                              data-target="#datetimepicker4" onkeydown="return false">
-                            <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                      <div class="col-md-4">
-                          <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Generar Reporte</button>
-                      </div>
-                      <div class="col-md-4">    
-                          <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cerrar</button>
-                      </div>
-                    </div>
-            </form>
-        
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-         
-        </div>
-        
-      </div>
-    </div>
-  </div>
 
 </html>

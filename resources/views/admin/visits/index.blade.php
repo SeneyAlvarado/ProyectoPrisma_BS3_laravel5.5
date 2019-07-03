@@ -24,25 +24,35 @@
                                 </thead>
                                 <tbody>
                                     @foreach($visits as $visit)
-                                    @if($visit->active_flag == 1)
+                                    
                                         <tr>
                                             <td class="text-center"><strong>{{$visit->id}}</strong></td>    
                                             <td class="text-center">{{$visit->client_name}}</td> 
                                             <td class="text-center">{{\Carbon\Carbon::parse($visit->date)->format('d/m/Y')}}</td> 
                                             <td class="text-center">{{$visit->phone}}</td> 
                                             <td class="text-center">{{$visit->email}}</td> 
-                                            <td class="text-center">{{$visit->visitor_id}}</td>
-                                            <td class="text-center">Activo</td>
+                                            <td class="text-center">{{$visit->visitor}}</td>
+                                            @if($visit->active_flag == 1)
+                                            <td class="text-center">Activa</td>
+                                            @elseif ($visit->active_flag == 0)
+                                            <td class="text-center">Eliminada</td>
+                                            @else
+                                            <td class="text-center">Resuelta</td>
+                                            @endif
                                             <td class="text-center">
-                                                <a class="btn btn-warning style-btn-edit btn-size"  href="{{ url('editVisit', $visit->id) }}">Detalles</a>
+                                                <a class="btn btn-warning style-btn-edit btn-sm"  href="{{ url('editVisit', $visit->id) }}">Detalles</a>
                                                 <form action="{{ url('deleteVisit', $visit->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="btn  style-btn-delete btn-danger btn-size">Eliminar</button>
+                                                @if ($visit->active_flag == 0)
+                                                    <button type="submit" class="btn  style-btn-delete-visit btn-danger btn-sm" style="color:#333333" disabled>Eliminar</button>
+                                                @else
+                                                    <button type="submit" class="btn  style-btn-delete btn-danger btn-sm">Eliminar</button>
+                                                @endif
                                             </form>
                                         </td>
                                     </tr>
-                                    @endif
+                                   
                                     @endforeach
                                 </tbody>
                             </table>

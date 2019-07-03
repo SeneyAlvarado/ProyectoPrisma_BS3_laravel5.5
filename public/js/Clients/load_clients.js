@@ -77,3 +77,29 @@ function fillClientContacts(id) {
 }
 
 
+function fillClientContactsSelected(owner_id, contact_id) {
+    $.ajax({
+        url: '/fillClientContacts/' + owner_id,
+        type: 'GET',
+        dataType: "json",
+        success: function (datos) {
+            var table = $('#tableClients').DataTable();
+            table.clear().draw();
+            $('#dropContacts').empty();
+            $.each(datos, function () {
+                $.each(this, function () {
+                    if (this.contact_id == contact_id) {
+                        $('#dropContacts').append('<option selected value="' + this.contact_id + '">' + this.identification + " " + this.contact_name + '</option>');
+                    } else {
+                        $('#dropContacts').append('<option value="' + this.contact_id + '">' + this.identification + " " + this.contact_name + '</option>');
+                    }
+                })
+
+            })
+            $('#hide_contacts').css('display', 'block');
+        }, error: function () {
+            alert("¡Ha habido un error! al cargar la lista de contactos del cliente");
+        }
+    });
+}
+

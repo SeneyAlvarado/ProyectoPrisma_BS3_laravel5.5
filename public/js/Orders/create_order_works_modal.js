@@ -373,7 +373,7 @@ function submitForm() {
   urlData.push(order);
   urlData.push(works);
   JSON.stringify(urlData);
-  alert(urlData);
+  //alert(urlData);
   //alert(order);
   //window.location.replace("/addOrdersWorks/" + data);
   //JSON.stringify(array_horario_servicio));
@@ -400,7 +400,7 @@ function submitForm() {
 }
 
 function getWorksData() {
-  var date, priority, observation, product, materials, workData;
+  var date, priority, observation, product, materials, existWork, workData;
   var works_array = [];
   var table = $('#worksTable').DataTable();
   rowCount = table.rows().count();
@@ -420,9 +420,11 @@ function getWorksData() {
     product = $("#product" + i).attr("value");
     materials = $("#materials" + i).val();
 
+    existWork = -1;
+
     workData = {
       date: date, priority: priority, observation: observation,
-      product: product, materials: materials
+      product: product, materials: materials, existWork: existWork
     };
     works_array.push(workData);
     //alert("pbservation en el array: " + workData.observation);
@@ -455,6 +457,8 @@ function getOrderData() {
     exchange_rate = $("#dolarExchangeRate").val();
   }
 
+  var existOrder = $("#existOrder").val();
+
   //var advance_payment_add = $("input[name='advance_payment_add']:checked").val();
 
   var orderArray = [];
@@ -462,7 +466,7 @@ function getOrderData() {
   orderArray.push({
     quotation_number: quotation_number, owner: owner, contact: contact,
     order_advanced_payment: order_advanced_payment, order_total: order_total,
-    exchange_rate: exchange_rate, coin: coin,
+    exchange_rate: exchange_rate, coin: coin, existOrder: existOrder,
   });
   return JSON.stringify(orderArray);
 }
