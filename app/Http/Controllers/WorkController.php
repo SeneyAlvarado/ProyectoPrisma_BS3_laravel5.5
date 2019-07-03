@@ -13,7 +13,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Spipu\Html2Pdf\Html2pdf;
+use NahidulHasan\Html2pdf\Facades\Pdf;
 use Carbon\Carbon;
+
 
 class WorkController extends Controller
 {
@@ -320,6 +325,7 @@ class WorkController extends Controller
 	{
 
 		$from=Carbon::parse($request->startDate)->format('Y-m-d');
+		//$from="2019-06-01";
 		//$to=Carbon::parse($request->endDate)->format('Y-m-d');
 		$to = "2019-06-30";
 		$products = DB::table('products')->where('active_flag', '=', 1)
@@ -338,10 +344,61 @@ class WorkController extends Controller
 		$products = collect($products)->sortBy('total')->reverse();
 		$products = collect($products)->take(3);
 
+		/*$content='';
+		
+        $content.= '<html>
+		<head>
+		<link rel="stylesheet" href="bootstrap.min.css">
+		  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		  <script type="text/javascript">
+		  try { this.print(); } catch (e) { window.onload = window.print; } 
+			google.charts.load(\'current\', {\'packages\':[\'corechart\']});
+			google.charts.setOnLoadCallback(drawChart);
+			function drawChart() {
+			  var data = google.visualization.arrayToDataTable([
+				[\'Productos\', \'mes\'],';
+				  foreach ($products as $product){
+					$content .= '['.$product->name.', '. $product->total .'],';
+				  }
+				  
+			  $content.=']);
+	  
+			  var options = {
+				title: \'Producto más vendido\'
+			  };
+			  var chart = new google.visualization.PieChart(document.getElementById(\'piechart\'));
+	  
+			  chart.draw(data, options);
+			}
+		  </script>
+		</head>
+		<body>
+		<h4>Reporte de los porductos más vendidos del día '.$product->start. ' al '.$product->end.'</h4>
+		  <div id="piechart" style="width: 900px; height: 500px;"></div>
+		</body>
+	  </html>';
+         $html2pdf = new Html2Pdf('P', 'Legal', 'es', true, 'UTF-8');
+			$html2pdf->pdf->SetTitle('HTML2PDF Sample');
+			$html2pdf->pdf->IncludeJS('print(TRUE)');
+            $html2pdf->WriteHTML($content);
+           return $html2pdf->Output('example.pdf'); */
+
+
+/*
+		//require dirname(__FILE__).'\..\vendor\autoload.php';
+		require app_path()."/config.php";
+		ob_start();
+		require "/resources/views/admin/reports/mostProductSell.blade.php";
+		$html = ob_get_clean();
+		
+		
+		$html2pdf = new HTML2PDF('P', 'A4', 'es', 'true', 'UTF-8');
+		$html2pdf->writeHTML($html);
+		//$html2pdf->pdf->IncludeJS('print(TRUE)');
+		return $html2pdf->output('pdf_generated.pdf');*/
 		/*$pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML(view('admin/reports/mostProductSell', compact('products'))->render()); 
         return $pdf->stream('ProductosMasVendidos'.$product->end.'.pdf');*/
-
 		//return $products;
 		return view('admin/reports/mostProductSell',['products'=>$products]);
 	}

@@ -53,6 +53,9 @@
             table.personal_information td {
                 border:hidden;
             }
+            p {
+                font-size: 18px;
+            }
             .pagenumber:before {
             content: counter(page);
             }
@@ -71,7 +74,6 @@
         
     </head>
     <body>
-
         <div>
             <table class="personal_information">
                 <tr>
@@ -140,12 +142,10 @@
                 @endforeach
             </table>
         </div>
-        <p>**************************ULTIMA PÁGINA**************************</p>
+        <br>
+        <br>
+        <p>******************************* ÚLTIMA PÁGINA *******************************</p>
         <div class="footer" style="font-size:12pt; font-family: Arial; font-family: Arial;">
-                <span>Page <span class="pagenumber"/> of <span class="pagecount"/></span>
-
-                <footer>
-                        Page <span class="page-number"></span> of DOMPDF_PAGE_COUNT_PLACEHOLDER
-                    </footer>
+                <span>Página <span class="pagenumber"/></span></div>
     </body>
 </html>
