@@ -11,7 +11,7 @@
         <div class="">
                         @if($visits->count())
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-condensed table-hover compact order-column" id="tablaDatos">
+                            <table class="table table-striped table-bordered table-condensed table-hover compact" id="tablaDatos">
                                 <thead>
                                     <th class="text-center">N° visita</th>
                                     <th class="text-center">Nombre cliente</th> 
@@ -32,7 +32,8 @@
                                             <td class="text-center">{{$visit->email}}</td> 
                                             <td class="text-center">{{$visit->visitor}}</td>
                                             <td class="text-center">
-                                            <a class="btn btn-warning style-btn-edit btn-size btn-sm"  href="{{ url('editVisit', $visit->id) }}">Detalles</a>
+                                            <button type="button" data-toggle="modal" class="btn btn-warning style-btn-edit btn-size btn-sm"  
+                                            onClick="fillVisitInfo('{{$visit->id}}', '{{$visit->client_name}}', '{{$visit->phone}}' , '{{$visit->email}}', '{{$visit->visitor}}', '{{\Carbon\Carbon::parse($visit->date)->format('d/m/Y')}}', '{{$visit->details}}')" >Detalles</button>
                                             <form action="{{ route('visits.solve', $visit->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea resolver la visita {{$visit->id}}?');">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="_method" value="DELETE">
@@ -54,6 +55,64 @@
                         @endif
         </div> 
     </div>
+
+    <div class="modal fade" id="showVistInfo">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Información de visita</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    
+                    <div >
+                        <label style="margin: 0;"><strong>Cliente:&nbsp</strong></label><label
+                         id="clientName" value=" " type="text" name="clientName"></label>
+                    </div>
+                    <div >
+                        <label style="margin: 0;"><strong>Teléfono:&nbsp</strong></label><label
+                         id="phone" value=" " type="text" name="phone"></label>
+                    </div>
+                    <div >
+                        <label style="margin: 0;"><strong>Correo:&nbsp</strong></label><label
+                         id="email" value=" " type="text" name="email"></label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div >
+                        <label style="margin: 0;"><strong>N° visita:&nbsp</strong></label><label
+                         id="id" value=" " type="text" name="id"></label>
+                    </div>
+                    <div >
+                        <label style="margin: 0;"><strong>Fecha:&nbsp</strong></label><label
+                         id="date" value=" " type="text" name="date"></label>
+                    </div>
+                    <div >
+                        <label style="margin: 0;"><strong>Encargado:&nbsp</strong></label><label
+                         id="visitor" value=" " type="text" name="visitor"></label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div >
+                        <label style="margin: 0;"><strong>Detalle:&nbsp</strong></label><label
+                         id="details" value=" " type="text" name="details"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 <script src="{{asset('/js/Visits/table.js')}}"></script>
+<script src="{{asset('/js/Visits/fillVisitInfo.js')}}"></script>
 @endsection
 

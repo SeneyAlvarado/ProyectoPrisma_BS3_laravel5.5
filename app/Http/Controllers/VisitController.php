@@ -40,49 +40,48 @@ class VisitController extends Controller
 
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "error");
-		$visits = $this->model->paginate();
-
-		foreach($visits as $visit ) {//search the name of the visitor
-			$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
-			$visit->visitor = $visitor->name . " " . $visitor->lastname;
-		}
-
-		$user_type = Auth::user()->user_type_id;
-		if($user_type == 1){//admin user
-			return view('admin/visits/index', compact('visits'));
-		} else if($user_type == 2){//reception user
-			return view('reception/visits/index', compact('visits'));
-		}
-
 		
-	}
 
-	/**
-	 * Display a listing of the visits for the reception user.
-	 *
-	 * @return Response
-	 */
-	public function indexReception()
-	{
-		//custom message if this methods throw an exception
-		\Session::put('errorOrigin', " mostrando las visitas");
-
-		//custom route to REDIRECT redirect('x') if there's an error
-		\Session::put('errorRoute', "error");
-		$visits = DB::table("visits")->where("active_flag", '<>', 0)
-		->orderby('active_flag', 'ASC')->get();
-
-		foreach($visits as $visit ) {//search the name of the visitor
-			$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
-			$visit->visitor = $visitor->name . " " . $visitor->lastname;
-		}
-		//return $visits;
 		$user_type = Auth::user()->user_type_id;
+
 		if($user_type == 1){//admin user
+			$visits = DB::table("visits")
+			->orderby('active_flag', 'DESC')->orderby('id', 'DESC')->get();
+
+			foreach($visits as $visit ) {//search the name of the visitor
+				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
+				$visit->visitor = $visitor->name . " " . $visitor->lastname;
+				if($visit->email == null) {
+					$visit->email = "No posee";
+				}
+				if(($visit->phone == null) || ($visit->phone == "")) {
+					$visit->phone = "No posee";
+				}
+			} 
+		
+			//return $visits;
 			return view('admin/visits/index', compact('visits'));
+		
 		} else if($user_type == 2){//reception user
+			
+			$visits = DB::table("visits")->where("active_flag", '<>', 0)
+			->orderby('active_flag', 'ASC')->orderby('id', 'DESC')->get();
+
+			foreach($visits as $visit ) {//search the name of the visitor
+				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
+				$visit->visitor = $visitor->name . " " . $visitor->lastname;
+
+				if($visit->email == null) {
+					$visit->email = "No posee";
+				}
+				if($visit->phone == null) {
+					$visit->phone = "No posee";
+				}
+			}	
+			//return $visits;
 			return view('reception/visits/index', compact('visits'));
 		}
+
 	}
 
 	/**
@@ -231,7 +230,7 @@ class VisitController extends Controller
 			$visit->recepcionist_id = Auth::user()->id;
 			$visit->save();
 			DB::commit();//commits to database 
-			return redirect('visits.indexReception')->with('success', '¡Visita resualta correctamente!');
+			return redirect('visits')->with('success', '¡Visita resualta correctamente!');
 		}
 	}
 }
