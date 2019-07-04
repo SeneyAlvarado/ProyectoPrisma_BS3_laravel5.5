@@ -1,0 +1,12 @@
+.ui-datepicker-trigger {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+#ui-datepicker-div { 
+    top:180px !important;
+}

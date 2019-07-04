@@ -54,8 +54,8 @@ function addWorkToTable() {
     }
   });
 
-  var dateInput_add = $("#dateInput_add").val();
-  if (isEmptyOrSpaces(dateInput_add)) {//if date is empty or just whitespace
+  var datepicker1_fromToday = $("#datepicker1_fromToday").val();
+  if (isEmptyOrSpaces(datepicker1_fromToday)) {//if date is empty or just whitespace
     return alert("Por favor seleccione una fecha válida");
   }
 
@@ -74,7 +74,7 @@ function addWorkToTable() {
 
   var table = $('#worksTable').DataTable();
   table.rows.add(
-    [[dateInput_add, priority_add, productName, editAndHidden]]
+    [[datepicker1_fromToday, priority_add, productName, editAndHidden]]
   ).draw();
 
   $("#product" + rowCount).attr("value", product);
@@ -90,7 +90,7 @@ function loadEditWorkModal(rowCount) {
 
   var date = $("#date" + rowCount).html();
   if (date != "Sin definir") {
-    $("#dateInput_edit").val(date);
+    $("#datepicker2_fromToday").val(date);
   }
   var priority = $("#priority" + rowCount).html();
   if (priority != "Posee prioridad") {
@@ -117,7 +117,7 @@ function cleanAddWorkModals() {
   document.getElementById("searchProductInput").value = "";
   document.getElementById("searchOriginInputAdd").value = "";
   $("#observation_add").val("");
-  $("#dateInput_add").val($("#hiddenDateCR").val());
+  $("#datepicker1_fromToday").val($("#hiddenDateCR").val());
   $("#destino").empty();
   document.getElementById("priority_add0").checked = true;
 }
@@ -126,7 +126,7 @@ function cleanEditWorkModals() {
   document.getElementById("searchProductInputEdit").value = "";
   document.getElementById("searchOriginInputEdit").value = "";
   $("#observation_edit").val("");
-  $("#dateInput_edit").val("");
+  $("#datepicker2_fromToday").val("");
   $("#destino_edit").empty();
   document.getElementById("priority_edit0").checked = true;
 }
@@ -227,8 +227,8 @@ function updateWork() {
   var rowCount = $("#editRow").val();
 
   //Gets all modal edit values
-  var dateInput_edit = $("#dateInput_edit").val();
-  if (isEmptyOrSpaces(dateInput_edit)) {//if date is empty or just whitespace
+  var datepicker2_fromToday = $("#datepicker2_fromToday").val();
+  if (isEmptyOrSpaces(datepicker2_fromToday)) {//if date is empty or just whitespace
     return alert("Por favor seleccione una fecha válida");
   }
 
@@ -260,7 +260,7 @@ function updateWork() {
 
   //////////////Inserting new data into row////////////
 
-  $("#date" + rowCount).html(dateInput_edit);
+  $("#date" + rowCount).html(datepicker2_fromToday);
   $("#priority" + rowCount).html(priority_edit);
   $("#observation" + rowCount).val(observation_edit);
   $("#product" + rowCount).attr("value", product);

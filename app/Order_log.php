@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model class has the attributes of order log
+ */
 class Order_log extends Model
 {
     public $timestamps = false;
