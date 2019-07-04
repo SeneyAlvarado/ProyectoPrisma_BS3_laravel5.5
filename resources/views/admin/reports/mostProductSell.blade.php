@@ -23,12 +23,17 @@
 
         chart.draw(data, options);
       }
-      function generatePDF() {
+      function generatePDF(start, end) {
       // Choose the element that our invoice is rendered in.
       var element = document.getElementById("report");
+      var startDate = start.split("-");
+      startDate = startDate[0] + "." + startDate[1] + "." + startDate[2];
+      var endDate = end.split("-");
+      endDate = endDate[0] + "." + endDate[1] + "." + endDate[2];
+
       var opt = {
         margin:       15,
-        filename:     'Productos_Mas_Vendidos_' + {{\Carbon\Carbon::parse($product->start)->format('d/m/Y')}} + '_Hasta_' + {{\Carbon\Carbon::parse( $product->end)->format('d/m/Y')}} + '.pdf',
+        filename:     'Productos_Mas_Vendidos_Desde_' + startDate + '_Hasta_' + endDate + '.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
 };
       // Choose the element and save the PDF for our user.
@@ -39,7 +44,7 @@
   <body>
       <div style="padding:10px;" >
           <div class="card">
-              <p class="card-header" style="text-align:left"><button onclick="generatePDF()">Descargar reporte en PDF</button></p>
+              <p class="card-header" style="text-align:left"><button onclick="generatePDF('{{$product->start}}','{{$product->end}}')">Descargar reporte en PDF</button></p>
               <div class="card-body">
                   <div class="container-fluid" style="paddin-top:10px">
              

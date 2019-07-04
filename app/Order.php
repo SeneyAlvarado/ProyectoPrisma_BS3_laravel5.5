@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model class has the attributes of order
+ */
 class Order extends Model
 {
     protected $fillable = ['entry_date', 'quotation_number', 'client_owner', 'client_contact', 

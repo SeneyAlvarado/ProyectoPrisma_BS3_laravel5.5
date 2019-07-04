@@ -7,7 +7,9 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
+/**
+ * This model class has the attributes of users
+ */
 class User extends Authenticatable
 {
     use Notifiable;

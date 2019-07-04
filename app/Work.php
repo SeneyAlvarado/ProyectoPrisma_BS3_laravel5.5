@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model class has the attributes of works
+ */
 class Work extends Model
 {
     protected $fillable = ['priority', 'approximate_date', 'designer_date', 'print_date', 
