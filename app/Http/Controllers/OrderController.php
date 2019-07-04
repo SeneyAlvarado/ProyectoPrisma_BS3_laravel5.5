@@ -194,7 +194,7 @@ class OrderController extends Controller
 	public function store(Request $request)
 	{
 		//$request->input('student_number_in_class');
-		return $request->all();;
+		return $request->all();
 		$request->file('avatar')->store('public');
 		//return $request;
 		$order = new Order();
@@ -212,18 +212,44 @@ class OrderController extends Controller
 	}
 
 
-	public function addOrdersWorks()
+	public function addOrdersWorks(Request $request)
 	{
 
+		/*if($request->hasFile('avatar')){
+			throw new \Exception("yes");
+		} else {
+			throw new \Exception("no");
+		}
+		$file_array = Input::file();
+		foreach ($file_array as $key => $value) {
+			// Your dynamic field name
+			//throw new \Exception("key" . $key);
+			throw new \Exception("value:" . $value);
+		 }
+		if($request->has('date0')){
+			throw new \Exception("yey");
+		} else {
+			throw new \Exception("no:c");
+		}
+		$a = Input::get('data');
+		if($request->hasFile('avatar')){
+			throw new \Exception("yes");
+		} else {
+			throw new \Exception("no");
+		}
+		throw new \Exception(request('quotation_number', $default = null));*/
 		$postData = Input::get('data');
-		$orderData = $postData[0];
-		$worksData = $postData[1];
+		$orderData = $request->order;
+		$worksData = $request->works;
 		$userID = Auth::user()->id;
 		$updatedData = false;
 
 		DB::beginTransaction();
 		$orderModel = new Order();
 		$orderDecoded = json_decode($orderData);
+		//return json_encode(["data" => $orderDecoded[0]->existOrder]);
+		//throw new \Exception($orderDecoded[0]->client_owner);
+
 
 		foreach ($orderDecoded as $order) {
 			if($order->existOrder == "-1") {
@@ -283,6 +309,7 @@ class OrderController extends Controller
 
 		$worksDecoded = json_decode($worksData);
 		$workCounter = 0;
+		$workFileCounter = 0;
 
 		foreach ($worksDecoded as $work) {
 			if($work->existWork == "-1") {//if the work is a new one
@@ -330,10 +357,35 @@ class OrderController extends Controller
 				$work_log_model->user_id = $userID;
 				$work_log_model->save();
 
+				if($request->hasFile('file' . $workFileCounter)){
+					$requestFile = $request->file('file' . $workFileCounter);
+					$filename = pathinfo($requestFile->getClientOriginalName(), PATHINFO_FILENAME);
+					$extension = pathinfo($requestFile->getClientOriginalName(), PATHINFO_EXTENSION);
+					$fileUnique = $filename. $workModel->id .  '.' . $extension;
+					$filesize = $requestFile->getClientSize();
+					$requestFile->storeAs('public/workFiles', $fileUnique);
+
+					$work_fileModel = new \App\Works_file();
+					$work_fileModel->name = $fileUnique;
+					$work_fileModel->size = $filesize;
+					$work_fileModel->work_id = $workModel->id;
+					$work_fileModel->active_flag = 1;
+					$work_fileModel->save();
+
+					$work_log_model = new \App\Works_log();
+					$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+					$work_log_model->attribute = "Archivo de trabajo";
+					$work_log_model->value = "Se ha adjuntado un nuevo archivo";
+					$work_log_model->work_id = $workModel->id;
+					$work_log_model->user_id = $userID;
+					$work_log_model->save();
+				}
+
 			} else {//if the work already exists and needs an update
 				$updatedData = true;
 				$this->updateWorksLogBasicInfo($work);
 			}
+			$workFileCounter = $workFileCounter+1;
 		}
 
 		DB::commit();

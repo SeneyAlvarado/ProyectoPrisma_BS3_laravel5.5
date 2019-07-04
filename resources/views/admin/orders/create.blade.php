@@ -35,7 +35,8 @@ ir other input ID needed, please make other JS with your own configuration-->
         <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-                    <form method='POST' action="javascript:formValidation();" id="orderForm">
+                    <form method='POST' id="orderForm">
+                        {{ csrf_field() }}
                         <input type='hidden' id='_token' name='_token' value='{{Session::token()}}'>
                         <input type='hidden' id='dolarExchangeRate' value='{{$dolarRate}}'>
                         <input type='hidden' id='hiddenDateCR'
@@ -148,6 +149,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                             <th class="text-center">Fecha de entrega</th>
                                             <th class="text-center">Prioridad</th>
                                             <th class="text-center">Producto</th>
+                                            <th class="text-center">Archivo del trabajo</th>
                                             <th class="text-center">Opciones</th>
                                         </thead>
 
@@ -172,10 +174,6 @@ ir other input ID needed, please make other JS with your own configuration-->
                                     <!-- Modal body -->
                                     <div class="modal-body">
                                         <div class="row justify-content-center">
-                                            <div class="col-md-5">
-                                                <label for="avatar"><strong>Adjuntar archivo</strong></label>
-                                                <input id="avatar" class="form-control" name="avatar" type="file">
-                                            </div>
                                             <div class="col-md-5">
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                 <input type="text" id="datepicker1_fromToday" readonly>
@@ -297,7 +295,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                     </div>
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        <div class="row justify-content-center">
+                                        <div class="row justify-content-center">  
                                             <div class="col-md-5">
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                 <input type="text" id="datepicker2_fromToday" readonly>
