@@ -38,6 +38,8 @@ class ChanngePasswordController extends Controller
 				return view('admin.password.change_password')->with('success', '¡Contraseña actualizada satisfactoriamente!');
             } else if ($user_type == 2) {
                 return view('designer.password.change_password')->with('success', '¡Contraseña actualizada satisfactoriamente!');
+            } else if ($user_type == 3) {
+                return view('designer.password.change_password')->with('success', '¡Contraseña actualizada satisfactoriamente!');
             }
     }
 

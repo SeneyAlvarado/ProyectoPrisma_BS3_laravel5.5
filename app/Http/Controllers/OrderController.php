@@ -106,6 +106,10 @@ class OrderController extends Controller
 		$user_type = Auth::user()->user_type_id; //get the user type.
 		if ($user_type == 1) { //admin user
 			return view('admin.orders.index', compact('orders', 'order_states'));
+		} else {
+			if ($user_type == 3) { //boss designer user
+				return view('designer/orders/index', compact('orders', 'order_states'));
+			}
 		}
 	}
 

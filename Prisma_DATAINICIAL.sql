@@ -1,4 +1,4 @@
-use prisma;
+ use prisma;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 1;
 START TRANSACTION;
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
  User Types:
  1 - Admin
  2 - Recepcionista
+ 3 - Jefe Diseño
 */	
 
 INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
@@ -33,6 +34,9 @@ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NU
 
  INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL, 
  'Recepcionista', 'Recepción de trabajos', '1');
+
+ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
+ 'Jefe diseño', 'Es el jefe de diseño de una sucursal de Prisma', '1');
 
 INSERT INTO `branches` (`id`, `name`, `active_flag`) VALUES (NULL,
  'San Ramón #1', '1');
