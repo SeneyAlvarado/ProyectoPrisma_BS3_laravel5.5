@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This model class has the attributes of state work
+ */
 class State_work extends Model
 {
     protected $table = 'state_work';
