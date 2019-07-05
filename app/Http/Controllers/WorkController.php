@@ -66,8 +66,10 @@ class WorkController extends Controller
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1) {//admin user
 			return $this->indexAdmin($works);
-		} else {
+		} else if($user_type == 2){ //reception user
 			return $this->indexReception($works);
+		} else if($user_type == 3){//designer user
+			return view('designer/boss_designer/works/index', compact('works', 'work_states'));
 		}
 	}
 
