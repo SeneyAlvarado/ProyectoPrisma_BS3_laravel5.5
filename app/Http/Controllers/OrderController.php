@@ -107,6 +107,9 @@ class OrderController extends Controller
 		if ($user_type == 1) { //admin user
 			return view('admin.orders.index', compact('orders', 'order_states'));
 		}
+		if ($user_type == 2) { //receptionist user
+			return view('reception.orders.index', compact('orders', 'order_states'));
+		}
 	}
 
 	/**

@@ -26,6 +26,7 @@
 ir other input ID needed, please make other JS with your own configuration-->
 <script src="{{asset('/js/Datepickers/datepicker1_fromToday.js')}}"></script>
 <script src="{{asset('/js/Datepickers/datepicker2_fromToday.js')}}"></script>
+<script src="{{asset('/js/Orders/jquery.form.js')}}"></script>
 <!-- END Datepicker for THIS PAGE -->
 <!-- At this page of ORDERS, I use datepicker1 to add works and datepicker2 to edit those works -->
 
@@ -295,7 +296,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                     </div>
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        <div class="row justify-content-center">  
+                                        <div class="row justify-content-center">
                                             <div class="col-md-5">
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                 <input type="text" id="datepicker2_fromToday" readonly>
@@ -475,6 +476,13 @@ ir other input ID needed, please make other JS with your own configuration-->
     </div>
 </div>
 
+<!-- this link is fot the LOADING-... spinner -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="modal fade" tabindex="-1" role="dialog" id="spinnerModal">
+    <div class="modal-dialog modal-dialog-centered text-center" role="document">
+        <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+    </div>
+</div>
 <script>
     /*$('#datepicker').datepicker({
   uiLibrary: 'bootstrap4',
