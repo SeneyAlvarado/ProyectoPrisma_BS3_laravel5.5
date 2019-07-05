@@ -141,10 +141,10 @@ class WorkController extends Controller
 			->where('work_id', '=', $work->work_id)
 			->orderby('date','DESC')->first();
 
-			$work->work_state_id = $state_works->states_id;//= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
+			$work->work_state = $state_works->states_id;//= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
 
 			foreach($view_states as $view_state) {//add to array only the works that the user can see
-				if($work->work_state_id == $view_state->states_id){
+				if($work->work_state == $view_state->states_id){
 					array_push($works_view, $work);
 				}
 			}
@@ -162,11 +162,14 @@ class WorkController extends Controller
 			array_push($editStates, $state);
 		}
 
+		$works = $works_view;
+		$work_states = $editStates;
+
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1) {//admin user
-			return view('admin.works.index', compact('works_view', 'editStates'));//if in some case the admin use this method
+			return view('admin.works.index', compact('works', 'work_states'));//if in some case the admin use this method
 		} else if($user_type == 2) {//reception user
-			return view('reception.works.index', compact('works_view', 'editStates'));
+			return view('reception.works.index', compact('works', 'work_states'));
 		}
 	}
 

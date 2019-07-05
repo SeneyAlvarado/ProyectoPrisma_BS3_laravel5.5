@@ -11,7 +11,7 @@
     </div>
             
            <div class="">
-            @if(count($works_view))
+            @if(count($works))
            <div class="table-responsive">
                <table class="table table-bordered table-condensed table-hover compact " id="tablaDatos">
                    <thead>
@@ -25,73 +25,77 @@
                    </thead>
 
                    <tbody>
-                       @foreach($works_view as $work_view)
+                       @foreach($works as $work)
                        <?php  
-
                         $actualStateName = "";
                         $actualStateID = "";
-                    //both arrays are being used, do not erase
-                    
-                    foreach ($editStates as $work_state) {
-                       if($work_state->id == $work_view->work_state_id){
-                        $actualStateID = $work_state->id;
-                        $actualStateName = $work_state->name;
-                        
-                       }
-                    }
+                        //both arrays are being used, do not erase
+                        foreach ($work_states as $work_state) {
+                            if($work_state->id == $work->work_state){
+                                $actualStateID = $work_state->id;
+                                $actualStateName = $work_state->name;
+                            }
+                        }
                         ?>
                            <tr class="">
-                                @if ($work_view->priority == 1)
-                               <td class="text-center">{{$work_view->work_id}} <span style="color:#E3BA00" class="glyphicon glyphicon-star"></span></td>
+                                @if ($work->priority == 1)
+                               <td class="text-center">{{$work->work_id}} <span style="color:#E3BA00" class="glyphicon glyphicon-star"></span></td>
                                @else
-                               <td class="text-center">{{$work_view->work_id}}</td>
+                               <td class="text-center">{{$work->work_id}}</td>
                                @endif
                                <td class="text-center"><a class="infoClient"
-                            onCLick="infoContact('{{$work_view->client_owner}}')">{{$work_view->client_name}}</a></td>
+                            onCLick="infoContact('{{$work->client_owner}}')">{{$work->client_name}}</a></td>
 
                             <td class="text-center" style="min-width:150px;">
                                 <div class="dropdown" style="display: block">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="drop{{$work_view->work_id}}"
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="drop{{$work->work_id}}"
                                     data-target="#drop-states" href="#" value="{{$actualStateID}}"
                                         role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         {{$actualStateName}}
                                     </button>
         
-                                    <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$work_view->work_id}}" 
+                                    <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}" 
                                         aria-labelledby="dropdownMenuLink">
         
-                                        @foreach ($editStates as $work_state)
+                                        @foreach ($work_states as $work_state)
                                         @if($work_state->id != $actualStateID)
-                                    <button class="dropdown-item" id="workState{{$work_view->work_id}}{{$work_state->id}}" onclick="changeWorkState('{{$work_view->work_id}}', '{{$work_state->id}}', '{{$work_state->name}}')">{{$work_state->name}}</button>
+                                    <button class="dropdown-item" id="workState{{$work->work_id}}{{$work_state->id}}" onclick="changeWorkState('{{$work->work_id}}', '{{$work_state->id}}', '{{$work_state->name}}')">{{$work_state->name}}</button>
                                         @endif
                                         @endforeach
                                     </div>
                                 </div>
                             </td>
 
-                               <td class="text-center">{{\Carbon\Carbon::parse($work_view->entry_date)->format('d/m/Y')}}</td>
-                               <td class="text-center">{{\Carbon\Carbon::parse($work_view->approximate_date)->format('d/m/Y')}}</td>
-                               @if ($work_view->color == "red")
-                               <td  class="text-center"><strong>{{$work_view->time_left}} </strong><span style="color:#C20202" class="glyphicon glyphicon-time"></span></td>
-                                @elseif ($work_view->color == "green")
-                                <td  class="text-center"><strong>{{$work_view->time_left}} </strong><span style="color:#0FA001" class="glyphicon glyphicon-time"></span></td>
+                               <td class="text-center">{{\Carbon\Carbon::parse($work->entry_date)->format('d/m/Y')}}</td>
+                               <td class="text-center">{{\Carbon\Carbon::parse($work->approximate_date)->format('d/m/Y')}}</td>
+                               @if ($work->color == "red")
+                               <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#C20202" class="glyphicon glyphicon-time"></span></td>
+                                @elseif ($work->color == "green")
+                                <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#0FA001" class="glyphicon glyphicon-time"></span></td>
                                 @else
-                                <td class="text-center"><strong>{{$work_view->time_left}} </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
+                                <td class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
                                 @endif
 
-                           
+                                <!--<td class="text-center "><strong>{{$work->time_left}}</strong></td>-->
+                                <!--@if ($work->color == "red")
+                                <td style="color:red;" class="text-center "><strong>{{$work->time_left}}</strong></td>
+                                @elseif ($work->color == "green")
+                                <td style="color:blue;" class="text-center "><strong>{{$work->time_left}}</strong></td>
+                                @else
+                                <td style="color:#E3BA00;" class="text-center "><strong>{{$work->time_left}}</strong></td>
+                                @endif-->
                             
                                <td class="text-center">
-                                    <a class="btn btn-warning style-btn-edit btn-size btn-sm"  onCLick="workDetails('{{$work_view->work_id}}')">Detalles</a>
-                                   @if($work_view->active_flag == 1)
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea cancelar el trabajo de {{$work_view->client_name}}?');">
+                                    <a class="btn btn-warning style-btn-edit btn-size btn-sm"  onCLick="workDetails('{{$work->work_id}}')">Detalles</a>
+                                   @if($work->active_flag == 1)
+                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea cancelar el trabajo de {{$work->client_name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
                                        <button type="submit" class="btn style-btn-delete btn-danger btn-size btn-sm">Cancelar</button>
                                    </form>
                                    @else
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea reactivar el trabajo de {{$work_view->client_name}}?');">
+                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea reactivar el trabajo de {{$work->client_name}}?');">
                                        {{csrf_field()}}
                                        <input type="hidden" name="_method" value="DELETE">
                                        <button type="submit"  class="btn btn-success style-btn-success btn-size btn-sm">Activar</button>
