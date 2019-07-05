@@ -14,11 +14,8 @@ class CreateWorksFilesTable extends Migration {
 	{
 		Schema::create('works_files', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100);
+            $table->string('name', 200);
             $table->decimal('size', 7, 2);
-            $table->string('extension', 10);
-            $table->integer('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('work_id')->unsigned();
             $table->foreign('work_id')->references('id')->on('works');
             $table->integer('active_flag');

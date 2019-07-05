@@ -12,26 +12,33 @@ $('#worksTable').DataTable(
         responsive: true,
         stateSave: true,
         "ordering": false,
+        "columns": [
+            { "width": "15%" },
+            { "width": "15%" },
+            { "width": "20%" },
+            { "width": "35%" },
+            { "width": "15%" },
+        ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
 
             {
-        		'targets': 0,
-        		'createdCell':  function (td, cellData, rowData, row, col) {
-                       $(td).attr('id', 'date' + row); 
-        		}
-             },
-             {
-        		'targets': 1,
-        		'createdCell':  function (td, cellData, rowData, row, col) {
-           			$(td).attr('id', 'priority' + row); 
-        		}
-             },
-             {
-        		'targets': 2,
-        		'createdCell':  function (td, cellData, rowData, row, col) {
-           			$(td).attr('id', 'product' + row); 
-        		}
-     		},
+                'targets': 0,
+                'createdCell': function (td, cellData, rowData, row, col) {
+                    $(td).attr('id', 'date' + row);
+                }
+            },
+            {
+                'targets': 1,
+                'createdCell': function (td, cellData, rowData, row, col) {
+                    $(td).attr('id', 'priority' + row);
+                }
+            },
+            {
+                'targets': 2,
+                'createdCell': function (td, cellData, rowData, row, col) {
+                    $(td).attr('id', 'product' + row);
+                }
+            },
         ],
     });

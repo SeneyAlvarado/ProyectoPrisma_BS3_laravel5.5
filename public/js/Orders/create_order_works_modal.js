@@ -4,6 +4,7 @@ $(document).ready(function () {//cleans the modals when page is accesed/reloaded
   cleanExchangeInputs();
   updateByCoin();
   initAutonumeric();
+  formInitiation();
 });
 
 //This function makes the form validate, do not erase it. 
@@ -15,7 +16,7 @@ function formValidation() {
     return alert("Agregue al menos un trabajo a la orden");
   }
   if (validateForm()) {
-    submitForm();
+    return true;
   }
 }
 
@@ -25,6 +26,7 @@ function showModalWork() {
   activeProductBranch();
   $("#modalWork").modal('show');
 }
+
 
 function addWorkToTable() {
   var priority_add = $("input[name='priority_add']:checked").val();
@@ -68,13 +70,17 @@ function addWorkToTable() {
   hiden_materials = '<input id="materials' + rowCount +
     '" type="hidden" value="' + materials + '"></input>'
 
+  var inputFile = '<input id="file' + rowCount + '" name="file' + rowCount +
+    '" class="form-control hideFile" type="file">';
+
 
   editAndHidden = hiden_observation_add + hiden_materials +
     '<a onClick="loadEditWorkModal(\'' + rowCount + '\')"  class="btn btn-warning style-btn-edit btn-size">Detalles</a>';
 
+
   var table = $('#worksTable').DataTable();
   table.rows.add(
-    [[datepicker1_fromToday, priority_add, productName, editAndHidden]]
+    [[datepicker1_fromToday, priority_add, productName, inputFile, editAndHidden]]
   ).draw();
 
   $("#product" + rowCount).attr("value", product);
@@ -365,40 +371,44 @@ function colonAutonumeric() {
   $('.autonumeric').autoNumeric('update', { aSign: '₡' });
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function submitForm() {
-  var urlData = [];
-  var works = getWorksData();
-  var order = getOrderData();
-  urlData.push(order);
-  urlData.push(works);
-  JSON.stringify(urlData);
-  //alert(urlData);
-  //alert(order);
-  //window.location.replace("/addOrdersWorks/" + data);
-  //JSON.stringify(array_horario_servicio));
-  $.ajax({
-    url: '/addOrdersWorks',
-    type: 'POST',
-    data: { 'data': urlData, '_token': $('#_token').val() },
-    dataType: 'json',
-    success: function (datos) {
-      window.location.replace("/orders");
-      //alert("YAYYYYYYYYYYYYY");
-      //alert(datos.data);
-      /*$.each(datos, function () {
-         $.each(this, function () {
-           alert(this);
-         })
-       })*/
-    }, error: function (e) {
-      console.log(e);
-      alert("¡Ha habido un error al insertar la orden y los trabajos! Verifique los" +
-        " datos e intente de nuevo más tarde. Si el error persiste contacte con el equipo técnico");
+function formInitiation() {
+  $('#orderForm').on('submit', function (event) {
+    event.preventDefault();
+    if (formValidation()) {
+      var form = new FormData(this);
+      var works = getWorksData();
+      var order = getOrderData();
+      form.append('works', works);
+      form.append('order', order);
+      $.ajax({
+        url: '/addOrdersWorks',
+        type: 'POST',
+        data: form,
+        dataType: 'json',
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (datos) {
+          alert(datos.data);
+          //window.location.replace("/orders");
+          //alert("YAYYYYYYYYYYYYY");
+          //alert(datos.data);
+          /*$.each(datos, function () {
+             $.each(this, function () {
+               alert(this);
+             })
+           })*/
+        }, error: function (e) {
+          console.log(e);
+          alert("¡Ha habido un error al insertar la orden y los trabajos! Verifique los" +
+            " datos e intente de nuevo más tarde. Si el error persiste contacte con el equipo técnico");
+        }
+      });
     }
   });
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getWorksData() {
   var date, priority, observation, product, materials, existWork, workData;
   var works_array = [];

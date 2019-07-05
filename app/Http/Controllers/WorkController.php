@@ -52,26 +52,33 @@ class WorkController extends Controller
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "error");
 
-		/*work states*/
-		$work_states = new State();
-		$work_states = $work_states->where('active_flag', '1')->get();
-
 		$works = DB::table('works')
 		->join('orders', 'works.order_id', 'orders.id')
 		->select('works.id as work_id',
 		'works.priority as priority',
-		//'works.advance_payment as advance_payment',
 		'works.approximate_date as approximate_date',
-		//'works.designer_date as designer_date',
-		//'works.print_date as print_date',
-		//'works.post_production_date as post_production_date',
-		//'works.observation as observation',
-		//'works.drying_hours as drying_hours',
 		'works.entry_date as entry_date',
 		'works.active_flag as active_flag',
 		'orders.client_owner as client_owner')
 		->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 		->get();
+
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1) {//admin user
+			return $this->indexAdmin($works);
+		} else {
+			return $this->indexReception($works);
+		}
+	}
+
+	/**
+	 * Return the list of works for admin user
+	 *
+	 * 
+	 */
+	private function indexAdmin($works){
+		$work_states = new State();
+		$work_states = $work_states->where('active_flag', '1')->get();
 
 		foreach($works as $work){//get the name and de lastname of the physical clients.
 			$owner = Client::where('id', $work->client_owner)->first();
@@ -84,23 +91,8 @@ class WorkController extends Controller
 			}
 		}
 
-		/*$clients=DB::table('clients')//get all juridical and physical clients of the BD,
-		->where('active_flag', '=', 1)
-		->get();
-
-		$name;
-		foreach($clients as $client){ //get the full name of the physical clients
-			if($client->type == 1){
-				$phisClient = Physical_client::where('client_id', $client->id)->first();
-				$name = $client->name . " " . $phisClient->lastname;		
-			} else {
-				$name = $client->name;
-			}
-		}*/
-
 		$color = "default";
 		foreach($works as $work) {//
-			//$work->client_name = $name;
 			$state_works=DB::table('state_work')
 			->where('work_id', '=', $work->work_id)
 			->orderby('date','DESC')->first();
@@ -120,9 +112,77 @@ class WorkController extends Controller
 				return view('admin.works.index', compact('works', 'work_states'));
 			} else if($user_type == 3){//designer user
 				return view('designer/boss_designer/works/index', compact('works', 'work_states'));
+		return view('admin.works.index', compact('works', 'work_states'));
+	}
+}
+
+	/**
+	 * Return the list of works for an specific user
+	 *
+	 * 
+	 */
+	private function indexReception($works) {
+
+		$works_view = [];
+		$editStates = [];
+
+		$view_states = DB::table('state_user_types') //get the list of states that the user can see
+		->where('user_types_id', Auth::user()->user_type_id)
+		->where('view_state', 1)->get();
+
+		$edit_states = DB::table('state_user_types') //get the list of states that the user can edit
+		->where('user_types_id', Auth::user()->user_type_id)
+		->where('edit_state', 1)->get();
+
+		foreach($works as $work) {
+			$state_works=DB::table('state_work') //get the state with the last date of an work
+			->where('work_id', '=', $work->work_id)
+			->orderby('date','DESC')->first();
+
+			$work->work_state_id = $state_works->states_id;//= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
+
+			foreach($view_states as $view_state) {//add to array only the works that the user can see
+				if($work->work_state_id == $view_state->states_id){
+					array_push($works_view, $work);
+				}
 			}
-		
-		//return view('works/index', compact('works'));
+
+			foreach($works_view as $work_view) { //get the full name of a client and the color work only of the works that the user can see
+				$work_view->client_name = $this->getClientName($work_view->client_owner);
+				$work_view->color = $this->calculateColor($work_view);
+			}
+		}
+
+		foreach($edit_states as $edit_state) {//get the list of states that the user can edit
+			$state=DB::table('states') 
+			->where('id', '=', $edit_state->states_id)
+			->first();
+			array_push($editStates, $state);
+		}
+
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1) {//admin user
+			return view('admin.works.index', compact('works_view', 'editStates'));//if in some case the admin use this method
+		} else if($user_type == 2) {//reception user
+			return view('reception.works.index', compact('works_view', 'editStates'));
+		}
+	}
+
+	/**
+	 * Get the name of a client by id
+	 * 
+	 */
+	private function getClientName($client_id)
+	{
+		$owner = Client::where('id', $client_id)->first();
+		$name;	
+		if($owner->type == 1) {
+			$physical_client = Physical_client::where('client_id', $client_id)->first();
+			$name = $owner->name . " " . $physical_client->lastname;
+		} else {
+			$name = $owner->name;
+		}
+		return $name;
 	}
 
 
@@ -326,8 +386,8 @@ class WorkController extends Controller
 	public function products_chart(Request $request) 
 	{
 
-		$from=Carbon::parse($request->startDate)->format('Y-m-d');
-		//$from="2019-06-01";
+		//$from=Carbon::parse($request->startDate)->format('Y-m-d');
+		$from="2019-06-01";
 		//$to=Carbon::parse($request->endDate)->format('Y-m-d');
 		$to = "2019-06-30";
 		$products = DB::table('products')->where('active_flag', '=', 1)
@@ -339,8 +399,8 @@ class WorkController extends Controller
 			->where('product_id', '=', $product->id)
 			->whereBetween('entry_date', [$from, $to])->get();
 			$product->total = $works->count();
-			$product->start = $request->startDate;
-			$product->end = $request->endDate;
+			$product->start = $from;
+			$product->end = $to;
 		}
 
 		$products = collect($products)->sortBy('total')->reverse();
@@ -401,6 +461,7 @@ class WorkController extends Controller
 		/*$pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML(view('admin/reports/mostProductSell', compact('products'))->render()); 
         return $pdf->stream('ProductosMasVendidos'.$product->end.'.pdf');*/
+		//return $products;
 		//return $products;
 		return view('admin/reports/mostProductSell',['products'=>$products]);
 	}
