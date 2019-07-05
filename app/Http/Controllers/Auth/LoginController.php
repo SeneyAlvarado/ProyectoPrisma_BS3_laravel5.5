@@ -64,7 +64,7 @@ class LoginController extends Controller
                     return redirect('clients');
                     //return view('designer.password.change_password');
                  } else if($user_type == 3){
-                    return redirect('orders');
+                    return redirect('works');
                     }
                 
                 /*$tipo = Auth::user()->tipo;

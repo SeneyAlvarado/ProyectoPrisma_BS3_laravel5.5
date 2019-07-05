@@ -119,7 +119,7 @@ class WorkController extends Controller
 			if($user_type == 1){//admin user
 				return view('admin.works.index', compact('works', 'work_states'));
 			} else if($user_type == 3){//designer user
-				return view('designer/works/index', compact('works', 'work_states'));
+				return view('designer/boss_designer/works/index', compact('works', 'work_states'));
 			}
 		
 		//return view('works/index', compact('works'));

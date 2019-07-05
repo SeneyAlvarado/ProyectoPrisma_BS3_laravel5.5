@@ -80,7 +80,7 @@ class VisitController extends Controller
 			}	
 			//return $visits;
 			return view('reception/visits/index', compact('visits'));
-		} else if($user_type == 3){//designer user
+		} else if($user_type == 3){//boss designer user
 			
 			$visits = DB::table("visits")->where("active_flag", '<>', 0)
 			->orderby('active_flag', 'ASC')->orderby('id', 'DESC')->get();
@@ -113,7 +113,14 @@ class VisitController extends Controller
 
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "visits");
-		return view('admin/visits/create');
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1) { //admin user
+			return view('admin/visits/create');
+		} else if($user_type == 2){//reception user
+		} else if ($user_type == 3) { //boss designer user
+			return view('designer/visits/create');
+		}
+		
 	}
 
 	/**
@@ -163,11 +170,15 @@ class VisitController extends Controller
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "visits");
 		$visit = $this->model->find($id);
+		$user_type = Auth::user()->user_type_id;
 		if($visit==null){
 			throw new \Exception('Error en editar visita con el id:' .$id
 				. " en el método VisitController@edit");
-		} else {
+		} else if ($user_type == 1) {//admin
 			return view('admin/visits/edit', compact('visit'));
+		} else if($user_type == 2){//reception user
+		} else if ($user_type == 3) { //boss designer user
+			return view('designer/visits/edit', compact('visit'));
 		}
 	}
 
