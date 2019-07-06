@@ -229,7 +229,7 @@ Route::get('/deleteContact/{contact_id}', 'Client_contactController@destroy');/*
 
 
 Route::post('products.chart', 'WorkController@products_chart')->name('products.chart');
-
+Route::post('materials.chart', 'WorkController@materials_chart')->name('materials.chart');
 
 /****************************Boss Designer ********************************/
 /*---------------------------Orders---------------------------------------*/

@@ -48,7 +48,7 @@
   <!-- Neccesary links for the datepicker -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <link rel="stylesheet" type="text/css" href="{{asset('/css/calendarOwn.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('/css/calendar.css')}}">
   <script src="{{asset('/js/Datepickers/Datepicker_spanish.js')}}"></script>
   <!-- End of neccesary links for the datepicker -->
 
@@ -204,7 +204,7 @@
         </a>
         <!-- Submenu content -->
         <div id='submenu2' class="collapse sidebar-submenu">
-          <a href="{{route('works.index')}}" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
+          <a data-target="#materialsChart" style="cursor: pointer;" data-toggle="modal" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
             <span class="menu-collapsed">Materiales más usados</span>
           </a>
           <a data-target="#productsChart" style="cursor: pointer;" data-toggle="modal" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
@@ -319,11 +319,11 @@
                     <input type="hidden" name="id" value="">
       
                     <div class="row justify-content-center" style="margin-bottom:20px;">
-                      <div class="col-md-5" style="text-align:center;">
+                      <div class="col-md-4" style="text-align:center;">
                           <label for="date-field"><strong>Fecha de entrega</strong></label>
                           <input name="startDate" type="text" id="datepicker3_forReport" readonly>
                       </div>
-                      <div class="col-md-5" style="text-align:center;">
+                      <div class="col-md-4" style="text-align:center;">
                           <label for="date-field"><strong>Fecha de entrega</strong></label>
                           <input name="endDate" type="text" id="datepicker4_forReport" readonly>
                       </div>
@@ -335,9 +335,56 @@
                       <div class="col-md-4">
                           <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Generar Reporte</button>
                       </div>
-                      <div class="col-md-4">    
-                          <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cerrar</button>
+                     
+                    </div>
+            </form>
+        
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+         
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="materialsChart">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Reporte de materiales más utilizados</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        <form method = 'POST' action='{{ route("materials.chart") }}'>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="">
+      
+                    <div class="row justify-content-center" style="margin-bottom:20px; ">
+                    <div class="col-md-4" style="text-align:center;">
+                      <div>
+                          <label for="date-field"><strong>Fecha de inicio</strong></label>
                       </div>
+                          <input name="startDate" type="text" id="datepicker5_forReport" readonly>
+                    </div>
+                      <div class="col-md-4" style="text-align:center; display: inline-block;">
+                      <div>
+                          <label for="date-field"><strong>Fecha de inicio</strong></label>
+                      </div>
+                          <input name="endDate" type="text" id="datepicker6_forReport" readonly>
+                      </div>
+                      
+                     
+                    </div>
+
+                    <div class="row justify-content-center">
+                      <div class="col-md-4">
+                          <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Generar Reporte</button>
+                      </div>
+                      
                     </div>
             </form>
         

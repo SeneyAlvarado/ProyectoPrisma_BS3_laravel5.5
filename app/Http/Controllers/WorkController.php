@@ -396,13 +396,10 @@ class WorkController extends Controller
 
 	public function products_chart(Request $request) 
 	{
+		
+		$from = Carbon::createFromFormat('d/m/Y', $request->startDate); 
+		$to = Carbon::createFromFormat('d/m/Y', $request->endDate); 
 
-		$from=Carbon::parse($request->startDate)->format('Y-m-d');
-		$to=Carbon::parse($request->endDate)->format('Y-m-d');
-		//return $to;
-		//$from="2019-06-01";
-		//$to=Carbon::parse($request->endDate)->format('Y-m-d');
-		//$to = "2019-06-30";
 		$products = DB::table('products')->where('active_flag', '=', 1)
 		->select('products.name', 'products.id')
 		->get();
@@ -419,64 +416,67 @@ class WorkController extends Controller
 		$products = collect($products)->sortBy('total')->reverse();
 		$products = collect($products)->take(3);
 
-		/*$content='';
-		
-        $content.= '<html>
-		<head>
-		<link rel="stylesheet" href="bootstrap.min.css">
-		  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		  <script type="text/javascript">
-		  try { this.print(); } catch (e) { window.onload = window.print; } 
-			google.charts.load(\'current\', {\'packages\':[\'corechart\']});
-			google.charts.setOnLoadCallback(drawChart);
-			function drawChart() {
-			  var data = google.visualization.arrayToDataTable([
-				[\'Productos\', \'mes\'],';
-				  foreach ($products as $product){
-					$content .= '['.$product->name.', '. $product->total .'],';
-				  }
-				  
-			  $content.=']);
-	  
-			  var options = {
-				title: \'Producto más vendido\'
-			  };
-			  var chart = new google.visualization.PieChart(document.getElementById(\'piechart\'));
-	  
-			  chart.draw(data, options);
-			}
-		  </script>
-		</head>
-		<body>
-		<h4>Reporte de los porductos más vendidos del día '.$product->start. ' al '.$product->end.'</h4>
-		  <div id="piechart" style="width: 900px; height: 500px;"></div>
-		</body>
-	  </html>';
-         $html2pdf = new Html2Pdf('P', 'Legal', 'es', true, 'UTF-8');
-			$html2pdf->pdf->SetTitle('HTML2PDF Sample');
-			$html2pdf->pdf->IncludeJS('print(TRUE)');
-            $html2pdf->WriteHTML($content);
-           return $html2pdf->Output('example.pdf'); */
-
-
-/*
-		//require dirname(__FILE__).'\..\vendor\autoload.php';
-		require app_path()."/config.php";
-		ob_start();
-		require "/resources/views/admin/reports/mostProductSell.blade.php";
-		$html = ob_get_clean();
-		
-		
-		$html2pdf = new HTML2PDF('P', 'A4', 'es', 'true', 'UTF-8');
-		$html2pdf->writeHTML($html);
-		//$html2pdf->pdf->IncludeJS('print(TRUE)');
-		return $html2pdf->output('pdf_generated.pdf');*/
-		/*$pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML(view('admin/reports/mostProductSell', compact('products'))->render()); 
-        return $pdf->stream('ProductosMasVendidos'.$product->end.'.pdf');*/
-		//return $products;
-		//return $products;
 		return view('admin/reports/mostProductSell',['products'=>$products]);
+	}
+
+	public function materials_chart(Request $request) 
+	{
+		$from = Carbon::createFromFormat('d/m/Y', $request->startDate); 
+		$to = Carbon::createFromFormat('d/m/Y', $request->endDate); 
+		
+		$works = DB::table('works')->where('active_flag', '=', 1)//get the works between two dates 
+		->whereBetween('entry_date', [$from, $to])
+		->select('works.id', 'works.entry_date', 'works.approximate_date')->get();
+		
+		$material_works = [];
+		$materials;
+
+		foreach ($works as $work) { //get the list of materials used in the works
+			$material_work = DB::table('material_works')
+			->where('work_id','=', $work->id)
+			->get();
+			foreach ($material_work as $material) { 
+				if (!empty($material) && ($material != null) && ($material != "")){
+					$material->start = $from;
+					$material->end = $to;
+					array_push($material_works, $material);
+				}
+			}	
+		}
+		
+		foreach ($material_works as $material_work) { //get the name of the material used in the work
+			$material = DB::table('materials')
+			->where('id','=', $material_work->material_id)
+			->first();
+			$material_work->name = $material->name;	
+		}
+		
+		foreach ($material_works as $material_work) { //get the count of an specific material used in the works
+			$material_count = DB::table('material_works')
+			->where('material_id','=', $material_work->material_id)
+			->get();
+			$material_work->total = $material_count->count();
+		}
+
+		$material_withOut= [];
+		$count = 0;
+		foreach ($material_works as $material_work) { //delete duplicates
+			foreach($material_withOut as $material_ok){
+				if($material_ok->material_id == $material_work->material_id) {
+					$count = 1;
+				}
+			}
+			if($count != 1){
+				array_push($material_withOut, $material_work);
+			}
+			$count = 0;
+		}
+
+		$materials = $material_withOut;
+		$materials = collect($materials)->sortBy('total')->reverse();
+		$materials = collect($materials)->take(3);
+		//return $materials;
+		return view('admin/reports/mostMaterialSell',['materials'=>$materials]);
 	}
 
 }
