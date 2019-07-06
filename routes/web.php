@@ -79,7 +79,8 @@ Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select
 Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
 Route::get('/fillClientContacts/{id}', 'OrderController@ajax_fill_contacts');/**Fill the select item with the branches*/
 Route::post('/addOrdersWorks', 'OrderController@addOrdersWorks');/**Add the JSON of orders and works to the DB*/
-Route::get('/changeOrderWorksState/{orderID}/{stateID}', 'OrderController@changeOrderWorksState');/**Change the state of the order and the works of that order*/ 
+Route::get('/changeOrderWorksState/{orderID}/{stateID}', 'OrderController@changeOrderWorksState');/**Change the state of the order and the works of that order*/
+Route::get('downloadFile/{id}', 'OrderController@downloadFile')->name('downloadFile');/**View the accounts list*/ 
 /*-------------------------------------------*/
 
 /*------------Works routes------------*/
