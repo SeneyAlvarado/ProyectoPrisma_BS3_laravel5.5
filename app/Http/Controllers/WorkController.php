@@ -69,7 +69,7 @@ class WorkController extends Controller
 		} else if($user_type == 2){ //reception user
 			return $this->indexReception($works);
 		} else if($user_type == 3){//designer user
-			return view('designer/boss_designer/works/index', compact('works', 'work_states'));
+			return $this->indexBossDesigner($works);
 		}
 	}
 
@@ -169,6 +169,43 @@ class WorkController extends Controller
 			return view('reception.works.index', compact('works_view', 'editStates'));
 		}
 	}
+
+	/**
+	 * This method is for index works in boss designer, returns the view of works in boss designer
+	 * 
+	 */
+	private function indexBossDesigner($works) {
+		$work_states = new State();
+		$work_states = $work_states->where('active_flag', '1')->get();
+
+		foreach($works as $work){//get the name and de lastname of the physical clients.
+			$owner = Client::where('id', $work->client_owner)->first();
+			
+			if($owner->type == 1) {
+				$physical_client = Physical_client::where('client_id', $owner->id)->first();
+				$work->client_name = $owner->name . " " . $physical_client->lastname;
+			} else {
+				$work->client_name = $owner->name;
+			}
+		}
+
+		$color = "default";
+		foreach($works as $work) {//
+			$state_works=DB::table('state_work')
+			->where('work_id', '=', $work->work_id)
+			->orderby('date','DESC')->first();
+
+			$states=DB::table('states')
+			->where('id', '=', $state_works->states_id)
+			->first();
+
+			$work->work_state = $states->id;
+
+			$work->color = $this->calculateColor($work);
+		}
+		return view('designer/boss_designer/works/index', compact('works', 'work_states'));
+	}
+
 
 	/**
 	 * Get the name of a client by id
