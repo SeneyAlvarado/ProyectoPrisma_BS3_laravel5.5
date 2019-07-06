@@ -127,6 +127,8 @@ class WorkController extends Controller
 
 		$works_view = [];
 		$editStates = [];
+		$work_states = new State();
+		$work_states = $work_states->where('active_flag', '1')->get();
 
 		$view_states = DB::table('state_user_types') //get the list of states that the user can see
 		->where('user_types_id', Auth::user()->user_type_id)
@@ -141,10 +143,10 @@ class WorkController extends Controller
 			->where('work_id', '=', $work->work_id)
 			->orderby('date','DESC')->first();
 
-			$work->work_state_id = $state_works->states_id;//= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
+			$work->work_state = $state_works->states_id;//= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
 
 			foreach($view_states as $view_state) {//add to array only the works that the user can see
-				if($work->work_state_id == $view_state->states_id){
+				if($work->work_state == $view_state->states_id){
 					array_push($works_view, $work);
 				}
 			}
@@ -162,11 +164,18 @@ class WorkController extends Controller
 			array_push($editStates, $state);
 		}
 
+		$works = $works_view;
+
+		
+		//$work_states = $editStates;
+
+		//return $editStates;
+
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1) {//admin user
-			return view('admin.works.index', compact('works_view', 'editStates'));//if in some case the admin use this method
+			return view('admin.works.index', compact('works', 'work_states'));//if in some case the admin use this method
 		} else if($user_type == 2) {//reception user
-			return view('reception.works.index', compact('works_view', 'editStates'));
+			return view('reception.works.index', compact('works', 'work_states', 'editStates'));
 		}
 	}
 
@@ -425,10 +434,12 @@ class WorkController extends Controller
 	public function products_chart(Request $request) 
 	{
 
-		//$from=Carbon::parse($request->startDate)->format('Y-m-d');
-		$from="2019-06-01";
+		$from=Carbon::parse($request->startDate)->format('Y-m-d');
+		$to=Carbon::parse($request->endDate)->format('Y-m-d');
+		//return $to;
+		//$from="2019-06-01";
 		//$to=Carbon::parse($request->endDate)->format('Y-m-d');
-		$to = "2019-06-30";
+		//$to = "2019-06-30";
 		$products = DB::table('products')->where('active_flag', '=', 1)
 		->select('products.name', 'products.id')
 		->get();

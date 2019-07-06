@@ -380,6 +380,7 @@ function formInitiation() {
       var order = getOrderData();
       form.append('works', works);
       form.append('order', order);
+      $('#spinnerModal').modal('show');
       $.ajax({
         url: '/addOrdersWorks',
         type: 'POST',
@@ -389,8 +390,9 @@ function formInitiation() {
         cache: false,
         processData: false,
         success: function (datos) {
-          alert(datos.data);
-          //window.location.replace("/orders");
+          //alert(datos.data);
+          $('#spinnerModal').modal('hide');
+          window.location.replace("/orders");
           //alert("YAYYYYYYYYYYYYY");
           //alert(datos.data);
           /*$.each(datos, function () {
@@ -399,6 +401,7 @@ function formInitiation() {
              })
            })*/
         }, error: function (e) {
+          $('#spinnerModal').modal('hide');
           console.log(e);
           alert("¡Ha habido un error al insertar la orden y los trabajos! Verifique los" +
             " datos e intente de nuevo más tarde. Si el error persiste contacte con el equipo técnico");
