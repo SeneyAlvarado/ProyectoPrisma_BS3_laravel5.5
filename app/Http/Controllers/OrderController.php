@@ -365,7 +365,7 @@ class OrderController extends Controller
 					$requestFile = $request->file('file' . $workFileCounter);
 					$filename = pathinfo($requestFile->getClientOriginalName(), PATHINFO_FILENAME);
 					$extension = pathinfo($requestFile->getClientOriginalName(), PATHINFO_EXTENSION);
-					$fileUnique = $filename. $workModel->id .  '.' . $extension;
+					$fileUnique = $filename . "_" . $workModel->id .  '.' . $extension;
 					$filesize = $requestFile->getClientSize();
 					$requestFile->storeAs('public/workFiles', $fileUnique);
 
@@ -387,7 +387,13 @@ class OrderController extends Controller
 
 			} else {//if the work already exists and needs an update
 				$updatedData = true;
-				$this->updateWorksLogBasicInfo($work);
+				if($request->hasFile('file' . $workFileCounter)){
+					$requestFile = $request->file('file' . $workFileCounter);
+					$this->updateWorksLogBasicInfo($work, $requestFile);
+				} else {
+					$requestFile = $request->file('file' . $workFileCounter);
+					$this->updateWorksLogBasicInfo($work, null);
+				}
 			}
 			$workFileCounter = $workFileCounter+1;
 		}
@@ -541,9 +547,13 @@ class OrderController extends Controller
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * 	Update the specified WORK in the database, wrtitting changes at log.
+	 *
+	 * @param [type] $work The work to update
+	 * @param [type] $requestFile If the work has a new file, if null do nothing.
+	 * @return void
 	 */
-	public function updateWorksLogBasicInfo($work)
+	public function updateWorksLogBasicInfo($work, $requestFile)
 	{
 		$workModel = Work::where('id', $work->existWork)->first();
 		$workID = $work->existWork;
@@ -609,6 +619,45 @@ class OrderController extends Controller
 			}
 		}
 		$workModel->save();
+
+		if($requestFile != null){
+			$file = \App\Works_file::where('work_id', $workID)->first();
+			if($file != null && !empty($file)){
+				if(\Storage::disk('local')->exists('public/workFiles/' . $file->name)){
+					$deletedFile = \App\Works_file::where('id', $file->id)->delete();
+					//throw new \Exception($deletedFile . $file->name);
+					\Storage::disk('local')->delete('public/workFiles/' . $file->name);
+
+					$work_log_model = new \App\Works_log();
+					$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+					$work_log_model->attribute = "Archivo de trabajo";
+					$work_log_model->value = "Se ha eliminado un archivo de trabajo";
+					$work_log_model->work_id = $workID;
+					$work_log_model->user_id = Auth::user()->id;
+					$work_log_model->save();
+				}
+			}	
+			$filename = pathinfo($requestFile->getClientOriginalName(), PATHINFO_FILENAME);
+			$extension = pathinfo($requestFile->getClientOriginalName(), PATHINFO_EXTENSION);
+			$fileUnique = $filename . "_" . $workID .  '.' . $extension;
+			$filesize = $requestFile->getClientSize();
+			$requestFile->storeAs('public/workFiles', $fileUnique);
+
+			$work_fileModel = new \App\Works_file();
+			$work_fileModel->name = $fileUnique;
+			$work_fileModel->size = $filesize;
+			$work_fileModel->work_id = $workID;
+			$work_fileModel->active_flag = 1;
+			$work_fileModel->save();
+
+			$work_log_model = new \App\Works_log();
+			$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+			$work_log_model->attribute = "Archivo de trabajo";
+			$work_log_model->value = "Se ha adjuntado un nuevo archivo";
+			$work_log_model->work_id = $workID;
+			$work_log_model->user_id = Auth::user()->id;
+			$work_log_model->save();
+		}
 		return;
 	}
 
@@ -688,6 +737,11 @@ class OrderController extends Controller
 			foreach ($works as $work) {
 				$work->materials = Material_work::where('work_id', $work->id)->get();
 				$work->product_name = \App\Product::where('id', $work->product_id)->first()->name;
+				$file = \App\Works_file::where('work_id', $work->id)->first();
+				//$work->file_id = "aaa";
+				if($file != null && !empty($file)){
+					$work->file_id = $file->id;
+				}
 			}
 
 			//return compact('order', 'owner', 'contact', 'works');
@@ -698,6 +752,14 @@ class OrderController extends Controller
 			}
 		}
 	}
+
+	public function downloadFile($id) {
+		$file = \App\Works_file::where('id', $id)->first();
+		if(\Storage::disk('local')->exists('public/workFiles/' . $file->name)){
+			return response()->download(storage_path("app/public/workFiles/{$file->name}"));
+		}
+		return response();
+	} 
 
 	public function getClientData($client_id){
 		$client = \App\Client::where('id', $client_id)->first();

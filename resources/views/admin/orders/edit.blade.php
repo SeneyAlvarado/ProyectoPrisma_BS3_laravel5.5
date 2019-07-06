@@ -36,7 +36,7 @@ ir other input ID needed, please make other JS with your own configuration-->
         <div class="card-body">
             <div class="container-fluid">
                 <div class="">
-                    <form method='POST' action="javascript:formValidation();" id="orderForm">
+                    <form method='POST' action="javascript:formValidation();" id="orderForm" autocomplete="off">
                         <input type='hidden' id='_token' name='_token' value='{{Session::token()}}'>
                         <input type='hidden' id='dolarExchangeRate' value='{{$order->exchange_rate}}'>
                         <input type='hidden' id='hiddenDateCR'
@@ -199,6 +199,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                             <th class="text-center">Fecha de entrega</th>
                                             <th class="text-center">Prioridad</th>
                                             <th class="text-center">Producto</th>
+                                            <th class="text-center">Archivo del trabajo</th>
                                             <th class="text-center">Opciones</th>
                                         </thead>
 
@@ -232,7 +233,31 @@ ir other input ID needed, please make other JS with your own configuration-->
                                                 <td class="text-center" id="product0{{$rowCount}}"
                                                     value="{{$work->product_id}}">
                                                     {{$work->product_id . ". " . $work->product_name}}</td>
+                                                <td>
+                                                    <div class="row" style="width: 95%">
+                                                        @if(($work->file_id != null) && ($work->file_id !=
+                                                        ""))
 
+                                                        <div class="col-md-10" style="margin-left: 5%">
+                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}"
+                                                                class="form-control hideFile" type="file">
+                                                        </div>
+                                                        <div class="col-md-1"
+                                                            style="margin-top: 10px;">
+                                                            <a href="{{route('downloadFile', $work->file_id)}}">
+                                                                <span class="glyphicon glyphicon-download-alt"
+                                                                    style="font-size:18px; color: crimson;" 
+                                                                    title="Descargar archivo del trabajo"></span>
+                                                            </a>
+                                                        </div>
+                                                        @else
+                                                        <div class="col-md-12" style="margin-left: 5%">
+                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}"
+                                                                class="form-control hideFile" type="file">
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <input id="observation{{$rowCount}}" type="hidden"
                                                         value="{{$work->observation}}" autocomplete='off'>
@@ -567,6 +592,31 @@ ir other input ID needed, please make other JS with your own configuration-->
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- this link is fot the LOADING-... spinner -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="modal fade" id="savingModal" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel"
+    data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                    <p class="text-center">Guardando datos...</p>
+                    <br>
+                    <a class="text-center" href="{{route('orders')}}" target="_blank">Si desea continuar navegando, haga
+                        click
+                        aquí</a>
+                </div>
+            </div>
+            <div class="modal-footer" style=" display: flex; justify-content: center;">
+                <button type="button" id="cancelOrderPost" onclick="cancelOrderPost();" class="btn btn-secondary"
+                    data-dismiss="modal">Cancelar</button>
+            </div>
         </div>
     </div>
 </div>

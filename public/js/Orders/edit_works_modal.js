@@ -1,4 +1,5 @@
 $(document).ready(function () {//cleans the modals when page is accesed/reloaded
+    var currentRequest;
     cleanAddWorkModals();
     cleanEditWorkModals();
     //cleanExchangeInputs();
@@ -7,6 +8,7 @@ $(document).ready(function () {//cleans the modals when page is accesed/reloaded
     disableMoneyRadio();
     fixProductDateFormat();
     loadContactClient();
+    formInitiation();
 });
 
 //This function makes the form validate, do not erase it. 
@@ -18,7 +20,7 @@ function formValidation() {
         return alert("Agregue al menos un trabajo a la orden");
     }
     if (validateForm()) {
-        submitForm();
+        return true;
     }
 }
 
@@ -46,7 +48,7 @@ function addWorkToTable() {
     var product = $("#product_branch").children("option:selected").val();
     var productName = $("#product_branch").children("option:selected").html();
 
-    if (product == "defecto") {
+    if (product == undefined || product == "defecto" || isEmptyOrSpaces(product)) {
         return alert("Por favor seleccione un producto");
     }
 
@@ -71,21 +73,33 @@ function addWorkToTable() {
     hiden_materials = '<input id="materials' + rowCount +
         '" type="hidden" value="' + materials + '"></input>'
 
+    var inputFile = '<input id="file' + rowCount + '" name="file' + rowCount +
+        '" class="form-control hideFile" type="file">';
 
     editAndHidden = hiden_observation_add + hiden_materials +
         '<a onClick="loadEditWorkModal(\'' + rowCount + '\')"  class="btn btn-warning style-btn-edit btn-size">Detalles</a>';
 
     var table = $('#worksTable').DataTable();
     table.rows.add(
-        [[datepicker1_fromToday, priority_add, productName, editAndHidden]]
+        [[datepicker1_fromToday, priority_add, productName, inputFile, editAndHidden]]
     ).draw();
 
     $("#product" + rowCount).attr("value", product);
 
     $("#modalWork").modal('toggle');
     cleanAddWorkModals();
+    addFileSizeValidation(rowCount);
 }
 
+function addFileSizeValidation(rowCount) {
+    var uploadField = document.getElementById("file" + rowCount);
+    uploadField.onchange = function () {
+        if (this.files[0].size > 50000000) {//50 MB max size
+            alert("El tamaño máximo permitido para el archivo es de 50 MB");
+            this.value = "";
+        };
+    }
+}
 
 function loadEditWorkModal(rowCount) {
 
@@ -378,35 +392,42 @@ function colonAutonumeric() {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function submitForm() {
-    var urlData = [];
-    var works = getWorksData();
-    var order = getOrderData();
-    urlData.push(order);
-    urlData.push(works);
-    JSON.stringify(urlData);
-    //alert(urlData);
-    //alert(order);
-    //window.location.replace("/addOrdersWorks/" + data);
-    //JSON.stringify(array_horario_servicio));
-    $.ajax({
-        url: '/addOrdersWorks',
-        type: 'POST',
-        data: { 'data': urlData, '_token': $('#_token').val() },
-        dataType: 'json',
-        success: function (datos) {
-            window.location.replace("/orders");
-            //alert("YAYYYYYYYYYYYYY");
-            //alert(datos.data);
-            /*$.each(datos, function () {
-               $.each(this, function () {
-                 alert(this);
-               })
-             })*/
-        }, error: function (e) {
-            console.log(e);
-            alert("¡Ha habido un error al insertar la orden y los trabajos! Verifique los" +
-                " datos e intente de nuevo más tarde. Si el error persiste contacte con el equipo técnico");
+function formInitiation() {
+    $('#orderForm').on('submit', function (event) {
+        event.preventDefault();
+        if (formValidation()) {
+            var form = new FormData(this);
+            var works = getWorksData();
+            var order = getOrderData();
+            form.append('works', works);
+            form.append('order', order);
+            $('#savingModal').modal('show');
+            currentRequest = $.ajax({
+                url: '/addOrdersWorks',
+                type: 'POST',
+                data: form,
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (datos) {
+                    //alert(datos.data);
+                    $('#savingModal').modal('hide');
+                    window.location.replace("/orders");
+                    //alert("YAYYYYYYYYYYYYY");
+                    //alert(datos.data);
+                    /*$.each(datos, function () {
+                       $.each(this, function () {
+                         alert(this);
+                       })
+                     })*/
+                }, error: function (e) {
+                    $('#savingModal').modal('hide');
+                    console.log(e);
+                    alert("¡Ha habido un error al insertar la orden y los trabajos! Verifique los" +
+                        " datos e intente de nuevo más tarde. Si el error persiste contacte con el equipo técnico");
+                }
+            });
         }
     });
 }
@@ -432,8 +453,8 @@ function getWorksData() {
         product = $("#product" + i).attr("value");
         materials = $("#materials" + i).val();
 
-        if ($("#work" + i ).length) {
-            existWork = $("#work" + i ).val();
+        if ($("#work" + i).length) {
+            existWork = $("#work" + i).val();
         } else {
             existWork = -1;
         }
@@ -600,4 +621,12 @@ function loadContactClient() {
     //function at Clients/load_clients.js
     fillClientContactsSelected(owner, contact);
 }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function cancelOrderPost() {
+    if (currentRequest) {
+        currentRequest.abort();
+        alert("¡Ha cancelado la inserción de la orden!")
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

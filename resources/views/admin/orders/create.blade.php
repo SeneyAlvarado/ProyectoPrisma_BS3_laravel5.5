@@ -26,7 +26,6 @@
 ir other input ID needed, please make other JS with your own configuration-->
 <script src="{{asset('/js/Datepickers/datepicker1_fromToday.js')}}"></script>
 <script src="{{asset('/js/Datepickers/datepicker2_fromToday.js')}}"></script>
-<script src="{{asset('/js/Orders/jquery.form.js')}}"></script>
 <!-- END Datepicker for THIS PAGE -->
 <!-- At this page of ORDERS, I use datepicker1 to add works and datepicker2 to edit those works -->
 
@@ -478,11 +477,29 @@ ir other input ID needed, please make other JS with your own configuration-->
 
 <!-- this link is fot the LOADING-... spinner -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="modal fade" tabindex="-1" role="dialog" id="spinnerModal">
-    <div class="modal-dialog modal-dialog-centered text-center" role="document">
-        <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+<div class="modal fade" id="savingModal" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel"
+    data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                    <p class="text-center">Guardando datos...</p>
+                    <br>
+                    <a class="text-center" href="{{route('orders')}}" target="_blank">Si desea continuar navegando, haga
+                        click
+                        aquí</a>
+                </div>
+            </div>
+            <div class="modal-footer" style=" display: flex; justify-content: center;">
+                <button type="button" id="cancelOrderPost" onclick="cancelOrderPost();" class="btn btn-secondary"
+                    data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
     </div>
 </div>
+
 <script>
     /*$('#datepicker').datepicker({
   uiLibrary: 'bootstrap4',
