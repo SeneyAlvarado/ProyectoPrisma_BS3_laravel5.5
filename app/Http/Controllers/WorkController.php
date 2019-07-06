@@ -127,6 +127,8 @@ class WorkController extends Controller
 
 		$works_view = [];
 		$editStates = [];
+		$work_states = new State();
+		$work_states = $work_states->where('active_flag', '1')->get();
 
 		$view_states = DB::table('state_user_types') //get the list of states that the user can see
 		->where('user_types_id', Auth::user()->user_type_id)
@@ -163,13 +165,17 @@ class WorkController extends Controller
 		}
 
 		$works = $works_view;
-		$work_states = $editStates;
+
+		
+		//$work_states = $editStates;
+
+		//return $editStates;
 
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1) {//admin user
 			return view('admin.works.index', compact('works', 'work_states'));//if in some case the admin use this method
 		} else if($user_type == 2) {//reception user
-			return view('reception.works.index', compact('works', 'work_states'));
+			return view('reception.works.index', compact('works', 'work_states', 'editStates'));
 		}
 	}
 
@@ -391,10 +397,12 @@ class WorkController extends Controller
 	public function products_chart(Request $request) 
 	{
 
-		//$from=Carbon::parse($request->startDate)->format('Y-m-d');
-		$from="2019-06-01";
+		$from=Carbon::parse($request->startDate)->format('Y-m-d');
+		$to=Carbon::parse($request->endDate)->format('Y-m-d');
+		//return $to;
+		//$from="2019-06-01";
 		//$to=Carbon::parse($request->endDate)->format('Y-m-d');
-		$to = "2019-06-30";
+		//$to = "2019-06-30";
 		$products = DB::table('products')->where('active_flag', '=', 1)
 		->select('products.name', 'products.id')
 		->get();

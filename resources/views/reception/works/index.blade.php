@@ -59,9 +59,11 @@
                                         aria-labelledby="dropdownMenuLink">
         
                                         @foreach ($work_states as $work_state)
-                                        @if($work_state->id != $actualStateID)
-                                    <button class="dropdown-item" id="workState{{$work->work_id}}{{$work_state->id}}" onclick="changeWorkState('{{$work->work_id}}', '{{$work_state->id}}', '{{$work_state->name}}')">{{$work_state->name}}</button>
-                                        @endif
+                                            @foreach ($editStates as $editState)
+                                                @if(($work_state->id == $editState->id) && ($work_state->id != $actualStateID)) 
+                                                    <button class="dropdown-item" id="workState{{$work->work_id}}{{$work_state->id}}" onclick="changeWorkState('{{$work->work_id}}', '{{$work_state->id}}', '{{$work_state->name}}')">{{$work_state->name}}</button>
+                                                @endif
+                                            @endforeach
                                         @endforeach
                                     </div>
                                 </div>
@@ -221,6 +223,7 @@
 <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 <script src="{{asset('/js/Works/work_details.js')}}"></script>
+
 
 
 

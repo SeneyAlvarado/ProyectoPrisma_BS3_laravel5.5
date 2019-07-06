@@ -45,6 +45,14 @@
   <!-- notifications js handling-->
   <script src="{{asset('/js/dropdownDoubleClickFix.js')}}"></script>
 
+  <!-- Neccesary links for the datepicker -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{asset('/css/calendarOwn.css')}}">
+  <script src="{{asset('/js/Datepickers/Datepicker_spanish.js')}}"></script>
+  <!-- End of neccesary links for the datepicker -->
+
+  <script src="{{asset('/js/Datepickers/datepicker3_forReport.js')}}"></script>
 </head>
 
 <body>
@@ -310,27 +318,17 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
       
-                    <div class="row justify-content-center">
-                      <div class="col-md-5">
-                        <label for="date-field"><strong>Fecha de inicio</strong></label>
-                         <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                            <input id="dateInput_edit" type="text" name="startDate" class="form-control datetimepicker-input"
-                              data-target="#datetimepicker5" onkeydown="return false">
-                            <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
-                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
-                            </div>
-                          </div>
+                    <div class="row justify-content-center" style="margin-bottom:20px;">
+                      <div class="col-md-5" style="text-align:center;">
+                          <label for="date-field"><strong>Fecha de entrega</strong></label>
+                          <input name="startDate" type="text" id="datepicker3_forReport" readonly>
                       </div>
-                      <div class="col-md-5">
-                        <label for="date-field"><strong>Fecha de fin</strong></label>
-                         <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                            <input id="dateInput_edit" type="text" name="endDate" class="form-control datetimepicker-input"
-                              data-target="#datetimepicker4" onkeydown="return false">
-                            <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
-                            </div>
-                          </div>
+                      <div class="col-md-5" style="text-align:center;">
+                          <label for="date-field"><strong>Fecha de entrega</strong></label>
+                          <input name="endDate" type="text" id="datepicker4_forReport" readonly>
                       </div>
+                      
+                     
                     </div>
 
                     <div class="row justify-content-center">
