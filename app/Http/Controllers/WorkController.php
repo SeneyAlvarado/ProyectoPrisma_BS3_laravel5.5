@@ -442,13 +442,10 @@ class WorkController extends Controller
 
 	public function products_chart(Request $request) 
 	{
+		
+		$from = Carbon::createFromFormat('d/m/Y', $request->startDate); 
+		$to = Carbon::createFromFormat('d/m/Y', $request->endDate); 
 
-		$from=Carbon::parse($request->startDate)->format('Y-m-d');
-		$to=Carbon::parse($request->endDate)->format('Y-m-d');
-		//return $to;
-		//$from="2019-06-01";
-		//$to=Carbon::parse($request->endDate)->format('Y-m-d');
-		//$to = "2019-06-30";
 		$products = DB::table('products')->where('active_flag', '=', 1)
 		->select('products.name', 'products.id')
 		->get();
@@ -480,6 +477,67 @@ class WorkController extends Controller
 	
 			DB::commit();
 			return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
+		return view('admin/reports/mostProductSell',['products'=>$products]);
+	}
+
+	public function materials_chart(Request $request) 
+	{
+		$from = Carbon::createFromFormat('d/m/Y', $request->startDate); 
+		$to = Carbon::createFromFormat('d/m/Y', $request->endDate); 
+		
+		$works = DB::table('works')->where('active_flag', '=', 1)//get the works between two dates 
+		->whereBetween('entry_date', [$from, $to])
+		->select('works.id', 'works.entry_date', 'works.approximate_date')->get();
+		
+		$material_works = [];
+		$materials;
+
+		foreach ($works as $work) { //get the list of materials used in the works
+			$material_work = DB::table('material_works')
+			->where('work_id','=', $work->id)
+			->get();
+			foreach ($material_work as $material) { 
+				if (!empty($material) && ($material != null) && ($material != "")){
+					$material->start = $from;
+					$material->end = $to;
+					array_push($material_works, $material);
+				}
+			}	
+		}
+		
+		foreach ($material_works as $material_work) { //get the name of the material used in the work
+			$material = DB::table('materials')
+			->where('id','=', $material_work->material_id)
+			->first();
+			$material_work->name = $material->name;	
+		}
+		
+		foreach ($material_works as $material_work) { //get the count of an specific material used in the works
+			$material_count = DB::table('material_works')
+			->where('material_id','=', $material_work->material_id)
+			->get();
+			$material_work->total = $material_count->count();
+		}
+
+		$material_withOut= [];
+		$count = 0;
+		foreach ($material_works as $material_work) { //delete duplicates
+			foreach($material_withOut as $material_ok){
+				if($material_ok->material_id == $material_work->material_id) {
+					$count = 1;
+				}
+			}
+			if($count != 1){
+				array_push($material_withOut, $material_work);
+			}
+			$count = 0;
+		}
+
+		$materials = $material_withOut;
+		$materials = collect($materials)->sortBy('total')->reverse();
+		$materials = collect($materials)->take(3);
+		//return $materials;
+		return view('admin/reports/mostMaterialSell',['materials'=>$materials]);
 	}
 
 }

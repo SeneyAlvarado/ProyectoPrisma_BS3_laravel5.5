@@ -1,4 +1,5 @@
 $(document).ready(function () {//cleans the modals when page is accesed/reloaded
+  var currentRequest;
   cleanAddWorkModals();
   cleanEditWorkModals();
   cleanExchangeInputs();
@@ -45,7 +46,7 @@ function addWorkToTable() {
   var product = $("#product_branch").children("option:selected").val();
   var productName = $("#product_branch").children("option:selected").html();
 
-  if (product == "defecto") {
+  if (product == undefined || product == "defecto" || isEmptyOrSpaces(product)) {
     return alert("Por favor seleccione un producto");
   }
 
@@ -87,8 +88,18 @@ function addWorkToTable() {
 
   $("#modalWork").modal('toggle');
   cleanAddWorkModals();
+  addFileSizeValidation(rowCount);
 }
 
+function addFileSizeValidation(rowCount) {
+  var uploadField = document.getElementById("file" + rowCount);
+  uploadField.onchange = function () {
+    if (this.files[0].size > 50000000) {//50 MB max size
+      alert("El tamaño máximo permitido para el archivo es de 50 MB");
+      this.value = "";
+    };
+  }
+}
 
 function loadEditWorkModal(rowCount) {
 
@@ -380,8 +391,8 @@ function formInitiation() {
       var order = getOrderData();
       form.append('works', works);
       form.append('order', order);
-      $('#spinnerModal').modal('show');
-      $.ajax({
+      $('#savingModal').modal('show');
+      currentRequest = $.ajax({
         url: '/addOrdersWorks',
         type: 'POST',
         data: form,
@@ -391,7 +402,7 @@ function formInitiation() {
         processData: false,
         success: function (datos) {
           //alert(datos.data);
-          $('#spinnerModal').modal('hide');
+          $('#savingModal').modal('hide');
           window.location.replace("/orders");
           //alert("YAYYYYYYYYYYYYY");
           //alert(datos.data);
@@ -401,10 +412,12 @@ function formInitiation() {
              })
            })*/
         }, error: function (e) {
-          $('#spinnerModal').modal('hide');
+          //for some reason the .modal doesn´t work here, instead is neccesary to use switchClass
+          $('#savingModal').switchClass( "show", "hide");
           console.log(e);
           alert("¡Ha habido un error al insertar la orden y los trabajos! Verifique los" +
             " datos e intente de nuevo más tarde. Si el error persiste contacte con el equipo técnico");
+
         }
       });
     }
@@ -560,6 +573,13 @@ function validateForm() {
     return false;
   }
   return true;
+}
+
+function cancelOrderPost() {
+  if (currentRequest) {
+    currentRequest.abort();
+    alert("¡Ha cancelado la inserción de la orden!")
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -19,7 +19,7 @@
   .formStyle3 { 
       width:115px;
   }
-    input:focus {
+  .formStyle:focus {
     outline: none;
     border-color: #5e9bfc;
   }

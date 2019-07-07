@@ -89,21 +89,7 @@
                                 @endif-->
                             
                                <td class="text-center">
-                                    <a class="btn btn-warning style-btn-edit btn-size btn-sm"  onCLick="workDetails('{{$work->work_id}}')">Detalles</a>
-                                   @if($work->active_flag == 1)
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea cancelar el trabajo de {{$work->client_name}}?');">
-                                       {{csrf_field()}}
-                                       <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn style-btn-delete btn-danger btn-size btn-sm">Cancelar</button>
-                                   </form>
-                                   @else
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea reactivar el trabajo de {{$work->client_name}}?');">
-                                       {{csrf_field()}}
-                                       <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit"  class="btn btn-success style-btn-success btn-size btn-sm">Activar</button>
-                                   </form>
-                                   @endif
-                                 
+                                    <a class="btn btn-warning style-btn-edit btn-size btn-sm"  onCLick="workDetails('{{$work->work_id}}')">Detalles</a>                        
                                </td>
                            </tr>
                        @endforeach
