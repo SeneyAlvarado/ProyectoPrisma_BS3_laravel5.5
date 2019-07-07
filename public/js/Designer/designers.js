@@ -16,7 +16,7 @@ function changingDesigner(work_id, designerID, designerName) {
 function changeDesigner(work_id, designerID, designerName, oldState, olddesignerName) {
     $('#dropDesigner' + work_id).html('<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp Cargando');
     $.ajax({
-        url: '/changeDesigner/' + work_id + "/" + designerID,
+        url: '/changeDesigner/' + work_id + "/" + designerID + "/" + designerName,
         type: 'GET',
         dataType: "json",
         success: function (datos) {

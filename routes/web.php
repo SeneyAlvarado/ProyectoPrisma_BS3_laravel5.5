@@ -86,7 +86,7 @@ Route::get('downloadFile/{id}', 'OrderController@downloadFile')->name('downloadF
 /*------------Works routes------------*/
 Route::get('trabajos', 'WorkController@index');
 Route::get('/changeWorkState/{workID}/{stateID}', 'WorkController@changeWorkState');
-Route::get('/changeDesigner/{workID}/{designerID}', 'WorkController@changeDesignerWork');/**Change the designer of a work*/ 
+Route::get('/changeDesigner/{workID}/{designerID}/{designerName}', 'WorkController@changeDesignerWork');/**Change the designer of a work*/ 
 /*-------------------------------------------*/
 
 /*------------Visit routes------------*/

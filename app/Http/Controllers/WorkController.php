@@ -8,6 +8,7 @@ use App\Work;
 use App\State;
 use App\State_work;
 use App\Client;
+use App\OrderController;
 use App\Physical_client;
 use App\User;
 use App\Works_file;
@@ -465,7 +466,7 @@ class WorkController extends Controller
 		return view('admin/reports/mostProductSell',['products'=>$products]);
 	}
 
-	public function changeDesignerWork($work_id, $designer_id){
+	public function changeDesignerWork($work_id, $designer_id, $designer_name){
 		DB::beginTransaction();
 
 			$userID = Auth::user()->id;
@@ -475,7 +476,14 @@ class WorkController extends Controller
 				$work->designer_id = $designer_id;
 				$work->save();
 			}
-	
+			$work_log_model = new \App\Works_log();
+			$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+			$work_log_model->value = "Se ha actualizado el diseñador del trabajo a " . $designer_name;
+			$work_log_model->attribute = "Diseñador asignado";
+			$work_log_model->work_id = $work_id;
+			$work_log_model->user_id =  Auth::user()->id;
+			$work_log_model->save();
+			
 			DB::commit();
 			return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
 		return view('admin/reports/mostProductSell',['products'=>$products]);

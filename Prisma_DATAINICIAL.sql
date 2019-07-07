@@ -38,6 +38,9 @@ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NU
  INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
  'Jefe diseño', 'Es el jefe de diseño de una sucursal de Prisma', '1');
 
+  INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
+ 'Diseñador', 'Diseñador de una sucursal de Prisma', '1');
+
 INSERT INTO `branches` (`id`, `name`, `active_flag`) VALUES (NULL,
  'San Ramón #1', '1');
 
@@ -48,6 +51,14 @@ INSERT INTO `users` (`id`, `name`, `lastname`, `second_lastname`, `username`, `p
 INSERT INTO `users` (`id`, `name`, `lastname`, `second_lastname`, `username`, `password`, `email`, `branch_id`, `user_type_id`, `remember_token`, `active_flag`) VALUES (NULL,
  'Ana', 'Gómez', 'Jiménez', 'AnaGo', 
  '$2y$10$JuEerCyy9tUswU/vkANiqepQn8KsXGZ93/3YYBjIonKbbsfDB2E0a', 'anarecepcion@gmail.com', '1', '2', NULL, '1');
+
+INSERT INTO `users` (`id`, `name`, `lastname`, `second_lastname`, `username`, `password`, `email`, `branch_id`, `user_type_id`, `remember_token`, `active_flag`) VALUES (NULL,
+ 'Angie', 'López', 'Martínez', 'AnPLM', 
+ '$2y$10$JuEerCyy9tUswU/vkANiqepQn8KsXGZ93/3YYBjIonKbbsfDB2E0a', 'angie@gmail.com', '1', '3', NULL, '1');
+
+INSERT INTO `users` (`id`, `name`, `lastname`, `second_lastname`, `username`, `password`, `email`, `branch_id`, `user_type_id`, `remember_token`, `active_flag`) VALUES (NULL,
+ 'Yerick', 'Ramirez', 'Villalobos', 'YerickRam', 
+ '$2y$10$JuEerCyy9tUswU/vkANiqepQn8KsXGZ93/3YYBjIonKbbsfDB2E0a', 'yerick@gmail.com', '1', '4', NULL, '1');
 
 INSERT INTO `clients` (`id`,`type`, `name`, `address`, `identification`, `active_flag`) VALUES (NULL, 1,'Seney Leonardo', 
 	'San Juanillo de Naranjo, 150 metros sur del cementerio del lugar', '207810358', 1);
