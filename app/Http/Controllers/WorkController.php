@@ -221,6 +221,7 @@ class WorkController extends Controller
 			$work->color = $this->calculateColor($work);
 		}
 		//return $designer;
+		//return $works;
 		return view('designer/boss_designer/works/index', compact('works', 'work_states', 'designer'));
 	}
 

@@ -57,6 +57,16 @@
                         
                        }
                     }
+
+                    $actualDesignerID = "";
+                    $actualDesignerName ="";
+                    foreach ($designer as $desig) {
+                       if($desig->id == $work->designer_id){
+                        $actualDesignerID = $desig->id;
+                        $actualDesignerName = $desig->name . " " . $desig->lastname;
+                        
+                       }
+                    }
                         ?>
                            <tr class="">
                                 @if ($work->priority == 1)
@@ -90,19 +100,19 @@
 
                             <td class="text-center" style="min-width:150px;">
                                 <div class="dropdown" style="display: block">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="drop{{$work->designer_id}}"
-                                        data-target="#drop-designers" href="#" value="{{$work->designer_id}}"
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="dropDesigner{{$work->work_id}}"
+                                        data-target="#drop-designers" href="#" value="{{$actualDesignerID}}"
                                             role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
-                                            
+                                            {{$actualDesignerName}}
                                         </button>
-                                    <div class="dropdown-menu" id="#drop-designers" name="dropOtherDesigners{{$work->designer_id}}" 
+                                    <div class="dropdown-menu" id="#drop-designers" name="dropOtherDesigners{{$work->work_id}}" 
                                         aria-labelledby="dropdownMenuLink">
         
                                         @foreach ($designer as $desig)
-                                        @if($desig->id != $work->designer_id)
+                                        @if($desig->id != $actualDesignerID)
                                     <button class="dropdown-item" id="workDesigner{{$work->work_id}}{{$desig->id}}" 
-                                        onclick="changeDesigner('{{$work->work_id}}', '{{$desig->id}}', '{{$desig->name . ' ' . $desig->lastname}}')">
+                                        onclick="changingDesigner('{{$work->work_id}}', '{{$desig->id}}', '{{$desig->name . ' ' . $desig->lastname}}')">
                                         {{$desig->name . ' ' . $desig->lastname}}</button>
                                         @endif
                                         @endforeach
