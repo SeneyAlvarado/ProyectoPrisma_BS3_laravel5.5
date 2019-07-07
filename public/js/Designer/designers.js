@@ -8,7 +8,7 @@ function changingDesigner(work_id, designerID, designerName) {
         var actualdesignerName = $('#dropDesigner' + work_id).html();
         actualdesignerName = actualdesignerName.replace(/\r?\n|\r/g, '');
         actualdesignerName = actualdesignerName.trim();
-        alert(oldState);
+//        alert(oldState);
         changeDesigner(work_id, designerID, designerName, actualState, actualdesignerName);
     }
 }
