@@ -9,6 +9,8 @@ use App\State;
 use App\State_work;
 use App\Client;
 use App\Physical_client;
+use App\User;
+use App\Works_file;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +61,7 @@ class WorkController extends Controller
 		'works.approximate_date as approximate_date',
 		'works.entry_date as entry_date',
 		'works.active_flag as active_flag',
+		'works.designer_id as designer_id',
 		'orders.client_owner as client_owner')
 		->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 		->get();
@@ -68,7 +71,7 @@ class WorkController extends Controller
 			return $this->indexAdmin($works);
 		} else if($user_type == 2){ //reception user
 			return $this->indexReception($works);
-		} else if($user_type == 3){//designer user
+		} else if($user_type == 3){//designer user 
 			return $this->indexBossDesigner($works);
 		}
 	}
@@ -186,10 +189,15 @@ class WorkController extends Controller
 	private function indexBossDesigner($works) {
 		$work_states = new State();
 		$work_states = $work_states->where('active_flag', '1')->get();
+		$designer = new User();
+		$designer = $designer->where('active_flag', '1')
+		->where('user_type_id', '4')
+		->orWhere('user_type_id', '3')
+		->get();
 
+		
 		foreach($works as $work){//get the name and de lastname of the physical clients.
 			$owner = Client::where('id', $work->client_owner)->first();
-			
 			if($owner->type == 1) {
 				$physical_client = Physical_client::where('client_id', $owner->id)->first();
 				$work->client_name = $owner->name . " " . $physical_client->lastname;
@@ -212,7 +220,8 @@ class WorkController extends Controller
 
 			$work->color = $this->calculateColor($work);
 		}
-		return view('designer/boss_designer/works/index', compact('works', 'work_states'));
+		//return $designer;
+		return view('designer/boss_designer/works/index', compact('works', 'work_states', 'designer'));
 	}
 
 
@@ -455,65 +464,22 @@ class WorkController extends Controller
 
 		$products = collect($products)->sortBy('total')->reverse();
 		$products = collect($products)->take(3);
-
-		/*$content='';
-		
-        $content.= '<html>
-		<head>
-		<link rel="stylesheet" href="bootstrap.min.css">
-		  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		  <script type="text/javascript">
-		  try { this.print(); } catch (e) { window.onload = window.print; } 
-			google.charts.load(\'current\', {\'packages\':[\'corechart\']});
-			google.charts.setOnLoadCallback(drawChart);
-			function drawChart() {
-			  var data = google.visualization.arrayToDataTable([
-				[\'Productos\', \'mes\'],';
-				  foreach ($products as $product){
-					$content .= '['.$product->name.', '. $product->total .'],';
-				  }
-				  
-			  $content.=']);
-	  
-			  var options = {
-				title: \'Producto más vendido\'
-			  };
-			  var chart = new google.visualization.PieChart(document.getElementById(\'piechart\'));
-	  
-			  chart.draw(data, options);
-			}
-		  </script>
-		</head>
-		<body>
-		<h4>Reporte de los porductos más vendidos del día '.$product->start. ' al '.$product->end.'</h4>
-		  <div id="piechart" style="width: 900px; height: 500px;"></div>
-		</body>
-	  </html>';
-         $html2pdf = new Html2Pdf('P', 'Legal', 'es', true, 'UTF-8');
-			$html2pdf->pdf->SetTitle('HTML2PDF Sample');
-			$html2pdf->pdf->IncludeJS('print(TRUE)');
-            $html2pdf->WriteHTML($content);
-           return $html2pdf->Output('example.pdf'); */
-
-
-/*
-		//require dirname(__FILE__).'\..\vendor\autoload.php';
-		require app_path()."/config.php";
-		ob_start();
-		require "/resources/views/admin/reports/mostProductSell.blade.php";
-		$html = ob_get_clean();
-		
-		
-		$html2pdf = new HTML2PDF('P', 'A4', 'es', 'true', 'UTF-8');
-		$html2pdf->writeHTML($html);
-		//$html2pdf->pdf->IncludeJS('print(TRUE)');
-		return $html2pdf->output('pdf_generated.pdf');*/
-		/*$pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML(view('admin/reports/mostProductSell', compact('products'))->render()); 
-        return $pdf->stream('ProductosMasVendidos'.$product->end.'.pdf');*/
-		//return $products;
-		//return $products;
 		return view('admin/reports/mostProductSell',['products'=>$products]);
+	}
+
+	public function changeDesignerWork($work_id, $designer_id){
+		DB::beginTransaction();
+
+			$userID = Auth::user()->id;
+			
+			$work = $this->model->find($work_id);
+			if ($work !=null) {
+				$work->designer_id = $designer_id;
+				$work->save();
+			}
+	
+			DB::commit();
+			return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
 	}
 
 }

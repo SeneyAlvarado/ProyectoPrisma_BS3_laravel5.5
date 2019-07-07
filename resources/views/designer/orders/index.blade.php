@@ -122,8 +122,6 @@
     </div>
 
     @else
-    <a class="btn btn-success style-btn-registry" href="{{ route('orders.create') }} "
-        style="margin-bottom: 10px; ">Crear orden </a>
     <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
     @endif
 
@@ -175,7 +173,7 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('/js/lenguajeTabla.js')}}"></script>
+    <script src="{{asset('/js/tableWithoutCreate.js')}}"></script>
     <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 

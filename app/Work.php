@@ -11,6 +11,6 @@ class Work extends Model
 {
     protected $fillable = ['priority', 'approximate_date', 'designer_date', 'print_date', 
     'post_production_date', 'drying_hours', 'observation', 'order_id', 
-    'user_id', 'product_id', 'product_name', 'active_flag', 'entry_date', 'materials'];
+    'user_id', 'product_id', 'product_name', 'active_flag', 'entry_date', 'materials', 'designer_id'];
     public $timestamps = false;
 }
