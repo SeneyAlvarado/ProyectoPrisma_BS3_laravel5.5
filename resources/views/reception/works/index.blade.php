@@ -90,7 +90,9 @@
                             
                                <td class="text-center">
                                     <a class="btn btn-warning style-btn-edit btn-size btn-sm"  onCLick="workDetails('{{$work->work_id}}')">Detalles</a>                        
-                               </td>
+                                    <a class="btn style-btn-delete btn-size btn-sm"
+                                    href="{{route('orders.edit', [$work->order_id])}}">Editar</a>
+                                </td>
                            </tr>
                        @endforeach
                    </tbody>
