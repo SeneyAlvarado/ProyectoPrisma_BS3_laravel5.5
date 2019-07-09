@@ -58,8 +58,8 @@ class ProductController extends Controller
 				'branches.id as branch_id'
 			)->get();
 
-			return view('products.index', compact('products'));
-			//return view('products.index', compact('branch'));
+			//return view('products.index', compact('products'));
+			return view('admin.products.index', compact('products'));
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
 			return redirect('home')->with('error', '¡Error en la base de datos
@@ -82,7 +82,7 @@ class ProductController extends Controller
 			//custom message if this methods throw an exception
 			\Session::put('errorOrigin', " accediendo a la creación de producto");
 
-			return view('products.create');
+			return view('admin.products.create');
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
 			return redirect('productIndex')->with('error', '¡Error en la base de datos
@@ -166,7 +166,7 @@ class ProductController extends Controller
 			\Session::put('errorOrigin', " editando el producto");
 			$product = $this->model->find($id);
 
-			return view('products.edit', compact('product'));
+			return view('admin.products.edit', compact('product'));
 		} catch (\Illuminate\Database\QueryException $e) {
 			report($e);
 			return redirect('products')->with('error', '¡Error en la base de datos
