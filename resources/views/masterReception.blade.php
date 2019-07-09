@@ -77,17 +77,17 @@
 
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <li class=" nav-item dropdown d-sm-block d-md-none">
+        <li class=" nav-item dropdown d-sm-block d-md-none" >
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
-          <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Trabajos</a>
-            <a class="dropdown-item" href="{{route('orders')}}">Órdenes</a>
-            <a class="dropdown-item" href="{{route('clients')}}">Clientes</a>
-            <a class="dropdown-item" href="{{url('visits')}}">Visitas</a>
-            <a class="dropdown-item" href="{{url('change_password.search_user')}}">Contraseña</a>
-            <a class="dropdown-item" href="{{url('/logout')}}">Cerrar sesión</a>
+          <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
+            <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{route('clients')}}">Clientes  <span class="glyphicon glyphicon-user fa-fw mr-3"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{url('change_password.search_user')}}">Contraseña</a>
+            <a class="dropdown-item" style="color:white"  href="{{url('/logout')}}">Cerrar sesión</a>
           </div>
         </li>
         

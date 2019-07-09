@@ -53,6 +53,7 @@
   <!-- End of neccesary links for the datepicker -->
 
   <script src="{{asset('/js/Datepickers/datepicker3_forReport.js')}}"></script>
+  <script src="{{asset('/js/Reports/check_dates_reports.js')}}"></script>
 </head>
 
 <body>
@@ -91,7 +92,7 @@
             <a class="dropdown-item" href="{{url('visits')}}">Visitas</a>
             <a class="dropdown-item" href="{{url('branch')}}">Sucursales</a>
           </div>
-        </li><!-- Smaller devices menu END -->
+        </li>-- Smaller devices menu END -->
         <ul class=" nav-item dropdown d-sm-block d-md-none">Menú
           <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú -->
             <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -314,7 +315,7 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body">
-        <form method = 'POST' action='{{ route("products.chart") }}'>
+          <form method = 'POST' action='{{ route("products.chart") }}' onsubmit="return check_dates_reports(this)">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
       
