@@ -52,7 +52,7 @@ class ClientController extends Controller
 				$b->notify(new WorkAvailableNotification());
 			}*/
 			//dd(auth()->user());
-			auth()->user()->notify(new WorkAvailableNotification());
+			//auth()->user()->notify(new WorkAvailableNotification());
 
 			//Gets all clients with their phone and emails
 			$clients = $this->model::all();

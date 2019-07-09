@@ -467,10 +467,26 @@ class WorkController extends Controller
 			$state_work_Model->work_id = $workID;
 			$state_work_Model->user_id = $userID;
 			$state_work_Model->save();
+			$this->notifyToUsers($workID, $stateID);
+			
 	/*}*/
 
 		DB::commit();
-		return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
+		return json_encode(["message" => "¡Estado del Trabajo actualizado satisfactoriamente!"]); 
+	}
+
+	public function notifyToUsers($workID, $stateID) {
+		$state_user_types = \App\State_user_type::where('states_id', $stateID)
+		->where('state_notification', 1)->get();//gets all state_user_types with the state id
+		foreach ($state_user_types as $state_user_type) {
+			$users = \App\User::where('user_type_id', $state_user_type->user_types_id)
+			->where('active_flag' , 1)->get();//gets all users that have to see that notification
+
+			foreach ($users as $user) {
+				//notifies every user
+				$user->notify(new \App\Notifications\WorkAvailableNotification($workID));
+			}
+		}
 	}
 
 	public function products_chart(Request $request) 

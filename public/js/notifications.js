@@ -15,7 +15,7 @@ function noNotificationsAvailable() {
     $('#numberNotification').text("0");
     $('#dropmenu-notifications').empty();
     $('#dropmenu-notifications').append(' <a id="noNotifications" class="dropdown-item"'
-    + 'href="#">Sin notificaciones</a>');
+    + 'href="">Sin notificaciones</a>');
 
 }
 
