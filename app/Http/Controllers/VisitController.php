@@ -46,6 +46,7 @@ class VisitController extends Controller
 
 		if($user_type == 1){//admin user
 			$visits = DB::table("visits")
+			->where('branch_id', '=', Auth::user()->branch_id)
 			->orderby('active_flag', 'DESC')->orderby('id', 'DESC')->get();
 
 			foreach($visits as $visit ) {//search the name of the visitor
@@ -150,6 +151,7 @@ class VisitController extends Controller
 			$visit->recepcionist_id = null;
 			$visit->details = $request->details;
 			$visit->active_flag = 1;
+			$visit->branch_id = Auth::user()->branch_id;
 			$visit->visitor_id = Auth::user()->id;
 			$visit->save();
 			DB::commit();//commits to database 

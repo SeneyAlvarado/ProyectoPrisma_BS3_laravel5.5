@@ -22,7 +22,9 @@ class CreateVisitsTable extends Migration {
             $table->integer('visitor_id')->unsigned();
             $table->foreign('visitor_id')->references('id')->on('users');
             $table->integer('recepcionist_id')->unsigned()->nullable();
-            $table->foreign('recepcionist_id')->references('id')->on('users');
+			$table->foreign('recepcionist_id')->references('id')->on('users');
+			$table->integer('branch_id')->unsigned()->nullable();
+			$table->foreign('branch_id')->references('id')->on('branches');
             $table->integer('active_flag');
             //$table->timestamps();
         });
