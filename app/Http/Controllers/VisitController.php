@@ -99,6 +99,24 @@ class VisitController extends Controller
 			}	
 			//return $visits;
 			return view('designer/visits/index', compact('visits'));
+		} else if($user_type == 4){//designer user
+			
+			$visits = DB::table("visits")->where("active_flag", '<>', 0)
+			->orderby('active_flag', 'ASC')->orderby('id', 'DESC')->get();
+
+			foreach($visits as $visit ) {//search the name of the visitor
+				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
+				$visit->visitor = $visitor->name . " " . $visitor->lastname;
+
+				if($visit->email == null) {
+					$visit->email = "No posee";
+				}
+				if($visit->phone == null) {
+					$visit->phone = "No posee";
+				}
+			}	
+			//return $visits;
+			return view('designer/visits/index', compact('visits'));
 		}
 
 	}
