@@ -65,7 +65,8 @@ class WorkController extends Controller
 			'works.entry_date as entry_date',
 			'works.active_flag as active_flag',
 			'works.designer_id as designer_id',
-			'orders.client_owner as client_owner')
+			'orders.client_owner as client_owner',
+			'works.order_id as order_id')
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
 			return $this->indexAdmin($works);
@@ -79,7 +80,8 @@ class WorkController extends Controller
 			'works.entry_date as entry_date',
 			'works.active_flag as active_flag',
 			'works.designer_id as designer_id',
-			'orders.client_owner as client_owner')
+			'orders.client_owner as client_owner',
+			'works.order_id as order_id')
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
 			return $this->generalIndex($works);
@@ -94,7 +96,8 @@ class WorkController extends Controller
 			'works.entry_date as entry_date',
 			'works.active_flag as active_flag',
 			'works.designer_id as designer_id',
-			'orders.client_owner as client_owner')
+			'orders.client_owner as client_owner',
+			'works.order_id as order_id')
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
 			return $this->generalIndex($works);
