@@ -11,35 +11,23 @@
 |
 */
 /*------------------------------------------------------------------------*/ 
-/*------------------------------------------------------------------------*/ 
+
+
+/*-------------------------------Auth-----------------------------------------*/ 
 Route::get('/', function () {  if (Auth::check()) { auth()->logout();}return view('login');});
-
 Route::get('/login', function () {if (Auth::check()) { auth()->logout(); }return view('login');});
-
-
 Route::post('login', 'Auth\LoginController@login');
-
 Route::get('admin', function () { return view('masterAdmin');});
-
-/*CAMBIO DE CONTRASENNA ROOT */
-Route::get('contrasennaAdmin', function() {
-    return view('Admin/cambiarContrasenna');
-})->middleware('admin');
-
+Route::get('contrasennaAdmin', function() { return view('Admin/cambiarContrasenna');})->middleware('admin');
 Route::resource('cambiarContrasennaAdmin', 'ContrasennaRootController');
-// Password Reset Routes... no las voy a tocar con middle, no tiene sentido (quizá guest)password.request
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-
-//Ni idea de qué carajos es no lo voy a tocar
 Auth::routes();
-/*FIN CAMBIO DE CONTRASENNA ROOT */
-/** -----------------------------------------------------------------------------*/
-/** -----------------------------------------------------------------------------*/
+/** -----------------------------Auth------------------------------------------------*/
 
-/**-----------User routes------------- */
+/**----------------------------User routes------------------------------------------- */
 Route::get('user', 'UserController@index')->name('user.index');/**View the accounts list*/
 Route::get('user.create', 'UserController@create')->name('user.create');
 Route::post('user.store', 'UserController@store')->name('user.store');
@@ -47,7 +35,7 @@ Route::get('user.edit/{id}', 'UserController@edit')->name('user.edit');
 Route::put('user.update/{id}', 'UserController@update')->name('user.update');
 Route::delete('user.desactivate/{id}', 'UserController@destroy')->name('user.desactivate');
 Route::delete('user.activate/{id}', 'UserController@activate')->name('user.activate');
-/*-------------------------------------------*/
+/**----------------------------User routes------------------------------------------- */
 
 /*------------Admin states routes------------*/
 Route::get('states', 'StateController@index');
@@ -115,26 +103,6 @@ Route::get('/branchDrop', 'UserController@ajax_branch');/**Fill the select item 
 Route::get('/dropRol', 'UserController@ajax_rol');/**Fill the select item with the ACTIVE roles*/
 Route::get('/active_states_drop', 'StateController@active_states_drop');/**Fill the select item with the ACTIVE states*/
 /*-------------------------------------------*/
-
-/*---------------------------------*/
-/*         products-------------*/
-
-//Route::get('productIndex', 'ProductController@index');
-//Route::get('productoShow/{id}', 'ProductController@show');
-//Route::get('productoEdit/{id}', 'ProductController@edit');
-//Route::get('productoCrea', 'ProductController@store');
-//Route::get('productoCreate', 'BranchController@list');
-//Route::get('productoUpdate', 'BranchController@list2');
-//Route::get('productIndex2', function () {
-    //return view('products.index');
-//});
-//Route::resource('products', 'ProductController');
-//Route::get('prueba4', function () {
-    //return view('masterPrueba4');
-//});
-/*------------Products----- */
-/*------------------------------------------ */
-
 
 /*------------Products---------------------- */
 Route::get('products', 'ProductController@index')->name('products');

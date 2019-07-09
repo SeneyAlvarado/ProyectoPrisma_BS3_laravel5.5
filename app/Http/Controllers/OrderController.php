@@ -108,7 +108,7 @@ class OrderController extends Controller
 			return view('admin.orders.index', compact('orders', 'order_states'));
 		}elseif ($user_type == 2) { //receptionist user
 			return view('reception.orders.index', compact('orders', 'order_states'));
-		}elseif ($user_type == 3) { //boss designer user
+		}elseif ($user_type == 3) { //boss designer users
 				return view('designer/orders/index', compact('orders', 'order_states'));
 		}
 	}

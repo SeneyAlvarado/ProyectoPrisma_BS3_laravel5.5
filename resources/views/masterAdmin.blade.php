@@ -91,7 +91,7 @@
             <a class="dropdown-item" href="{{url('visits')}}">Visitas</a>
             <a class="dropdown-item" href="{{url('branch')}}">Sucursales</a>
           </div>
-        </li><!-- Smaller devices menu END -->
+        </li>-- Smaller devices menu END -->
         <ul class=" nav-item dropdown d-sm-block d-md-none">Menú
           <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú -->
             <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
