@@ -110,7 +110,9 @@ class OrderController extends Controller
 			return view('reception.orders.index', compact('orders', 'order_states'));
 		}elseif ($user_type == 3) { //boss designer user
 				return view('designer/orders/index', compact('orders', 'order_states'));
-		}
+		} elseif ($user_type == 4) { //designer user
+			return view('designer/orders/index', compact('orders', 'order_states'));
+	}
 	}
 
 	/**
