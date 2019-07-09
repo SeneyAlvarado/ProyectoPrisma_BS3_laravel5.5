@@ -73,7 +73,7 @@ class WorkController extends Controller
 			return $this->indexAdmin($works);
 		} else if(($user_type == 2) || ($user_type == 3)  ) { //reception and boss designer
 			$works = DB::table('works')
-			->where('works.active_flag', '1')
+			->where('works.active_flag', '=','1')
 			->join('orders', 'works.order_id', 'orders.id')
 			->select('works.id as work_id',
 			'works.priority as priority',

@@ -82,7 +82,7 @@
             Menú
           </a>
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
-            <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
+            <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span></a>
             <a class="dropdown-item" style="color:white"  href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
             <a class="dropdown-item" style="color:white"  href="{{route('clients')}}">Clientes  <span class="glyphicon glyphicon-user fa-fw mr-3"></span></a>
             <a class="dropdown-item" style="color:white"  href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
@@ -125,7 +125,7 @@
       <ul class="list-group ">
         <a href="{{route('works.index')}}" class="border border-left-0 border-right-0 border-top-0  border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="glyphicon glyphicon-edit fa-fw mr-3"></span>
+            <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
             <span class="menu-collapsed">Trabajos</span>
           </div>
         </a>

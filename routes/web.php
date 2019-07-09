@@ -18,8 +18,8 @@ Route::get('/login', function () {if (Auth::check()) { auth()->logout(); }return
 
 
 /*-------------------------------Auth-----------------------------------------*/ 
-Route::get('/', function () {  if (Auth::check()) { auth()->logout();}return view('login');});
-Route::get('/login', function () {if (Auth::check()) { auth()->logout(); }return view('login');});
+Route::get('/', function () {  if (Auth::check()) { auth()->logout();}return view('login2');});
+Route::get('/login', function () {if (Auth::check()) { auth()->logout(); }return view('login2');});
 Route::post('login', 'Auth\LoginController@login');
 Route::get('admin', function () { return view('masterAdmin');});
 Route::get('contrasennaAdmin', function() { return view('Admin/cambiarContrasenna');})->middleware('admin');
