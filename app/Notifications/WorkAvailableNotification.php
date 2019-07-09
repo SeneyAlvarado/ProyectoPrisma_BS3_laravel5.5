@@ -12,14 +12,16 @@ class WorkAvailableNotification extends Notification
 {
     use Queueable;
 
+    protected $work_id;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($work_id)
     {
-        //
+        $this->work_id = $work_id;
     }
 
     /**
@@ -38,7 +40,7 @@ class WorkAvailableNotification extends Notification
         //dd($notifiable);
         return [
             "notificationHour" => Carbon::now(new \DateTimeZone(('America/Costa_Rica')))->format('d/m/y H:i'),
-            "message" => "Tiene un nuevo trabajo",
+            "message" => "El trabajo #" . $this->work_id . ' debe ser atendido',
         ];
     }
 }
