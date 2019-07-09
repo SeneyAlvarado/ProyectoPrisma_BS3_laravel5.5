@@ -22,7 +22,6 @@
 	</script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 
 
