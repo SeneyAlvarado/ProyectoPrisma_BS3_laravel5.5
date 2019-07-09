@@ -365,7 +365,7 @@ class WorkController extends Controller
 	public function show($id)
 	{
 		$work = Work::where('id', $id)->first();
-		$product = Product::where('id', $id)->first();
+		$product = Product::where('id', $work->product_id)->first();
 
 		$work->product_name = $product->name;
 
