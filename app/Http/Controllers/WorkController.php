@@ -55,26 +55,50 @@ class WorkController extends Controller
 		//custom route to REDIRECT redirect('x') if there's an error
 		\Session::put('errorRoute', "error");
 
-		$works = DB::table('works')
-		->join('orders', 'works.order_id', 'orders.id')
-		->select('works.id as work_id',
-		'works.priority as priority',
-		'works.approximate_date as approximate_date',
-		'works.entry_date as entry_date',
-		'works.active_flag as active_flag',
-		'works.designer_id as designer_id',
-		'orders.client_owner as client_owner')
-		->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
-		->get();
-
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1) {//admin user
+			$works = DB::table('works')
+			->join('orders', 'works.order_id', 'orders.id')
+			->select('works.id as work_id',
+			'works.priority as priority',
+			'works.approximate_date as approximate_date',
+			'works.entry_date as entry_date',
+			'works.active_flag as active_flag',
+			'works.designer_id as designer_id',
+			'orders.client_owner as client_owner')
+			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
+			->get();
 			return $this->indexAdmin($works);
-		} else if($user_type == 2){ //reception user
-			return $this->indexReception($works);
-		} else if($user_type == 3){//designer user 
-			return $this->indexBossDesigner($works);
-		}
+		} else if(($user_type == 2) || ($user_type == 3)  ) { //reception and boss designer
+			$works = DB::table('works')
+			->where('works.active_flag', '1')
+			->join('orders', 'works.order_id', 'orders.id')
+			->select('works.id as work_id',
+			'works.priority as priority',
+			'works.approximate_date as approximate_date',
+			'works.entry_date as entry_date',
+			'works.active_flag as active_flag',
+			'works.designer_id as designer_id',
+			'orders.client_owner as client_owner')
+			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
+			->get();
+			return $this->generalIndex($works);
+		} else if($user_type == 4) { //general designer
+			$works = DB::table('works')
+			->where('works.active_flag', '1')
+			->where('works.designer_id', '=', Auth::user()->id)
+			->join('orders', 'works.order_id', 'orders.id')
+			->select('works.id as work_id',
+			'works.priority as priority',
+			'works.approximate_date as approximate_date',
+			'works.entry_date as entry_date',
+			'works.active_flag as active_flag',
+			'works.designer_id as designer_id',
+			'orders.client_owner as client_owner')
+			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
+			->get();
+			return $this->generalIndex($works);
+		} 
 	}
 
 	/**
@@ -111,14 +135,12 @@ class WorkController extends Controller
 
 			$work->color = $this->calculateColor($work);
 		}
-		//return $works;
-		//return $work_states;
+		
 		$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
 				return view('admin.works.index', compact('works', 'work_states'));
 			} else if($user_type == 3){//designer user
 				return view('designer/boss_designer/works/index', compact('works', 'work_states'));
-		return view('admin.works.index', compact('works', 'work_states'));
 	}
 }
 
@@ -127,7 +149,7 @@ class WorkController extends Controller
 	 *
 	 * 
 	 */
-	private function indexReception($works) {
+	private function generalIndex($works) {
 
 		$works_view = [];
 		$editStates = [];
@@ -170,16 +192,18 @@ class WorkController extends Controller
 
 		$works = $works_view;
 
-		
-		//$work_states = $editStates;
-
-		//return $editStates;
-
 		$user_type = Auth::user()->user_type_id;
 		if($user_type == 1) {//admin user
 			return view('admin.works.index', compact('works', 'work_states'));//if in some case the admin use this method
 		} else if($user_type == 2) {//reception user
 			return view('reception.works.index', compact('works', 'work_states', 'editStates'));
+		} else if($user_type == 3) {//boss designer user
+			$designer = new User();
+			$designer = $designer->where('active_flag', '1')
+			->where('user_type_id', '4')
+			->orWhere('user_type_id', '3')
+			->get();
+			return view('designer/boss_designer/works/index', compact('works', 'work_states', 'editStates', 'designer'));
 		}
 	}
 
@@ -187,6 +211,7 @@ class WorkController extends Controller
 	 * This method is for index works in boss designer, returns the view of works in boss designer
 	 * 
 	 */
+	/*
 	private function indexBossDesigner($works) {
 		$work_states = new State();
 		$work_states = $work_states->where('active_flag', '1')->get();
@@ -224,7 +249,7 @@ class WorkController extends Controller
 		//return $designer;
 		//return $works;
 		return view('designer/boss_designer/works/index', compact('works', 'work_states', 'designer'));
-	}
+	}*/
 
 
 	/**
@@ -340,7 +365,7 @@ class WorkController extends Controller
 	public function show($id)
 	{
 		$work = Work::where('id', $id)->first();
-		$product = Product::where('id', $id)->first();
+		$product = Product::where('id', $work->product_id)->first();
 
 		$work->product_name = $product->name;
 
