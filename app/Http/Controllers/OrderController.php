@@ -980,6 +980,8 @@ class OrderController extends Controller
 				$state_work_Model->work_id = $work->id;
 				$state_work_Model->user_id = $userID;
 				$state_work_Model->save();
+				$workController = new \App\Http\Controllers\WorkController(new \App\Work());
+				$workController->notifyToUsers($work->id, $stateID);
 			}
 	
 			DB::commit();
