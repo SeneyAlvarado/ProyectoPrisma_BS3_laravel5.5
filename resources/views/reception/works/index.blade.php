@@ -188,7 +188,7 @@
                         <br>
                     </div>
                     <div class="col-md-10" >
-                    <textarea class="form-control" rows="4" name="observation" id="observation"></textarea>
+                    <textarea class="form-control" rows="4" name="observation" id="observation" readonly></textarea>
                     </div>
                     
                     </div>
