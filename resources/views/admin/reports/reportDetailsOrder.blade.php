@@ -25,6 +25,15 @@
         </table>        
         <hr style="color: #96183a;" />
         <style>
+            footer {
+                position: fixed; 
+                bottom: 0px; 
+                left: 0px; 
+                right: 0px;
+                height: 50px; 
+                text-align: right;
+                line-height: 35px;
+            }
             table {
                 font-family: Arial, sans-serif;
                 border-collapse: collapse;
@@ -144,8 +153,12 @@
         </div>
         <br>
         <br>
-        <p>******************************* ÚLTIMA PÁGINA *******************************</p>
-        <div class="footer" style="font-size:12pt; font-family: Arial; font-family: Arial;">
-                <span>Página <span class="pagenumber"/></span></div>
-    </body>
+        <br>
+        <br>
+        <p style="font-size:11">***************************************** ÚLTIMA PÁGINA *****************************************</p>
+        <footer>
+                <div class="footer" style="font-size:12pt; font-family: Arial; font-family: Arial;">
+                        <span>Página <span class="pagenumber"/></span></div>
+            </footer>
+        </body>
 </html>

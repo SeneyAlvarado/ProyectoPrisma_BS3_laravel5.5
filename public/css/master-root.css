@@ -237,3 +237,9 @@ nav.nav-color {
   .style-btn-delete-visit:hover {
     cursor: no-drop !important;
   }
+
+  .input:focus {
+    outline: none;
+    border-color: #9D9D9D !important;
+  }
+  

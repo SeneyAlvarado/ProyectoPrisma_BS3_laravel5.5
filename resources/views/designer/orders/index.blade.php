@@ -114,23 +114,6 @@
                                 class="glyphicon glyphicon-file"></span></a>
                         <a title="Editar" class="btn btn-warning" href="{{ route('orders.edit', [$order->id]) }}" style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-pencil"></span></a>
-                        @if($order->active_flag == 1)
-                        <form style="display:inline" action="" method="POST" style="display: inline;"
-                            onsubmit="return confirm('Desea cancelar la orden de {{$order->client_owner_name}}?');">
-                            {{csrf_field()}}
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn style-btn-delete btn-danger btn-size "><span
-                                    class="glyphicon glyphicon-ban-circle"></span></button>
-                        </form>
-                        @else
-                        <form style="display:inline" action="" method="POST" style="display: inline;"
-                            onsubmit="return confirm('Desea activar la orden de {{$order->$client_owner_name}}?');">
-                            {{csrf_field()}}
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-success style-btn-success btn-size">Activar</button>
-                        </form>
-                        @endif
-
                     </td>
                 </tr>
                 @endforeach
@@ -139,8 +122,6 @@
     </div>
 
     @else
-    <a class="btn btn-success style-btn-registry" href="{{ route('orders.create') }} "
-        style="margin-bottom: 10px; ">Crear orden </a>
     <h3 class="text-center alert alert-info header-gris">No hay nada para mostrar</h3>
     @endif
 
@@ -192,7 +173,7 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('/js/lenguajeTabla.js')}}"></script>
+    <script src="{{asset('/js/tableWithoutCreate.js')}}"></script>
     <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 

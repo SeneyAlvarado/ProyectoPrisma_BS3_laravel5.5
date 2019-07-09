@@ -30,7 +30,7 @@
                         <div>
                             <div class="row offset-md-2 col-md-7" style="margin-top:10px;">
                                 <!--<div class="col-md-4 align-self-center"> -->
-                                <label for="description"><strong>Descripcion</strong></label>
+                                <label for="description"><strong>Descripción</strong></label>
                                 <textarea class="form-control" name="description" style="resize:none;" id="description" rows="4" cols="50"></textarea>
                               <!--  <input class="form-control" style="resize:none;" placeholder="Descripción" name="description" id="description-field">-->
 

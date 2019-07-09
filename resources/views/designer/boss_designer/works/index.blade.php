@@ -4,20 +4,21 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="{{asset('/js/Works/changeWorkStates.js')}}"></script>
+<script src="{{asset('/js/Designer/designers.js')}}"></script>
 <div style="padding:10px;">
     <div class="card margin-bottom-card" >
     <div class="card-header"><h5 style="text-align:center; ">Trabajos</h5></div>
     </div>
             
            <div class="">
-            @if($works->count())
+            @if(count($works))
            <div class="table-responsive">
                <table class="table table-bordered table-condensed table-hover compact " id="tablaDatos">
                    <thead>
                         <th class="text-center">Número</th>
                         <th class="text-center">Cliente</th>
                         <th class="text-center">Estado</th> 
+                        <th class="text-center">Diseñador</th> 
                         <th class="text-center">Ingreso</th>
                         <th class="text-center">Entrega</th>
                         <th class="text-center">Tiempo</th> 
@@ -56,6 +57,16 @@
                         
                        }
                     }
+
+                    $actualDesignerID = "";
+                    $actualDesignerName ="";
+                    foreach ($designer as $desig) {
+                       if($desig->id == $work->designer_id){
+                        $actualDesignerID = $desig->id;
+                        $actualDesignerName = $desig->name . " " . $desig->lastname;
+                        
+                       }
+                    }
                         ?>
                            <tr class="">
                                 @if ($work->priority == 1)
@@ -87,6 +98,28 @@
                                 </div>
                             </td>
 
+                            <td class="text-center" style="min-width:150px;">
+                                <div class="dropdown" style="display: block">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="dropDesigner{{$work->work_id}}"
+                                        data-target="#drop-designers" href="#" value="{{$actualDesignerID}}"
+                                            role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            {{$actualDesignerName}}
+                                        </button>
+                                    <div class="dropdown-menu" id="#drop-designers" name="dropOtherDesigners{{$work->work_id}}" 
+                                        aria-labelledby="dropdownMenuLink">
+        
+                                        @foreach ($designer as $desig)
+                                        @if($desig->id != $actualDesignerID)
+                                    <button class="dropdown-item" id="workDesigner{{$work->work_id}}{{$desig->id}}" 
+                                        onclick="changingDesigner('{{$work->work_id}}', '{{$desig->id}}', '{{$desig->name . ' ' . $desig->lastname}}')">
+                                        {{$desig->name . ' ' . $desig->lastname}}</button>
+                                        @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </td>
+
                                <td class="text-center">{{$entry_date}}</td>
                                <td class="text-center">{{$approximate_date}}</td>
                                @if ($work->color == "red")
@@ -108,20 +141,6 @@
                             
                                <td class="text-center">
                                     <a class="btn btn-warning style-btn-edit btn-size btn-sm"  onCLick="workDetails('{{$work->work_id}}')">Detalles</a>
-                                   @if($work->active_flag == 1)
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea cancelar el trabajo de {{$work->client_name}}?');">
-                                       {{csrf_field()}}
-                                       <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit" class="btn style-btn-delete btn-danger btn-size btn-sm">Cancelar</button>
-                                   </form>
-                                   @else
-                                   <form style="display:inline" action="" method="POST" style="display: inline;" onsubmit="return confirm('Desea reactivar el trabajo de {{$work->client_name}}?');">
-                                       {{csrf_field()}}
-                                       <input type="hidden" name="_method" value="DELETE">
-                                       <button type="submit"  class="btn btn-success style-btn-success btn-size btn-sm">Activar</button>
-                                   </form>
-                                   @endif
-                                 
                                </td>
                            </tr>
                        @endforeach
@@ -171,7 +190,7 @@
                         <div class="col-md-10">
                             <label for="id"><strong>Dirección</strong></label>
                             <textarea class="form-control" value="" rows="5" id="comment" name="address"
-                                readonly></textarea>
+                                readonly style="resize:none"></textarea>
                         </div>
                     </div>
                 </div>
@@ -220,7 +239,7 @@
                         <br>
                     </div>
                     <div class="col-md-10" >
-                    <textarea class="form-control" rows="4" name="observation" id="observation"></textarea>
+                    <textarea class="form-control" rows="4" name="observation" id="observation" style="resize:none"></textarea>
                     </div>
                     
                     </div>
@@ -237,7 +256,7 @@
     </div>
   </div>
 
-<script src="{{asset('/js/Works/table_works.js')}}"></script>
+<script src="{{asset('/js/Works/tableWorksWithoutCreate.js')}}"></script>
 <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 <script src="{{asset('/js/Works/work_details.js')}}"></script>

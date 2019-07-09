@@ -749,6 +749,8 @@ class OrderController extends Controller
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
 				return view('admin.orders.edit', compact('order', 'owner', 'contact', 'works'));
+			} else if($user_type == 3){//designer user
+				return view('designer/orders/edit', compact('order', 'owner', 'contact', 'works'));
 			}
 		}
 	}
