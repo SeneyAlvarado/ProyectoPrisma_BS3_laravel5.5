@@ -110,7 +110,9 @@ class OrderController extends Controller
 			return view('reception.orders.index', compact('orders', 'order_states'));
 		}elseif ($user_type == 3) { //boss designer users
 				return view('designer/orders/index', compact('orders', 'order_states'));
-		}
+		} elseif ($user_type == 4) { //designer user
+			return view('designer/orders/index', compact('orders', 'order_states'));
+	}
 	}
 
 	/**
@@ -732,7 +734,10 @@ class OrderController extends Controller
 			$owner = $this->getClientData($order->client_owner);	
 			$contact = $order->client_contact;
 			$works = \App\Work::where('order_id', $order->id)->get();
-			
+
+			if(Auth::user()->user_type_id != 1){//if the user is not an admin user
+				$works = $this->only_works_view_permission($works);
+			} 
 
 			foreach ($works as $work) {
 				$work->materials = Material_work::where('work_id', $work->id)->get();
@@ -749,10 +754,32 @@ class OrderController extends Controller
 			$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
 				return view('admin.orders.edit', compact('order', 'owner', 'contact', 'works'));
-			} else if($user_type == 3){//designer user
+			} else if($user_type == 3 || $user_type == 4){//boss designer and designer user
 				return view('designer/orders/edit', compact('order', 'owner', 'contact', 'works'));
 			}
 		}
+	}
+
+	public function only_works_view_permission($works) {
+		$works_view = [];
+		$view_states = DB::table('state_user_types') //get the list of states that the user can see
+		->where('user_types_id', Auth::user()->user_type_id)
+		->where('view_state', 1)->get();
+
+		foreach($works as $work) {
+			$state_works=DB::table('state_work') //get the state with the last date of an work
+			->where('work_id', '=', $work->id)
+			->orderby('date','DESC')->first();
+
+			$work->work_state = $state_works->states_id;//= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
+
+			foreach($view_states as $view_state) {//add to array only the works that the user can see
+				if($work->work_state == $view_state->states_id){
+					array_push($works_view, $work);
+				}
+			}
+		}
+		return $works_view;
 	}
 
 	public function downloadFile($id) {

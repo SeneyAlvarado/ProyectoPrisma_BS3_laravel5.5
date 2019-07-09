@@ -1,0 +1,44 @@
+.margin-bottom-title {
+    margin-bottom:10px;
+}
+.login-block{
+    float:left;
+    width:98%;
+}
+
+html,body,.container {
+    height:100%;
+}
+
+.row {
+    height: 100%;
+}
+
+.login100-more {
+  width: calc(100% - 560px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+  -webkit-clip-path: polygon(0px 100%,750px 100%,100% 0px,0px 0px);
+  clip-path: polygon(0px 100%,750px 100%,100% 0px,0px 0px);
+  -o-clip-path: polygon(0px 100%,750px 100%,100% 0px,0px 0px);
+  -ms-clip-path: polygon(0px 100%,750px 100%,100% 0px,0px 0px);
+}
+
+.login-btn{
+  background: #96183a;
+  color:#FFFFFF;
+}
+
+.login-btn:hover{
+  background: #333333;
+  /*color:#333333;*/
+}
+
+@media (max-width: 767px) {
+    .image {
+        display:none;
+    }
+}
