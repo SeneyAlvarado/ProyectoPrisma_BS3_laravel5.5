@@ -220,6 +220,13 @@ class WorkController extends Controller
 			->orWhere('user_type_id', '3')
 			->get();
 			return view('designer/boss_designer/works/index', compact('works', 'work_states', 'editStates', 'designer'));
+		} else if($user_type == 4) {//designer user
+			$designer = new User();
+			$designer = $designer->where('active_flag', '1')
+			->where('user_type_id', '4')
+			->orWhere('user_type_id', '3')
+			->get();
+			return view('designer/works/index', compact('works', 'work_states', 'editStates', 'designer'));
 		}
 	}
 
