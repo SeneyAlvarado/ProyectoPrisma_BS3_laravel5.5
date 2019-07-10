@@ -243,3 +243,9 @@ nav.nav-color {
     border-color: #9D9D9D !important;
   }
   
+
+  .addFile:hover{
+    color: #96183a !important;
+    cursor:pointer !important;
+
+  }

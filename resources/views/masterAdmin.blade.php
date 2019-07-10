@@ -30,7 +30,7 @@
   </script>
   <!-- script src="{{asset('/js/Reports/dateTimePicker_productsReport.js')}}"></script>
   <script src="{{asset('/js/Reports/dateTimePicker_productsReport_endDate.js')}}"></script -->
-  
+
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
@@ -93,26 +93,34 @@
             <a class="dropdown-item" href="{{url('branch')}}">Sucursales</a>
           </div>
         </li>-- Smaller devices menu END -->
-        <ul class=" nav-item dropdown d-sm-block d-md-none">Menú
-          <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú -->
-            <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Trabajos
-            </a>
-            <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-              <a class="dropdown-item" href="{{route('works.index')}}">Visualizar</a>
-              <a class="dropdown-item" href="{{url('states')}}">Estados</a>
-              <a class="dropdown-item" href="{{route('materials')}}">Materiales</a>
-              <a class="dropdown-item" href="{{route('products')}}">Productos</a>
-            </div>
-            <li><a class="dropdown-item" href="{{route('orders')}}">Órdenes</a></li>
-            <li><a class="dropdown-item" href="{{route('clients')}}">Clientes</a></li>
-            <li><a class="dropdown-item" href="{{ url('user') }}">Cuentas</a></li>
-            <li><a class="dropdown-item" href="{{url('visits')}}">Visitas</a></li>
-            <li><a class="dropdown-item" href="{{url('branch')}}">Sucursales</a></li>
-        </ul>
-        <!--</li>-->
+        
 
-      </ul>
+
+            <!-- This menu is hidden in bigger devices with d-sm-none. 
+        The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
+            <li class=" nav-item dropdown d-sm-block d-md-none">
+              <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Menú
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
+                <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-briefcase fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('states')}}">Estados<span class="glyphicon glyphicon-stats fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('materials')}}">Materiales<span class=" 	glyphicon glyphicon-list-alt fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('products')}}">Productos<span class=" 	glyphicon glyphicon-list-alt fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{route('clients')}}">Clientes <span class="glyphicon glyphicon-user fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{ url('user') }}">Cuentas<span class="glyphicon glyphicon-user fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('branch')}}">Sucursales<span class="glyphicon glyphicon-leaf fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3"></span></a>
+              </div>
+            </li>
+
+
+          </ul>
+        </div>
     </div>
 
     <div class="dropdown" style="margin-right: 4vw">
@@ -219,7 +227,7 @@
           </div>
         </a>
 
-      
+
 
 
         <!-- Logo -->
@@ -306,49 +314,88 @@
 </body>
 
 <div class="modal fade" id="productsChart">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Reporte de productos más vendidos</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form method = 'POST' action='{{ route("products.chart") }}' onsubmit="return check_dates_reports(this)">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="">
-      
-                    <div class="row justify-content-center" style="margin-bottom:20px;">
-                      <div class="col-md-4" style="text-align:center;">
-                          <label for="date-field"><strong>Fecha de entrega</strong></label>
-                          <input name="startDate" type="text" id="datepicker3_forReport" readonly>
-                      </div>
-                      <div class="col-md-4" style="text-align:center;">
-                          <label for="date-field"><strong>Fecha de entrega</strong></label>
-                          <input name="endDate" type="text" id="datepicker4_forReport" readonly>
-                      </div>
-                      
-                     
-                    </div>
-
-                    <div class="row justify-content-center">
-                      <div class="col-md-4">
-                          <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Generar Reporte</button>
-                      </div>
-                     
-                    </div>
-            </form>
-        
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-         
-        </div>
-        
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Reporte de productos más vendidos</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method='POST' action='{{ route("products.chart") }}' onsubmit="return check_dates_reports(this)">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="id" value="">
+
+          <div class="row justify-content-center" style="margin-bottom:20px;">
+            <div class="col-md-4" style="text-align:center;">
+              <label for="date-field"><strong>Fecha de entrega</strong></label>
+              <input name="startDate" type="text" id="datepicker3_forReport" readonly>
+            </div>
+            <div class="col-md-4" style="text-align:center;">
+              <label for="date-field"><strong>Fecha de entrega</strong></label>
+              <input name="endDate" type="text" id="datepicker4_forReport" readonly>
+            </div>
+
+
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <button style="margin-top:15px;" id="update" class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+
+      </div>
+
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="materialsChart">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Reporte de materiales más utilizados</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method='POST' action='{{ route("materials.chart") }}'>
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="id" value="">
+
+          <div class="row justify-content-center" style="margin-bottom:20px; ">
+            <div class="col-md-4" style="text-align:center;">
+              <div>
+                <label for="date-field"><strong>Fecha de inicio</strong></label>
+              </div>
+              <input name="startDate" type="text" id="datepicker5_forReport" readonly>
+            </div>
+            <div class="col-md-4" style="text-align:center; display: inline-block;">
+              <div>
+                <label for="date-field"><strong>Fecha de inicio</strong></label>
+              </div>
+              <input name="endDate" type="text" id="datepicker6_forReport" readonly>
+            </div>
+
+
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <button style="margin-top:15px;" id="update" class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
+            </div>
+
+          </div>
+        </form>
 
   <div class="modal fade" id="materialsChart">
     <div class="modal-dialog modal-lg">
@@ -360,7 +407,7 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body">
-        <form method = 'POST' action='{{ route("materials.chart") }}'>
+        <form method = 'POST' action='{{ route("materials.chart") }}' onsubmit="return check_dates_reports(this)">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="">
       
@@ -394,9 +441,9 @@
         <div class="modal-footer">
          
         </div>
-        
-      </div>
+
     </div>
   </div>
+</div>
 
 </html>

@@ -38,7 +38,7 @@
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 @if ($visit->active_flag == 3)
-                                                <button type="submit" class="btn  style-btn-solve btn-danger btn-sm" style="color:#333333" disabled>Resolver</button>
+                                                <button type="submit" class="btn  style-btn-solve btn-danger btn-sm" style="color:#333333" disabled>Resuelto</button>
                                                 @else
                                                 <button type="submit" class="btn  style-btn-success btn-danger btn-sm">Resolver</button>
                                                 @endif

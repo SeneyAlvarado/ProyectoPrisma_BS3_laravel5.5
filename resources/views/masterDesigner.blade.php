@@ -30,7 +30,7 @@
   </script>
   <!-- script src="{{asset('/js/Reports/dateTimePicker_productsReport.js')}}"></script>
   <script src="{{asset('/js/Reports/dateTimePicker_productsReport_endDate.js')}}"></script -->
-  
+
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
@@ -68,32 +68,46 @@
 
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú
+        <!-- 
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+
+
+            <-- This menu is hidden in bigger devices with d-sm-none. 
+        The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  --
+        <li class=" nav-item dropdown d-sm-block d-md-none">
+              <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Menú
+              </a>
+              <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
+                <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-briefcase fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('states')}}">Estados</a><span class="glyphicon glyphicon-stats fa-fw mr-3"></span>
+                <a class="dropdown-item" style="color:white" href="{{url('materials')}}">Materiales</a><span class=" 	glyphicon glyphicon-list-alt fa-fw mr-3"></span>
+                <a class="dropdown-item" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{route('clients')}}">Clientes <span class="glyphicon glyphicon-user fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
+                <a class="dropdown-item" style="color:white" href="{{ url('user') }}">Cuentas</a><span class="glyphicon glyphicon-user fa-fw mr-3"></span>
+                <a class="dropdown-item" style="color:white" href="{{url('branch')}}">Sucursales</a><span class="glyphicon glyphicon-leaf fa-fw mr-3"></span>
+                <a class="dropdown-item" style="color:white" href="{{url('change_password.search_user')}}">Contraseña</a><span class="glyphicon glyphicon-lock fa-fw mr-3"></span>
+                <a class="dropdown-item" style="color:white" href="{{url('/logout')}}">Cerrar sesión</a><span class="glyphicon glyphicon-log-out fa-fw mr-3"></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+         -->
+        <li class=" nav-item dropdown d-sm-block d-md-none">
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
-          <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Trabajos</a>
-            <a class="dropdown-item" href="{{url('states')}}">Estados</a>
-            <a class="dropdown-item" href="{{url('states')}}">Materiales</a>
-            <a class="dropdown-item" href="{{url('states')}}">Productos</a>
-            <a class="dropdown-item" href="{{route('orders')}}">Órdenes</a>
-            <a class="dropdown-item" href="{{route('clients')}}">Clientes</a>
-            <a class="dropdown-item" href="{{ url('user') }}">Cuentas</a>
-            <a class="dropdown-item" href="{{url('visits')}}">Visitas</a>
-            <a class="dropdown-item" href="{{url('branch')}}">Sucursales</a>
-          </div>
-        </li><!-- Smaller devices menu END -->
-        <ul class=" nav-item dropdown d-sm-block d-md-none">Menú
-          <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú -->
-            <a class="nav-link dropdown-toggle" href="{{route('works.index')}}" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Trabajos
-            </a>
-            <li><a class="dropdown-item" href="{{route('orders')}}">Órdenes</a></li>
-            <li><a class="dropdown-item" href="{{url('visits')}}">Visitas</a></li>
-        </ul>
-        <!--</li>-->
+          <a class="dropdown-item" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
+          <!-- li><a class="dropdown-item" href="{{route('orders')}}">Órdenes</a></li -->
+          <a class="dropdown-item" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
 
+          <!-- li><a class="dropdown-item" href="{{url('visits')}}">Visitas</a></li>-->
+          <a class="dropdown-item" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3"></span></a>
+          <a class="dropdown-item" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3"></span></a>
+        </li>
       </ul>
     </div>
 
@@ -126,11 +140,11 @@
       <!-- Bootstrap List Group -->
       <ul class="list-group ">
         <a href="{{route('works.index')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
-                  <span class="menu-collapsed">Trabajos</span>
-                </div>
-              </a>
+          <div class="d-flex w-100 justify-content-start align-items-center">
+            <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
+            <span class="menu-collapsed">Trabajos</span>
+          </div>
+        </a>
         <a href="{{route('orders')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-edit fa-fw mr-3"></span>
@@ -150,7 +164,7 @@
           </div>
         </a>
 
-      
+
 
 
         <!-- Logo -->
@@ -237,60 +251,58 @@
 </body>
 
 <div class="modal fade" id="productsChart">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Reporte de productos más vendidos</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body">
-        <form method = 'POST' action='{{ route("products.chart") }}'>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="">
-      
-                    <div class="row justify-content-center">
-                      <div class="col-md-5">
-                        <label for="date-field"><strong>Fecha de inicio</strong></label>
-                         <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                            <input id="dateInput_edit" type="text" name="startDate" class="form-control datetimepicker-input"
-                              data-target="#datetimepicker5" onkeydown="return false">
-                            <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
-                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="col-md-5">
-                        <label for="date-field"><strong>Fecha de fin</strong></label>
-                         <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                            <input id="dateInput_edit" type="text" name="endDate" class="form-control datetimepicker-input"
-                              data-target="#datetimepicker4" onkeydown="return false">
-                            <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                                <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                      <div class="col-md-4">
-                          <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Generar Reporte</button>
-                      </div>
-                      <div class="col-md-4">    
-                          <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cerrar</button>
-                      </div>
-                    </div>
-            </form>
-        
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-         
-        </div>
-        
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Reporte de productos más vendidos</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method='POST' action='{{ route("products.chart") }}'>
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="id" value="">
+
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              <label for="date-field"><strong>Fecha de inicio</strong></label>
+              <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
+                <input id="dateInput_edit" type="text" name="startDate" class="form-control datetimepicker-input" data-target="#datetimepicker5" onkeydown="return false">
+                <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
+                  <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <label for="date-field"><strong>Fecha de fin</strong></label>
+              <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                <input id="dateInput_edit" type="text" name="endDate" class="form-control datetimepicker-input" data-target="#datetimepicker4" onkeydown="return false">
+                <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                  <div class="input-group-text"><span class="glyphicon glyphicon-calendar"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <button style="margin-top:15px;" id="update" class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
+            </div>
+            <div class="col-md-4">
+              <button style="margin-left:1px; margin-top:15px;" class='btn-block margin-button btn btn-default' data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+
+      </div>
+
     </div>
   </div>
+</div>
 
 </html>

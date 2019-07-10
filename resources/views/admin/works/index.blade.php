@@ -17,7 +17,7 @@
         <div class="table-responsive">
             <table class="table table-bordered table-condensed table-hover compact " id="tablaDatos">
                 <thead>
-                    <th class="text-center">Número</th>
+                    <th class="text-center">N°</th>
                     <th class="text-center">Cliente</th>
                     <th class="text-center">Estado</th>
                     <th class="text-center">Ingreso</th>

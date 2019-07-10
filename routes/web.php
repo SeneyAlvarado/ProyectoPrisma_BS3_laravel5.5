@@ -18,8 +18,8 @@ Route::get('/login', function () {if (Auth::check()) { auth()->logout(); }return
 
 
 /*-------------------------------Auth-----------------------------------------*/ 
-Route::get('/', function () {  if (Auth::check()) { auth()->logout();}return view('login');});
-Route::get('/login', function () {if (Auth::check()) { auth()->logout(); }return view('login');});
+Route::get('/', function () {  if (Auth::check()) { auth()->logout();}return view('login2');});
+Route::get('/login', function () {if (Auth::check()) { auth()->logout(); }return view('login2');});
 Route::post('login', 'Auth\LoginController@login');
 Route::get('admin', function () { return view('masterAdmin');});
 Route::get('contrasennaAdmin', function() { return view('Admin/cambiarContrasenna');})->middleware('admin');
@@ -79,6 +79,7 @@ Route::get('downloadFile/{id}', 'OrderController@downloadFile')->name('downloadF
 Route::get('trabajos', 'WorkController@index');
 Route::get('/changeWorkState/{workID}/{stateID}', 'WorkController@changeWorkState');
 Route::get('/changeDesigner/{workID}/{designerID}/{designerName}', 'WorkController@changeDesignerWork');/**Change the designer of a work*/ 
+Route::post('/addFileWork', 'WorkController@addFileWork');/**Add the JSON of orders and works to the DB*/
 /*-------------------------------------------*/
 
 /*------------Visit routes------------*/

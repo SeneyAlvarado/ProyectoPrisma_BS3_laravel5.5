@@ -73,7 +73,7 @@ class WorkController extends Controller
 			return $this->indexAdmin($works);
 		} else if(($user_type == 2) || ($user_type == 3)  ) { //reception and boss designer
 			$works = DB::table('works')
-			->where('works.active_flag', '1')
+			->where('works.active_flag', '=','1')
 			->join('orders', 'works.order_id', 'orders.id')
 			->select('works.id as work_id',
 			'works.priority as priority',
@@ -186,7 +186,17 @@ class WorkController extends Controller
 			foreach($works_view as $work_view) { //get the full name of a client and the color work only of the works that the user can see
 				$work_view->client_name = $this->getClientName($work_view->client_owner);
 				$work_view->color = $this->calculateColor($work_view);
+				
+				$file = \App\Works_file::where('work_id', $work->work_id)->first();
+					
+				if($file != null && !empty($file)){
+					$work->file_id = $file->id;
+				} else {
+					$work->file_id = null;
+				}
+
 			}
+			
 		}
 
 		foreach($edit_states as $edit_state) {//get the list of states that the user can edit
@@ -594,6 +604,54 @@ class WorkController extends Controller
 		$materials = collect($materials)->take(3);
 		//return $materials;
 		return view('admin/reports/mostMaterialSell',['materials'=>$materials]);
+	}
+
+	public function addFileWork(Request $request)
+	{
+		$workModel = Work::where('id', $request->id)->first();
+
+		$file = \App\Works_file::where('work_id', $request->id)->first();
+			if($file != null && !empty($file)){
+				if(\Storage::disk('local')->exists('public/workFiles/' . $file->name)){
+					$deletedFile = \App\Works_file::where('id', $file->id)->delete();
+					//throw new \Exception($deletedFile . $file->name);
+					\Storage::disk('local')->delete('public/workFiles/' . $file->name);
+
+					$work_log_model = new \App\Works_log();
+					$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+					$work_log_model->attribute = "Archivo de trabajo";
+					$work_log_model->value = "Se ha eliminado un archivo de trabajo";
+					$work_log_model->work_id = $request->id;
+					$work_log_model->user_id = Auth::user()->id;
+					$work_log_model->save();
+				}
+			}	
+
+		$requestFile = $request->file('design');
+		$filename = pathinfo($requestFile->getClientOriginalName(), PATHINFO_FILENAME);
+		$extension = pathinfo($requestFile->getClientOriginalName(), PATHINFO_EXTENSION);
+		$fileUnique = $filename . "_" . $workModel->id .  '.' . $extension;
+		$filesize = $requestFile->getClientSize();
+		$requestFile->storeAs('public/workFiles', $fileUnique);
+
+		$work_fileModel = new \App\Works_file();
+		$work_fileModel->name = $fileUnique;
+		$work_fileModel->size = $filesize;
+		$work_fileModel->work_id = $workModel->id;
+		$work_fileModel->active_flag = 1;
+		$work_fileModel->save();
+
+		$work_log_model = new \App\Works_log();
+		$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$work_log_model->attribute = "Archivo de trabajo";
+		$work_log_model->value = "Se ha adjuntado un nuevo archivo";
+		$work_log_model->work_id = $workModel->id;
+		$work_log_model->user_id = Auth::user()->id;
+		$work_log_model->save();
+		
+		$work = "Archivo agregado correcatamente";
+		return json_encode(["work"=>$work]);
+
 	}
 
 }
