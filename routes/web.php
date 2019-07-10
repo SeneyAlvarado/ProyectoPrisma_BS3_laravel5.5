@@ -149,6 +149,10 @@ Route::get('/contact.show/{id}', 'ClientController@ajax_contact');
 /*----------------------Reports------------------ */
 Route::get('reportes', 'ReportController@generate');
 Route::get('reportOrder/{id}', 'OrderController@selectOrder');
+Route::get('reportWorkLog/{id}', 'WorkController@reportWorkLog');
+Route::post('products.chart', 'WorkController@products_chart')->name('products.chart');
+Route::post('materials.chart', 'WorkController@materials_chart')->name('materials.chart');
+
 /*------------------------------------------------*/
 
 /*---------------------------------Notifications----------------------*/
@@ -205,10 +209,3 @@ Route::get('/deleteContact/{contact_id}', 'Client_contactController@destroy');/*
 
 
 
-Route::post('products.chart', 'WorkController@products_chart')->name('products.chart');
-Route::post('materials.chart', 'WorkController@materials_chart')->name('materials.chart');
-
-/****************************Boss Designer ********************************/
-/*---------------------------Orders---------------------------------------*/
-/*------------------------------------------------------------------------*/
-/**************************************************************************/
