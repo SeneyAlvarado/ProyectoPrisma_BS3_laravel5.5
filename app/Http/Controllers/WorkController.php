@@ -12,6 +12,7 @@ use App\OrderController;
 use App\Physical_client;
 use App\User;
 use App\Works_file;
+use App\Works_log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -714,6 +715,40 @@ class WorkController extends Controller
 
 		}
 			
+	}
+
+	public function reportWorkLog($workID) {
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " creando reporte de registro de actividades de trabajo");
+
+		//custom route to REDIRECT redirect('x') if there's an error
+		\Session::put('errorRoute', "works");
+
+		$logs = new Works_log();
+		$logs = $logs->where('work_id', $workID)->get();
+		$users = new User();
+		$users = $users->where('active_flag', '1')->get();
+		$work = new Work();
+		$work = $work->find($workID);
+		$product = new Product();
+		$product = $product->find($work->product_id);
+		$work->product_id = $product->name;
+		foreach($logs as $log) {
+			foreach($users as $user){
+				if($log->user_id == $user->id) {
+					$log->user_id = $user->name . " " . $user->lastname . " " . $user->second_lastname;
+				}
+			}
+		}
+		if(count($logs)==0) {
+			return redirect('works')->with('info', 'No hay cambios registrados para el trabajo seleccionado');
+		} else {
+			//return $logs;
+			$pdf = \App::make('dompdf.wrapper');
+			$pdf->loadHTML(view('admin/reports/reportWorkLog', compact('logs', 'work'))->render());
+			return $pdf->stream('reporteActividades' . $workID . '.pdf');
+
+		}
 	}
 
 }

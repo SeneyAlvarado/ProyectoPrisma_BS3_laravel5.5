@@ -114,10 +114,12 @@
                                 @endif-->
 
                         <td class="text-center">
-                            <a class="btn btn-warning style-btn-edit btn-size btn-sm"
-                                onCLick="workDetails('{{$work->work_id}}')">Detalles</a>
-                            <a class="btn style-btn-delete btn-size btn-sm"
-                                href="{{route('orders.edit', [$work->order_id])}}">Editar</a>
+                            <a title="Detalles" class="btn btn-warning" style="background-color:#e0e0e0; border:0px;"
+                                onCLick="workDetails('{{$work->work_id}}')"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            <a title="Editar" class="btn btn-warning" style="background-color:#e0e0e0; border:0px;"
+                                href="{{route('orders.edit', [$work->order_id])}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a title="Reporte registro actividades" class="btn btn-warning" style="background-color:#e0e0e0; border:0px;"
+                                href="{{url('reportWorkLog', [$work->work_id])}}"><span class="glyphicon glyphicon-file"></span></a>
                         </td>
                     </tr>
                     @endforeach

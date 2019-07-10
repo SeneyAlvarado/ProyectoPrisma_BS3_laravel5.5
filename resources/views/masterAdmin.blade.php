@@ -35,7 +35,7 @@
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
-  <link href="css/icon-align.css" rel="stylesheet">
+  <link href="{{asset('/css/icon-align.css')}}" rel="stylesheet">
 
   <script src="{{asset('/js/menus_dinamicos.js')}}"></script>
   <!-- helps to add the right route to create buttons-->
@@ -79,6 +79,8 @@
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
+        <!-- This menu is hidden in bigger devices with d-sm-none. 
+        The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
         <li class=" nav-item dropdown d-sm-block d-md-none">
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -86,27 +88,27 @@
           </a>
 
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
-            <a class="dropdown-item" style="color:white" href="#">Trabajos <span
+            <a class="dropdown-item n" style="color:white" href="#">Trabajos <span
                 class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{url('states')}}">Estados<span
+            <a class="dropdown-item n" style="color:white" href="{{url('states')}}">Estados<span
                 class="glyphicon glyphicon-stats fa-fw mr-3 icon-estados"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{url('materials')}}">Materiales<span
+            <a class="dropdown-item n" style="color:white" href="{{url('materials')}}">Materiales<span
                 class=" 	glyphicon glyphicon-list-alt fa-fw mr-3 icon-materiales"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{url('products')}}">Productos<span
+            <a class="dropdown-item n" style="color:white" href="{{url('products')}}">Productos<span
                 class=" 	glyphicon glyphicon-list-alt fa-fw mr-3 icon-productos"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{route('orders')}}">Órdenes <span
+            <a class="dropdown-item n" style="color:white" href="{{route('orders')}}">Órdenes <span
                 class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{route('clients')}}">Clientes <span
+            <a class="dropdown-item n" style="color:white" href="{{route('clients')}}">Clientes <span
                 class="glyphicon glyphicon-user fa-fw mr-3 icon-clientes"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{url('visits')}}">Visitas<span
+            <a class="dropdown-item n" style="color:white" href="{{url('visits')}}">Visitas<span
                 class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{ url('user') }}">Cuentas<span
+            <a class="dropdown-item n" style="color:white" href="{{ url('user') }}">Cuentas<span
                 class="glyphicon glyphicon-user fa-fw mr-3 icon-cuentas"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{url('branch')}}">Sucursales<span
+            <a class="dropdown-item n" style="color:white" href="{{url('branch')}}">Sucursales<span
                 class="glyphicon glyphicon-flag fa-fw mr-3 icon-sucursales"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span
+            <a class="dropdown-item n" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span
                 class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
-            <a class="dropdown-item" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span
+            <a class="dropdown-item n" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span
                 class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
           </div>
         </li>
