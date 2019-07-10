@@ -484,6 +484,19 @@ class WorkController extends Controller
 			$state_work_Model->work_id = $workID;
 			$state_work_Model->user_id = $userID;
 			$state_work_Model->save();
+
+			//Log
+			$aux = new State();
+			$aux = $aux->find($stateID);
+			if($aux != null) {
+				$work_log_model = new \App\Works_log();
+				$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+				$work_log_model->value = "Se ha actualizado el estado del trabajo a " . $aux->name;
+				$work_log_model->attribute = "Cambio estado";
+				$work_log_model->work_id = $workID;
+				$work_log_model->user_id =  Auth::user()->id;
+				$work_log_model->save();
+			}
 			$this->notifyToUsers($workID, $stateID);
 			
 	/*}*/
@@ -658,6 +671,11 @@ class WorkController extends Controller
 		
 		$work = "Archivo agregado correcatamente";
 		return json_encode(["work"=>$work]);
+
+	}
+
+
+	public function workLogReport($orderID, $workID) {
 
 	}
 
