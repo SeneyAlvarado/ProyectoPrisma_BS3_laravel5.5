@@ -31,3 +31,7 @@
 .icon-logout{
     margin-left:17px;
 }
+.n:hover{
+    opacity: 0.8;
+    background: #333333;
+}
