@@ -34,7 +34,7 @@
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
-  <link href="css/icon-align.css" rel="stylesheet">
+  <link href="{{asset('/css/icon-align.css')}}" rel="stylesheet">
 
   <script src="{{asset('/js/menus_dinamicos.js')}}"></script>
   <!-- helps to add the right route to create buttons-->

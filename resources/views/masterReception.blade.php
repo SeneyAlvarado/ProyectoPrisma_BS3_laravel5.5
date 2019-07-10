@@ -15,6 +15,7 @@
   <link rel="shortcut icon" href="Imagenes/log.ico" />
 
   <!--resizes table so the content won´t go down -->
+  <link href="{{asset('/css/icon-align.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('/css/table.css')}}">
 
   <!-- align added button to Jquery datatable-->
@@ -81,12 +82,12 @@
             Menú
           </a>
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
-            <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span></a>
-            <a class="dropdown-item" style="color:white"  href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
-            <a class="dropdown-item" style="color:white"  href="{{route('clients')}}">Clientes  <span class="glyphicon glyphicon-user fa-fw mr-3"></span></a>
-            <a class="dropdown-item" style="color:white"  href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
-            <a class="dropdown-item" style="color:white"  href="{{url('change_password.search_user')}}">Contraseña</a>
-            <a class="dropdown-item" style="color:white"  href="{{url('/logout')}}">Cerrar sesión</a>
+            <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-folder-open fa-fw mr-3 icon-trabajos"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{route('clients')}}">Clientes  <span class="glyphicon glyphicon-user fa-fw mr-3 icon-clientes"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
+            <a class="dropdown-item" style="color:white"  href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
           </div>
         </li>
         

@@ -11,6 +11,7 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
   <link rel="stylesheet" href="{{asset('/css/simple-sidebar.css')}}">
   <link rel="stylesheet" href="{{asset('/css/master-root.css')}}">
+  <link href="{{asset('/css/icon-align.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('/css/glyphicons.css')}}">
   <link rel="shortcut icon" href="Imagenes/log.ico" />
 
@@ -100,13 +101,10 @@
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
-          <a class="dropdown-item" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
-          <!-- li><a class="dropdown-item" href="{{route('orders')}}">Órdenes</a></li -->
-          <a class="dropdown-item" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
-
-          <!-- li><a class="dropdown-item" href="{{url('visits')}}">Visitas</a></li>-->
-          <a class="dropdown-item" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3"></span></a>
-          <a class="dropdown-item" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3"></span></a>
+          <a class="dropdown-item" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
+          <a class="dropdown-item" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
+          <a class="dropdown-item" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
+          <a class="dropdown-item" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
         </li>
       </ul>
     </div>
