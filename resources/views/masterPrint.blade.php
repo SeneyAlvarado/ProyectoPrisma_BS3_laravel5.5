@@ -137,7 +137,7 @@
       <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
       <!-- Bootstrap List Group -->
       <ul class="list-group ">
-        <a href="{{route('works.index')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+        <a href="{{route('works.index')}}" class="border border-left-0 border-right-0 border-top-0  border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
             <span class="menu-collapsed">Trabajos</span>

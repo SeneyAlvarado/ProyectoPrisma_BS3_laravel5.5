@@ -228,6 +228,10 @@ class WorkController extends Controller
 			->orWhere('user_type_id', '3')
 			->get();
 			return view('designer/works/index', compact('works', 'work_states', 'editStates', 'designer'));
+		}else if($user_type == 5) {//designer user
+			return view('print/boss_print/works/index', compact('works', 'work_states', 'editStates'));
+		}else if($user_type == 6) {//designer user
+			return view('print/regular_print/works/index', compact('works', 'work_states', 'editStates'));
 		}
 	}
 
