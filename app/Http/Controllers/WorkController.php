@@ -740,11 +740,15 @@ class WorkController extends Controller
 				}
 			}
 		}
-		//return $logs;
-		$pdf = \App::make('dompdf.wrapper');
-		$pdf->loadHTML(view('admin/reports/reportWorkLog', compact('logs', 'work'))->render());
-		return $pdf->stream('reporteActividades' . $workID . '.pdf');
+		if(count($logs)==0) {
+			return redirect('works')->with('info', 'No hay cambios registrados para el trabajo seleccionado');
+		} else {
+			//return $logs;
+			$pdf = \App::make('dompdf.wrapper');
+			$pdf->loadHTML(view('admin/reports/reportWorkLog', compact('logs', 'work'))->render());
+			return $pdf->stream('reporteActividades' . $workID . '.pdf');
 
+		}
 	}
 
 }
