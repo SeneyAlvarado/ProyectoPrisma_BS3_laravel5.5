@@ -14,9 +14,13 @@ SET time_zone = "+00:00";
  id=2 must be Dolars
    
  Work states:
- 1 - Iniciado
- 2- Finalizado 
+ 1 - Recepción
+ 2- Entregado
  3- Cancelado
+ 4- Diseño 
+ 5- Impresion
+ 6- PostProduccion
+ 7- Finalizado
 
  Order States:
  1 - En progreso
@@ -29,17 +33,22 @@ SET time_zone = "+00:00";
  3 - Jefe Diseño
 */	
 
-INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
+INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('1',
  'Administrador', 'Es el administrador de una sucursal de Prisma', '1');
-
- INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL, 
+ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('2', 
  'Recepcionista', 'Recepción de trabajos', '1');
-
- INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
+ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('3',
  'Jefe diseño', 'Es el jefe de diseño de una sucursal de Prisma', '1');
-
-  INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES (NULL,
+  INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('4',
  'Diseñador', 'Diseñador de una sucursal de Prisma', '1');
+ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('5',
+ 'Jefe impresión', 'Jefe impresión de una sucursal de Prisma', '1');
+ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('6',
+ 'Impresión', 'Encargado de imprimir trabajos en una sucursal de Prisma', '1');
+ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('7',
+ 'Jefe post producción', 'Jefe post producción de una sucursal de Prisma', '1');
+ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('8',
+ 'Post producción', 'Persona del equipo de post produccion de una sucursal de Prisma', '1');
 
 INSERT INTO `branches` (`id`, `name`, `active_flag`) VALUES (NULL,
  'San Ramón #1', '1');
@@ -91,15 +100,42 @@ INSERT INTO `products` (`id`, `name`, `description`, `branch_id`, `active_flag`)
 INSERT INTO `coins` (`id`, `name`, `active_flag`) VALUES (NULL, 'Colón', '1');
 INSERT INTO `coins` (`id`, `name`, `active_flag`) VALUES (NULL, 'Dólar', '1');
 
-INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('1', 'Inicio', 'Trabajo creado', '1');
+INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('1', 'Recepción', 'Trabajo creado y en recepción', '1');
 INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('2', 'Entregado', 'Trabajo finalizado satisfactoriamente', '1');
 INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('3', 'Cancelado', 'Trabajo cancelado', '1');
+INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('4', 'Diseño', 'Trabajo está en diseño', '1');
+INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('5', 'Impresión', 'Trabajo está en impresión', '1');
+INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('6', 'Post-producción', 'Trabajo está en post-producción', '1');
+INSERT INTO `states` (`id`, `name`, `description`, `active_flag`) VALUES ('7', 'Finalizado', 'Trabajo está terminado', '1');
 
 INSERT INTO `order_states` (`id`, `name`, `active_flag`) VALUES ('1', 'En progreso', '1');
 INSERT INTO `order_states` (`id`, `name`, `active_flag`) VALUES ('2', 'Entregada', '1');
 INSERT INTO `order_states` (`id`, `name`, `active_flag`) VALUES ('3', 'Cancelada', '1');
 
-
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('1', '1', '2', '0', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('2', '2', '2', '0', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('3', '4', '2', '0', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('4', '3', '2', '0', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('5', '5', '2', '0', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('6', '5', '2', '0', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('7', '1', '3', '1', '0', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('8', '3', '3', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('9', '5', '3', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('10', '1', '4', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('11', '3', '4', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('12', '5', '4', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('13', '2', '5', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('14', '3', '5', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('15', '4', '5', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('16', '6', '5', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('17', '2', '6', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('18', '3', '6', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('19', '4', '6', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('20', '6', '6', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('21', '3', '7', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('22', '7', '7', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('23', '3', '8', '1', '1', '1', '1');
+INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('24', '7', '8', '1', '1', '1', '1');
 
 
 /************************************************************* *********************************/

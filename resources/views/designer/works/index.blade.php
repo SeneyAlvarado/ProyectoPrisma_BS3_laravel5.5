@@ -58,15 +58,7 @@
                        }
                     }
 
-                    $actualDesignerID = "";
-                    $actualDesignerName ="";
-                    foreach ($designer as $desig) {
-                       if($desig->id == $work->designer_id){
-                        $actualDesignerID = $desig->id;
-                        $actualDesignerName = $desig->name . " " . $desig->lastname;
-                        
-                       }
-                    }
+                    
                         ?>
                            <tr class="">
                                 @if ($work->priority == 1)
@@ -78,26 +70,12 @@
                             onCLick="infoContact('{{$work->client_owner}}')">{{$work->client_name}}</a></td>
 
                             <td class="text-center" style="min-width:150px;">
-                                <div class="dropdown" style="display: block">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="drop{{$work->work_id}}"
-                                    data-target="#drop-states" href="#" value="{{$actualStateID}}"
-                                        role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        {{$actualStateName}}
-                                    </button>
-        
-                                    <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}" 
-                                        aria-labelledby="dropdownMenuLink">
-        
-                                        @foreach ($work_states as $work_state)
-                                            @foreach ($editStates as $editState)
-                                                @if(($work_state->id == $editState->id) && ($work_state->id != $actualStateID)) 
-                                                    <button class="dropdown-item" id="workState{{$work->work_id}}{{$work_state->id}}" onclick="changeWorkState('{{$work->work_id}}', '{{$work_state->id}}', '{{$work_state->name}}')">{{$work_state->name}}</button>
-                                                @endif
-                                            @endforeach
-                                        @endforeach
-                                    </div>
-                                </div>
+                                @foreach ($designer as $d)
+                                    @if($d->id == $work->designer_id)
+                                    {{$d->name . " " . $d->lastname}}
+                                    @endif
+                                @endforeach
+                                
                             </td>
 
                             <td class="text-center" style="min-width:150px;">
