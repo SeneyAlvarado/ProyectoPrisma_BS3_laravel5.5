@@ -74,7 +74,6 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
 
-
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
         <li class=" nav-item dropdown d-sm-block d-md-none" >
@@ -91,7 +90,6 @@
           </div>
         </li>
         
-
       </ul>
     </div>
 

@@ -79,6 +79,7 @@ Route::get('downloadFile/{id}', 'OrderController@downloadFile')->name('downloadF
 Route::get('trabajos', 'WorkController@index');
 Route::get('/changeWorkState/{workID}/{stateID}', 'WorkController@changeWorkState');
 Route::get('/changeDesigner/{workID}/{designerID}/{designerName}', 'WorkController@changeDesignerWork');/**Change the designer of a work*/ 
+Route::post('/addFileWork', 'WorkController@addFileWork');/**Add the JSON of orders and works to the DB*/
 /*-------------------------------------------*/
 
 /*------------Visit routes------------*/
