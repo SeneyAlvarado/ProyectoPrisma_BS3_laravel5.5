@@ -151,9 +151,10 @@ Route::get('reportOrder/{id}', 'OrderController@selectOrder');
 
 /*---------------------------------Notifications----------------------*/
 Route::get('/markReadNotifications', function() {
-    auth()->user()->unreadNotifications->markAsRead();
+    auth()->user()->unreadNotifications->markAsRead();//marks ALL notifications as read
 });
-Route::get('/getUserNotifications', 'NotificationController@getUserNotifications');
+Route::get('/getUserNotifications', 'NotificationController@getUserNotifications');//gets all user notifications
+Route::get('/readNotification/{notification_id}/{work_id}', 'NotificationController@readNotification');//reads and deletes from DB an specific notification
 /**************End of notification routes --------------------------- */
 
 

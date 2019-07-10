@@ -47,10 +47,10 @@ class ClientController extends Controller
 			\Session::put('errorRoute', "error");
 			
 			//NO BORRAR ESTO
-			/*$a = \App\User::where('active_flag' , 1)->get();
+			$a = \App\User::where('active_flag' , 1)->get();
 			foreach ($a as $b) {
-				$b->notify(new WorkAvailableNotification());
-			}*/
+				$b->notify(new WorkAvailableNotification(1));
+			}
 			//dd(auth()->user());
 			//auth()->user()->notify(new WorkAvailableNotification());
 

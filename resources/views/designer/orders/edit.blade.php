@@ -196,6 +196,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                         class="table table-striped table-bordered table-drop table-condensed table-hover compact order-column"
                                         id="worksTable">
                                         <thead>
+                                            <th class="text-center">Número</th>
                                             <th class="text-center">Fecha de entrega</th>
                                             <th class="text-center">Prioridad</th>
                                             <th class="text-center">Producto</th>
@@ -226,6 +227,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                                 }
                                             ?>
                                             <tr>
+                                                <td class="text-center">{{$work->id}}</td>
                                                 <td class="text-center" id="date{{$rowCount}}">
                                                     {{\Carbon\Carbon::parse($work->approximate_date)->format('d/m/Y')}}
                                                 </td>
@@ -233,31 +235,30 @@ ir other input ID needed, please make other JS with your own configuration-->
                                                 <td class="text-center" id="product0{{$rowCount}}"
                                                     value="{{$work->product_id}}">
                                                     {{$work->product_id . ". " . $work->product_name}}</td>
-                                                    <td>
-                                                        <div class="row" style="width: 95%">
-                                                            @if(($work->file_id != null) && ($work->file_id !=
-                                                            ""))
-    
-                                                            <div class="col-md-10" style="margin-left: 5%">
-                                                                <input id="file{{$rowCount}}" name="file{{$rowCount}}"
-                                                                    class="form-control hideFile" type="file">
-                                                            </div>
-                                                            <div class="col-md-1"
-                                                                style="margin-top: 10px;">
-                                                                <a href="{{route('downloadFile', $work->file_id)}}">
-                                                                    <span class="glyphicon glyphicon-download-alt"
-                                                                        style="font-size:18px; color: crimson;" 
-                                                                        title="Descargar archivo del trabajo"></span>
-                                                                </a>
-                                                            </div>
-                                                            @else
-                                                            <div class="col-md-12" style="margin-left: 5%">
-                                                                <input id="file{{$rowCount}}" name="file{{$rowCount}}"
-                                                                    class="form-control hideFile" type="file">
-                                                            </div>
-                                                            @endif
+                                                <td>
+                                                    <div class="row" style="width: 95%">
+                                                        @if(($work->file_id != null) && ($work->file_id !=
+                                                        ""))
+
+                                                        <div class="col-md-10" style="margin-left: 5%">
+                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}"
+                                                                class="form-control hideFile" type="file">
                                                         </div>
-                                                    </td>
+                                                        <div class="col-md-1" style="margin-top: 10px;">
+                                                            <a href="{{route('downloadFile', $work->file_id)}}">
+                                                                <span class="glyphicon glyphicon-download-alt"
+                                                                    style="font-size:18px; color: crimson;"
+                                                                    title="Descargar archivo del trabajo"></span>
+                                                            </a>
+                                                        </div>
+                                                        @else
+                                                        <div class="col-md-12" style="margin-left: 5%">
+                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}"
+                                                                class="form-control hideFile" type="file">
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <input id="observation{{$rowCount}}" type="hidden"
                                                         value="{{$work->observation}}" autocomplete='off'>
@@ -291,10 +292,6 @@ ir other input ID needed, please make other JS with your own configuration-->
                                     <!-- Modal body -->
                                     <div class="modal-body">
                                         <div class="row justify-content-center">
-                                            <div class="col-md-5">
-                                                <label for="avatar"><strong>Adjuntar archivo</strong></label>
-                                                <input id="avatar" class="form-control" name="avatar" type="file">
-                                            </div>
                                             <div class="col-md-5">
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                 <input type="text" id="datepicker1_fromToday" readonly>
@@ -604,6 +601,6 @@ ir other input ID needed, please make other JS with your own configuration-->
 </script>
 <script src="{{asset('/js/Validations/autoNumeric.js')}}"></script>
 <script src="{{asset('/js/Orders/edit_works_modal.js')}}"></script>
-<script src="{{asset('/js/Orders/works_table_create.js')}}"></script>
+<script src="{{asset('/js/Orders/works_table_edit.js')}}"></script>
 
 @endsection

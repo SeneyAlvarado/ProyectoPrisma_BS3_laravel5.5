@@ -41,6 +41,7 @@ class WorkAvailableNotification extends Notification
         return [
             "notificationHour" => Carbon::now(new \DateTimeZone(('America/Costa_Rica')))->format('d/m/y H:i'),
             "message" => "El trabajo #" . $this->work_id . ' debe ser atendido',
+            "work_id"  =>  $this->work_id 
         ];
     }
 }

@@ -9,6 +9,7 @@ $(document).ready(function () {//cleans the modals when page is accesed/reloaded
     fixProductDateFormat();
     loadContactClient();
     formInitiation();
+    validateFileSize();
 });
 
 //This function makes the form validate, do not erase it. 
@@ -32,6 +33,8 @@ function showModalWork() {
 }
 
 function addWorkToTable() {
+    var workID = "No posee";
+
     var priority_add = $("input[name='priority_add']:checked").val();
     priority_add = priority_addTransform(priority_add);//transforms priority_add # into text
 
@@ -73,15 +76,16 @@ function addWorkToTable() {
     hiden_materials = '<input id="materials' + rowCount +
         '" type="hidden" value="' + materials + '"></input>'
 
-    var inputFile = '<input id="file' + rowCount + '" name="file' + rowCount +
-        '" class="form-control hideFile" type="file">';
+    var inputFile = '<div class="row" style="width: 95%"><div class="col-md-12" style="margin-left: 5%">' +
+        '<input id="file' + rowCount + '" name="file' + rowCount +
+        '" class="form-control hideFile" type="file"></div></div>';
 
     editAndHidden = hiden_observation_add + hiden_materials +
         '<a onClick="loadEditWorkModal(\'' + rowCount + '\')"  class="btn btn-warning style-btn-edit btn-size">Detalles</a>';
 
     var table = $('#worksTable').DataTable();
     table.rows.add(
-        [[datepicker1_fromToday, priority_add, productName, inputFile, editAndHidden]]
+        [[workID, datepicker1_fromToday, priority_add, productName, inputFile, editAndHidden]]
     ).draw();
 
     $("#product" + rowCount).attr("value", product);
@@ -100,6 +104,21 @@ function addFileSizeValidation(rowCount) {
         };
     }
 }
+
+function validateFileSize(rowCount) {
+    var table = $('#worksTable').DataTable();
+    rowCount = table.rows().count();
+    for (var i = 0; i < rowCount; i++) {
+        var uploadField = document.getElementById("file" + i);
+        uploadField.onchange = function () {
+            if (this.files[0].size > 50000000) {//50 MB max size
+                alert("El tamaño máximo permitido para el archivo es de 50 MB");
+                this.value = "";
+            };
+        }
+    }
+}
+
 
 function loadEditWorkModal(rowCount) {
 
