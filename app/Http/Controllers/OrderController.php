@@ -58,38 +58,38 @@ class OrderController extends Controller
 			$active_works = Work::where('order_id', $order->id)->where('active_flag', 1)->get();
 			$finished_works_count = 0;
 
-			$priority_works = Work::where('order_id', $order->id)->where('priority', 1)->get();//get the works with priority of the order
-			
-			if($priority_works->count()) {
+			$priority_works = Work::where('order_id', $order->id)->where('priority', 1)->get(); //get the works with priority of the order
+
+			if ($priority_works->count()) {
 				$order->priority = 1;
 			} else {
 				$order->priority = 0;
 			}
 
-			$latest_work = Work::where('order_id', $order->id)->latest('approximate_date')->first();//get the work
-			$order->latest_color = $this->calculateColor($latest_work);//Set the color according to the delivery time
+			$latest_work = Work::where('order_id', $order->id)->latest('approximate_date')->first(); //get the work
+			$order->latest_color = $this->calculateColor($latest_work); //Set the color according to the delivery time
 			$order->latest_time_left = $latest_work->time_left;
 
-			$first_work = Work::where('order_id', $order->id)->orderBy('approximate_date', 'ASC')->first();//get the work
-			$order->first_color = $this->calculateColor($first_work);//Set the color according to the delivery time
+			$first_work = Work::where('order_id', $order->id)->orderBy('approximate_date', 'ASC')->first(); //get the work
+			$order->first_color = $this->calculateColor($first_work); //Set the color according to the delivery time
 			$order->first_time_left = $first_work->time_left;
 
 			foreach ($active_works as $active_work) {
 				$state_work = State_work::where('work_id', $active_work->id)->latest('date')->first();
 				///return $active_work;
 				//if the works are in state 2 (Entregado) or state 3 (Cancelado)
-				if($state_work->states_id == 2 || $state_work->states_id == 3){
-					$finished_works_count = $finished_works_count+1;
+				if ($state_work->states_id == 2 || $state_work->states_id == 3) {
+					$finished_works_count = $finished_works_count + 1;
 				}
 			}
-			
+
 			$active_works_count = count($active_works);
-			if(is_nan($finished_works_count) || is_nan($active_works_count)){
+			if (is_nan($finished_works_count) || is_nan($active_works_count)) {
 				$order->finished_percentage = "Error %";
 			} else {
-				$order->finished_percentage = round(($finished_works_count/$active_works_count)*100);
+				$order->finished_percentage = round(($finished_works_count / $active_works_count) * 100);
 			}
-			
+
 			if ($owner->type == 1) {
 				$physical_client = Physical_client::where('client_id', $owner->id)->first();
 				$order->client_owner_name = $owner->name . " " . $physical_client->lastname;
@@ -106,13 +106,13 @@ class OrderController extends Controller
 		$user_type = Auth::user()->user_type_id; //get the user type.
 		if ($user_type == 1) { //admin user
 			return view('admin.orders.index', compact('orders', 'order_states'));
-		}elseif ($user_type == 2) { //receptionist user
+		} elseif ($user_type == 2) { //receptionist user
 			return view('reception.orders.index', compact('orders', 'order_states'));
-		}elseif ($user_type == 3) { //boss designer users
-				return view('designer/orders/index', compact('orders', 'order_states'));
+		} elseif ($user_type == 3) { //boss designer users
+			return view('designer/orders/index', compact('orders', 'order_states'));
 		} elseif ($user_type == 4) { //designer user
 			return view('designer/orders/index', compact('orders', 'order_states'));
-	}
+		}
 	}
 
 	/**
@@ -122,56 +122,62 @@ class OrderController extends Controller
 	 */
 	private function calculateColor($work)
 	{
-		
-		$entry_date=Carbon::parse($entry_date=Carbon::parse($work->entry_date)->format('Y-m-d'));//text to date and format
-		$delivery_date=Carbon::parse($delivery_date=Carbon::parse($work->approximate_date)->format('Y-m-d'));//text to date and format
-			
-		$date_diff=$entry_date->diffInDays($delivery_date);//calculate the difference of days beetwen entry date and delivery date
-		$work->days = $date_diff;//Borrar
+
+		$entry_date = Carbon::parse($entry_date = Carbon::parse($work->entry_date)->format('Y-m-d')); //text to date and format
+		$delivery_date = Carbon::parse($delivery_date = Carbon::parse($work->approximate_date)->format('Y-m-d')); //text to date and format
+
+		$date_diff = $entry_date->diffInDays($delivery_date); //calculate the difference of days beetwen entry date and delivery date
+		$work->days = $date_diff; //Borrar
 
 		$actual_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'))->format('Y-m-d');
-		$actual_date=Carbon::parse($actual_date);//text to date
+		$actual_date = Carbon::parse($actual_date); //text to date
 
-		$time_left=$actual_date->diffInDays($delivery_date);//calculate the available time
+		$time_left = $actual_date->diffInDays($delivery_date); //calculate the available time
 
-		if($delivery_date <= $actual_date) {//calculate the delay time
-			$time_left=$actual_date->diffInDays($delivery_date);
+		if ($delivery_date <= $actual_date) { //calculate the delay time
+			$time_left = $actual_date->diffInDays($delivery_date);
 			$time_left = $time_left * -1;
 		}
 
-		$work->time_left = $time_left;//Importante meter en la gráfica, lleva el tiempo restante y el de atraso
+		$work->time_left = $time_left; //Importante meter en la gráfica, lleva el tiempo restante y el de atraso
 
 		$color = "default";
-		if($date_diff <= 2){//less than 2 days
+		if ($date_diff <= 2) { //less than 2 days
 			$color = "red";
-		} else if($date_diff <= 3) {//3 days
-			if($time_left <= 2) {
+		} else if ($date_diff <= 3) { //3 days
+			if ($time_left <= 2) {
 				$color = "red";
-			} else { $color = "yelow";}	
-		} else if($date_diff <= 4) {//4 days
-			if($time_left <= 2) {
-				$color = "red";
-			} else if($time_left <= 4) {
+			} else {
 				$color = "yelow";
-			} 
-		} else if($date_diff % 2 == 0) {//even numbers
+			}
+		} else if ($date_diff <= 4) { //4 days
+			if ($time_left <= 2) {
+				$color = "red";
+			} else if ($time_left <= 4) {
+				$color = "yelow";
+			}
+		} else if ($date_diff % 2 == 0) { //even numbers
 			$days_green = ($date_diff / 2) - 1;
 			$days_yellow = $days_green;
 			$days_red = 2;
-			if($time_left <= 2) {
-				$color="red";
-			} else if($time_left <= $days_yellow + $days_red) {//considerar si hay que poner <=
-				$color="yellow";
-			} else { $color = "green"; }
-		} else {//odd numbers
+			if ($time_left <= 2) {
+				$color = "red";
+			} else if ($time_left <= $days_yellow + $days_red) { //considerar si hay que poner <=
+				$color = "yellow";
+			} else {
+				$color = "green";
+			}
+		} else { //odd numbers
 			$days_green = ($date_diff - 1) / 2;
 			$days_yellow = $days_green - 1;
 			$days_red = 2;
-			if($time_left <= 2) {
-				$color="red";
-			} else if($time_left <= $days_yellow + $days_red) {//considerar si hay que poner solo <
-				$color="yellow";
-			} else { $color = "green"; }
+			if ($time_left <= 2) {
+				$color = "red";
+			} else if ($time_left <= $days_yellow + $days_red) { //considerar si hay que poner solo <
+				$color = "yellow";
+			} else {
+				$color = "green";
+			}
 		}
 		return $color;
 	}
@@ -258,7 +264,7 @@ class OrderController extends Controller
 
 
 		foreach ($orderDecoded as $order) {
-			if($order->existOrder == "-1") {
+			if ($order->existOrder == "-1") {
 				if ($order->quotation_number == "-1") { //if it´s just whitespaces
 					$order->quotation_number = null;
 				} else {
@@ -282,7 +288,7 @@ class OrderController extends Controller
 				}
 
 				$orderModel->exchange_rate =  $order->exchange_rate;
-				$orderModel->coin_id = (($order->coin) + 1);//ATENTION, this is 
+				$orderModel->coin_id = (($order->coin) + 1); //ATENTION, this is 
 				//because de difference between the JS coin handle vs the databse coin handle.  
 				$orderModel->branch_id = Auth::user()->branch_id;
 				$orderModel->entry_date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
@@ -294,7 +300,7 @@ class OrderController extends Controller
 
 				$order_state_model = new Order_order_state();
 				$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-				$order_state_model->order_states_id = 1;//En progreso order_state
+				$order_state_model->order_states_id = 1; //En progreso order_state
 				$order_state_model->order_id = $orderID;
 				$order_state_model->user_id = $userID;
 				$order_state_model->save();
@@ -318,7 +324,7 @@ class OrderController extends Controller
 		$workFileCounter = 0;
 
 		foreach ($worksDecoded as $work) {
-			if($work->existWork == "-1") {//if the work is a new one
+			if ($work->existWork == "-1") { //if the work is a new one
 
 				${'workModel' . $workCounter} = new Work();
 				$workModel = ${'workModel' . $workCounter};
@@ -340,17 +346,17 @@ class OrderController extends Controller
 				$materialsArray = explode(",", $work->materials);
 
 				$material_work_Model = new Material_work();
-					foreach ($materialsArray as $materialWork) {
-						if(!empty($materialWork)){
-							$material_work_Model->material_id = $materialWork;
-							$material_work_Model->work_id = $workModel->id;
-							$material_work_Model->save();
-						}
+				foreach ($materialsArray as $materialWork) {
+					if (!empty($materialWork)) {
+						$material_work_Model->material_id = $materialWork;
+						$material_work_Model->work_id = $workModel->id;
+						$material_work_Model->save();
 					}
+				}
 
 				$state_work_Model = new State_work();
 				$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-				$state_work_Model->states_id = 1;//Inicio work state
+				$state_work_Model->states_id = 1; //Inicio work state
 				$state_work_Model->work_id = $workModel->id;
 				$state_work_Model->user_id = $userID;
 				$state_work_Model->save();
@@ -363,7 +369,7 @@ class OrderController extends Controller
 				$work_log_model->user_id = $userID;
 				$work_log_model->save();
 
-				if($request->hasFile('file' . $workFileCounter)){
+				if ($request->hasFile('file' . $workFileCounter)) {
 					$requestFile = $request->file('file' . $workFileCounter);
 					$filename = pathinfo($requestFile->getClientOriginalName(), PATHINFO_FILENAME);
 					$extension = pathinfo($requestFile->getClientOriginalName(), PATHINFO_EXTENSION);
@@ -386,10 +392,9 @@ class OrderController extends Controller
 					$work_log_model->user_id = $userID;
 					$work_log_model->save();
 				}
-
-			} else {//if the work already exists and needs an update
+			} else { //if the work already exists and needs an update
 				$updatedData = true;
-				if($request->hasFile('file' . $workFileCounter)){
+				if ($request->hasFile('file' . $workFileCounter)) {
 					$requestFile = $request->file('file' . $workFileCounter);
 					$this->updateWorksLogBasicInfo($work, $requestFile);
 				} else {
@@ -397,12 +402,12 @@ class OrderController extends Controller
 					$this->updateWorksLogBasicInfo($work, null);
 				}
 			}
-			$workFileCounter = $workFileCounter+1;
+			$workFileCounter = $workFileCounter + 1;
 		}
 
 		DB::commit();
 
-		if($updatedData){
+		if ($updatedData) {
 			\Session::flash('success', '¡Orden actualizada satisfactoriamente!');
 		} else {
 			\Session::flash('success', '¡Orden registrada satisfactoriamente!');
@@ -431,20 +436,21 @@ class OrderController extends Controller
 		return redirect()->route('orders')->with('message', 'Orden creada satisfactoriamente');
 	}
 
-	public function updateOrder($order) {
+	public function updateOrder($order)
+	{
 		$orderID = $order->orderID;
 		$orderModel = \App\Order::where('id', $orderID)->first();
 
-		if($orderModel->quotation_number != $order->quotation_number){
-			if($orderModel->quotation_number == "" || empty($orderModel->quotation_number)){
+		if ($orderModel->quotation_number != $order->quotation_number) {
+			if ($orderModel->quotation_number == "" || empty($orderModel->quotation_number)) {
 				$quotation = "Se agregó el número de cotización " . $order->quotation_number;
 			} else {
-			$quotation = "El número de cotización con el antiguo valor de " . '"' . $orderModel->quotation_number
-			. '"' . " fue actualizado a " . '"' . $order->quotation_number. '"';
+				$quotation = "El número de cotización con el antiguo valor de " . '"' . $orderModel->quotation_number
+					. '"' . " fue actualizado a " . '"' . $order->quotation_number . '"';
 			}
 			if ($order->quotation_number == "-1") { //if the new value it´s just whitespaces
 				$quotation = "El número de cotización " . $orderModel->quotation_number
-				. " fue eliminado.";
+					. " fue eliminado.";
 				$orderModel->quotation_number = null;
 			} else {
 				$orderModel->quotation_number = $order->quotation_number;
@@ -452,92 +458,92 @@ class OrderController extends Controller
 			$this->saveOrderLog("Número de cotización", $quotation, $orderID);
 		}
 
-		if($orderModel->client_owner != $order->owner){
+		if ($orderModel->client_owner != $order->owner) {
 			$oldOwner = $this->getClientData($orderModel->client_owner);
 			$newOwner = $this->getClientData($order->owner);
-			
-			if($oldOwner->type == "1") {
+
+			if ($oldOwner->type == "1") {
 				$oldName = $oldOwner->name . ' ' . $oldOwner->lastname;
 			} else {
 				$oldName = $oldOwner->name;
 			}
 
-			if($newOwner->type == "1") {
+			if ($newOwner->type == "1") {
 				$newName = $newOwner->name . ' ' . $newOwner->lastname;
 			} else {
 				$newName = $newOwner->name;
 			}
-			$owner = "La propiedad del trabajo fue transferido de su antiguo dueño " . $oldName . 
-			" a su nuevo dueño " . $newName;
+			$owner = "La propiedad del trabajo fue transferido de su antiguo dueño " . $oldName .
+				" a su nuevo dueño " . $newName;
 			$orderModel->client_owner = $order->owner;
 			$this->saveOrderLog("Cliente dueño", $owner, $orderID);
 		}
-		if($orderModel->client_contact != $order->contact){
+		if ($orderModel->client_contact != $order->contact) {
 			$oldContact = $this->getClientData($orderModel->client_contact);
 			$newContact = $this->getClientData($order->contact);
-			
-			if($oldContact->type == "1") {
+
+			if ($oldContact->type == "1") {
 				$oldName = $oldContact->name . ' ' . $oldContact->lastname;
 			} else {
 				$oldName = $oldContact->name;
 			}
 
-			if($newContact->type == "1") {
+			if ($newContact->type == "1") {
 				$newName = $newContact->name . ' ' . $newContact->lastname;
 			} else {
 				$newName = $newContact->name;
 			}
-			$contact = "El contacto del trabajo fue transferido de " . $oldName . 
-			" al nuevo contacto " . $newName;
+			$contact = "El contacto del trabajo fue transferido de " . $oldName .
+				" al nuevo contacto " . $newName;
 			$orderModel->client_contact = $order->contact;
 			$this->saveOrderLog("Cliente de contacto", $contact, $orderID);
 		}
-		if($orderModel->total != $order->order_total){
-			if(($order->coin+1) == 1) {//Colones, the +1 is neccesary because
-			//the different implementations between coins at JS and coins at BD
+		if ($orderModel->total != $order->order_total) {
+			if (($order->coin + 1) == 1) { //Colones, the +1 is neccesary because
+				//the different implementations between coins at JS and coins at BD
 				$coin = "₡";
 			}
-			if(($order->coin+1) == 2) {//Dolars, the +1 is neccesary because
+			if (($order->coin + 1) == 2) { //Dolars, the +1 is neccesary because
 				//the different implementations between coins at JS and coins at BD
 				$coin = "$";
 			}
 
-			if($orderModel->total == "" || empty($orderModel->total)){
+			if ($orderModel->total == "" || empty($orderModel->total)) {
 				$total = "Se agregó el total de la orden, equivalente a " . $coin . $order->order_total;
 			} else {
-				$total = "El antiguo valor del total de la orden " .  $coin . 
-				$orderModel->total .
-				" fue actualizado a " . $coin . $order->order_total;
+				$total = "El antiguo valor del total de la orden " .  $coin .
+					$orderModel->total .
+					" fue actualizado a " . $coin . $order->order_total;
 			}
 			if ($order->order_total == "-1") { //if the new value it´s just whitespaces
-				$total = "El total de " . $coin . 
-				$orderModel->total . " fue removido.";
+				$total = "El total de " . $coin .
+					$orderModel->total . " fue removido.";
 				$orderModel->total = null;
 			} else {
 				$orderModel->total = $order->order_total;
 			}
 			$this->saveOrderLog("Total de la orden", $total, $orderID);
 		}
-		if($orderModel->advance_payment != $order->order_advanced_payment){
-			if(($order->coin+1) == 1) {//Colones, the +1 is neccesary because
-			//the different implementations between coins at JS and coins at BD
+		if ($orderModel->advance_payment != $order->order_advanced_payment) {
+			if (($order->coin + 1) == 1) { //Colones, the +1 is neccesary because
+				//the different implementations between coins at JS and coins at BD
 				$coin = "₡";
 			}
-			if(($order->coin+1) == 2) {//Dolars, the +1 is neccesary because
+			if (($order->coin + 1) == 2) { //Dolars, the +1 is neccesary because
 				//the different implementations between coins at JS and coins at BD
 				$coin = "$";
 			}
 
-			if($orderModel->advance_payment == "" || empty($orderModel->advance_payment)){
+			if ($orderModel->advance_payment == "" || empty($orderModel->advance_payment)) {
 				$advance_payment = "Se agregó el adelanto de la orden, equivalente a " . $coin . $order->order_advanced_payment;
 			} else {
-				$advance_payment = "El antiguo valor del adelanto de la orden " . $coin . 
-				$orderModel->advance_payment .
-				" fue actualizado a " . $coin . $order->order_advanced_payment;
+				$advance_payment = "El antiguo valor del adelanto de la orden " . $coin .
+					$orderModel->advance_payment .
+					" fue actualizado a " . $coin . $order->order_advanced_payment;
 			}
 			if ($order->order_advanced_payment == "-1") { //if the new value it´s just whitespaces
-				$total = "El adelanto de pago de " . $coin . 
-				$orderModel->advance_payment . " fue removido.";
+				$total = "El adelanto de pago de " . $coin .
+					$orderModel->advance_payment . " fue removido.";
 				$orderModel->advance_payment = null;
 			} else {
 				$orderModel->advance_payment = $order->order_advanced_payment;
@@ -560,41 +566,41 @@ class OrderController extends Controller
 		$workModel = Work::where('id', $work->existWork)->first();
 		$workID = $work->existWork;
 
-		if($workModel->priority != $work->priority){
-			if($workModel->priority == "1") {
+		if ($workModel->priority != $work->priority) {
+			if ($workModel->priority == "1") {
 				$oldPriority = "Posee prioridad";
 				$newPriority = "Sin prioridad";
 			} else {
 				$oldPriority = "Sin prioridad";
 				$newPriority = "Posee prioridad";
 			}
-			$priority = "La prioridad con el antiguo valor de " . '"' . $oldPriority. '"' . 
-			" fue actualizada a " . '"' . $newPriority. '".' . 
-			$workModel->priority = $work->priority;
+			$priority = "La prioridad con el antiguo valor de " . '"' . $oldPriority . '"' .
+				" fue actualizada a " . '"' . $newPriority . '".' .
+				$workModel->priority = $work->priority;
 			$this->saveWorkLog("Prioridad", $priority, $workID);
 		}
 
 		$oldDate = Carbon::parse($workModel->approximate_date)->startOfDay();
 		$newDate = Carbon::createFromFormat('d/m/Y', $work->date)->startOfDay();
-		if($oldDate->notEqualTo($newDate)){
-			$date = "La fecha de entrega con el antiguo valor de " . $oldDate->format('d/m/Y') .  
-			" fue actualizada a " . $newDate->format('d/m/Y');
+		if ($oldDate->notEqualTo($newDate)) {
+			$date = "La fecha de entrega con el antiguo valor de " . $oldDate->format('d/m/Y') .
+				" fue actualizada a " . $newDate->format('d/m/Y');
 			$workModel->approximate_date = $newDate;
 			$this->saveWorkLog("Fecha de entrega aproximada", $date, $workID);
 		}
 
-		if($workModel->observation != $work->observation){
+		if ($workModel->observation != $work->observation) {
 			$observation = "La observación fue actualizada.";
 			$workModel->observation = $work->observation;
 			$this->saveWorkLog("Observación", $observation, $workID);
 		}
 
-		if($workModel->product_id != $work->product){
+		if ($workModel->product_id != $work->product) {
 			$oldName = \App\Product::where('id', $workModel->product_id)->first()->name;
 			$newName = \App\Product::where('id', $work->product)->first()->name;
 			$product = "El producto con el antiguo valor de " . '"' . $workModel->product_id . ". " .
-			$oldName. '"' . " fue actualizado a " . '"' . $work->product . ". " .
-			$newName. '".';
+				$oldName . '"' . " fue actualizado a " . '"' . $work->product . ". " .
+				$newName . '".';
 			$workModel->product_id = $work->product;
 			$this->saveWorkLog("Producto", $product, $workID);
 		}
@@ -603,16 +609,16 @@ class OrderController extends Controller
 		$materialsArray = explode(",", $work->materials);
 
 		$deleteOldMaterials = \App\Material_work::where('work_id', $workID)
-		->whereNotIn('material_id', $materialsArray)->delete();
-		
+			->whereNotIn('material_id', $materialsArray)->delete();
+
 		//throw new \Exception($materialsArray[0] . $materialsArray[1] . "workID" . $workID);
-		
+
 		foreach ($materialsArray as $materialWork) {
-			if(!empty($materialWork)){
+			if (!empty($materialWork)) {
 				$material_work_Model = \App\Material_work::where('work_id', $workID)
-				->where('material_id', $materialWork)->first();
+					->where('material_id', $materialWork)->first();
 				//throw new \Exception($material_work_Model . "workID" . $workID);
-				if(empty($material_work_Model)){
+				if (empty($material_work_Model)) {
 					$insert_material_model = new \App\Material_work();
 					$insert_material_model->material_id = $materialWork;
 					$insert_material_model->work_id = $workID;
@@ -622,10 +628,10 @@ class OrderController extends Controller
 		}
 		$workModel->save();
 
-		if($requestFile != null){
+		if ($requestFile != null) {
 			$file = \App\Works_file::where('work_id', $workID)->first();
-			if($file != null && !empty($file)){
-				if(\Storage::disk('local')->exists('public/workFiles/' . $file->name)){
+			if ($file != null && !empty($file)) {
+				if (\Storage::disk('local')->exists('public/workFiles/' . $file->name)) {
 					$deletedFile = \App\Works_file::where('id', $file->id)->delete();
 					//throw new \Exception($deletedFile . $file->name);
 					\Storage::disk('local')->delete('public/workFiles/' . $file->name);
@@ -638,7 +644,7 @@ class OrderController extends Controller
 					$work_log_model->user_id = Auth::user()->id;
 					$work_log_model->save();
 				}
-			}	
+			}
 			$filename = pathinfo($requestFile->getClientOriginalName(), PATHINFO_FILENAME);
 			$extension = pathinfo($requestFile->getClientOriginalName(), PATHINFO_EXTENSION);
 			$fileUnique = $filename . "_" . $workID .  '.' . $extension;
@@ -670,7 +676,8 @@ class OrderController extends Controller
 	 * @param [type] $workID The id of the work to update
 	 * @return void
 	 */
-	public function saveWorkLog($attribute, $value, $workID) {
+	public function saveWorkLog($attribute, $value, $workID)
+	{
 		$work_log_model = new \App\Works_log();
 		$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
 		$work_log_model->attribute = $attribute;
@@ -687,7 +694,8 @@ class OrderController extends Controller
 	 * @param [type] $orderID The id of the order to update
 	 * @return void
 	 */
-	public function saveOrderLog($attribute, $value, $orderID) {
+	public function saveOrderLog($attribute, $value, $orderID)
+	{
 		$order_log_model = new \App\Order_log();
 		$order_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
 		$order_log_model->attribute = $attribute;
@@ -726,25 +734,25 @@ class OrderController extends Controller
 
 		$order = $this->model->find($id);
 
-		if($order == null) {
-			throw new \Exception('Error en editar la orden con el id:' .$id
-		. " en el método OrderController@edit");
-		} else {		
+		if ($order == null) {
+			throw new \Exception('Error en editar la orden con el id:' . $id
+				. " en el método OrderController@edit");
+		} else {
 
-			$owner = $this->getClientData($order->client_owner);	
+			$owner = $this->getClientData($order->client_owner);
 			$contact = $order->client_contact;
 			$works = \App\Work::where('order_id', $order->id)->get();
 
-			if(Auth::user()->user_type_id != 1){//if the user is not an admin user
+			if (Auth::user()->user_type_id != 1) { //if the user is not an admin user
 				$works = $this->only_works_view_permission($works);
-			} 
+			}
 
 			foreach ($works as $work) {
 				$work->materials = Material_work::where('work_id', $work->id)->get();
 				$work->product_name = \App\Product::where('id', $work->product_id)->first()->name;
 				$file = \App\Works_file::where('work_id', $work->id)->first();
 				//$work->file_id = "aaa";
-				if($file != null && !empty($file)){
+				if ($file != null && !empty($file)) {
 					$work->file_id = $file->id;
 				}
 			}
@@ -752,29 +760,32 @@ class OrderController extends Controller
 			//return compact('order', 'owner', 'contact', 'works');
 			//return $owner;
 			$user_type = Auth::user()->user_type_id;
-			if($user_type == 1){//admin user
-				return view('admin.orders.edit', compact('order', 'owner', 'contact', 'works'));
-			} else if($user_type == 3 || $user_type == 4){//boss designer and designer user
+			if ($user_type == 1) { //admin user
+                return view('admin.orders.edit', compact('order', 'owner', 'contact', 'works'));
+            }else if ($user_type == 2) { //reception user
+				return view('reception.orders.edit', compact('order', 'owner', 'contact', 'works'));
+			} else if ($user_type == 3 || $user_type == 4) { //boss designer and designer user
 				return view('designer/orders/edit', compact('order', 'owner', 'contact', 'works'));
 			}
 		}
 	}
 
-	public function only_works_view_permission($works) {
+	public function only_works_view_permission($works)
+	{
 		$works_view = [];
 		$view_states = DB::table('state_user_types') //get the list of states that the user can see
-		->where('user_types_id', Auth::user()->user_type_id)
-		->where('view_state', 1)->get();
+			->where('user_types_id', Auth::user()->user_type_id)
+			->where('view_state', 1)->get();
 
-		foreach($works as $work) {
-			$state_works=DB::table('state_work') //get the state with the last date of an work
-			->where('work_id', '=', $work->id)
-			->orderby('date','DESC')->first();
+		foreach ($works as $work) {
+			$state_works = DB::table('state_work') //get the state with the last date of an work
+				->where('work_id', '=', $work->id)
+				->orderby('date', 'DESC')->first();
 
-			$work->work_state = $state_works->states_id;//= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
+			$work->work_state = $state_works->states_id; //= $states->id;//podría dejarse "= $state_works->states_id" si se borra lo de arriba
 
-			foreach($view_states as $view_state) {//add to array only the works that the user can see
-				if($work->work_state == $view_state->states_id){
+			foreach ($view_states as $view_state) { //add to array only the works that the user can see
+				if ($work->work_state == $view_state->states_id) {
 					array_push($works_view, $work);
 				}
 			}
@@ -782,32 +793,34 @@ class OrderController extends Controller
 		return $works_view;
 	}
 
-	public function downloadFile($id) {
+	public function downloadFile($id)
+	{
 		$file = \App\Works_file::where('id', $id)->first();
-		if(\Storage::disk('local')->exists('public/workFiles/' . $file->name)){
+		if (\Storage::disk('local')->exists('public/workFiles/' . $file->name)) {
 			return response()->download(storage_path("app/public/workFiles/{$file->name}"));
 		}
 		return response();
-	} 
+	}
 
-	public function getClientData($client_id){
+	public function getClientData($client_id)
+	{
 		$client = \App\Client::where('id', $client_id)->first();
-		if($client->type == 1) {//physical client, fill model attributes) 
+		if ($client->type == 1) { //physical client, fill model attributes) 
 			$phisClient = \App\Physical_client::where('client_id', $client->id)->first();
 			$client->lastname = $phisClient->lastname;
-			$client->second_lastname = $phisClient->second_lastname;	
-			$client->client_table_id = $phisClient->client_id;	
+			$client->second_lastname = $phisClient->second_lastname;
+			$client->client_table_id = $phisClient->client_id;
 		}
-		if($client->type == 2) {//juridical client, fill model attributes
+		if ($client->type == 2) { //juridical client, fill model attributes
 			$jurClient = \App\Juridical_client::where('client_id', $client->id)->first();
-			$client->client_table_id = $jurClient->client_id;	
+			$client->client_table_id = $jurClient->client_id;
 		}
 		$client->phones = $client->phones()->where('active_flag', 1)->first();
 		$client->emails = $client->emails()->where('active_flag', 1)->first();
 		return $client;
 	}
 
-	
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -863,7 +876,7 @@ class OrderController extends Controller
 		$phone = DB::table('phones')
 			->where('client_id', '=', $client->id)
 			->first();
-		$phone_number;
+		$phone_number = "No posee";
 		if ($phone == null) {
 			$phone_number = "No posee";
 		} else {
@@ -882,7 +895,7 @@ class OrderController extends Controller
 		$email = DB::table('emails')
 			->where('client_id', '=', $client->id)
 			->first();
-		$email_client;
+		$email_client = "No posee";
 		if ($email == null) {
 			$email_client = "No posee";
 		} else {
@@ -907,9 +920,9 @@ class OrderController extends Controller
 	public function ajax_fill_contacts($id)
 	{
 		$contacts = Client_contact::where('client_id', $id)
-		->where('active_flag', 1)->get();
-		
-		foreach($contacts as $contact){//get the name of the contact client.
+			->where('active_flag', 1)->get();
+
+		foreach ($contacts as $contact) { //get the name of the contact client.
 			$client = Client::where('id', $contact->contact_id)->first();
 			$physical_client = Physical_client::where('client_id', $contact->contact_id)->first();
 			$contact->identification = $client->identification;
@@ -928,63 +941,62 @@ class OrderController extends Controller
 
 
 	/**
-       * This method generate an specific detail order report
-       */
-      public function selectOrder($id)
-      {
-            //custom message if this methods throw an exception
-		\Session::put('errorOrigin', " creando reporte orden");	
+	 * This method generate an specific detail order report
+	 */
+	public function selectOrder($id)
+	{
+		//custom message if this methods throw an exception
+		\Session::put('errorOrigin', " creando reporte orden");
 
 		//custom route to REDIRECT redirect('x') if there's an error
-        \Session::put('errorRoute', "orders");
-			$order=$this->model->find($id);
-			$client=Client::where('id', $order->client_owner)->first();
-			if($client->type == 1) {
-				$phisClient = Physical_client::where('client_id', $order->client_owner)->first();
-				$order->client_owner=$client->name ." ".$phisClient->lastname." ".$phisClient->second_lastname;
-				
-			} else {
-				$order->client_owner=$client->name;
-			}
-			$order->branch_id=(Branch::where('id', $order->branch_id)->first())->name;	
-			$works= Work::where('order_id', $id)->get();
-			foreach ($works as $work) {
-				$work->product_id=(Product::where('id',$work->product_id)->first())->name;
-			}
-			$order->works=$works;
-			$pdf = \App::make('dompdf.wrapper');
-          	$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render()); 
-            return $pdf->stream('detalleOrden'.$order->id.'.pdf');
-	  
+		\Session::put('errorRoute', "orders");
+		$order = $this->model->find($id);
+		$client = Client::where('id', $order->client_owner)->first();
+		if ($client->type == 1) {
+			$phisClient = Physical_client::where('client_id', $order->client_owner)->first();
+			$order->client_owner = $client->name . " " . $phisClient->lastname . " " . $phisClient->second_lastname;
+		} else {
+			$order->client_owner = $client->name;
+		}
+		$order->branch_id = (Branch::where('id', $order->branch_id)->first())->name;
+		$works = Work::where('order_id', $id)->get();
+		foreach ($works as $work) {
+			$work->product_id = (Product::where('id', $work->product_id)->first())->name;
+		}
+		$order->works = $works;
+		$pdf = \App::make('dompdf.wrapper');
+		$pdf->loadHTML(view('admin/reports/reportDetailsOrder', compact('order'))->render());
+		return $pdf->stream('detalleOrden' . $order->id . '.pdf');
+	}
+
+	function changeOrderWorksState($orderID, $stateID)
+	{
+
+		DB::beginTransaction();
+
+		$userID = Auth::user()->id;
+
+		$order_state_model = new Order_order_state();
+		$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$order_state_model->order_states_id = $stateID; //The state that the user choosed
+		$order_state_model->order_id = $orderID;
+		$order_state_model->user_id = $userID;
+		$order_state_model->save();
+
+		$orderWorks = \App\Work::where('order_id', $orderID)->get();
+
+		foreach ($orderWorks as $work) {
+			$state_work_Model = new State_work();
+			$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+			$state_work_Model->states_id = $stateID; //Inicio work state
+			$state_work_Model->work_id = $work->id;
+			$state_work_Model->user_id = $userID;
+			$state_work_Model->save();
+			$workController = new \App\Http\Controllers\WorkController(new \App\Work());
+			$workController->notifyToUsers($work->id, $stateID);
 		}
 
-		function changeOrderWorksState($orderID, $stateID) {
-
-			DB::beginTransaction();
-
-			$userID = Auth::user()->id;
-			
-			$order_state_model = new Order_order_state();
-			$order_state_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-			$order_state_model->order_states_id = $stateID;//The state that the user choosed
-			$order_state_model->order_id = $orderID;
-			$order_state_model->user_id = $userID;
-			$order_state_model->save();
-
-			$orderWorks = \App\Work::where('order_id', $orderID)->get();
-
-			foreach ($orderWorks as $work) {
-				$state_work_Model = new State_work();
-            	$state_work_Model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
-				$state_work_Model->states_id = $stateID;//Inicio work state
-				$state_work_Model->work_id = $work->id;
-				$state_work_Model->user_id = $userID;
-				$state_work_Model->save();
-				$workController = new \App\Http\Controllers\WorkController(new \App\Work());
-				$workController->notifyToUsers($work->id, $stateID);
-			}
-	
-			DB::commit();
-			return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]); 
-		}
+		DB::commit();
+		return json_encode(["message" => "¡Estado de la Orden y los Trabajos actualizados satisfactoriamente!"]);
+	}
 }
