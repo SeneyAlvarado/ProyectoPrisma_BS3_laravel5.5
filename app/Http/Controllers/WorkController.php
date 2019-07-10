@@ -674,9 +674,46 @@ class WorkController extends Controller
 
 	}
 
+	public function orderWorks($id) {
 
-	public function workLogReport($orderID, $workID) {
+		$user_type = Auth::user()->user_type_id;
+		if($user_type == 1) {
+			$works = DB::table('works')
+			->join('orders', 'works.order_id', 'orders.id')
+			->select('works.id as work_id',
+			'works.priority as priority',
+			'works.approximate_date as approximate_date',
+			'works.entry_date as entry_date',
+			'works.active_flag as active_flag',
+			'works.designer_id as designer_id',
+			'orders.client_owner as client_owner',
+			'works.order_id as order_id')
+			->where('orders.branch_id', '=', Auth::user()->branch_id)
+			->where('orders.id', '=', $id)
+			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
+			->get();
+			return $this->indexAdmin($works);
+		} else if(($user_type == 2) || ($user_type == 3)  ) { //reception and boss designer
 
+			$works = DB::table('works')
+			->where('works.active_flag', '=','1')
+			->join('orders', 'works.order_id', 'orders.id')
+			->select('works.id as work_id',
+			'works.priority as priority',
+			'works.approximate_date as approximate_date',
+			'works.entry_date as entry_date',
+			'works.active_flag as active_flag',
+			'works.designer_id as designer_id',
+			'orders.client_owner as client_owner',
+			'works.order_id as order_id')
+			->where('orders.branch_id', '=', Auth::user()->branch_id)
+			->where('orders.id', '=', $id)
+			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
+			->get();
+			return $this->generalIndex($works);
+
+		}
+			
 	}
 
 }
