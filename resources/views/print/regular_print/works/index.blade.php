@@ -73,7 +73,7 @@
                         <td  width="50%" class="text-center" style="width:60px;" >
                         
                             <div class="col-md-1" style="margin-top: 7px; margin-left: 1px; display: inline;">
-                            <a class="addFile" style=" color:black" onclick="addFile('{{$work->work_id}}')"><span class="glyphicon glyphicon-paperclip" style="margin-top:8px;" title="Adjuntar nuevo diseño"></span></a>
+                            
                                 <a href="{{route('downloadFile', $work->file_id)}}">
                                 <span class="glyphicon glyphicon-download-alt"
                                 style="font-size:18px; color: crimson; margin-left:3px;" 
@@ -81,9 +81,11 @@
                             </div>
                         </td>
                         @else
-                        <td  class="text-center">
+                        <td  class="text-center"><span class="glyphicon glyphicon-ban-circle"
+                                style="font-size:18px; color: crimson; margin-left:3px;" 
+                                title="No posee"></span></td>
                         
-                        <a class="addFile" style="width:30px; color:black" onclick="addFile('{{$work->work_id}}')"><span class="glyphicon glyphicon-paperclip" style="margin-top:8px;" title="Adjuntar archivo"></span></a>
+                       
                             
                         @endif
                                <td class="text-center">{{\Carbon\Carbon::parse($work->approximate_date)->format('d/m/Y')}}</td>
