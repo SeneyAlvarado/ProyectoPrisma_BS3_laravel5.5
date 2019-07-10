@@ -31,6 +31,9 @@ SET time_zone = "+00:00";
  1 - Admin
  2 - Recepcionista
  3 - Jefe Diseño
+ 4 - Diseño
+ 5 - Jefe impresión
+ 6 - Impresión 
 */	
 
 INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('1',
