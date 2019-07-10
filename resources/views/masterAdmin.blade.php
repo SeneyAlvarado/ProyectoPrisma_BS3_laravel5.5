@@ -26,7 +26,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
   <!-- script src="{{asset('/js/Reports/dateTimePicker_productsReport.js')}}"></script>
   <script src="{{asset('/js/Reports/dateTimePicker_productsReport_endDate.js')}}"></script -->
@@ -58,13 +59,17 @@
 </head>
 
 <body>
-  <nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <nav
+    class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+      data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="navbar-nav">
       <li class="nav-item a active">
-        <button class="btn btn-default style-return-button" onclick="history.back()"><span class="glyphicon glyphicon-menu-left"></span></button>
+        <button class="btn btn-default style-return-button" onclick="history.back()"><span
+            class="glyphicon glyphicon-menu-left"></span></button>
       </li>
     </ul>
     <a class="navbar-brand" href="#">
@@ -74,58 +79,61 @@
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-
-
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <!-- <li class=" nav-item dropdown d-sm-block d-md-none">Menú
-          <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class=" nav-item dropdown d-sm-block d-md-none">
+          <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
-          <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-            <a class="dropdown-item" href="#">Trabajos</a>
-            <a class="dropdown-item" href="{{url('states')}}">Estados</a>
-            <a class="dropdown-item" href="{{url('states')}}">Materiales</a>
-            <a class="dropdown-item" href="{{url('states')}}">Productos</a>
-            <a class="dropdown-item" href="{{route('orders')}}">Órdenes</a>
-            <a class="dropdown-item" href="{{route('clients')}}">Clientes</a>
-            <a class="dropdown-item" href="{{ url('user') }}">Cuentas</a>
-            <a class="dropdown-item" href="{{url('visits')}}">Visitas</a>
-            <a class="dropdown-item" href="{{url('branch')}}">Sucursales</a>
+
+          <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
+            <a class="dropdown-item n" style="color:white" href="#">Trabajos <span
+                class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('states')}}">Estados<span
+                class="glyphicon glyphicon-stats fa-fw mr-3 icon-estados"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('materials')}}">Materiales<span
+                class=" 	glyphicon glyphicon-list-alt fa-fw mr-3 icon-materiales"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('products')}}">Productos<span
+                class=" 	glyphicon glyphicon-list-alt fa-fw mr-3 icon-productos"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{route('orders')}}">Órdenes <span
+                class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{route('clients')}}">Clientes <span
+                class="glyphicon glyphicon-user fa-fw mr-3 icon-clientes"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('visits')}}">Visitas<span
+                class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{ url('user') }}">Cuentas<span
+                class="glyphicon glyphicon-user fa-fw mr-3 icon-cuentas"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('branch')}}">Sucursales<span
+                class="glyphicon glyphicon-flag fa-fw mr-3 icon-sucursales"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span
+                class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span
+                class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
           </div>
-        </li>-- Smaller devices menu END -->
-        
-
-
-            <!-- This menu is hidden in bigger devices with d-sm-none. 
-        The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-            <li class=" nav-item dropdown d-sm-block d-md-none">
-              <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Menú
-              </a>
-
-              <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
-                <a class="dropdown-item n" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos" ></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{url('states')}}">Estados<span class="glyphicon glyphicon-stats fa-fw mr-3 icon-estados"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{url('materials')}}">Materiales<span class=" 	glyphicon glyphicon-list-alt fa-fw mr-3 icon-materiales"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{url('products')}}">Productos<span class=" 	glyphicon glyphicon-list-alt fa-fw mr-3 icon-productos"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{route('clients')}}">Clientes <span class="glyphicon glyphicon-user fa-fw mr-3 icon-clientes"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{ url('user') }}">Cuentas<span class="glyphicon glyphicon-user fa-fw mr-3 icon-cuentas"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{url('branch')}}">Sucursales<span class="glyphicon glyphicon-flag fa-fw mr-3 icon-sucursales"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
-                <a class="dropdown-item n" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
-              </div>
-            </li>
-
-
-          </ul>
-        </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class=" nav-item dropdown d-sm-block d-md-none">
+          <a class="nav-link dropdown-toggle" href="#" id="smallernotificationmenu" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Notificaciones
+            <span class="glyphicon glyphicon-bell fa-fw mr-3"></span>
+            <span id="numberNotification" class="badge">0</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="smallernotificationmenu"
+            style=" background-color:#96183a; border:0px;">
+            <a class="dropdown-item" style="color:white" href="#">Trabajos <span
+                class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
+          </div>
+        </li>
+      </ul>
+    </div>
     </div>
 
     <div class="dropdown" style="margin-right: 4vw">
-      <button type="button" onclick="markReadNotifications()" class="btn btn-default dropdown-toggle style-name-button" data-target="#dropmenu-notifications" data-toggle="dropdown">Notificaciones &nbsp;
+      <button type="button" onclick="markReadNotifications()" class="btn btn-default dropdown-toggle style-name-button"
+        data-target="#dropmenu-notifications" data-toggle="dropdown">Notificaciones &nbsp;
         <span class="glyphicon glyphicon-bell fa-fw mr-3"></span>
         <span id="numberNotification" class="badge">0</span>
       </button>
@@ -134,7 +142,8 @@
     </div>
 
     <div class="dropdown" style="margin-right: 4vw">
-      <button type="button" class="btn btn-default dropdown-toggle style-name-button" data-toggle="dropdown" data-target="#dropmenu-user">
+      <button type="button" class="btn btn-default dropdown-toggle style-name-button" data-toggle="dropdown"
+        data-target="#dropmenu-user">
         {{ auth()->user()->name . " " . auth()->user()->lastname}}
       </button>
       <div class="dropdown-menu" id="dropmenu-user">
@@ -153,7 +162,8 @@
       <!-- Bootstrap List Group -->
       <ul class="list-group ">
         <!-- Menu with submenu -->
-        <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="border border-left-0 border-top-0 border-right-0 border-light sidebar-color list-group-item list-group-item-action flex-column align-items-start">
+        <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
+          class="border border-left-0 border-top-0 border-right-0 border-light sidebar-color list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
             <span class="menu-collapsed">Trabajos</span>
@@ -162,50 +172,59 @@
         </a>
         <!-- Submenu content -->
         <div id='submenu1' class="collapse sidebar-submenu">
-          <a href="{{route('works.index')}}" class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
+          <a href="{{route('works.index')}}"
+            class=" list-group-item list-group-item-action sidebar-color-collapse text-white">
             <span class="menu-collapsed">Visualizar</span>
           </a>
           <a href="{{url('states')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
             <span class="menu-collapsed">Estados</span>
           </a>
-          <a href="{{route('materials')}}" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+          <a href="{{route('materials')}}"
+            class="list-group-item list-group-item-action sidebar-color-collapse text-white">
             <span class="menu-collapsed">Materiales</span>
           </a>
-          <a href="{{route('products')}}" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
+          <a href="{{route('products')}}"
+            class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
             <span class="menu-collapsed">Productos</span>
           </a>
         </div>
-        <a href="{{route('orders')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+        <a href="{{route('orders')}}"
+          class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-edit fa-fw mr-3"></span>
             <span class="menu-collapsed">Órdenes</span>
           </div>
         </a>
-        <a href="{{route('clients')}}" class="sidebar-color  list-group-item list-group-item-action border border-left-0 border-right-0 border-light">
+        <a href="{{route('clients')}}"
+          class="sidebar-color  list-group-item list-group-item-action border border-left-0 border-right-0 border-light">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-user fa-fw mr-3"></span>
             <span class=" menu-collapsed">Clientes</span>
           </div>
         </a>
-        <a href="{{ url('user') }}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+        <a href="{{ url('user') }}"
+          class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-list fa-fw mr-3"></span>
             <span class="menu-collapsed">Cuentas</span>
           </div>
         </a>
-        <a href="{{url('visits')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+        <a href="{{url('visits')}}"
+          class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-copy fa-fw mr-3"></span>
             <span class="menu-collapsed">Visitas</span>
           </div>
         </a>
-        <a href="{{url('branch')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+        <a href="{{url('branch')}}"
+          class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-flag fa-fw mr-3"></span>
             <span class="menu-collapsed">Sucursales</span>
           </div>
         </a>
-        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
+        <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
+          class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-file fa-fw mr-3"></span>
             <span class="menu-collapsed">Reportes</span>
@@ -214,14 +233,17 @@
         </a>
         <!-- Submenu content -->
         <div id='submenu2' class="collapse sidebar-submenu">
-          <a data-target="#materialsChart" style="cursor: pointer;" data-toggle="modal" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+          <a data-target="#materialsChart" style="cursor: pointer;" data-toggle="modal"
+            class="list-group-item list-group-item-action sidebar-color-collapse text-white">
             <span class="menu-collapsed">Materiales más usados</span>
           </a>
-          <a data-target="#productsChart" style="cursor: pointer;" data-toggle="modal" class="list-group-item list-group-item-action sidebar-color-collapse text-white">
+          <a data-target="#productsChart" style="cursor: pointer;" data-toggle="modal"
+            class="list-group-item list-group-item-action sidebar-color-collapse text-white">
             <span class="menu-collapsed">Productos más vendidos</span>
           </a>
         </div>
-        <a href="#" data-toggle="sidebar-colapse" class="border border-left-0 border-right-0 border-light active-collapse sidebar-color  list-group-item list-group-item-action d-flex align-items-center">
+        <a href="#" data-toggle="sidebar-colapse"
+          class="border border-left-0 border-right-0 border-light active-collapse sidebar-color  list-group-item list-group-item-action d-flex align-items-center">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span id="collapse-icon" class="glyphicon glyphicon-resize-horizontal fa fa-2x mr-3"></span>
             <span id="collapse-text" class="menu-collapsed">Cerrar menú</span>
@@ -343,7 +365,8 @@
 
           <div class="row justify-content-center">
             <div class="col-md-4">
-              <button style="margin-top:15px;" id="update" class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
+              <button style="margin-top:15px;" id="update"
+                class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
             </div>
 
           </div>
@@ -392,59 +415,62 @@
 
           <div class="row justify-content-center">
             <div class="col-md-4">
-              <button style="margin-top:15px;" id="update" class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
+              <button style="margin-top:15px;" id="update"
+                class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
             </div>
 
           </div>
         </form>
 
-  <div class="modal fade" id="materialsChart">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Reporte de materiales más utilizados</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body">
-        <form method = 'POST' action='{{ route("materials.chart") }}' onsubmit="return check_dates_reports(this)">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="">
-      
-                    <div class="row justify-content-center" style="margin-bottom:20px; ">
+        <div class="modal fade" id="materialsChart">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Reporte de materiales más utilizados</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body">
+                <form method='POST' action='{{ route("materials.chart") }}' onsubmit="return check_dates_reports(this)">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id" value="">
+
+                  <div class="row justify-content-center" style="margin-bottom:20px; ">
                     <div class="col-md-4" style="text-align:center;">
                       <div>
-                          <label for="date-field"><strong>Fecha de inicio</strong></label>
+                        <label for="date-field"><strong>Fecha de inicio</strong></label>
                       </div>
-                          <input name="startDate" type="text" id="datepicker5_forReport" readonly>
+                      <input name="startDate" type="text" id="datepicker5_forReport" readonly>
                     </div>
-                      <div class="col-md-4" style="text-align:center; display: inline-block;">
+                    <div class="col-md-4" style="text-align:center; display: inline-block;">
                       <div>
-                          <label for="date-field"><strong>Fecha de inicio</strong></label>
+                        <label for="date-field"><strong>Fecha de inicio</strong></label>
                       </div>
-                          <input name="endDate" type="text" id="datepicker6_forReport" readonly>
-                      </div>
-                      
-                     
+                      <input name="endDate" type="text" id="datepicker6_forReport" readonly>
                     </div>
 
-                    <div class="row justify-content-center">
-                      <div class="col-md-4">
-                          <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Generar Reporte</button>
-                      </div>
-                      
-                    </div>
-            </form>
-        
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-         
-        </div>
 
-    </div>
-  </div>
-</div>
+                  </div>
+
+                  <div class="row justify-content-center">
+                    <div class="col-md-4">
+                      <button style="margin-top:15px;" id="update"
+                        class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar
+                        Reporte</button>
+                    </div>
+
+                  </div>
+                </form>
+
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
 
 </html>
