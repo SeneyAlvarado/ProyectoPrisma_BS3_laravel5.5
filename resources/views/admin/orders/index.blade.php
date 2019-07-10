@@ -109,27 +109,14 @@
                         <td class="text-center"><strong>{{$order->latest_time_left}} d. </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
                     @endif
                     <td class="text-center">
+                    <a title="Ver trabajos" class="btn btn-warning" href="{{ route('orders.works', [$order->id]) }}" style="background-color:#e0e0e0; border:0px;"><span
+                                class="glyphicon glyphicon-folder-open"></span></a>
                         <a title="Generar reporte" class="btn btn-warning" href="{{url('reportOrder', $order->id)}}"
                             style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-file"></span></a>
                         <a title="Editar" class="btn btn-warning" href="{{ route('orders.edit', [$order->id]) }}" style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-pencil"></span></a>
-                        @if($order->active_flag == 1)
-                        <form style="display:inline" action="" method="POST" style="display: inline;"
-                            onsubmit="return confirm('Desea cancelar la orden de {{$order->client_owner_name}}?');">
-                            {{csrf_field()}}
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn style-btn-delete btn-danger btn-size "><span
-                                    class="glyphicon glyphicon-ban-circle"></span></button>
-                        </form>
-                        @else
-                        <form style="display:inline" action="" method="POST" style="display: inline;"
-                            onsubmit="return confirm('Desea activar la orden de {{$order->$client_owner_name}}?');">
-                            {{csrf_field()}}
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-success style-btn-success btn-size">Activar</button>
-                        </form>
-                        @endif
+                        
 
                     </td>
                 </tr>

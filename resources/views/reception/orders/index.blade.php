@@ -109,13 +109,15 @@
                         <td class="text-center"><strong>{{$order->latest_time_left}} d. </strong><span style="color:#DFAC02" class="glyphicon glyphicon-time"></span></td>
                     @endif
                     <td class="text-center">
+                    <a title="Ver trabajos" class="btn btn-warning" href="{{ route('orders.works', [$order->id]) }}" style="background-color:#e0e0e0; border:0px;"><span
+                                class="glyphicon glyphicon-folder-open"></span></a>
                         <a title="Generar reporte" class="btn btn-warning" href="{{url('reportOrder', $order->id)}}"
                             style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-file"></span></a>
                         <a title="Editar" class="btn btn-warning" href="{{ route('orders.edit', [$order->id]) }}" style="background-color:#e0e0e0; border:0px;"><span
                                 class="glyphicon glyphicon-pencil"></span></a>
                         
-
+                        
                     </td>
                 </tr>
                 @endforeach

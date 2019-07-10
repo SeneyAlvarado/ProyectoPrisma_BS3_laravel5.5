@@ -67,6 +67,7 @@ Route::get('orders.create', 'OrderController@create')->name('orders.create');/**
 Route::get('contact.show/{id}', 'ClientController@show')->name('contact.show');
 Route::post('orders.store', 'OrderController@store')->name('orders.store');
 Route::get('orders.edit/{id}', 'OrderController@edit')->name('orders.edit');
+Route::get('orders.works/{id}', 'WorkController@orderWorks')->name('orders.works');
 Route::get('/fillnames', 'OrderController@ajax_list_clients');/**Fill the select item with the branches*/
 Route::get('/fillmaterials', 'OrderController@ajax_list_materials');/**Fill the select item with the branches*/
 Route::get('/fillClientContacts/{id}', 'OrderController@ajax_fill_contacts');/**Fill the select item with the branches*/

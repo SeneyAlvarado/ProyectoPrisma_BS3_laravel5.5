@@ -15,10 +15,10 @@
            <div class="table-responsive">
                <table class="table table-bordered table-condensed table-hover compact " id="tablaDatos">
                    <thead>
-                        <th class="text-center">Número</th>
+                        <th class="text-center">N°</th>
                         <th class="text-center">Cliente</th>
                         <th class="text-center">Estado</th> 
-                        <th class="text-center">Ingreso</th>
+                        <th class="text-center">Diseño</th>
                         <th class="text-center">Entrega</th>
                         <th class="text-center">Tiempo</th> 
                         <th class="text-center">Opciones</th>                         
@@ -69,7 +69,23 @@
                                 </div>
                             </td>
 
-                               <td class="text-center">{{\Carbon\Carbon::parse($work->entry_date)->format('d/m/Y')}}</td>
+                            @if(($work->file_id != null) && ($work->file_id != ""))
+                        <td  width="50%" class="text-center" style="width:60px;" >
+                        
+                            <div class="col-md-1" style="margin-top: 7px; margin-left: 1px; display: inline;">
+                            <a class="addFile" style=" color:black" onclick="addFile('{{$work->work_id}}')"><span class="glyphicon glyphicon-paperclip" style="margin-top:8px;" title="Adjuntar nuevo diseño"></span></a>
+                                <a href="{{route('downloadFile', $work->file_id)}}">
+                                <span class="glyphicon glyphicon-download-alt"
+                                style="font-size:18px; color: crimson; margin-left:3px;" 
+                                title="Descargar archivo del trabajo"></span></a>
+                            </div>
+                        </td>
+                        @else
+                        <td  class="text-center">
+                        
+                        <a class="addFile" style="width:30px; color:black" onclick="addFile('{{$work->work_id}}')"><span class="glyphicon glyphicon-paperclip" style="margin-top:8px;" title="Adjuntar archivo"></span></a>
+                            
+                        @endif
                                <td class="text-center">{{\Carbon\Carbon::parse($work->approximate_date)->format('d/m/Y')}}</td>
                                @if ($work->color == "red")
                                <td  class="text-center"><strong>{{$work->time_left}} </strong><span style="color:#C20202" class="glyphicon glyphicon-time"></span></td>
@@ -207,10 +223,54 @@
     </div>
   </div>
 
+  <div class="modal fade" id="addFile">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Adjuntar diseño</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form method = 'POST' action='javascript:formInitiation();' id="fileForm">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="">
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <label for="name"><strong>Seleccione un diseño</strong></label>
+                            <input id="design" name="design" class="form-control hideFile" type="file">
+                                                     
+                        </div>
+                        
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <button  style="margin-top:15px;" id ="update" class = 'style-btn-success btn-block margin-button btn btn-info' type ='submit'>Guardar</button>
+                            </div>
+                        <div class="col-md-4">    
+                            <button  style="margin-left:1px; margin-top:15px;" class = 'btn-block margin-button btn btn-default' data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+            </form>
+        
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+         
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
 <script src="{{asset('/js/Works/table_works.js')}}"></script>
 <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 <script src="{{asset('/js/Works/work_details.js')}}"></script>
+<script src="{{asset('/js/Works/addFiles.js')}}"></script>
+
 
 
 
