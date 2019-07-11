@@ -1,5 +1,5 @@
-@extends('masterPrint')
-@section('content_Print')
+@extends('masterReception')
+@section('content_Reception')
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <div style="padding:10px;">
@@ -39,7 +39,7 @@
                             </div>
                          
                             <div class="col-md-4" style="margin-top:5px; ">
-                                <a class="btn btn btn-block" href="">Cancelar</a>
+                                <a class="btn btn btn-block" href="{{route('works.index')}}">Cancelar</a>
                             </div>
                         </div>
                 </form>

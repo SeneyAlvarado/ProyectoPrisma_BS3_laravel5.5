@@ -39,7 +39,7 @@
                             </div>
                          
                             <div class="col-md-4" style="margin-top:5px; ">
-                                <a class="btn btn btn-block" href="">Cancelar</a>
+                                <a class="btn btn btn-block" href="{{route('works.index')}}">Cancelar</a>
                             </div>
                         </div>
                 </form>

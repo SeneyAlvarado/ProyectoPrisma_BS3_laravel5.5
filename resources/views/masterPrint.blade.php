@@ -65,46 +65,16 @@
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-
-
-        <!-- This menu is hidden in bigger devices with d-sm-none. 
-        The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <!-- 
-
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-
-
-            <-- This menu is hidden in bigger devices with d-sm-none. 
-        The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  --
-        <li class=" nav-item dropdown d-sm-block d-md-none">
-              <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Menú
-              </a>
-              <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
-                <a class="dropdown-item" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-briefcase fa-fw mr-3"></span></a>
-                <a class="dropdown-item" style="color:white" href="{{url('states')}}">Estados</a><span class="glyphicon glyphicon-stats fa-fw mr-3"></span>
-                <a class="dropdown-item" style="color:white" href="{{url('materials')}}">Materiales</a><span class=" 	glyphicon glyphicon-list-alt fa-fw mr-3"></span>
-                <a class="dropdown-item" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3"></span></a>
-                <a class="dropdown-item" style="color:white" href="{{route('clients')}}">Clientes <span class="glyphicon glyphicon-user fa-fw mr-3"></span></a>
-                <a class="dropdown-item" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3"></span></a>
-                <a class="dropdown-item" style="color:white" href="{{ url('user') }}">Cuentas</a><span class="glyphicon glyphicon-user fa-fw mr-3"></span>
-                <a class="dropdown-item" style="color:white" href="{{url('branch')}}">Sucursales</a><span class="glyphicon glyphicon-leaf fa-fw mr-3"></span>
-                <a class="dropdown-item" style="color:white" href="{{url('change_password.search_user')}}">Contraseña</a><span class="glyphicon glyphicon-lock fa-fw mr-3"></span>
-                <a class="dropdown-item" style="color:white" href="{{url('/logout')}}">Cerrar sesión</a><span class="glyphicon glyphicon-log-out fa-fw mr-3"></span>
-              </div>
-            </li>
-          </ul>
-        </div>
-         -->
         <li class=" nav-item dropdown d-sm-block d-md-none">
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
-          <a class="dropdown-item n" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
-          <a class="dropdown-item n" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
-          <a class="dropdown-item n" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
-          <a class="dropdown-item n" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
+          <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
+            <a class="dropdown-item n" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
+        </div>
         </li>
       </ul>
     </div>
