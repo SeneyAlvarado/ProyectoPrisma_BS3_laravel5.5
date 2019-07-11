@@ -698,7 +698,7 @@ class WorkController extends Controller
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
 			return $this->indexAdmin($works);
-		} else if(($user_type == 2) || ($user_type == 3)  ) { //reception and boss designer
+		} else if(($user_type == 2) || ($user_type == 3) || ($user_type == 5) || ($user_type == 6) ) { //reception and boss designer
 
 			$works = DB::table('works')
 			->where('works.active_flag', '=','1')

@@ -212,7 +212,7 @@ class UserController extends Controller
 		$user_type = Auth::user()->user_type_id;		
 		DB::commit();//commits to database 
 		if($user_type == 1){//admin user
-			return redirect()->route('user.index')->with('success', '¡Cuenta actualizada satisfactoriamente!');;
+			return redirect()->route('user.index')->with('success', '¡Cuenta actualizada satisfactoriamente!');
 			
 		}
 	}//End update accound
