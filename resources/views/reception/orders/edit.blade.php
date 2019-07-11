@@ -230,7 +230,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                                     <input id="observation{{$rowCount}}" type="hidden" value="{{$work->observation}}" autocomplete='off'>
                                                     <input id="materials{{$rowCount}}" type="hidden" value="{{$materials}}" autocomplete='off'>
                                                     <input id="work{{$rowCount}}" type="hidden" value="{{$work->id}}">
-                                                    <a onclick="loadEditWorkModal('{{$rowCount}}')" class="btn btn-warning style-btn-edit btn-size">Detalles</a>
+                                                    <a onclick="loadEditWorkModal('{{$rowCount}}')" class="btn btn-warning style-btn-edit btn-size">Editar</a>
                                                 </td>
                                             </tr>
                                             <?php

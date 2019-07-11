@@ -271,3 +271,7 @@ nav.nav-color {
     max-height:166px !important; 
     overflow-y: auto !important;
   }
+
+  .not-allowed:hover {
+    cursor: not-allowed !important;
+  }
