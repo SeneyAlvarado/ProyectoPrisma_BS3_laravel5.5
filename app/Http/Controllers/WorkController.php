@@ -287,7 +287,7 @@ class WorkController extends Controller
 	private function getClientName($client_id)
 	{
 		$owner = Client::where('id', $client_id)->first();
-		$name;	
+		$name = "";	
 		if($owner->type == 1) {
 			$physical_client = Physical_client::where('client_id', $client_id)->first();
 			$name = $owner->name . " " . $physical_client->lastname;
@@ -581,7 +581,7 @@ class WorkController extends Controller
 		->select('works.id', 'works.entry_date', 'works.approximate_date')->get();
 		
 		$material_works = [];
-		$materials;
+		$materials = "";
 
 		foreach ($works as $work) { //get the list of materials used in the works
 			$material_work = DB::table('material_works')

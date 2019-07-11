@@ -21,8 +21,6 @@
   <!-- align added button to Jquery datatable-->
   <link rel="stylesheet" href="{{asset('/css/custom-button-datatable.css')}}">
 
-  <!--<script src="{{asset('js/master-root.js')}}"></script>-->
-
   <script src="{{asset('/js/app.min.js')}}"></script>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -32,15 +30,13 @@
   </script>
   <script src="{{asset('/js/Reports/dateTimePicker_productsReport.js')}}"></script>
   <script src="{{asset('/js/Reports/dateTimePicker_productsReport_endDate.js')}}"></script>
-  
+
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-  <script type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js">
   </script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script>
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="css/simple-sidebar.css" rel="stylesheet">
@@ -58,7 +54,7 @@
 </head>
 
 <body>
-  <nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light">
+  <nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary container-fluid border border-left-0 border-top-0 border-right-0 border-light">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -77,22 +73,33 @@
 
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <li class=" nav-item dropdown d-sm-block d-md-none" >
+        <li class=" nav-item dropdown d-sm-block d-md-none">
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
             <a class="dropdown-item n" style="color:white" href="#">Trabajos <span class="glyphicon glyphicon-folder-open fa-fw mr-3 icon-trabajos"></span></a>
-            <a class="dropdown-item n" style="color:white"  href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
-            <a class="dropdown-item n" style="color:white"  href="{{route('clients')}}">Clientes  <span class="glyphicon glyphicon-user fa-fw mr-3 icon-clientes"></span></a>
-            <a class="dropdown-item n" style="color:white"  href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
-            <a class="dropdown-item n" style="color:white"  href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
-            <a class="dropdown-item n" style="color:white"  href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{route('clients')}}">Clientes <span class="glyphicon glyphicon-user fa-fw mr-3 icon-clientes"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
           </div>
         </li>
-        
       </ul>
     </div>
+
+    <ul class="navbar-nav nav  container-fluid">
+      <li class=" nav-item dropdown d-sm-block d-md-none  container-fluid">
+        <a class="nav-link dropdown-toggle" href="#" id="smallernotificationmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Notificaciones
+          <span class="glyphicon glyphicon-bell fa-fw mr-3"></span><span style="margin-left: -15px;" id="numberNotificationResponsive" class="badge">0</span>
+        </a>
+        <div class="dropdown-menu dropResponsive " id="dropResponsiveNotifications" aria-labelledby="smallernotificationmenu">
+          <a class="dropdown-item n" style="color:white" href="#"><span class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
+        </div>
+      </li>
+    </ul>
 
     <div class="dropdown" style="margin-right: 4vw">
       <button type="button" onclick="markReadNotifications()" class="btn btn-default dropdown-toggle style-name-button" data-target="#dropmenu-notifications" data-toggle="dropdown">Notificaciones &nbsp;
@@ -153,7 +160,7 @@
           </div>
         </a>
 
-        
+
       </ul><!-- List Group END-->
     </div><!-- sidebar-container END -->
 
@@ -201,6 +208,7 @@
     $('[data-toggle=sidebar-colapse]').click(function() {
       SidebarCollapse();
     });
+
     function SidebarCollapse() {
       $('.menu-collapsed').toggleClass('d-none');
       $('.sidebar-submenu').toggleClass('d-none');

@@ -49,8 +49,9 @@
 
 
 </nav><!-- NavBar END -->
-<div style="padding-top:3%; padding-left:20%; padding-right:20%">
-        <div class="card">
+<div class="container-fluid">
+<div style="padding-top:3%;" class="col-md-6 offset-md-3">
+        <div class="card ">
             <h5 class="card-header" style="text-align:center">Reestablecer contraseña</h5>
                 <div class="card-body">
                     <div class="container-fluid">
@@ -63,12 +64,13 @@
 
                     <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-3 control-label" style="font-weight: bold;">Correo Electrónico</label>
-
-                            <div style="float:right; width:70%">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                        <div class="row justify-content-center">
+                        <div class="col-md-8 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div>
+                                <label for="email" class="control-label" style="font-weight: bold;" >Correo Electrónico</label>
+                            </div>
+                            <div style="">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Correo electrónico" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -76,22 +78,21 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
-
-                        <div class="form-group" >
-                            <div class="col-md-3 col-md-offset-4" style="padding-top:3%; padding-left:25%">
-                                <button type="submit" class="btn btn-primary" style="background-color:#96183a;
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-block" style="background-color:#96183a;
                                 border:none;
                                 color: white !important;">
-                                    Enviar enlace de reestablecimiento de contraseña
+                                    Reestablecer contraseña
                                 </button>
-                            </div>
                         </div>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

@@ -939,7 +939,7 @@ class OrderController extends Controller
 			$contact->contact_name = $client->name . " " . $physical_client->lastname . " " . $physical_client->second_lastname;
 			//$contact->phone = $this->getPhone($contact->contact_id);
 			//$contact->email = $this->getEmail($contact->contact_id);
-			//$contact->client_owner = $id;
+			//$contact->client_owner = $id; 
 		}
 
 		if ($contacts == null || $contacts->isEmpty()) {
