@@ -77,18 +77,18 @@
       <span class="">Grupo Prisma</span>
     </a>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse  container-fluid" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <!-- This menu is hidden in bigger devices with d-sm-none. 
         The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-        <li class=" nav-item dropdown d-sm-block d-md-none">
+        <li class=" nav-item dropdown d-sm-block d-md-none  container-fluid">
           <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
 
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
-            <a class="dropdown-item n" style="color:white" href="#">Trabajos <span
+            <a class="dropdown-item n" style="color:white" href="{{route('works.index')}}">Trabajos<span
                 class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
             <a class="dropdown-item n" style="color:white" href="{{url('states')}}">Estados<span
                 class="glyphicon glyphicon-stats fa-fw mr-3 icon-estados"></span></a>
@@ -113,20 +113,22 @@
           </div>
         </li>
       </ul>
-      <ul class="navbar-nav">
-        <li class=" nav-item dropdown d-sm-block d-md-none">
+      
+      <ul class="navbar-nav nav  container-fluid" >
+        <li class=" nav-item dropdown d-sm-block d-md-none  container-fluid" >
           <a class="nav-link dropdown-toggle" href="#" id="smallernotificationmenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Notificaciones
             <span class="glyphicon glyphicon-bell fa-fw mr-3"></span><span style="margin-left: -15px;"
               id="numberNotificationResponsive" class="badge">0</span>
           </a>
-          <div class="dropdown-menu dropResponsive" id="dropResponsiveNotifications" aria-labelledby="smallernotificationmenu">
-            <a class="dropdown-item n" style="color:white" href="#">Trabajos <span
+          <div class="dropdown-menu dropResponsive " id="dropResponsiveNotifications" aria-labelledby="smallernotificationmenu">
+            <a class="dropdown-item n" style="color:white" href="#"><span
                 class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
           </div>
         </li>
       </ul>
+    
     </div>
     </div>
 
