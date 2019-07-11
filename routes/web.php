@@ -161,6 +161,7 @@ Route::get('/markReadNotifications', function() {
 });
 Route::get('/getUserNotifications', 'NotificationController@getUserNotifications');//gets all user notifications
 Route::get('/readNotification/{notification_id}/{work_id}', 'NotificationController@readNotification');//reads and deletes from DB an specific notification
+Route::get('/deleteNotifications/{idArray}', 'NotificationController@deleteNotifications');//reads and deletes from DB an specific notification
 /**************End of notification routes --------------------------- */
 
 

@@ -118,12 +118,11 @@
           <a class="nav-link dropdown-toggle" href="#" id="smallernotificationmenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Notificaciones
-            <span class="glyphicon glyphicon-bell fa-fw mr-3"></span>
-            <span id="numberNotification" class="badge">0</span>
+            <span class="glyphicon glyphicon-bell fa-fw mr-3"></span><span style="margin-left: -15px;"
+              id="numberNotificationResponsive" class="badge">0</span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="smallernotificationmenu"
-            style=" background-color:#96183a; border:0px;">
-            <a class="dropdown-item" style="color:white" href="#">Trabajos <span
+          <div class="dropdown-menu dropResponsive" id="dropResponsiveNotifications" aria-labelledby="smallernotificationmenu">
+            <a class="dropdown-item n" style="color:white" href="#">Trabajos <span
                 class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
           </div>
         </li>
