@@ -72,7 +72,7 @@ class WorkController extends Controller
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
 			return $this->indexAdmin($works);
-		} else if(($user_type == 2) || ($user_type == 3)  ) { //reception and boss designer
+		} else if(($user_type == 2) || ($user_type == 3) || ($user_type == 5) || ($user_type == 6) ) { //reception and boss designer
 			$works = DB::table('works')
 			->where('works.active_flag', '=','1')
 			->join('orders', 'works.order_id', 'orders.id')
@@ -228,6 +228,10 @@ class WorkController extends Controller
 			->orWhere('user_type_id', '3')
 			->get();
 			return view('designer/works/index', compact('works', 'work_states', 'editStates', 'designer'));
+		}else if($user_type == 5) {//designer user
+			return view('print/boss_print/works/index', compact('works', 'work_states', 'editStates'));
+		}else if($user_type == 6) {//designer user
+			return view('print/regular_print/works/index', compact('works', 'work_states', 'editStates'));
 		}
 	}
 

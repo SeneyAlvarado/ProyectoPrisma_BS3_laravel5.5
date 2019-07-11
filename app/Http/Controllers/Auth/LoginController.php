@@ -67,6 +67,10 @@ class LoginController extends Controller
                     return redirect('works');
                 } else if($user_type == 4){//designer user
                     return redirect('works');
+                }else if($user_type == 5){//boss print user
+                    return redirect('works');
+                }else if($user_type == 6){//regular print user
+                    return redirect('works');
                 }
                 
                 /*$tipo = Auth::user()->tipo;
