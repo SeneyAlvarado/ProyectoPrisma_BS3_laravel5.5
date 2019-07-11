@@ -233,21 +233,6 @@ Route::middleware(['AllUsers'])->group(function () {
     Route::get('/work.show/{id}', 'WorkController@show');
     /* End other routes that were not a a specific group */
 
-}); /** --- END AllUsers ROUTES  --- --- END AllUsers ROUTES  --- --- END AllUsers ROUTES  --- */
-
-
-
-
-
-
-
-
-
-
-
-/* --- Admin_Reception_Design_Print_PostProduction ROUTES --- Admin_Reception_Design_Print_PostProduction ROUTES */
-Route::middleware(['Admin_Reception_Design_Print_PostProduction'])->group(function () {
-
     /*------------Visit routes------------*/
     Route::get('visits', 'VisitController@index');
     Route::get('visits.create', 'VisitController@create');
@@ -258,9 +243,7 @@ Route::middleware(['Admin_Reception_Design_Print_PostProduction'])->group(functi
     Route::delete('visits.solve/{id}', 'VisitController@solve')->name('visits.solve');
     /*----------------End visit routes ---------------------------*/
 
-}); /** --- END Admin_Reception_Design_Print_PostProduction ROUTES  --- END Admin_Reception_Design_Print_PostProduction */
-
-
+}); /** --- END AllUsers ROUTES  --- --- END AllUsers ROUTES  --- --- END AllUsers ROUTES  --- */
 
 
 

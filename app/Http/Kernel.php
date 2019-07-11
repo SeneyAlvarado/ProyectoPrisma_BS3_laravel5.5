@@ -60,8 +60,6 @@ class Kernel extends HttpKernel
         'AllUsers' => \App\Http\Middleware\AllUsers::class,
         'AdminUser' => \App\Http\Middleware\AdminUser::class,
         'Admin_Reception' => \App\Http\Middleware\Admin_Reception::class,
-        'Admin_Reception_Design_Print_PostProduction' => 
-        \App\Http\Middleware\Admin_Reception_Design_Print_PostProduction::class,
 
     ];
 }
