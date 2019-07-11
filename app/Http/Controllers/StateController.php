@@ -62,7 +62,9 @@ class StateController extends Controller
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
+	 * The state is the new resource, created by the admin, 
+	 * is the new state take it for the works
+	 * 
 	 * @param Request $request
 	 * @return Response
 	 */
