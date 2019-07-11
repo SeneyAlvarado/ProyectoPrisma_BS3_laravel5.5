@@ -221,7 +221,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                                         </div>
                                                         @else
                                                         <div class="col-md-12" style="margin-left: 5%">
-                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}" class="not-allowed form-control hideFile" type="file"  disabled>
+                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}" class="form-control hideFile" type="file">
                                                         </div>
                                                         @endif
                                                     </div>
@@ -364,9 +364,9 @@ ir other input ID needed, please make other JS with your own configuration-->
                                     <!-- Modal body -->
                                     <div class="modal-body">
                                         <div class="row justify-content-center">
-                                            <div class="col-md-5" style="display:none">
+                                            <div class="col-md-5" >
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
-                                                <input type="text" id="datepicker2_fromToday" readonly>
+                                                <input type="text" id="datepicker2_fromToday">
                                             </div>
                                         </div>
 

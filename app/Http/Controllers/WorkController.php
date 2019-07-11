@@ -287,7 +287,7 @@ class WorkController extends Controller
 	private function getClientName($client_id)
 	{
 		$owner = Client::where('id', $client_id)->first();
-		$name;	
+		$name = "";	
 		if($owner->type == 1) {
 			$physical_client = Physical_client::where('client_id', $client_id)->first();
 			$name = $owner->name . " " . $physical_client->lastname;
@@ -581,7 +581,7 @@ class WorkController extends Controller
 		->select('works.id', 'works.entry_date', 'works.approximate_date')->get();
 		
 		$material_works = [];
-		$materials;
+		$materials = "";
 
 		foreach ($works as $work) { //get the list of materials used in the works
 			$material_work = DB::table('material_works')
@@ -677,6 +677,26 @@ class WorkController extends Controller
 		$work = "Archivo agregado correcatamente";
 		return json_encode(["work"=>$work]);
 
+	}
+
+	public function changeDryingHours($workID, $drying_hours) {
+		DB::beginTransaction();
+		
+		$workModel = \App\Work::where('id', $workID)->first();
+		$workModel->drying_hours = $drying_hours;
+		$localDate = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$auxLocalDate = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$workModel->print_date = $localDate;
+		$workModel->post_production_date = $auxLocalDate->addHours($drying_hours);
+		$workModel->save();
+
+		//This calls the OrderController method to save at log
+		$orderController = new \App\Http\Controllers\OrderController(new \App\Order());
+		$textValue = "Las horas de secado del trabajo han sido actualizadas a " . 
+		$drying_hours . " horas";
+		$orderController->saveWorkLog('Horas de secado', $textValue, $workID);
+		DB::commit();
+		return json_encode(["success"=>"Horas de secado actualizadas satisfactoriamente"]);
 	}
 
 	public function orderWorks($id) {

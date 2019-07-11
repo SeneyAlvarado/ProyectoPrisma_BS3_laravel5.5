@@ -14,7 +14,7 @@ class VisitController extends Controller
 	/**
 	 * Variable to model
 	 *
-	 * @var visit
+	 * @var visit 
 	 */
 	protected $model;
 

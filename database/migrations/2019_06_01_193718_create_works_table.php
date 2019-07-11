@@ -20,7 +20,7 @@ class CreateWorksTable extends Migration {
             $table->dateTime('designer_date')->nullable();
             $table->dateTime('print_date')->nullable();
             $table->dateTime('post_production_date')->nullable();
-            $table->integer('drying_hours')->nullable();
+            $table->string('drying_hours', 6)->nullable();
             $table->string('observation', 700);
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
