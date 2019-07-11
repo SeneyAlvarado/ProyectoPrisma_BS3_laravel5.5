@@ -63,18 +63,7 @@ function mostarTablaCitasSugeridas() {
 $(window).resize(function () {
 	var path = $(this);
 	var contW = path.width();
-	if (contW >= 768) {
-		$('#contentDiv').removeClass("col-12");
-		if ($('#sidebar-container').hasClass('col-2')) {
-			$('#contentDiv').addClass("col-10");
-		} else {
-			$('#contentDiv').addClass("col-11");
-		}
-	} else {
-		$('#contentDiv').removeClass("col-11");
-		$('#contentDiv').removeClass("col-10");
-		$('#contentDiv').addClass("col-12");
-	}
+	fixResponsiveColumns(contW);
 	if (contW >= 751) {
 		if (document.getElementsByClassName("sidebar-toggle")[0] != undefined) {
 			document.getElementsByClassName("sidebar-toggle")[0].style.left = "200px";
@@ -89,25 +78,18 @@ $(document).ready(function () {
 	// this fixed the responsive not using all the space when the page loads
 	var path = $(window);
 	var contW = path.width();
-	if (contW >= 768) {
-		$('#contentDiv').removeClass("col-12");
-		if ($('#sidebar-container').hasClass('col-2')) {
-			$('#contentDiv').addClass("col-10");
-		} else {
-			$('#contentDiv').addClass("col-11");
-		}
-	} else {
-		$('#contentDiv').removeClass("col-11");
-		$('#contentDiv').removeClass("col-10");
-		$('#contentDiv').addClass("col-12");
-	}
-	//end fixing the responsive not using all space
+	//alert(contW);
+	fixResponsiveColumns(contW);
 
 	$('.dropdown').on('show.bs.dropdown', function (e) {
 		$(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
+		fixResponsiveColumns(contW);
+
 	});
 	$('.dropdown').on('hide.bs.dropdown', function (e) {
 		$(this).find('.dropdown-menu').first().stop(true, true).slideUp(300);
+		fixResponsiveColumns(contW);
+
 	});
 	$("#menu-toggle").click(function (e) {
 		e.preventDefault();
@@ -134,6 +116,24 @@ $(document).ready(function () {
 	});
 
 });
+
+function fixResponsiveColumns(contW) {
+	if (contW >= 751) {
+		//alert("a");
+		$('#contentDiv').removeClass("col-12");
+		if ($('#sidebar-container').hasClass('col-2')) {
+			$('#contentDiv').addClass("col-10");
+		} else {
+			$('#contentDiv').addClass("col-11");
+		}
+	} else {
+		//alert("b");
+		$('#contentDiv').removeClass("col-11");
+		$('#contentDiv').removeClass("col-10");
+		$('#contentDiv').addClass("col-12");
+	}
+	//end fixing the responsive not using all space
+}
 
 function mostarHorarioServicio() {
 	var x = document.getElementById("ocultar-tabla");

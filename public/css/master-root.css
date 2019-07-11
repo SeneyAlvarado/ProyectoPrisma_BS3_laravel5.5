@@ -249,3 +249,29 @@ nav.nav-color {
     cursor:pointer !important;
 
   }
+
+  .responsiveNotificationBorder {
+    border-bottom-style: solid !important;
+    border-bottom-width: 0.1px !important;  
+    border-bottom-color: rgba(248, 156, 156, 0.25) !important;  
+  }
+
+  .deleteNotif {
+    text-align: center !important;
+    color: red !important;
+  }
+
+  .deleteNotifResponsive {
+    color: white !important;
+    font-weight:bold !important;
+  }
+  .dropResponsive {
+    background-color:#96183a !important; 
+    border:0px !important; 
+    max-height:166px !important; 
+    overflow-y: auto !important;
+  }
+
+  .not-allowed:hover {
+    cursor: not-allowed !important;
+  }

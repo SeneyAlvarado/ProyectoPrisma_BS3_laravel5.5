@@ -1,5 +1,5 @@
-@extends('masterAdmin')
-@section('contenido_Admin')
+@extends('masterPrint')
+@section('content_Print')
 
 <script src="{{asset('/js/Clients/load_clients.js')}}"></script>
 
@@ -50,7 +50,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                             <div class="col-md-6">
                                 <div>
                                     <label style="margin: 0;"><strong>Cliente:&nbsp</strong></label><label id="" value=" " type="text" name=""></label>
-                                    <button style="margin-left:5px;" type="button" class="btn btn-secundary style-btn-search btn-sm" style="width:50px !important; margin:0px;" onClick="listClientsTable();">Buscar</button>
+                                    <button style="margin-left:5px;" type="button" class="btn btn-secundary style-btn-search btn-sm not-allowed" style="width:50px !important; margin:0px;" onClick="listClientsTable();" disabled>Buscar</button>
                                 </div>
                                 <?php
                                 $ownerName = "";
@@ -98,13 +98,13 @@ ir other input ID needed, please make other JS with your own configuration-->
                             <div class="col-md-3 ">
                                 <div>
                                     <label><strong>N° cotización:</strong></label>
-                                    <input id="quotation_number" placeholder="Cotización" class="formStyle formStyle1 quotationAutoNumeric" name="quotation_number" type='text' title="No se permite ingresar letras ni números con decimales o negativos 
-                                en este campo" value="{{$order->quotation_number}}" autocomplete='off'>
+                                    <input id="quotation_number" placeholder="Cotización" class="not-allowed formStyle formStyle1 quotationAutoNumeric" name="quotation_number" type='text' title="No se permite ingresar letras ni números con decimales o negativos 
+                                en este campo" value="{{$order->quotation_number}}" autocomplete='off' readonly>
                                 </div>
                                 <div>
                                     <label style="margin: 0px; margin-top: 16px;" for="order_total"><strong>Monto
                                             total:&nbsp&nbsp</strong></label>
-                                    <input id="order_total" placeholder="Monto total" class="formStyle formStyle2 autonumeric" name="order_total" type='text' title="No se permite ingresar letras o números negativos en este campo" value="{{$order->total}}" step=any onkeyup="showConvertedTotal()" autocomplete='off'>
+                                    <input id="order_total" placeholder="Monto total" class="not-allowed formStyle formStyle2 autonumeric" name="order_total" type='text' title="No se permite ingresar letras o números negativos en este campo" value="{{$order->total}}" step=any onkeyup="showConvertedTotal()" autocomplete='off' readonly>
                                     <p id="pOrder" style="display:none"></p>
                                 </div>
                             </div>
@@ -116,24 +116,24 @@ ir other input ID needed, please make other JS with your own configuration-->
                                         @if($order->coin_id == 1)
                                         <label style="margin: 0;">Colones</label>
                                         <label>
-                                            <input id="colones" type="radio" value="0" class="radiobox" name="coin" checked>
+                                            <input id="colones" type="radio" value="0" class="radiobox not-allowed" name="coin" checked readonly>
                                         </label>
 
                                         <label style="margin: 0;">
                                             <label style="margin-left:20px;">Dólares</label>
-                                            <input id="dolars" type="radio" value="1" class="radiobox" name="coin">
+                                            <input id="dolars" type="radio" value="1" class="radiobox not-allowed" name="coin" readonly>
                                         </label>
                                         @endif
 
                                         @if($order->coin_id == 2)
                                         <label style="margin: 0;">Colones</label>
                                         <label>
-                                            <input id="colones" type="radio" value="0" class="radiobox" name="coin">
+                                            <input id="colones" type="radio" value="0" class="radiobox not-allowed" name="coin" readonly>
                                         </label>
 
                                         <label style="margin: 0;">
                                             <label style="margin-left:20px;">Dólares</label>
-                                            <input id="dolars" type="radio" value="1" class="radiobox" name="coin" checked>
+                                            <input id="dolars" type="radio" value="1" class="radiobox not-allowed" name="coin" checked readonly>
                                         </label>
                                         @endif
 
@@ -141,7 +141,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                 </div>
                                 <div>
                                     <label style="margin:0; margin-top: 8px;" for="order_advanced_payment"><strong>Adelanto:</strong></label>
-                                    <input id="order_advanced_payment" placeholder="Adelanto" class="formStyle formStyle3 autonumeric" name="order_advanced_payment" type='text' title="No se permite ingresar letras o números negativos en este campo" value="{{$order->advance_payment}}" step=any onkeyup="showConvertedAdvanced()" autocomplete='off'>
+                                    <input id="order_advanced_payment" placeholder="Adelanto" class="not-allowed formStyle formStyle3 autonumeric" name="order_advanced_payment" type='text' title="No se permite ingresar letras o números negativos en este campo" value="{{$order->advance_payment}}" step=any onkeyup="showConvertedAdvanced()" autocomplete='off' readonly>
                                     <p id="pAdvanced" style="display:none"></p>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                         <div class="row hide_contacts" id="hide_contacts" style="display:none;">
                             <div class="col-md-5">
                                 <label for="branch"><strong>Contactos</strong></label>
-                                <select id="dropContacts" name="dropContacts" class="form-control"></select>
+                                <select id="dropContacts" name="dropContacts" class="not-allowed form-control" disabled></select>
                             </div>
                         </div>
 
@@ -212,7 +212,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                                         ""))
 
                                                         <div class="col-md-10" style="margin-left: 5%">
-                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}" class="form-control hideFile" type="file">
+                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}" class="not-allowed form-control hideFile" type="file" disabled>
                                                         </div>
                                                         <div class="col-md-1" style="margin-top: 10px;">
                                                             <a href="{{route('downloadFile', $work->file_id)}}">
@@ -364,7 +364,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                     <!-- Modal body -->
                                     <div class="modal-body">
                                         <div class="row justify-content-center">
-                                            <div class="col-md-5">
+                                            <div class="col-md-5" style="display:none">
                                                 <label for="date-field"><strong>Fecha de entrega</strong></label>
                                                 <input type="text" id="datepicker2_fromToday" readonly>
                                             </div>
@@ -558,6 +558,6 @@ ir other input ID needed, please make other JS with your own configuration-->
 </script>
 <script src="{{asset('/js/Validations/autoNumeric.js')}}"></script>
 <script src="{{asset('/js/Orders/edit_works_modal.js')}}"></script>
-<script src="{{asset('/js/Orders/works_table_edit.js')}}"></script>
+<script src="{{asset('/js/Orders/works_table_edit_with_out_add.js')}}"></script>
 
 @endsection

@@ -76,13 +76,13 @@
                             
                                 <a href="{{route('downloadFile', $work->file_id)}}">
                                 <span class="glyphicon glyphicon-download-alt"
-                                style="font-size:18px; color: crimson; margin-left:3px;" 
+                                style="font-size:18px; color: crimson; " 
                                 title="Descargar archivo del trabajo"></span></a>
                             </div>
                         </td>
                         @else
                         <td  class="text-center"><span class="glyphicon glyphicon-ban-circle"
-                                style="font-size:18px; color: crimson; margin-left:3px;" 
+                                style="font-size:18px; color: crimson; " 
                                 title="No posee"></span></td>
                         
                        
@@ -267,7 +267,7 @@
     </div>
   </div>
 
-<script src="{{asset('/js/Works/table_works.js')}}"></script>
+<script src="{{asset('/js/tableWithoutCreate.js')}}"></script>
 <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 <script src="{{asset('/js/Works/work_details.js')}}"></script>

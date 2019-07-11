@@ -112,6 +112,10 @@ class OrderController extends Controller
 			return view('designer/orders/index', compact('orders', 'order_states'));
 		} elseif ($user_type == 4) { //designer user
 			return view('designer/orders/index', compact('orders', 'order_states'));
+		} elseif ($user_type == 5) { //designer user
+			return view('print/boss_print/orders/index', compact('orders', 'order_states'));
+		}elseif ($user_type == 6) { //designer user
+			return view('print/regular_print/orders/index', compact('orders', 'order_states'));
 		}
 	}
 
@@ -768,6 +772,10 @@ class OrderController extends Controller
 				return view('reception.orders.edit', compact('order', 'owner', 'contact', 'works'));
 			} else if ($user_type == 3 || $user_type == 4) { //boss designer and designer user
 				return view('designer/orders/edit', compact('order', 'owner', 'contact', 'works'));
+			} else if ($user_type == 5) { //boss designer and designer user
+				return view('print/boss_print/orders/edit', compact('order', 'owner', 'contact', 'works'));
+			} else if ($user_type == 6) { //boss designer and designer user
+				return view('print/regular_print/orders/edit', compact('order', 'owner', 'contact', 'works'));
 			}
 		}
 	}

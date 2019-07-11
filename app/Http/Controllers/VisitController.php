@@ -64,10 +64,8 @@ class VisitController extends Controller
 			return view('admin/visits/index', compact('visits'));
 		
 		} else if($user_type == 2){//reception user
-			
 			$visits = DB::table("visits")->where("active_flag", '<>', 0)
 			->orderby('active_flag', 'ASC')->orderby('id', 'DESC')->get();
-
 			foreach($visits as $visit ) {//search the name of the visitor
 				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
 				$visit->visitor = $visitor->name . " " . $visitor->lastname;
@@ -79,17 +77,13 @@ class VisitController extends Controller
 					$visit->phone = "No posee";
 				}
 			}	
-			//return $visits;
 			return view('reception/visits/index', compact('visits'));
-		} else if($user_type == 3){//boss designer user
-			
+		} else if($user_type == 3 || $user_type == 4 || $user_type == 5 || $user_type == 6 || $user_type == 7) {
 			$visits = DB::table("visits")->where("active_flag", '<>', 0)
 			->orderby('active_flag', 'ASC')->orderby('id', 'DESC')->get();
-
 			foreach($visits as $visit ) {//search the name of the visitor
 				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
 				$visit->visitor = $visitor->name . " " . $visitor->lastname;
-
 				if($visit->email == null) {
 					$visit->email = "No posee";
 				}
@@ -97,27 +91,14 @@ class VisitController extends Controller
 					$visit->phone = "No posee";
 				}
 			}	
-			//return $visits;
-			return view('designer/visits/index', compact('visits'));
-		} else if($user_type == 4){//designer user
-			
-			$visits = DB::table("visits")->where("active_flag", '<>', 0)
-			->orderby('active_flag', 'ASC')->orderby('id', 'DESC')->get();
-
-			foreach($visits as $visit ) {//search the name of the visitor
-				$visitor = DB::table("users")->where("id", $visit->visitor_id)->first();
-				$visit->visitor = $visitor->name . " " . $visitor->lastname;
-
-				if($visit->email == null) {
-					$visit->email = "No posee";
-				}
-				if($visit->phone == null) {
-					$visit->phone = "No posee";
-				}
-			}	
-			//return $visits;
-			return view('designer/visits/index', compact('visits'));
-		}
+			if($user_type == 3 || $user_type == 4) {
+				return view('designer/visits/index', compact('visits'));
+			} else if($user_type == 5) {
+				return view('print/boss_print/visits/index', compact('visits'));
+			} else if($user_type == 6) {
+				return view('print/regular_print/visits/index', compact('visits'));
+			}
+		} 
 
 	}
 
@@ -138,6 +119,12 @@ class VisitController extends Controller
 		} else if($user_type == 2){//reception user
 		} else if ($user_type == 3) { //boss designer user
 			return view('designer/visits/create');
+		}else if ($user_type == 4) { //boss designer user
+			return view('designer/visits/create');
+		}else if ($user_type == 5) { //boss print user
+			return view('print/boss_print/visits/create');
+		}else if ($user_type == 6) { //regular print user
+			return view('print/regular_print/visits/create');
 		}
 		
 	}
@@ -199,6 +186,12 @@ class VisitController extends Controller
 		} else if($user_type == 2){//reception user
 		} else if ($user_type == 3) { //boss designer user
 			return view('designer/visits/edit', compact('visit'));
+		} else if ($user_type == 4) { //boss designer user
+			return view('designer/visits/edit', compact('visit'));
+		} else if ($user_type == 5) { //boss designer user
+			return view('print/boss_print/visits/edit', compact('visit'));
+		} else if ($user_type == 6) { //boss designer user
+			return view('print/regular_print/visits/edit', compact('visit'));
 		}
 	}
 

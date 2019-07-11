@@ -33,14 +33,9 @@ class ChanngePasswordController extends Controller
         }
         $user->save();
 		$user_type = Auth::user()->user_type_id;
-            if($user_type == 1){//admin user
-               // return redirect()->route('password_admin')->with('success', '¡Cuenta registrada satisfactoriamente!');;
-				return view('admin.password.change_password')->with('success', '¡Contraseña actualizada satisfactoriamente!');
-            } else if ($user_type == 2) {
-                return view('designer.password.change_password')->with('success', '¡Contraseña actualizada satisfactoriamente!');
-            } else if ($user_type == 3) {
-                return view('designer.password.change_password')->with('success', '¡Contraseña actualizada satisfactoriamente!');
-            }
+            
+        return redirect()->route('change_password.search_user')->with('success', 'Contraseña actualizada satisfactoriamente!');
+            
     }
 
     /**
@@ -51,7 +46,19 @@ class ChanngePasswordController extends Controller
 		$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
 				return view('admin.password.change_password');
-			}
+			}else if ($user_type == 2) {
+                return view('reception.password.change_password');
+            } else if ($user_type == 3) {
+                return view('designer.password.change_password');
+            }else if ($user_type == 4) {
+                return view('designer.password.change_password');
+            }else if ($user_type == 5) {
+                return view('print.print_boss.password.change_password');
+            }else if ($user_type == 6) {
+                return view('print.regular_print.password.change_password');
+            }
     }
+
+  
 
 }
