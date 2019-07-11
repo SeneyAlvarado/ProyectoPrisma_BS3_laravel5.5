@@ -43,7 +43,7 @@ function getUserNotifications() {
                     var notifAppend = '<a id="' + this.id + '" class="dropdown-item"' +
                         ' onclick="readNotification(\'' + this.id + '\'' + "," + this.data.work_id + ')">'
                         + this.data.message + " " + this.data.notificationHour + '</a>';
-                    var notifAppendResponsive = '<a class="dropdown-item n responsiveNotificationBorder" style="color:white"' +
+                    var notifAppendResponsive = '<a class="dropdown-item n col-md-4 responsiveNotificationBorder" style="color:white"' +
                         ' onclick="readNotification(\'' + this.id + '\'' + "," + this.data.work_id + ')">'
                         + this.data.message + " " + this.data.notificationHour + '</a>';
                     //alert(notifAppend);
