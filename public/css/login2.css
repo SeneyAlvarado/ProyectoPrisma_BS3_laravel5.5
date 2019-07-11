@@ -41,4 +41,8 @@ html,body,.container {
     .image {
         display:none;
     }
+    .login-block{
+      width:100%;
+  }
+    
 }
