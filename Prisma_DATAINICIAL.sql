@@ -34,6 +34,7 @@ SET time_zone = "+00:00";
  4 - Diseño
  5 - Jefe impresión
  6 - Impresión 
+ 7 - PostProducción
 */	
 
 INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('1',
