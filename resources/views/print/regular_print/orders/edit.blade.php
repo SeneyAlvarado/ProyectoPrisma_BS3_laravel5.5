@@ -221,7 +221,7 @@ ir other input ID needed, please make other JS with your own configuration-->
                                                         </div>
                                                         @else
                                                         <div class="col-md-12" style="margin-left: 5%">
-                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}" class="form-control hideFile" type="file">
+                                                            <input id="file{{$rowCount}}" name="file{{$rowCount}}" class="not-allowed form-control hideFile" type="file"  disabled>
                                                         </div>
                                                         @endif
                                                     </div>

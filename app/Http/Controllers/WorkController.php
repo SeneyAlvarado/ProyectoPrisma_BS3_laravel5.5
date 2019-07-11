@@ -679,6 +679,26 @@ class WorkController extends Controller
 
 	}
 
+	public function changeDryingHours($workID, $drying_hours) {
+		DB::beginTransaction();
+		
+		$workModel = \App\Work::where('id', $workID)->first();
+		$workModel->drying_hours = $drying_hours;
+		$localDate = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$auxLocalDate = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
+		$workModel->print_date = $localDate;
+		$workModel->post_production_date = $auxLocalDate->addHours($drying_hours);
+		$workModel->save();
+
+		//This calls the OrderController method to save at log
+		$orderController = new \App\Http\Controllers\OrderController(new \App\Order());
+		$textValue = "Las horas de secado del trabajo han sido actualizadas a " . 
+		$drying_hours . " horas";
+		$orderController->saveWorkLog('Horas de secado', $textValue, $workID);
+		DB::commit();
+		return json_encode(["success"=>"Horas de secado actualizadas satisfactoriamente"]);
+	}
+
 	public function orderWorks($id) {
 
 		$user_type = Auth::user()->user_type_id;
