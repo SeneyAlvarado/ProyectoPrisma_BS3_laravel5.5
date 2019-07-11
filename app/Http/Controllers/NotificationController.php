@@ -14,8 +14,6 @@ class NotificationController extends Controller
     public function getUserNotifications()
 	{
         $unreadNotifications = auth()->user()->unreadNotifications->sortBy('created_at');
-        //dd($unreadNotifications);
-        //$disponibles = array();
         return json_encode(["unreadNotifications"=>$unreadNotifications]);
     }
 

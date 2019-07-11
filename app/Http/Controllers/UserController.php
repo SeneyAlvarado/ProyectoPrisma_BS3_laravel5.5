@@ -186,7 +186,7 @@ class UserController extends Controller
 		\Session::put('errorOrigin', " actualizando la cuenta");	
 
 		//custom route to REDIRECT redirect('x') if there's an error
-		\Session::put('errorRoute', "user");
+		\Session::put('errorRoute', "user"); 
 
 		/**Check if exist a user with the same username in the sistem */
 		if ($request->input("user_name") != $request->input("original_username")) {

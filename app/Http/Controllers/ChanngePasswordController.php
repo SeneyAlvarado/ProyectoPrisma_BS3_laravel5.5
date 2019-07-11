@@ -58,7 +58,4 @@ class ChanngePasswordController extends Controller
                 return view('print.regular_print.password.change_password');
             }
     }
-
-  
-
 }
