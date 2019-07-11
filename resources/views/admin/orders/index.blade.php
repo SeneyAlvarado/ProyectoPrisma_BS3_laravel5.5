@@ -179,8 +179,9 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('/js/lenguajeTabla.js')}}"></script>
+    <script src="{{asset('/js/tableForOrders.js')}}"></script>
     <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
+
 
 
 

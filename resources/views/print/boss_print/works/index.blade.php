@@ -267,7 +267,7 @@
     </div>
   </div>
 
-<script src="{{asset('/js/tableWithoutCreate.js')}}"></script>
+<script src="{{asset('/js/Works/tableWorksWithoutCreate.js')}}"></script>
 <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 <script src="{{asset('/js/Works/work_details.js')}}"></script>

@@ -17,7 +17,9 @@
 
     <div class="">
 
-
+    <div class="row justify-content-center">
+        <div class="loader" id="loader" style="display:none"></div>
+    </div>
         @if($contacts->count())
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-condensed table-hover compact order-column"
@@ -50,9 +52,7 @@
             </table>
 
         </div>
-        <div class="row justify-content-center">
-            <div class="loader" id="loader" style="display:none"></div>
-        </div>
+
 
         @else
         <button class="btn btn-success style-btn-registry" onClick="listContactsTable({{$id}});"
@@ -104,6 +104,7 @@
     </div>
 </div>
         <script src="{{asset('/js/Client_contacts/client_contact_table_index.js')}}"></script>
+        
         @endsection
 
        

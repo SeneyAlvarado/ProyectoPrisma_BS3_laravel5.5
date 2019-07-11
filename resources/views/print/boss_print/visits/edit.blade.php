@@ -1,6 +1,7 @@
 @extends('masterPrint')
 @section('content_Print')
 <script src="{{asset('/js/Users/load_branches_admin.js')}}"></script>
+<script src="{{asset('/js/patternFields.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <div style="padding:10px;">
         <div class="card">
@@ -22,11 +23,11 @@
 								</div> 
 								<div class="col-md-5 col-md-offset-2" style="margin-top:15px;">
 									<label for="phone-field"><strong>Teléfono</strong></label>
-									<input class="form-control" type="text" name="phone" id="phone-field" value="{{ old('phone', $visit->phone ) }}" />
+									<input class="form-control" type="text" name="phone" id="number" value="{{ old('phone', $visit->phone ) }}" />
 								</div> 
 								<div class="col-md-5 " style="margin-top:15px;">
 									<label for="email-field"><strong>Correo electrónico</strong></label>
-									<input class="form-control" type="text" name="email" id="email-field" value="{{ old('email', $visit->email ) }}" />
+									<input class="form-control" type="email" name="email" id="email-field" value="{{ old('email', $visit->email ) }}" />
 								</div> 
 								<div class="col-md-10 col-md-offset-2" style="margin-top:15px;">
 									<label for="details-field"><strong>Detalles</strong></label>

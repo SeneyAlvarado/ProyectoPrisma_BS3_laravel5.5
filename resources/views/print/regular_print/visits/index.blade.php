@@ -40,7 +40,7 @@
                                             <td class="text-center">Resuelta</td>
                                             @endif
                                             <td class="text-center">
-                                                <a class="btn btn-warning style-btn-edit btn-sm"  href="{{ url('editVisit', $visit->id) }}">Detalles</a>
+                                                <a class="btn btn-warning style-btn-edit btn-sm"  href="{{ url('editVisit', $visit->id) }}">Editar</a>
                                                 <form action="{{ url('deleteVisit', $visit->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('¿Desea eliminar este elemento?');">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="_method" value="DELETE">
