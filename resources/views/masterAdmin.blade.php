@@ -50,6 +50,7 @@
 
   <script src="{{asset('/js/Datepickers/datepicker3_forReport.js')}}"></script>
   <script src="{{asset('/js/Reports/check_dates_reports.js')}}"></script>
+  <script src="{{asset('/js/Reports/check_dates_reports_products.js')}}"></script>
 </head>
 
 <body>
@@ -306,17 +307,17 @@
       </div>
       <!-- Modal body -->
       <div class="modal-body">
-        <form method='POST' action='{{ route("products.chart") }}' onsubmit="return check_dates_reports(this)">
+        <form method='POST' action='{{ route("products.chart") }}' onsubmit="return check_dates_reports_products(this)">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <input type="hidden" name="id" value="">
 
           <div class="row justify-content-center" style="margin-bottom:20px;">
             <div class="col-md-4" style="text-align:center;">
-              <label for="date-field"><strong>Fecha de entrega</strong></label>
+              <label for="date-field"><strong>Fecha de inicio</strong></label>
               <input name="startDate" type="text" id="datepicker3_forReport" readonly>
             </div>
             <div class="col-md-4" style="text-align:center;">
-              <label for="date-field"><strong>Fecha de entrega</strong></label>
+              <label for="date-field"><strong>Fecha de fin</strong></label>
               <input name="endDate" type="text" id="datepicker4_forReport" readonly>
             </div>
           </div>
@@ -339,44 +340,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="materialsChart">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Reporte de materiales más utilizados</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form method='POST' action='{{ route("materials.chart") }}'>
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <input type="hidden" name="id" value="">
-
-          <div class="row justify-content-center" style="margin-bottom:20px; ">
-            <div class="col-md-4" style="text-align:center;">
-              <div>
-                <label for="date-field"><strong>Fecha de inicio</strong></label>
-              </div>
-              <input name="startDate" type="text" id="datepicker5_forReport" readonly>
-            </div>
-            <div class="col-md-4" style="text-align:center; display: inline-block;">
-              <div>
-                <label for="date-field"><strong>Fecha de inicio</strong></label>
-              </div>
-              <input name="endDate" type="text" id="datepicker6_forReport" readonly>
-            </div>
-
-
-          </div>
-
-          <div class="row justify-content-center">
-            <div class="col-md-4">
-              <button style="margin-top:15px;" id="update" class='style-btn-success btn-block margin-button btn btn-info' type='submit'>Generar Reporte</button>
-            </div>
-
-          </div>
-        </form>
 
         <div class="modal fade" id="materialsChart">
           <div class="modal-dialog modal-lg">
@@ -401,7 +364,7 @@
                     </div>
                     <div class="col-md-4" style="text-align:center; display: inline-block;">
                       <div>
-                        <label for="date-field"><strong>Fecha de inicio</strong></label>
+                        <label for="date-field"><strong>Fecha de fin</strong></label>
                       </div>
                       <input name="endDate" type="text" id="datepicker6_forReport" readonly>
                     </div>
