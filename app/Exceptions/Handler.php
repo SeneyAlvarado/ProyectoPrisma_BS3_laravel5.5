@@ -71,7 +71,7 @@ class Handler extends ExceptionHandler
         //DB::rollback();
         //return parent::render($request, $exception);
 
-        return parent::render($request, $exception);
+        //return parent::render($request, $exception);
         
         if($request->session()->has('errorOrigin'))
         {
