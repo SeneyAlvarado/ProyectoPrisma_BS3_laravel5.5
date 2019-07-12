@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{asset('css/simple-sidebar.css')}}">
     <link rel="stylesheet" href="{{asset('css/master-root.css')}}">
     <link rel="stylesheet" href="{{asset('css/glyphicons.css')}}">
+    <link rel="shortcut icon" href="Imagenes/log.ico" />
 
     <!--resizes table so the content won´t go down -->
     <link rel="stylesheet" href="{{asset('css/table.css')}}">
