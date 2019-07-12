@@ -71,6 +71,8 @@ class LoginController extends Controller
                     return redirect('works');
                 }else if($user_type == 6){//regular print user
                     return redirect('works');
+                } else if($user_type == 7){//regular print user
+                    return redirect('orders');
                 }
                 
                 /*$tipo = Auth::user()->tipo;
@@ -91,14 +93,14 @@ class LoginController extends Controller
             }*/
 
           } else { //In case the patient's account was desactive.
-            //return back()->withErrors(['password' => 'Su cuenta está desactivada. Contacte con 
-            //Grupo Prisma para verificar']);     
-            return back()->with('error', 'Su cuenta está desactivada. Contacte con Grupo Prisma para verificar');
-        }
+                //return back()->withErrors(['password' => 'Su cuenta está desactivada. Contacte con 
+                //Grupo Prisma para verificar']);     
+                return back()->with('error', 'Su cuenta está desactivada. Contacte con Grupo Prisma para verificar');
+            }
         } else {  //In case the credentials are incorect.
-        //return back()->withErrors(['username' => trans('Nombre de usuario o contraseña incorrectos.')]);        
-        return back()->with('error', 'Nombre de usuario o contraseña incorrectos');
-    }
+            //return back()->withErrors(['username' => trans('Nombre de usuario o contraseña incorrectos.')]);        
+            return back()->with('error', 'Nombre de usuario o contraseña incorrectos');
+        }
     }
 
     public function logout () {

@@ -21,6 +21,7 @@ use DB;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Collection;
 
 class OrderController extends Controller
 {
@@ -48,59 +49,69 @@ class OrderController extends Controller
 	 */
 	public function index()
 	{
-		$orders = DB::table('orders')->get();
+		$ordersAux = DB::table('orders')->get();
 		$order_states = new Order_state();
 		$order_states = $order_states->where('active_flag', '1')->get();
+		$orders = collect();
 
-		foreach ($orders as $order) { //get the name and de lastname of the physical clients.
+		foreach ($ordersAux as $order) { //get the name and de lastname of the physical clients.
 			$owner = Client::where('id', $order->client_owner)->first();
 
 			$active_works = Work::where('order_id', $order->id)->where('active_flag', 1)->get();
-			$finished_works_count = 0;
-
-			$priority_works = Work::where('order_id', $order->id)->where('priority', 1)->get(); //get the works with priority of the order
-
-			if ($priority_works->count()) {
-				$order->priority = 1;
+			if(Auth::user()->user_type_id == 1){//if the user is administrator
+				$works = "Administrator, not check privileges";
 			} else {
-				$order->priority = 0;
+				$works = $this->only_works_view_permission($active_works);
 			}
+			if(!$works == null || !empty($works)) {
+				$finished_works_count = 0;
 
-			$latest_work = Work::where('order_id', $order->id)->latest('approximate_date')->first(); //get the work
-			$order->latest_color = $this->calculateColor($latest_work); //Set the color according to the delivery time
-			$order->latest_time_left = $latest_work->time_left;
+				$priority_works = Work::where('order_id', $order->id)->where('priority', 1)->get(); //get the works with priority of the order
 
-			$first_work = Work::where('order_id', $order->id)->orderBy('approximate_date', 'ASC')->first(); //get the work
-			$order->first_color = $this->calculateColor($first_work); //Set the color according to the delivery time
-			$order->first_time_left = $first_work->time_left;
-
-			foreach ($active_works as $active_work) {
-				$state_work = State_work::where('work_id', $active_work->id)->latest('date')->first();
-				///return $active_work;
-				//if the works are in state 2 (Entregado) or state 3 (Cancelado)
-				if ($state_work->states_id == 2 || $state_work->states_id == 3) {
-					$finished_works_count = $finished_works_count + 1;
+				if ($priority_works->count()) {
+					$order->priority = 1;
+				} else {
+					$order->priority = 0;
 				}
-			}
 
-			$active_works_count = count($active_works);
-			if (is_nan($finished_works_count) || is_nan($active_works_count)) {
-				$order->finished_percentage = "Error %";
-			} else {
-				$order->finished_percentage = round(($finished_works_count / $active_works_count) * 100);
-			}
+				$latest_work = Work::where('order_id', $order->id)->latest('approximate_date')->first(); //get the work
+				$order->latest_color = $this->calculateColor($latest_work); //Set the color according to the delivery time
+				$order->latest_time_left = $latest_work->time_left;
 
-			if ($owner->type == 1) {
-				$physical_client = Physical_client::where('client_id', $owner->id)->first();
-				$order->client_owner_name = $owner->name . " " . $physical_client->lastname;
-			} else {
-				$order->client_owner_name = $owner->name;
-			}
-			$contact = Client::where('id', $order->client_contact)->first();
+				$first_work = Work::where('order_id', $order->id)->orderBy('approximate_date', 'ASC')->first(); //get the work
+				$order->first_color = $this->calculateColor($first_work); //Set the color according to the delivery time
+				$order->first_time_left = $first_work->time_left;
 
-			$contact_physical = Physical_client::where('client_id', $contact->id)->first();
-			$order->client_contact_name = $contact->name . " " . $contact_physical->lastname;
-			$order->last_order_state_id = DB::table('order_order_states')->where('order_id', $order->id)->latest('date')->first()->order_states_id;
+				foreach ($active_works as $active_work) {
+					$state_work = State_work::where('work_id', $active_work->id)->latest('date')->first();
+					///return $active_work;
+					//if the works are in state 2 (Entregado) or state 3 (Cancelado)
+					if ($state_work->states_id == 2 || $state_work->states_id == 3) {
+						$finished_works_count = $finished_works_count + 1;
+					}
+				}
+
+				$active_works_count = count($active_works);
+				if (is_nan($finished_works_count) || is_nan($active_works_count)) {
+					$order->finished_percentage = "Error %";
+				} else {
+					$order->finished_percentage = round(($finished_works_count / $active_works_count) * 100);
+				}
+
+				if ($owner->type == 1) {
+					$physical_client = Physical_client::where('client_id', $owner->id)->first();
+					$order->client_owner_name = $owner->name . " " . $physical_client->lastname;
+				} else {
+					$order->client_owner_name = $owner->name;
+				}
+				$contact = Client::where('id', $order->client_contact)->first();
+
+				$contact_physical = Physical_client::where('client_id', $contact->id)->first();
+				$order->client_contact_name = $contact->name . " " . $contact_physical->lastname;
+				$order->last_order_state_id = DB::table('order_order_states')->where('order_id', $order->id)->latest('date')->first()->order_states_id;
+				$orders->push($order);
+			}
+		
 		}
 		//return $orders;
 		$user_type = Auth::user()->user_type_id; //get the user type.
@@ -116,6 +127,8 @@ class OrderController extends Controller
 			return view('print/boss_print/orders/index', compact('orders', 'order_states'));
 		}elseif ($user_type == 6) { //designer user
 			return view('print/regular_print/orders/index', compact('orders', 'order_states'));
+		}elseif ($user_type == 7) { //designer user
+			return view('postProduction/orders/index', compact('orders', 'order_states'));
 		}
 	}
 
@@ -776,6 +789,8 @@ class OrderController extends Controller
 				return view('print/boss_print/orders/edit', compact('order', 'owner', 'contact', 'works'));
 			} else if ($user_type == 6) { //boss designer and designer user
 				return view('print/regular_print/orders/edit', compact('order', 'owner', 'contact', 'works'));
+			} elseif ($user_type == 7) { //designer user
+				return view('postProduction/orders/edit', compact('orders', 'order_states'));
 			}
 		}
 	}

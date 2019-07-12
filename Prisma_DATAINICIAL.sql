@@ -50,9 +50,7 @@ INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('1
  INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('6',
  'Impresión', 'Encargado de imprimir trabajos en una sucursal de Prisma', '1');
  INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('7',
- 'Jefe post producción', 'Jefe post producción de una sucursal de Prisma', '1');
- INSERT INTO `user_types` (`id`, `name`, `description`, `active_flag`) VALUES ('8',
- 'Post producción', 'Persona del equipo de post produccion de una sucursal de Prisma', '1');
+ 'Post Producción', 'Usuario de Post Producción de una sucursal de Prisma', '1');
 
 INSERT INTO `branches` (`id`, `name`, `active_flag`) VALUES (NULL,
  'San Ramón #1', '1');
@@ -138,8 +136,6 @@ INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notif
 INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('20', '6', '6', '1', '1', '1', '1');
 INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('21', '3', '7', '1', '1', '1', '1');
 INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('22', '7', '7', '1', '1', '1', '1');
-INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('23', '3', '8', '1', '1', '1', '1');
-INSERT INTO `state_user_types` (`id`, `states_id`, `user_types_id`, `state_notification`, `view_state`, `edit_state`, `active_flag`) VALUES ('24', '7', '8', '1', '1', '1', '1');
 
 
 /************************************************************* *********************************/

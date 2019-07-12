@@ -1,5 +1,5 @@
-@extends('masterAdmin')
-@section('contenido_Admin')
+@extends('masterReception')
+@section('content_Reception')
 
 <script src="{{asset('/js/Clients/load_clients.js')}}"></script>
 

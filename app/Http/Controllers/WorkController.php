@@ -232,6 +232,8 @@ class WorkController extends Controller
 			return view('print/boss_print/works/index', compact('works', 'work_states', 'editStates'));
 		}else if($user_type == 6) {//designer user
 			return view('print/regular_print/works/index', compact('works', 'work_states', 'editStates'));
+		}else if($user_type == 7) {//postproduction user
+			return view('postProduction/works/index', compact('works', 'work_states', 'editStates'));
 		}
 	}
 
