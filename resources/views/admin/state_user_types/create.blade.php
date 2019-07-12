@@ -45,8 +45,8 @@ lista de trabajos aquellos que poseen el estado seleccionado"><!--Do not move th
                                     </span>
                                 </label> 
                                 <br>
-                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="0" checked> &nbsp;&nbsp;Permitir <br>
-                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="1">&nbsp;&nbsp; No Permitir <br><br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="0" checked> &nbsp;&nbsp;No Permitir<br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="1">&nbsp;&nbsp; Permitir<br><br>
                             </div>
                         </div>
                  
@@ -59,8 +59,8 @@ pueda manipular el estado seleccionado"><!--Do not move this text, it's aligned-
                                     </span>
                                 </label> 
                                 <br>
-                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="0" checked> &nbsp;&nbsp;Permitir <br>
-                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="1">&nbsp;&nbsp; No permitir <br><br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="0" checked> &nbsp;&nbsp;No Permitir <br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="1">&nbsp;&nbsp; Permitir <br><br>
                             </div>
 
                         </div>

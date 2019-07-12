@@ -99,6 +99,11 @@ class State_user_typeController extends Controller
 			el puesto y el estado indicado');
 		}
 
+		if(($request->notification == 1) && ($request->view == 0)) {
+			return back()->with('error', 'Para que el usuario pueda tener activas las notificaciones 
+			requiere poder ver el estado');
+		}
+		//return $request->view;
 		DB::beginTransaction();//starts databse transaction. If there´s no commit no transaction
 		//will be made. Also, all transactions can be rollbacked.
 
