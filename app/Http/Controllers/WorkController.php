@@ -739,6 +739,26 @@ class WorkController extends Controller
 			->get();
 			return $this->generalIndex($works);
 
+		} else if($user_type == 4) { //reception and boss designer
+
+			$works = DB::table('works')
+			->where('works.active_flag', '1')
+			->where('works.designer_id', '=', Auth::user()->id)
+			->join('orders', 'works.order_id', 'orders.id')
+			->select('works.id as work_id',
+			'works.priority as priority',
+			'works.approximate_date as approximate_date',
+			'works.entry_date as entry_date',
+			'works.active_flag as active_flag',
+			'works.designer_id as designer_id',
+			'orders.client_owner as client_owner',
+			'works.order_id as order_id')
+			->where('orders.branch_id', '=', Auth::user()->branch_id)
+			->where('orders.id', '=', $id)
+			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
+			->get();
+			return $this->generalIndex($works);
+
 		}
 			
 	}

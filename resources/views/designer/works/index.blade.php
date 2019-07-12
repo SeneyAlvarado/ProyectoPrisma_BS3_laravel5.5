@@ -17,8 +17,8 @@
                    <thead>
                         <th class="text-center">Número</th>
                         <th class="text-center">Cliente</th>
-                        <th class="text-center">Estado</th> 
                         <th class="text-center">Diseñador</th> 
+                        
                         <th class="text-center">Ingreso</th>
                         <th class="text-center">Entrega</th>
                         <th class="text-center">Tiempo</th> 
@@ -78,27 +78,7 @@
                                 
                             </td>
 
-                            <td class="text-center" style="min-width:150px;">
-                                <div class="dropdown" style="display: block">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="dropDesigner{{$work->work_id}}"
-                                        data-target="#drop-designers" href="#" value="{{$actualDesignerID}}"
-                                            role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            {{$actualDesignerName}}
-                                        </button>
-                                    <div class="dropdown-menu" id="#drop-designers" name="dropOtherDesigners{{$work->work_id}}" 
-                                        aria-labelledby="dropdownMenuLink">
-        
-                                        @foreach ($designer as $desig)
-                                        @if($desig->id != $actualDesignerID)
-                                    <button class="dropdown-item" id="workDesigner{{$work->work_id}}{{$desig->id}}" 
-                                        onclick="changingDesigner('{{$work->work_id}}', '{{$desig->id}}', '{{$desig->name . ' ' . $desig->lastname}}')">
-                                        {{$desig->name . ' ' . $desig->lastname}}</button>
-                                        @endif
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </td>
+                            
 
                                <td class="text-center">{{$entry_date}}</td>
                                <td class="text-center">{{$approximate_date}}</td>
@@ -202,21 +182,19 @@
                         <br>
                         <label for="name"><strong>Adelanto de pago:&nbsp</strong></label><label id="payment" value=" " type="text" name="payment"></label>
                         <br>
-                        <label for="name"><strong>Fecha de ingreso:&nbsp</strong></label><label id="entry_date" value=" " type="text" name="entry_date"></label>
-                        <br>
-                        <label for="name"><strong>Fecha de entrega:&nbsp</strong></label><label id="delivery_date" value=" " type="text" name="delivery_date"></label>   
+                        
                     </div>
                     <div class="col-md-6 " style="padding:15px;">
                         <label for="name"><strong>Producto :&nbsp</strong></label><label id="product" value=" " type="text" name="product"></label>
                         <br>
-                        <label for="name"><strong>Ingreso a diseño:&nbsp</strong></label><label id="designer" value=" " type="text" name="designer"></label>
+                        
+                        <label for="name"><strong>Fecha de ingreso:&nbsp</strong></label><label id="entry_date" value=" " type="text" name="entry_date"></label>
                         <br>
-                        <label for="name"><strong>Ingreso a impresión:&nbsp</strong></label><label id="print" value=" " type="text" name="print"></label>
+                        <label for="name"><strong>Fecha de entrega:&nbsp</strong></label><label id="delivery_date" value=" " type="text" name="delivery_date"></label>   
                         <br>
-                        <label for="name"><strong>Ingreso a post-producción:&nbsp</strong></label><label id="post_production" value=" " type="text" name="post_production"></label>
-                        <br>
-                        <label for="name"><strong>Horas de secado :&nbsp</strong></label><label id="dry" value=" " type="text" name="dry"></label>
-                        <br>
+                        <label for="name"><strong>Ingreso a diseño:&nbsp</strong></label><label id="designer"
+                                value=" " type="text" name="designer"></label>
+                              
                     </div>
                     <div class="col-md-10" >
                     <textarea class="form-control" rows="4" name="observation" id="observation" style="resize:none" readonly></textarea>

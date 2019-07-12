@@ -113,6 +113,9 @@ class OrderController extends Controller
 			}
 		
 		}
+
+		$orders = $orders->sortBy('first_time_left');
+		
 		//return $orders;
 		$user_type = Auth::user()->user_type_id; //get the user type.
 		if ($user_type == 1) { //admin user

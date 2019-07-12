@@ -17,8 +17,8 @@
 
     <div class="">
 
-    <div id="loader" style="display:none" class="row justify-content-center">
-        <div class="loader" ></div>
+    <div class="row justify-content-center">
+        <div class="loader" id="loader" style="display:none" ></div>
     </div>
         @if($contacts->count())
         <div class="table-responsive">
@@ -43,7 +43,7 @@
                         <td class="text-center">{{$contact->phone}}</td>
                         <td class="text-center">
                       
-                            <button class="btn btn-success style-btn-registry btn-sm" onClick="deleteContact({{$contact->id}}); return confirm('¿Desea eliminar el contacto {{$contact->contact_name}}?')"
+                            <button class="btn btn-success style-btn-registry btn-sm" onClick="deleteContact('{{$contact->id}}', '{{$contact->contact_name}}')"
                             >Eliminar </button>
                         </td>
                     </tr>

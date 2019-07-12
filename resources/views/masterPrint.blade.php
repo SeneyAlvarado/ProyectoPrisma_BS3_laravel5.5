@@ -44,7 +44,7 @@
 </head>
 
 <body>
-  <nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 container-fluid border-top-0 border-right-0 border-light">
+  <nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -58,10 +58,10 @@
       <span class="">Grupo Prisma</span>
     </a>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class=" nav-item dropdown d-sm-block d-md-none">
-          <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div class="collapse navbar-collapse container-fluid" id="navbarNavDropdown">
+      <ul class="navbar-nav ">
+        <li class=" nav-item dropdown d-sm-block d-md-none container-fluid">
+        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Menú
           </a>
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
@@ -72,19 +72,21 @@
           </div>
         </li>
       </ul>
+
+      <ul class="navbar-nav nav  container-fluid">
+        <li class=" nav-item dropdown d-sm-block d-md-none  container-fluid">
+          <a class="nav-link dropdown-toggle" href="#" id="smallernotificationmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Notificaciones
+            <span class="glyphicon glyphicon-bell fa-fw mr-3"></span><span style="margin-left: -15px;" id="numberNotificationResponsive" class="badge">0</span>
+          </a>
+          <div class="dropdown-menu dropResponsive " id="dropResponsiveNotifications" aria-labelledby="smallernotificationmenu">
+            <a class="dropdown-item n" style="color:white" href="#"><span class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
+          </div>
+        </li>
+      </ul>
     </div>
 
-    <ul class="navbar-nav nav  container-fluid">
-      <li class=" nav-item dropdown d-sm-block d-md-none  container-fluid">
-        <a class="nav-link dropdown-toggle" href="#" id="smallernotificationmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Notificaciones
-          <span class="glyphicon glyphicon-bell fa-fw mr-3"></span><span style="margin-left: -15px;" id="numberNotificationResponsive" class="badge">0</span>
-        </a>
-        <div class="dropdown-menu dropResponsive " id="dropResponsiveNotifications" aria-labelledby="smallernotificationmenu">
-          <a class="dropdown-item n" style="color:white" href="#"><span class="glyphicon glyphicon-briefcase fa-fw mr-3 icon-trabajos"></span></a>
-        </div>
-      </li>
-    </ul>
+    
 
     <div class="dropdown" style="margin-right: 4vw">
       <button type="button" onclick="markReadNotifications()" class="btn btn-default dropdown-toggle style-name-button" data-target="#dropmenu-notifications" data-toggle="dropdown">Notificaciones &nbsp;

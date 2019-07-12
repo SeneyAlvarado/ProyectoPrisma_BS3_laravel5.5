@@ -5,6 +5,7 @@
 function workDetails(id){
     $("#order_id").empty();
     $("#work_id").empty();
+    $("#work_ids").empty();
     $("#priority").empty();
     $("#payment").empty();
     $("#entry_date").empty();
@@ -24,6 +25,7 @@ function workDetails(id){
             {
                 $("#order_id").append(this.order_id);
                 $("#work_id").append(this.id);
+                $("#work_ids").append(this.id);
                 if(this.priority == 0){
                     $("#priority").append("No");
                 } else {
@@ -56,9 +58,27 @@ function workDetails(id){
                 
                 if(this.designer_date == null) {
                     $("#designer").append("No posee");
+                } else {
+                    var date = this.designer_date.split("-");
+                    var year = date[0];
+                    var month = date[1];
+                    var day = date[2];
+                    var new_day_without_time = day.split(" "); 
+                    var day = new_day_without_time[0];
+                    var designer_date = day + "/" + month + "/"  + year;
+                    $("#designer").append(designer_date);
                 }
                 if(this.print_date == null) {
                     $("#print").append("No posee");
+                }  else {
+                    var date = this.print_date.split("-");
+                    var year = date[0];
+                    var month = date[1];
+                    var day = date[2];
+                    var new_day_without_time = day.split(" "); 
+                    var day = new_day_without_time[0];
+                    var print_date = day + "/" + month + "/"  + year;
+                    $("#print").append(print_date);
                 }
                
                 if(this.post_production_date == null) {

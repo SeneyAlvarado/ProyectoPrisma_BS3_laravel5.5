@@ -4,6 +4,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <script src="{{asset('/js/Users/load_branches_admin.js')}}"></script>
+<script src="{{asset('/js/patternFields.js')}}"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <div style="padding:10px;">
     <div class="card">
@@ -17,7 +18,7 @@
 							<div class="col-md-5 col-md-offset-2" style="margin-top:10px;">
 								<label for="client_name-field"><strong>Nombre cliente</strong></label>
 								
-							<input class="form-control" type="text" name="client_name" id="client_name-field" value="{{old('client_name')}}" required />´
+							<input class="form-control" type="text" placeholder="Nombre del cliente" name="client_name" id="client_name-field" value="{{old('client_name')}}" required />´
 								
 							</div>
 							<div class="col-md-5" style="margin-top:10px;">
@@ -40,11 +41,11 @@
 							</div>
 							<div class="col-md-5 col-md-offset-2" style="margin-top:15px;">
 								<label for="phone-field"><strong>Teléfono</strong></label>
-								<input class="form-control" type="text" name="phone" id="phone-field" value="{{old('phone')}}" />
+								<input class="form-control" type="text" placeholder="Teléfono" name="phone" id="number" value="{{old('phone')}}" />
 							</div>
 							<div class="col-md-5 " style="margin-top:15px;">
 								<label for="email-field"><strong>Correo electrónico</strong></label>
-								<input class="form-control" type="text" name="email" id="email-field" value="{{old('email')}}" />
+								<input class="form-control" type="email" placeholder="Correo electrónico" name="email" id="email-field" value="{{old('email')}}" />
 							</div>
 							<div class="col-md-10 col-md-offset-2" style="margin-top:15px;">
 								<label for="details-field"><strong>Detalles</strong></label>
