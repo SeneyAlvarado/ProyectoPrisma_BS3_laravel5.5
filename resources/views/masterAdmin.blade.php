@@ -312,11 +312,11 @@
 
           <div class="row justify-content-center" style="margin-bottom:20px;">
             <div class="col-md-4" style="text-align:center;">
-              <label for="date-field"><strong>Fecha de entrega</strong></label>
+              <label for="date-field"><strong>Fecha de inicio</strong></label>
               <input name="startDate" type="text" id="datepicker3_forReport" readonly>
             </div>
             <div class="col-md-4" style="text-align:center;">
-              <label for="date-field"><strong>Fecha de entrega</strong></label>
+              <label for="date-field"><strong>Fecha de fin</strong></label>
               <input name="endDate" type="text" id="datepicker4_forReport" readonly>
             </div>
           </div>
@@ -362,7 +362,7 @@
             </div>
             <div class="col-md-4" style="text-align:center; display: inline-block;">
               <div>
-                <label for="date-field"><strong>Fecha de inicio</strong></label>
+                <label for="date-field"><strong>Fecha de Fin</strong></label>
               </div>
               <input name="endDate" type="text" id="datepicker6_forReport" readonly>
             </div>
@@ -401,7 +401,7 @@
                     </div>
                     <div class="col-md-4" style="text-align:center; display: inline-block;">
                       <div>
-                        <label for="date-field"><strong>Fecha de inicio</strong></label>
+                        <label for="date-field"><strong>Fecha de fin</strong></label>
                       </div>
                       <input name="endDate" type="text" id="datepicker6_forReport" readonly>
                     </div>
