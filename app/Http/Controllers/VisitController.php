@@ -97,6 +97,8 @@ class VisitController extends Controller
 				return view('print/boss_print/visits/index', compact('visits'));
 			} else if($user_type == 6) {
 				return view('print/regular_print/visits/index', compact('visits'));
+			} else if($user_type == 7) {//post production user
+				return view('postProduction/visits/index', compact('visits'));
 			}
 		} 
 
@@ -125,6 +127,8 @@ class VisitController extends Controller
 			return view('print/boss_print/visits/create');
 		}else if ($user_type == 6) { //regular print user
 			return view('print/regular_print/visits/create');
+		} else if ($user_type == 7) { //post production user
+			return view('postProduction/visits/create');
 		}
 		
 	}
@@ -192,9 +196,11 @@ class VisitController extends Controller
 			return view('print/boss_print/visits/edit', compact('visit'));
 		} else if ($user_type == 6) { //boss designer user
 			return view('print/regular_print/visits/edit', compact('visit'));
+		} else if ($user_type == 7) { //post production user
+			return view('postProduction/visits/edit', compact('visit'));
 		}
 	}
-
+	
 	/**
 	 * Update the specified resource in storage.
 	 *

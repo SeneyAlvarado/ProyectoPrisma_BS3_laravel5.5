@@ -56,6 +56,8 @@ class ChanngePasswordController extends Controller
                 return view('print.print_boss.password.change_password');
             }else if ($user_type == 6) {
                 return view('print.regular_print.password.change_password');
+            }else if ($user_type == 7) {//post production user
+                return view('postProduction.password.change_password');
             }
     }
 }

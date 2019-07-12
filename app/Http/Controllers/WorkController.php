@@ -73,7 +73,7 @@ class WorkController extends Controller
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
 			return $this->indexAdmin($works);
-		} else if(($user_type == 2) || ($user_type == 3) || ($user_type == 5) || ($user_type == 6) ) { //reception and boss designer
+		} else if(($user_type == 2) || ($user_type == 3) || ($user_type == 5) || ($user_type == 6) || ($user_type == 7)) { //reception and boss designer
 			$works = DB::table('works')
 			->where('works.active_flag', '=','1')
 			->join('orders', 'works.order_id', 'orders.id')
@@ -84,7 +84,8 @@ class WorkController extends Controller
 			'works.active_flag as active_flag',
 			'works.designer_id as designer_id',
 			'orders.client_owner as client_owner',
-			'works.order_id as order_id')
+			'works.order_id as order_id',
+			'works.post_production_date as post_production_date')
 			->where('orders.branch_id', '=', Auth::user()->branch_id)
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
@@ -723,7 +724,8 @@ class WorkController extends Controller
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')
 			->get();
 			return $this->indexAdmin($works);
-		} else if(($user_type == 2) || ($user_type == 3) || ($user_type == 5) || ($user_type == 6) ) { //reception and boss designer
+		} else if(($user_type == 2) || ($user_type == 3) || ($user_type == 5)
+		 	|| ($user_type == 6) || ($user_type == 7)) { //reception and boss designer
 
 			$works = DB::table('works')
 			->where('works.active_flag', '=','1')
@@ -735,7 +737,8 @@ class WorkController extends Controller
 			'works.active_flag as active_flag',
 			'works.designer_id as designer_id',
 			'orders.client_owner as client_owner',
-			'works.order_id as order_id')
+			'works.order_id as order_id',
+			'works.post_production_date as post_production_date')
 			->where('orders.branch_id', '=', Auth::user()->branch_id)
 			->where('orders.id', '=', $id)
 			->orderBy('priority', 'DESC')->orderBy('approximate_date', 'ASC')

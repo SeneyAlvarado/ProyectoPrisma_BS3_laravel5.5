@@ -793,7 +793,7 @@ class OrderController extends Controller
 			} else if ($user_type == 6) { //boss designer and designer user
 				return view('print/regular_print/orders/edit', compact('order', 'owner', 'contact', 'works'));
 			} elseif ($user_type == 7) { //designer user
-				return view('postProduction/orders/edit', compact('orders', 'order_states'));
+				return view('postProduction/orders/edit', compact('order', 'owner', 'contact', 'works'));
 			}
 		}
 	}

@@ -174,7 +174,7 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('/js/tableWithoutCreate.js')}}"></script>
+    <script src="{{asset('/js/tableForOrdersWithOutAdd.js')}}"></script>
     <script src="{{asset('/js/Client_contacts/show_contact.js')}}"></script>
 
 
