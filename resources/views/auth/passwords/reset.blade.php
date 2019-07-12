@@ -1,71 +1,125 @@
-@extends('layouts.app')
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Sistema de Monitoreo de Procesos - Grupo Prisma</title>
+    <!-- Bootstrap core CSS 
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="{{asset('css/simple-sidebar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/master-root.css')}}">
+    <link rel="stylesheet" href="{{asset('css/glyphicons.css')}}">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <!--<div class="panel-heading">Reset Password</div> -->
-                <div class="panel-heading">Reestablecer contrasenna</div>
+    <!--resizes table so the content won´t go down -->
+    <link rel="stylesheet" href="{{asset('css/table.css')}}">
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
-                        {{ csrf_field() }}
+    <!-- align added button to Jquery datatable-->
+    <link rel="stylesheet" href="{{asset('css/custom-button-datatable.css')}}">
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+    <!--<script src="{{asset('js/master-root.js')}}"></script>-->
+    <script src="{{asset('js/menus_dinamicos.js')}}"></script>
+    <script src="{{asset('js/app.min.js')}}"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="css/simple-sidebar.css" rel="stylesheet">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Correo Electronico</label>
+</head>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
+<body>
 
-                                @if ($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                                @endif
+    <nav class="navbar nav-color navbar-expand-md navbar-dark bg-primary border border-left-0 border-top-0 border-right-0 border-light">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+            <li class="nav-item a active">
+                <button class="btn btn-default style-return-button" onclick="history.back()"><span class="glyphicon glyphicon-menu-left"></span></button>
+            </li>
+        </ul>
+        <a class="navbar-brand" href="#">
+            <img src="{{asset('Imagenes/logo.png')}}" width="35" height="35" class="d-inline-block align-top"></div>
+            <span class="">Grupo Prisma</span>
+        </a>
+    </nav><!-- NavBar END -->
+
+    <div class="container-fluid">
+        <div style="padding-top:3%;" class="col-md-6 offset-md-3">
+            <div class="card ">
+                <h5 class="card-header" style="text-align:center">Reestablecer contraseña</h5>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="panel-body">
+                            @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
                             </div>
+                            @endif
+                            <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
+                                {{ csrf_field() }}
+                                <div class="row justify-content-center">
+                                    <input type="hidden" name="token" value="{{ $token }}">
+
+                                    <div class="col-md-8 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <label for="email" class="control-label">Correo Electronico</label>
+
+                                        <div class="">
+                                            <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
+
+                                            @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class=" col-md-8 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                        <label for="password" class="control-label">Contraseña</label>
+
+                                        <div class="">
+                                            <input id="password" type="password" class="form-control" name="password" required>
+
+                                            @if ($errors->has('password'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class=" col-md-8 form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                        <label for="password-confirm" class=" control-label">Confirmar contraseña</label>
+                                        <div class="">
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+
+                                            @if ($errors->has('password_confirmation'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary btn-block" style="background-color:#96183a;
+                                border:none;
+                                color: white !important;">
+                                                Reestablecer contraseña
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Contrasenna</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirmar contrasenna</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Reestablecer Contrasenna
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+</body>
+
+</html>
