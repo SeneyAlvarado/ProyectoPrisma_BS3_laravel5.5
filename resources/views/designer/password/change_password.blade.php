@@ -1,14 +1,5 @@
-@extends('masterAdmin')
-@section('contenido_Admin')
-@if(session('success'))
-        <div class="alert alert-success alert-dismissible" style="text-align: center; margin-top:10px; 
-                    margin-left:10px; margin-right:10px;" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{@session('success')}}
-        </div>
-        @endif
+@extends('masterDesigner')
+@section('contenido_Designer')
 <link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
 <div style="padding:10px;">
         <div class="card">

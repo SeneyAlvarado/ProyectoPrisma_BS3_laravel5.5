@@ -202,10 +202,8 @@
                         <br>
                         <label for="name"><strong>Ingreso a impresión:&nbsp</strong></label><label id="print" value=" " type="text" name="print"></label>
                         <br>
-                        <label for="name"><strong>Ingreso a post-producción:&nbsp</strong></label><label id="post_production" value=" " type="text" name="post_production"></label>
-                        <br>
-                        <label for="name"><strong>Horas de secado :&nbsp</strong></label><label id="dry" value=" " type="text" name="dry"></label>
-                        <br>
+                        
+                  
                     </div>
                     <div class="col-md-10" >
                     <textarea class="form-control" rows="4" name="observation" id="observation" readonly></textarea>

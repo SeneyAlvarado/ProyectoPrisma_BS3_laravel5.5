@@ -195,8 +195,7 @@
                                 <label for="name"><strong>Número de orden:&nbsp</strong></label><label id="order_id"
                                     value=" " type="text" name="order_id"></label>
                                 <br>
-                                <label for="name"><strong>Número de trabajo:&nbsp</strong></label><label id="work_id"
-                                    value=" " type="text" name="work_id"></label>
+                                <label for="name"><strong>Número de trabajo:&nbsp</strong></label><label id="work_ids" value=" " type="text" name="work_ids"></label>
                                 <br>
                                 <label for="name"><strong>Prioridad:&nbsp</strong></label><label id="priority" value=" "
                                     type="text" name="priority"></label>
@@ -219,12 +218,7 @@
                                 <br>
                                 <label for="name"><strong>Ingreso a impresión:&nbsp</strong></label><label id="print"
                                     value=" " type="text" name="print"></label>
-                                <br>
-                                <label for="name"><strong>Ingreso a post-producción:&nbsp</strong></label><label
-                                    id="post_production" value=" " type="text" name="post_production"></label>
-                                <br>
-                                <label for="name"><strong>Horas de secado :&nbsp</strong></label><label id="dry"
-                                    value=" " type="text" name="dry"></label>
+                                
                                 <br>
                             </div>
                             <div class="col-md-10">
