@@ -1,6 +1,6 @@
 //This function validates the create submit at check_dates_reports before sending it to server
-function check_dates_reports(form) {
-   
+function check_dates_reports_products(form) {
+    
     var startDate = form.startDate.value;
     var endDate = form.endDate.value;
     //if either date is null, alert the error to the user 
