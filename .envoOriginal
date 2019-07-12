@@ -6,11 +6,11 @@ APP_LOG_LEVEL=debug
 APP_URL=http://localhost
 
 DB_CONNECTION=mysql
-DB_HOST=supportcr.net
+DB_HOST=localhost
 DB_PORT=3306
-DB_DATABASE=suppor76_proc001
-DB_USERNAME=suppor76_proc001
-DB_PASSWORD=proc3505#
+DB_DATABASE=prisma
+DB_USERNAME=root
+DB_PASSWORD=
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file
