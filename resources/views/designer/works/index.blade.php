@@ -192,9 +192,7 @@
                         <br>
                         <label for="name"><strong>Fecha de entrega:&nbsp</strong></label><label id="delivery_date" value=" " type="text" name="delivery_date"></label>   
                         <br>
-                        <label for="name"><strong>Ingreso a diseño:&nbsp</strong></label><label id="designer"
-                                value=" " type="text" name="designer"></label>
-                              
+                           
                     </div>
                     <div class="col-md-10" >
                     <textarea class="form-control" rows="4" name="observation" id="observation" style="resize:none" readonly></textarea>

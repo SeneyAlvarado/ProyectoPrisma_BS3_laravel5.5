@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('/js/Designer/designers.js')}}"></script>
+<script src="{{asset('/js/Works/changeWorkStates.js')}}"></script>
 <div style="padding:10px;">
     <div class="card margin-bottom-card">
         <div class="card-header">
@@ -267,8 +268,7 @@
                                 <label for="name"><strong>Fecha de entrega:&nbsp</strong></label><label
                                     id="delivery_date" value=" " type="text" name="delivery_date"></label>
                                     <br>
-                                <label for="name"><strong>Ingreso a diseño:&nbsp</strong></label><label id="designer"
-                                    value=" " type="text" name="designer"></label>
+                                
                             </div>
                             <div class="col-md-10">
                                 <textarea class="form-control" rows="4" name="observation" id="observation"

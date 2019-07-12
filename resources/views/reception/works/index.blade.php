@@ -181,28 +181,20 @@
         <div class="modal-body">
                     <div class="row justify-content-md-center">
                     <div class="col-md-5 offset-md-1" style="padding:15px; ">
+                        <label for="name"><strong>Fecha de ingreso:&nbsp</strong></label><label id="entry_date" value=" " type="text" name="entry_date"></label>
+                        <br>
                         <label for="name"><strong>Número de orden:&nbsp</strong></label><label id="order_id" value=" " type="text" name="order_id"></label>
+                        <br>
+                        <label for="name"><strong>Prioridad:&nbsp</strong></label><label id="priority" value=" " type="text" name="priority"></label>
+                        <br>     
+                        <label for="name"><strong>Producto :&nbsp</strong></label><label id="product" value=" " type="text" name="product"></label> 
+                    </div>
+                    <div class="col-md-6 " style="padding:15px;">
+                        <label for="name"><strong>Fecha de entrega:&nbsp</strong></label><label id="delivery_date" value=" " type="text" name="delivery_date"></label>   
                         <br>
                         <label for="name"><strong>Número de trabajo:&nbsp</strong></label><label id="work_id" value=" " type="text" name="work_id"></label>
                         <br>
-                        <label for="name"><strong>Prioridad:&nbsp</strong></label><label id="priority" value=" " type="text" name="priority"></label>
-                        <br>
                         <label for="name"><strong>Adelanto de pago:&nbsp</strong></label><label id="payment" value=" " type="text" name="payment"></label>
-                        <br>
-                        <label for="name"><strong>Fecha de ingreso:&nbsp</strong></label><label id="entry_date" value=" " type="text" name="entry_date"></label>
-                        <br>
-                        <label for="name"><strong>Fecha de entrega:&nbsp</strong></label><label id="delivery_date" value=" " type="text" name="delivery_date"></label>   
-                    </div>
-                    <div class="col-md-6 " style="padding:15px;">
-                        <label for="name"><strong>Producto :&nbsp</strong></label><label id="product" value=" " type="text" name="product"></label>
-                        <br>
-                        <label for="name"><strong>Ingreso a diseño:&nbsp</strong></label><label id="designer" value=" " type="text" name="designer"></label>
-                        <br>
-                        <label for="name"><strong>Ingreso a impresión:&nbsp</strong></label><label id="print" value=" " type="text" name="print"></label>
-                        <br>
-                        <label for="name"><strong>Ingreso a post-producción:&nbsp</strong></label><label id="post_production" value=" " type="text" name="post_production"></label>
-                        <br>
-                        <label for="name"><strong>Horas de secado :&nbsp</strong></label><label id="dry" value=" " type="text" name="dry"></label>
                         <br>
                     </div>
                     <div class="col-md-10" >

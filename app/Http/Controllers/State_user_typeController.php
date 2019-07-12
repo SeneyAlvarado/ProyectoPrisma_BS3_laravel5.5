@@ -45,7 +45,7 @@ class State_user_typeController extends Controller
 		 $state_user_types = DB::table('state_user_types')->where('state_user_types.active_flag', 1)->join('states', 'state_user_types.states_id', '=', 'states.id')
 		->join('user_types', 'state_user_types.user_types_id', '=', 'user_types.id')
 		->select('state_user_types.id as id','states.name as state_name', 'user_types.name as user_type_name', 
-		'state_user_types.active_flag as active_flag', 'state_notification')->get();
+		'state_user_types.active_flag as active_flag', 'state_notification', 'view_state', 'edit_state')->get();
 
 		$user_type = Auth::user()->user_type_id;
 			if($user_type == 1){//admin user
@@ -106,6 +106,8 @@ class State_user_typeController extends Controller
 		$state_user_type->states_id = $dropState;
 		$state_user_type->user_types_id = $dropRol;
 		$state_user_type->state_notification = $request->notification;
+		$state_user_type->view_state = $request->view;
+		$state_user_type->edit_state = $request->edit;
 		$state_user_type->active_flag = 1;
 		$state_user_type->save();
 
@@ -190,6 +192,8 @@ class State_user_typeController extends Controller
 		} else {
 
 			$state_user_type->state_notification = $request->notification;
+			$state_user_type->view_state = $request->view;
+			$state_user_type->edit_state = $request->edit;
 			$state_user_type->save();
 
 			DB::commit();//commits to database 

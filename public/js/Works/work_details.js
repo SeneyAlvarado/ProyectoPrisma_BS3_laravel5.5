@@ -31,7 +31,8 @@ function workDetails(id){
                 } else {
                     $("#priority").append("Sí");
                 }
-                if(this.advance_payment == 0){
+
+                if((this.advance_payment == "") || (this.advance_payment == null)){
                     $("#payment").append("No");
                 } else {
                     $("#payment").append("Sí");

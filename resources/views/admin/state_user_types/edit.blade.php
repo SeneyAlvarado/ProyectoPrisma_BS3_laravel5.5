@@ -29,7 +29,7 @@
                         
                         <br>
                         <div class="row justify-content-center">
-                            <div class="col-md-8 col-md-offset-3" style="margin-top:10px; margin-left: 38%">
+                            <div class="col-md-4 " style="margin-top:10px; ">
                                 <label for="type" style="margin-left: 8%"><strong>Notificaciones al usuario</strong> 
                                     <span class="glyphicon glyphicon-question-sign fa-fw mr-3" data-toggle="tooltip" data-placement="top" 
                                    title="Notifica a los usuarios con el puesto seleccionado 
@@ -46,7 +46,43 @@ cuando hay un trabajo con el estado seleccionado"><!--Do not move this text, it'
                                 <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="notification" value="1" >&nbsp;&nbsp; Activadas <br><br>
                                 @endif
                             </div>
+                            <div class="col-md-4 " style="margin-top:10px; ">
+                                <label for="type" style="margin-left: 8%"><strong>Visualizar estado</strong> 
+                                    <span class="glyphicon glyphicon-question-sign fa-fw mr-3" data-toggle="tooltip" data-placement="top" 
+                                   title="Notifica a los usuarios con el puesto seleccionado 
+cuando hay un trabajo con el estado seleccionado"><!--Do not move this text, it's aligned-->
+                                    </span>
+                                </label> 
+                                <br>
+                                @if($state_user_types->view_state == 1)
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="0" > &nbsp;&nbsp;No permitir <br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="1" checked>&nbsp;&nbsp; Permitir <br><br>
+                                @endif
+                                @if($state_user_types->view_state == 0)
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="0" checked> &nbsp;&nbsp;No permitir <br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="view" value="1" >&nbsp;&nbsp; Permitir <br><br>
+                                @endif
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-4 offset-md-2" style="margin-top:10px; ">
+                                <label for="type" style="margin-left: 8%"><strong>Modificar estado</strong> 
+                                    <span class="glyphicon glyphicon-question-sign fa-fw mr-3" data-toggle="tooltip" data-placement="top" 
+                                   title="Notifica a los usuarios con el puesto seleccionado 
+cuando hay un trabajo con el estado seleccionado"><!--Do not move this text, it's aligned-->
+                                    </span>
+                                </label> 
+                                <br>
+                                @if($state_user_types->edit_state == 1)
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="0" > &nbsp;&nbsp;No permitir <br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="1" checked>&nbsp;&nbsp; Permitir <br><br>
+                                @endif
+                                @if($state_user_types->edit_state == 0)
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="0" checked> &nbsp;&nbsp;No permitir <br>
+                                <input type="radio" style="margin-left: 10%; transform: scale(1.3);" name="edit" value="1" >&nbsp;&nbsp; Permitir <br><br>
+                                @endif
+                            </div>
+                            </div>
 
                         <br>
                         <div class="row justify-content-center">

@@ -14,7 +14,9 @@
                    <thead>
                         <th class="text-center">Estado</th>
                         <th class="text-center">Tipo de Usuario</th>
-                        <th class="text-center">Notificación al Usuario</th> 
+                        <th class="text-center">Notificaciones</th> 
+                        <th class="text-center">Ver estado</th> 
+                        <th class="text-center">Modificar estado</th> 
                         <th class="text-center">Opciones</th>                         
                    </thead>
 
@@ -27,6 +29,16 @@
                                <td class="text-center">Activadas</td>
                                @else
                                <td class="text-center">Desactivadas</td>
+                               @endif
+                               @if($state_user_type->view_state == 1)
+                               <td class="text-center">Permitido</td>
+                               @else
+                               <td class="text-center">No permitido</td>
+                               @endif
+                               @if($state_user_type->edit_state == 1)
+                               <td class="text-center">Permitido</td>
+                               @else
+                               <td class="text-center">No Permitido</td>
                                @endif
                                
                                <td class="text-center">

@@ -156,6 +156,9 @@
           <a href="{{route('products')}}" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
             <span class="menu-collapsed">Productos</span>
           </a>
+          <a href="{{route('state_user_types')}}" class="list-group-item list-group-item-action sidebar-color-collapse sidebar-color text-white">
+            <span class="menu-collapsed">Acceso a trabajos</span>
+          </a>
         </div>
         <a href="{{route('orders')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">

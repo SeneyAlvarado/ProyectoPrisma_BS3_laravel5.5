@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Material_work;
 use App\Product;
 use App\Work;
+use App\Order;
 use App\State;
 use App\State_work;
 use App\Client;
@@ -396,6 +397,8 @@ class WorkController extends Controller
 	{
 		$work = Work::where('id', $id)->first();
 		$product = Product::where('id', $work->product_id)->first();
+		$order = Order::where('id', $work->order_id)->select('orders.advance_payment')->first();
+		$work->advance_payment = $order->advance_payment;
 
 		$work->product_name = $product->name;
 
