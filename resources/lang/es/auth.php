@@ -16,6 +16,6 @@ return [
    // 'failed' => 'These credentials do not match our records.',
     'failed' => 'Estos credenciales no coinciden con nuestros registros.',
 //    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'throttle' => 'Has realizado muchos intentos de ingreso. POr Favor intenta en :seconds segundos.',
+    'throttle' => 'Has realizado muchos intentos de ingreso. Por Favor intenta en :seconds segundos.',
 
 ];
