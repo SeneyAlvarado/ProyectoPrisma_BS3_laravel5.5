@@ -111,7 +111,9 @@ Route::middleware(['AdminUser'])->group(function () {
     Route::get('reportOrder/{id}', 'OrderController@selectOrder');
     Route::get('reportWorkLog/{id}', 'WorkController@reportWorkLog');
     Route::post('products.chart', 'WorkController@products_chart')->name('products.chart');
+    Route::get('products.chart', 'WorkController@products_chart_get')->name('products.chart');
     Route::post('materials.chart', 'WorkController@materials_chart')->name('materials.chart');
+    Route::get('materials.chart', 'WorkController@materials_chart_get')->name('materials.chart');
     /*------------------------------------------------*/
 
     /*---------------------------------state_user_types----------------------*/

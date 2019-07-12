@@ -530,12 +530,23 @@ class WorkController extends Controller
 		}
 	}
 
+	public function products_chart_get() {
+		$from = session('fromProduct');
+		$to = session('toProduct');
+		return $this->productChartInfo($from, $to);
+	} 
+
 	public function products_chart(Request $request) 
 	{
-		
 		$from = Carbon::createFromFormat('d/m/Y', $request->startDate); 
 		$to = Carbon::createFromFormat('d/m/Y', $request->endDate); 
+		session(['fromProduct' => $from]);
+		session(['toProduct' => $to]);
 
+		return $this->productChartInfo($from, $to);
+	}
+
+	function productChartInfo($from, $to) {
 		$products = DB::table('products')->where('active_flag', '=', 1)
 		->select('products.name', 'products.id')
 		->get();
@@ -577,11 +588,22 @@ class WorkController extends Controller
 		return view('admin/reports/mostProductSell',['products'=>$products]);
 	}
 
+	public function materials_chart_get() {
+		$from = session('fromMaterial');
+		$to = session('toMaterial');
+		return $this->materialsChartInfo($from, $to);
+	} 
 	public function materials_chart(Request $request) 
 	{
 		$from = Carbon::createFromFormat('d/m/Y', $request->startDate); 
 		$to = Carbon::createFromFormat('d/m/Y', $request->endDate); 
+		session(['fromMaterial' => $from]);
+		session(['toMaterial' => $to]);
 		
+		return $this->materialsChartInfo($from, $to);
+	}
+
+	function materialsChartInfo($from, $to){
 		$works = DB::table('works')->where('active_flag', '=', 1)//get the works between two dates 
 		->whereBetween('entry_date', [$from, $to])
 		->select('works.id', 'works.entry_date', 'works.approximate_date')->get();
@@ -634,7 +656,7 @@ class WorkController extends Controller
 		$materials = collect($materials)->sortBy('total')->reverse();
 		$materials = collect($materials)->take(3);
 		//return $materials;
-		return view('admin/reports/mostMaterialSell',['materials'=>$materials]);
+		return view('admin/reports/mostMaterialSell',compact('materials', 'from', 'to'));
 	}
 
 	public function addFileWork(Request $request)

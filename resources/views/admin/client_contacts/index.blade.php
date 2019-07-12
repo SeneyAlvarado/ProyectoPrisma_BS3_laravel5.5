@@ -78,12 +78,12 @@
                             class="table table-striped table-sm table-bordered table-drop table-condensed table-hover compact order-column"
                             id="tableContacts">
                             <thead>
-                                <th class="text-center" style="width: 40px">N°</th>
-                                <th class="text-center" style="width: 160px">Cédula</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center" style="width: 240px">Correo</th>
+                                <th class="text-center" style="width: 30px">N°</th>
+                                <th class="text-center" style="width: 130px">Cédula</th>
+                                <th class="text-center" style="width: 230px">Nombre</th>
+                                <th class="text-center" style="width: 200px">Correo</th>
                                 <th class="text-center" style="width: 140px">Teléfono</th>
-                                <th class="text-center" style="width: 110px">Opciones</th>
+                                <th class="text-center" style="width: 80px">Opciones</th>
                             </thead>
 
                             <tbody id="tableBody">

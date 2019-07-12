@@ -12,16 +12,24 @@
         var data = google.visualization.arrayToDataTable([
           ['Productos', 'mes'],
             @foreach ($products as $product)
+              @if($product->total > 0)
               ['{{ $product->name}}', {{ $product->total}}],
+              @endif
             @endforeach
         ]);
 
         var options = {
           title: ''
         };
+        //console.log(data.wg.length + "XD");
+        //console.log(data);
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
+        if(data.getNumberOfRows() == 0 ){
+          $("#piechart").append("<br><br><br><br><br><br><br>" +
+          "<h2>No hay información de productos entre las fechas seleccionadas<h2>");
+        } else {
+          chart.draw(data, options);
+        }
       }
       function generatePDF(start, end) {
       // Choose the element that our invoice is rendered in.

@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    getUserNotifications();
+    getUserNotifications(0);
     window.setInterval(function () {
-        getUserNotifications();
+        getUserNotifications(1);
     }, 300000/*5000*/);//300000 means the notifications will be checked automatically every 5 minutes
 });
 
@@ -21,7 +21,7 @@ function noNotificationsAvailable() {//empty and sets 0 to both non responsive a
 
 }
 
-function getUserNotifications() {
+function getUserNotifications(activateSound) {
 
     noNotificationsAvailable();
     $('#dropmenu-notifications').empty();
@@ -57,8 +57,10 @@ function getUserNotifications() {
             if (notificationCount == 0) {
                 noNotificationsAvailable();
             } else {
-                var audio = new Audio('/audio/notification.mp3');
-                audio.play();
+                if (activateSound != 0) {
+                    var audio = new Audio('/audio/notification.mp3');
+                    audio.play();
+                }
                 var thrashCanGlyph = '<span class="glyphicon glyphicon-trash deleteNotif"></span>';
                 var thrashCanGlyphResponsive = '<span class="glyphicon glyphicon-trash deleteNotifResponsive"></span>';
                 var deleteText = "Eliminar notificaciones"
