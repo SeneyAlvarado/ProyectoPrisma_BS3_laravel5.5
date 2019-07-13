@@ -9,7 +9,7 @@
 
 @section('contenido_Admin')
 @include('error')
-<script src="{{asset('/js/load_branches_admin.js')}}"></script>
+<script src="{{asset('/js/Users/load_branches_admin.js')}}"></script>
 
 <div style="padding:10px;">
     <div class="card">
