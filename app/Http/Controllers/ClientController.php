@@ -165,6 +165,12 @@ class ClientController extends Controller
 				$physical_client->second_lastname = $request->second_lastname;
 				$physical_client->client_id = $client_id;
 				$physical_client->save();
+
+				$contact = new \App\Client_contact();
+				$contact->client_id = $client_id;
+				$contact->contact_id = $client_id;
+				$contact->active_flag = 1;
+				$contact->save();
 			}
 
 			if($type == "2"){
@@ -172,7 +178,7 @@ class ClientController extends Controller
 				$juridical_client->client_id = $client_id;
 				$juridical_client->save();
 			}
-
+			
 			DB::commit();//commits to database 
 			return redirect('clients')->with('success', '¡Cliente registrado satisfactoriamente!');
 	}
