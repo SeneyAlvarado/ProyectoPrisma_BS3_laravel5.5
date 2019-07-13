@@ -10,7 +10,7 @@
 <script src="{{asset('/js/Orders/load_materials.js')}}"></script>
 <script src="{{asset('/js/Orders/load_products_branch.js')}}"></script>
 
-
+<link rel="shortcut icon" href="Imagenes/log.ico" />
 <link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/input_style.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('/css/multiple-materials-select.css')}}">
