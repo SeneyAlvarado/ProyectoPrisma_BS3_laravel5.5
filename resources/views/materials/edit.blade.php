@@ -6,10 +6,10 @@
 @endsection
 
 @section('contenido_Admin')
-<script src="{{asset('js/load_branches_edit.js')}}"></script>
-<script src="{{asset('js/createClientsRadio.js')}}"></script>
-<script src="{{asset('js/patternFields.js')}}"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<script src="{{asset('/js/load_branches_edit.js')}}"></script>
+<script src="{{asset('/js/createClientsRadio.js')}}"></script>
+<script src="{{asset('/js/patternFields.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 
 @include('error')
 
@@ -56,5 +56,5 @@
     </div>
 </div>
 
-<script src="{{asset('js/load_branches_edit.js')}}"></script>
+<script src="{{asset('/js/load_branches_edit.js')}}"></script>
 @endsection

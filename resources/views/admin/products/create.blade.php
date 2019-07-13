@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{{asset('css/botonesCrear.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/css/botonesCrear.css')}}">
 @extends('masterAdmin')
 
 @section('header')
@@ -9,7 +9,7 @@
 
 @section('contenido_Admin')
 @include('error')
-<script src="{{asset('js/load_branches_admin.js')}}"></script>
+<script src="{{asset('/js/load_branches_admin.js')}}"></script>
 
 <div style="padding:10px;">
     <div class="card">

@@ -64,5 +64,5 @@
         @endif
     </div>
 </div>
-<script src="{{asset('js/lenguajeTabla.js')}}"></script>
+<script src="{{asset('/js/lenguajeTabla.js')}}"></script>
 @endsection
