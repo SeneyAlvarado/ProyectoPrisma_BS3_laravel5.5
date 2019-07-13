@@ -84,7 +84,7 @@ class Handler extends ExceptionHandler
         {
             $errorRoute = $request->session()->pull('errorRoute');
         } else{
-            $errorRoute = "error";
+            $errorRoute = "works";
         }
         
         //return redirect($errorOrigin);

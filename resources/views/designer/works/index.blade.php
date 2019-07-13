@@ -5,6 +5,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('/js/Designer/designers.js')}}"></script>
+<script src="{{asset('/js/Works/changeWorkStates.js')}}"></script>
+
 <div style="padding:10px;">
     <div class="card margin-bottom-card" >
     <div class="card-header"><h5 style="text-align:center; ">Trabajos</h5></div>
@@ -17,8 +19,8 @@
                    <thead>
                         <th class="text-center">Número</th>
                         <th class="text-center">Cliente</th>
+                        <th class="text-center">Estado</th>
                         <th class="text-center">Diseñador</th> 
-                        
                         <th class="text-center">Ingreso</th>
                         <th class="text-center">Entrega</th>
                         <th class="text-center">Tiempo</th> 
@@ -68,6 +70,30 @@
                                @endif
                                <td class="text-center"><a class="infoClient"
                             onCLick="infoContact('{{$work->client_owner}}')">{{$work->client_name}}</a></td>
+
+                            <td class="text-center" style="min-width:150px;">
+                                <div class="dropdown" style="display: block">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" id="drop{{$work->work_id}}"
+                                        data-target="#drop-states" href="#" value="{{$actualStateID}}" role="button"
+                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        {{$actualStateName}}
+                                    </button>
+    
+                                    <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}"
+                                        aria-labelledby="dropdownMenuLink">
+    
+                                        @foreach ($work_states as $work_state)
+                                        @foreach ($editStates as $editState)
+                                        @if(($work_state->id == $editState->id) && ($work_state->id != $actualStateID))
+                                        <button class="dropdown-item" id="workState{{$work->work_id}}{{$work_state->id}}"
+                                            onclick="changeWorkState('{{$work->work_id}}', '{{$work_state->id}}', '{{$work_state->name}}')">{{$work_state->name}}</button>
+                                        @endif
+                                        @endforeach
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </td>
 
                             <td class="text-center" style="min-width:150px;">
                                 @foreach ($designer as $d)

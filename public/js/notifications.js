@@ -74,9 +74,10 @@ function getUserNotifications(activateSound) {
                 $('#dropResponsiveNotifications').append(deleteAllNotificationsResponsive);
             }
 
-        }, error: function () {
+        }, error: function (e) {
+            console.log(e);
             noNotificationsAvailable();
-            alert("¡Ha habido un error con las notificaciones!");
+            //alert("¡Ha habido un error con las notificaciones!");
         }
     });
 }

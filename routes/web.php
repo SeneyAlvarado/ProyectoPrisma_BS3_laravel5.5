@@ -257,7 +257,7 @@ Route::middleware(['AllUsers'])->group(function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home',  function () {  if (Auth::check()) { auth()->logout();}return view('login2');});
 //Route::get('/home', 'Auth\LoginController@login')->name('home');
 
 
