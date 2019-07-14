@@ -66,6 +66,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" style=" background-color:#96183a; border:0px;">
             <a class="dropdown-item n" style="color:white" href="{{route('orders')}}">Órdenes <span class="glyphicon glyphicon-edit fa-fw mr-3 icon-ordenes"></span></a>
+            <a class="dropdown-item n" style="color:white" href="{{route('works.index')}}">Trabajos <span class="glyphicon glyphicon-folder-open fa-fw mr-3 icon-trabajos"></span></a>
             <a class="dropdown-item n" style="color:white" href="{{url('visits')}}">Visitas<span class="glyphicon glyphicon-copy fa-fw mr-3 icon-visitas"></span></a>
             <a class="dropdown-item n" style="color:white" href="{{url('change_password.search_user')}}">Contraseña<span class="glyphicon glyphicon-lock fa-fw mr-3 icon-contrasena"></span></a>
             <a class="dropdown-item n" style="color:white" href="{{url('/logout')}}">Cerrar sesión<span class="glyphicon glyphicon-log-out fa-fw mr-3 icon-logout"></span></a>
@@ -116,16 +117,17 @@
       <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
       <!-- Bootstrap List Group -->
       <ul class="list-group ">
-        <a href="{{route('works.index')}}" class="border border-left-0 border-right-0 border-top-0  border-light sidebar-color  list-group-item list-group-item-action">
-          <div class="d-flex w-100 justify-content-start align-items-center">
-            <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
-            <span class="menu-collapsed">Trabajos</span>
-          </div>
-        </a>
-        <a href="{{route('orders')}}" class="border border-left-0 border-right-0 border-light sidebar-color  list-group-item list-group-item-action">
+        
+        <a href="{{route('orders')}}" class="border border-left-0 border-right-0 border-top-0  border-light sidebar-color  list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-start align-items-center">
             <span class="glyphicon glyphicon-edit fa-fw mr-3"></span>
             <span class="menu-collapsed">Órdenes</span>
+          </div>
+        </a>
+        <a href="{{route('works.index')}}" class="border border-left-0 border-right-0  border-light sidebar-color  list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-start align-items-center">
+            <span class="glyphicon glyphicon-folder-open fa-fw mr-3"></span>
+            <span class="menu-collapsed">Trabajos</span>
           </div>
         </a>
         <a href="{{url('visits')}}" class="sidebar-color border border-light border-left-0 border-right-0 list-group-item list-group-item-action">
