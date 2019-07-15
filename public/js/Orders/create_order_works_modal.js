@@ -348,7 +348,7 @@ function initAutonumeric() {
 
   //format the money inputs
   $('.autonumeric').autoNumeric("init", {
-    mDec: 0,
+    mDec: 2,
     aSign: '₡',
     aSep: '.',
     aDec: ',',
