@@ -575,6 +575,10 @@ class WorkController extends Controller
 				$work->designer_id = $designer_id;
 				$work->save();
 			}
+			$user = \App\User::where('id', $designer_id)->first();//gets the designer that has 
+			//to see that notification
+			$user->notify(new \App\Notifications\WorkAvailableNotification($work_id));
+
 			$work_log_model = new \App\Works_log();
 			$work_log_model->date = Carbon::now(new \DateTimeZone('America/Costa_Rica'));
 			$work_log_model->value = "Se ha actualizado el diseñador del trabajo a " . $designer_name;
