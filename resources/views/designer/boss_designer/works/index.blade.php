@@ -90,7 +90,7 @@
                                     {{$actualStateName}}
                                 </button>
 
-                                <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}"
+                                <div class="dropdown-menu scrollable-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}"
                                     aria-labelledby="dropdownMenuLink">
 
                                     @foreach ($work_states as $work_state)
@@ -113,7 +113,7 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{$actualDesignerName}}
                                 </button>
-                                <div class="dropdown-menu" id="#drop-designers"
+                                <div class="dropdown-menu scrollable-menu" id="#drop-designers"
                                     name="dropOtherDesigners{{$work->work_id}}" aria-labelledby="dropdownMenuLink">
 
                                     @foreach ($designer as $desig)

@@ -275,3 +275,9 @@ nav.nav-color {
   .not-allowed:hover {
     cursor: not-allowed !important;
   }
+
+  .scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}

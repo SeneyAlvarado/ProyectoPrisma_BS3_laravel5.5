@@ -55,7 +55,7 @@
                                         {{$actualStateName}}
                                     </button>
         
-                                    <div class="dropdown-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}" 
+                                    <div class="dropdown-menu scrollable-menu" id="#drop-states" name="dropOtherStates{{$work->work_id}}" 
                                         aria-labelledby="dropdownMenuLink">
         
                                         @foreach ($work_states as $work_state)
