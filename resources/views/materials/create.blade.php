@@ -24,7 +24,7 @@
                             <!-- <div class="col-md-4 align-self-center"> -->
                             <div class=" row offset-md-2 col-md-7" style="margin-top:10px;">
                                 <label for="name"><strong>Nombre</strong></label>
-                                <input id="name" placeholder="Nombre" class="form-control" name="name" type="text" required pattern="[a-zA-Z-ñÑáéíóúÁÉÍÓÚ \s]{2,48}" title="No se permiten números en este campo">
+                                <input id="name" placeholder="Nombre" class="form-control" name="name" type="text" required >
                             </div>
                         </div>
                         <div>
