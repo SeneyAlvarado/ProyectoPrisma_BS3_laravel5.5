@@ -61,12 +61,12 @@ class BranchController extends Controller
 	public function list()
 	{
 		$branches = $this->model->paginate();
-		return view('products.create', compact('branches'));
+		return view('admin.products.create', compact('branches'));
 	}
 	public function list2()
 	{
 		$branches = $this->model->paginate();
-		return view('products.edit', compact('branches'));
+		return view('admin.products.edit', compact('branches'));
 	}
 
 	public function listMaterial()
